@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- L D A P   I N T E G R A T I O N   S E R V I C E                                      -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+
+  <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
+
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The LDAP Integration specific non-primitive attributes are listed here in alphabetical order.
+  -->
+  
+
+  <xs:complexType name="LDAPEntryField">
+    <xs:annotation>
+      <xs:documentation>
+        One name value pair for a LDAP entry.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="attributeName" type="LDAPColumnAttributeName"/>
+      <xs:element name="attributeValue" type="LDAPColumnAttributeValue" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LDAPPage">
+    <xs:annotation>
+      <xs:documentation>
+        Type to retrieve a particular page or the last page.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="lastPage" type="xs:boolean" fixed="true"/>
+      <xs:element name="number" type="LDAPPageNumber"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:simpleType name="GroupLDAPIntegrationLevel">
+    <xs:annotation>
+      <xs:documentation>
+        Choices for the group LDAP directory settings to decide which type of settings to use.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="System"/>
+      <xs:enumeration value="Service Provider"/>
+      <xs:enumeration value="Group"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPAuthenticatedDN">
+    <xs:annotation>
+      <xs:documentation>LDAP Authenticated DN.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPAuthenticatedPassword">
+    <xs:annotation>
+      <xs:documentation>LDAP Authenticated Password.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="40"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPColumnAttributeName">
+    <xs:annotation>
+      <xs:documentation>LDAP column attribute name.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPColumnAttributeValue">
+    <xs:annotation>
+      <xs:documentation>LDAP column attribute value.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPColumnLabel">
+    <xs:annotation>
+      <xs:documentation>LDAP column label.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPEntryName">
+    <xs:annotation>
+      <xs:documentation>LDAP Entry Name.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPPageNumber">
+    <xs:annotation>
+      <xs:documentation>LDAP Page Number</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPSearchBase">
+    <xs:annotation>
+      <xs:documentation>LDAP Search Base.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPSearchColumn">
+    <xs:annotation>
+      <xs:documentation>
+        Indicates the column whose attribute is chosen to be included in
+        the search filter.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPSearchFilter">
+    <xs:annotation>
+      <xs:documentation>LDAP Search Filter.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LDAPSearchKey">
+    <xs:annotation>
+      <xs:documentation>LDAP Search Key.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

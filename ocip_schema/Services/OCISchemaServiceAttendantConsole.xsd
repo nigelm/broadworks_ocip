@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- A T T E N D A N T   C O N S O L E   S E R V I C E                                    -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+
+  <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
+  <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
+
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The Attendant Console specific non-primitive attributes are listed here in alphabetical order.
+  -->
+  
+
+  <xs:complexType name="AttendantConsoleReplacementDisplayColumnList">
+    <xs:annotation>
+      <xs:documentation>
+        A list of attendant console display columns that replaces a previously configured list.
+        By convention, an element of this type may be set nil to clear the list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="displayColumn" type="AttendantConsoleDisplayColumn" minOccurs="1" maxOccurs="10"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="AttendantConsoleDisplayColumn">
+    <xs:annotation>
+      <xs:documentation>
+        Attendant Console Display Columns.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Action"/>
+      <xs:enumeration value="Department"/>
+      <xs:enumeration value="Email"/>
+      <xs:enumeration value="Extension"/>
+      <xs:enumeration value="Mobile"/>
+      <xs:enumeration value="Name"/>
+      <xs:enumeration value="Phone Number"/>
+      <xs:enumeration value="Pager"/>
+      <xs:enumeration value="Status"/>
+      <xs:enumeration value="Title"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

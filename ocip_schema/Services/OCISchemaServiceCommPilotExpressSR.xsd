@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- C O M M   P I L O T   E X P R E S S   S R                                            -->
+<!-- S E R V I C E                                                                        -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+
+  <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
+
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The Comm Pilot Express SR specific non-primitive attributes are listed here in alphabetical order.
+  -->
+  
+
+  <xs:complexType name="CommPilotExpressSRAvailableInOffice">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Available In Office Settings used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="busySetting" type="CommPilotExpressSRRedirection"/>
+      <xs:element name="noAnswerSetting" type="CommPilotExpressSRNoAnswer"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotify"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRAvailableInOfficeModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Available In Office Settings used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="busySetting" type="CommPilotExpressSRRedirectionModify" minOccurs="0"/>
+      <xs:element name="noAnswerSetting" type="CommPilotExpressSRNoAnswerModify" minOccurs="0"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotifyModify" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRAvailableOutOfOffice">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Available Out Of Office Configuration used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="remotePhoneNumber" type="OutgoingDN" minOccurs="0"/>
+      <xs:element name="noAnswerSetting" type="CommPilotExpressSRNoAnswer"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotify"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRAvailableOutOfOfficeModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Available Out Of Office Configuration used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="remotePhoneNumber" type="OutgoingDN" nillable="true" minOccurs="0"/>
+      <xs:element name="noAnswerSetting" type="CommPilotExpressSRNoAnswerModify" minOccurs="0"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotifyModify" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRBusy">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Available In Office Configuration used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="incomingCalls" type="CommPilotExpressSRRedirectionWithException"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotify"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRBusyModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Available In Office Configuration used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="incomingCalls" type="CommPilotExpressSRRedirectionWithExceptionModify" minOccurs="0"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotifyModify" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSREmailNotify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Email Notify configuration used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="sendEmail" type="xs:boolean"/>
+      <xs:element name="emailAddress" type="EmailAddress" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSREmailNotifyModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Email Notify configuration used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="sendEmail" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="emailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRNoAnswer">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR No Answer Settings used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ringForwardNumbers" type="xs:boolean"/>
+      <xs:element name="forwardingNumberList" type="CommPilotExpressSRRedirectionWithRingList"/>
+      <xs:element name="stillNoAnswer" type="CommPilotExpressSRRedirection"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRNoAnswerModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR No Answer Settings used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ringFowardNumbers" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="forwardingNumberList" type="CommPilotExpressSRRedirectionWithRingList" nillable="true" minOccurs="0"/>
+      <xs:element name="stillNoAnswer" type="CommPilotExpressSRRedirectionModify" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRRedirection">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR type to transfer to voice Mail or forward to a number
+        used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="action" type="CommPilotExpressSRRedirectionAction"/>
+      <xs:element name="forwardingPhoneNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRRedirectionModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR type to transfer to voice Mail or forward to a number
+        used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="action" type="CommPilotExpressSRRedirectionAction" minOccurs="0"/>
+      <xs:element name="forwardingPhoneNumber" type="OutgoingDNorSIPURI" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRRedirectionWithException">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR type to transfer to voice mail or forward to a number
+        with certain exceptions used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="sendCallsToVoiceMailExceptExcludedNumbers" type="xs:boolean"/>
+      <xs:element name="excludedPhoneNumber01" type="DN" minOccurs="0"/>
+      <xs:element name="excludedPhoneNumber02" type="DN" minOccurs="0"/>
+      <xs:element name="excludedPhoneNumber03" type="DN" minOccurs="0"/>
+      <xs:element name="forwardExcludedNumbersTo" type="OutgoingDNorSIPURI" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRRedirectionWithExceptionModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR type to transfer to voice mail or forward to a number
+        with certain exceptions used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="sendCallsToVoiceMailExceptExcludedNumbers" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="excludedPhoneNumber01" type="DN" nillable="true" minOccurs="0"/>
+      <xs:element name="excludedPhoneNumber02" type="DN" nillable="true" minOccurs="0"/>
+      <xs:element name="excludedPhoneNumber03" type="DN" nillable="true" minOccurs="0"/>
+      <xs:element name="forwardExcludedNumbersTo" type="OutgoingDNorSIPURI" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRRedirectionWithRing">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Forward Number Entry with number of times to ring.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="phoneNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
+      <xs:element name="numberOfTimesToRing" type="CommPilotExpressSRNumberOfRings"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRRedirectionWithRingList">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Forward Numbers with number of times to ring.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="numberEntry" type="CommPilotExpressSRRedirectionWithRing" minOccurs="0" maxOccurs="5"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRUnavailable">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Unavailable Configuration used in the context of a get.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="incomingCalls" type="CommPilotExpressSRRedirectionWithException"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotify"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommPilotExpressSRUnavailableModify">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Unavailable Configuration used in the context of a modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="incomingCalls" type="CommPilotExpressSRRedirectionWithExceptionModify" minOccurs="0"/>
+      <xs:element name="incomingCallNotify" type="CommPilotExpressSREmailNotifyModify" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="CommPilotExpressSRNumberOfRings">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Number Of Rings.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="2"/>
+      <xs:maxInclusive value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CommPilotExpressSRProfile">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Profile Type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Available In Office"/>
+      <xs:enumeration value="Available Out Of Office"/>
+      <xs:enumeration value="Busy"/>
+      <xs:enumeration value="Unavailable"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CommPilotExpressSRRedirectionAction">
+    <xs:annotation>
+      <xs:documentation>
+        CommPilot Express SR Transfer or Forward Options.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Transfer To Voice Mail"/>
+      <xs:enumeration value="Forward"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
