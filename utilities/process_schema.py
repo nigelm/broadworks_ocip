@@ -13,33 +13,45 @@ def camel_to_snake(name):
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", name).lower()
 
 
+def process_element_type(element, params, phash):
+    type = element.type
+    is_complex = type.is_complex()
+    phash["is_complex"] = is_complex
+    if is_complex:
+        if type.name is not None:
+            if element.type.name == "{C}OCITable":
+                params.append("type=list")
+                phash["is_table"] = True
+            elif element.type.name.startswith("{"):
+                params.append("type=str")
+                params.append("unknown=True")  # TODO more complex type handling
+            else:
+                params.append(f"type={element.type.name}")
+        else:
+            params.append("type=str")
+            params.append("unknown=True")  # TODO more complex type handling
+    else:
+        if type.primitive_type.id == "boolean":
+            params.append("type=bool")
+        elif type.primitive_type.id == "decimal":
+            params.append("type=int")
+        else:
+            params.append("type=str")
+
+
 def process_class_elements(file, xsd_component):
-    element_list = []
     element_hash = {}
     for elem in xsd_component.content_type.iter_elements():
         name = camel_to_snake(elem.name)
         params = []
         is_required = True if elem.min_occurs > 0 else False
-        is_complex = elem.type.is_complex()
         phash = {
             "name": name,
             "xmlname": elem.name,
             "is_required": is_required,
-            "is_complex": is_complex,
             "is_table": False,
         }
-        element_list.append((name, elem.name, is_complex, is_required))
-        if is_complex and elem.type.name is not None:
-            if elem.type.name == "{C}OCITable":
-                params.append("type=list")
-                phash["is_table"] = True
-            elif elem.type.name.startswith("{"):
-                params.append("type=str")
-                params.append("unknown=True")
-            else:
-                params.append(f"type={elem.type.name}")
-        else:
-            params.append(f"type=str")  # TODO more complex type handling
+        process_element_type(elem, params, phash)
         params.append(f"required={is_required}")
         phash["params"] = params
         element_hash[name] = phash
