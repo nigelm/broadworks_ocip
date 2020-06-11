@@ -1,5 +1,7 @@
 ## Project specials
 schema.pkl
+# test files
+*.xml
 
 ## Taken from:-
 ##   https://djangowaves.com/tips-tricks/gitignore-for-a-django-project/
