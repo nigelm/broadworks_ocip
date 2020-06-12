@@ -19,26 +19,25 @@ def process_element_type(element, params, phash):
     type = element.type
     is_complex = type.is_complex()
     phash["is_complex"] = is_complex
+    thistype = "str"
     if is_complex:
         if type.name is not None:
             if element.type.name == "{C}OCITable":
-                params.append("type=list")
+                thistype = "list"
                 phash["is_table"] = True
             elif element.type.name.startswith("{"):
-                params.append("type=str")
                 phash["unknown"] = True  # TODO more complex type handling
             else:
-                params.append(f"type={element.type.name}")
+                thistype = element.type.name
         else:
-            params.append("type=str")
             phash["unknown"] = True  # TODO more complex type handling
     else:
         if type.primitive_type.id == "boolean":
-            params.append("type=bool")
+            thistype = "bool"
         elif type.primitive_type.id == "decimal":
-            params.append("type=int")
-        else:
-            params.append("type=str")
+            thistype = "int"
+    params.append(f"type={thistype}")
+    phash["type"] = thistype
 
 
 def process_class_elements(file, xsd_component):
@@ -64,7 +63,7 @@ def process_class_elements(file, xsd_component):
     for item in element_hash.values():
         comment = "  # unknown" if item["unknown"] else ""
         file.write(
-            f'        ElementInfo("{item["name"]}", "{item["xmlname"]}", '
+            f'        ElementInfo("{item["name"]}", "{item["xmlname"]}", {item["type"]}, '
             f'{item["is_complex"]}, {item["is_required"]}, {item["is_table"]}),'
             f"{comment}\n",
         )
@@ -131,8 +130,6 @@ def open_output_files():
         out.write("from broadworks_ocip.base import *\n")
         if thing in ("requests", "responses"):
             out.write("from broadworks_ocip.types import *\n")
-        if thing == "requests":
-            out.write("from broadworks_ocip.responses import *\n")
         out.write("from classforge import Field\n\n\n")
         results.append(out)
     return results[0], results[1], results[2]

@@ -9,7 +9,8 @@ from lxml import etree
 
 class ElementInfo(
     namedtuple(
-        "ElementInfo", ["name", "xmlname", "is_complex", "is_required", "is_table"],
+        "ElementInfo",
+        ["name", "xmlname", "type", "is_complex", "is_required", "is_table"],
     ),
 ):
     pass
