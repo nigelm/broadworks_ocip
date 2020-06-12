@@ -74,20 +74,47 @@ def process_class_elements(file, xsd_component):
         file.write(f"    {item['name']} = Field({param_str})\n")
 
 
+def process_documentation(file, xsd_component):
+    anno = xsd_component.annotation
+    lines = []
+    if anno:
+        for doc in anno.documentation:
+            for line in doc.text.splitlines():
+                if line.isspace():
+                    line = ""
+                elif line.startswith("        "):
+                    line = line[8:]
+                lines.append(line)
+        # strip leading and trailing blank lines
+        while len(lines) > 0 and len(lines[0]) == 0:
+            del lines[0]
+        while len(lines) > 0 and len(lines[-1]) == 0:
+            del lines[-1]
+        # output the documentation bits
+        if len(lines) > 0:
+            file.write('    """\n')
+            for line in lines:
+                file.write(f"    {line}\n")
+            file.write('    """\n')
+
+
 def process_request(file, xsd_component):
     file.write(f"class {xsd_component.name}(OCIRequest):\n")
+    process_documentation(file, xsd_component)
     process_class_elements(file, xsd_component)
     file.write("\n\n")
 
 
 def process_response(file, xsd_component):
     file.write(f"class {xsd_component.name}(OCIResponse):\n")
+    process_documentation(file, xsd_component)
     process_class_elements(file, xsd_component)
     file.write("\n\n")
 
 
 def process_type(file, xsd_component):
     file.write(f"class {xsd_component.name}(OCIType):\n")
+    process_documentation(file, xsd_component)
     process_class_elements(file, xsd_component)
     file.write("\n\n")
 
