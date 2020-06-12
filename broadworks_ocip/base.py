@@ -1,4 +1,4 @@
-import uuid
+import re
 from collections import namedtuple
 
 from classforge import Class
@@ -16,27 +16,10 @@ class ElementInfo(
     pass
 
 
-class OCISession:
-    __instance = None
-    session = str(uuid.uuid4())
-
-    def __init__(self, session=None):
-        """ Virtually private constructor. """
-        if OCISession.__instance is not None:
-            raise Exception("This class is a singleton!")
-        else:
-            OCISession.__instance = self
-        if session:
-            OCISession.session = session
-
-    def set_session(self, session):
-        OCISession.session = session
-
-
 class OCIType(Class):
     NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
 
-    def _xml_sub_components(self, element):
+    def _etree_sub_components(self, element):
         for sub_element in self.ELEMENTS:
             value = getattr(self, sub_element.name)
             if value is None:
@@ -48,21 +31,60 @@ class OCIType(Class):
                         nsmap=self.NSMAP,
                     )
             elif sub_element.is_complex:
-                sub_element.append(value._xml_components(sub_element.xmlname))
+                sub_element.append(value._etree_components(sub_element.xmlname))
             else:
                 elem = etree.SubElement(element, sub_element.xmlname, nsmap=self.NSMAP)
                 elem.text = value
         return element
 
-    def _xml_components(self, name=None):
+    def _etree_components(self, name=None):
         if name is None:
             name = self.__class__.__name__
         element = etree.Element(name, nsmap=self.NSMAP)
-        return self._xml_sub_components(element)
+        return self._etree_sub_components(element)
+
+    @classmethod
+    def _column_header_snake_case(cls, header):
+        return re.sub("[ _]+", r"_", header).lower()
+
+    @classmethod
+    def _decode_table(cls, element):
+        typename = element.tag
+        results = []
+        columns = [
+            cls._column_header_snake_case(b.text)
+            for b in element.iterfind("colHeading")
+        ]
+        type = namedtuple(typename, columns)
+        for row in element.iterfind("row"):
+            rowdata = [b.text for b in row.iterfind("col")]
+            rowobj = type(*rowdata)
+            results.append(rowobj)
+        return results
+
+    @classmethod
+    def _build_from_etree(cls, element):
+        initialiser = {}
+        for elem in cls.ELEMENTS:
+            node = element.find(elem.xmlname)
+            if node is not None:
+                if elem.is_table:
+                    initialiser[elem.name] = cls._decode_table(node)
+                elif elem.is_complex:
+                    initialiser[elem.name] = elem.type._build_from_etree(node)
+                else:
+                    initialiser[elem.name] = elem.type(node.text)
+            # else...
+            # I am inclined to thow an error here - at least after checking if
+            # the thing is require, but the class builder should do that so lets
+            # let it do its thing
+        # now have a dict with all the bits in it.
+        # use that to build a new object
+        return cls(**initialiser)
 
 
 class OCIRequest(OCIType):
-    def get_xml(self):
+    def build_xml(self, session="test-session-123"):
         # document root element
         root = etree.Element(
             "{C}BroadsoftDocument",
@@ -72,7 +94,7 @@ class OCIRequest(OCIType):
         #
         # add the session
         sess = etree.SubElement(root, "sessionId")
-        sess.text = OCISession.session
+        sess.text = session
         #
         # and the command
         element = etree.SubElement(
@@ -83,14 +105,14 @@ class OCIRequest(OCIType):
                 "{http://www.w3.org/2001/XMLSchema-instance}type": self.__class__.__name__,
             },
         )
-        self._xml_sub_components(element)  # attach parameters etc
+        self._etree_sub_components(element)  # attach parameters etc
         #
         # wrap a tree around it
         tree = etree.ElementTree(root)
         return etree.tostring(
             tree,
             xml_declaration=True,
-            encoding="utf-8",
+            encoding="ISO-8859-1",
             standalone=False,
             pretty_print=True,
         )
