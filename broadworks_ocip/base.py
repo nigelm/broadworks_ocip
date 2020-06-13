@@ -2,9 +2,8 @@ import re
 from collections import namedtuple
 
 from classforge import Class
+from classforge import Field
 from lxml import etree
-
-# from classforge import Field
 
 
 class ElementInfo(
@@ -17,7 +16,8 @@ class ElementInfo(
 
 
 class OCIType(Class):
-    NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
+    DEFAULT_NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
+    DOCUMENT_NSMAP = {None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
 
     def _etree_sub_components(self, element):
         for sub_element in self.ELEMENTS:
@@ -28,19 +28,21 @@ class OCIType(Class):
                         element,
                         sub_element.xmlname,
                         {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
-                        nsmap=self.NSMAP,
+                        nsmap=self.DEFAULT_NSMAP,
                     )
             elif sub_element.is_complex:
                 sub_element.append(value._etree_components(sub_element.xmlname))
             else:
-                elem = etree.SubElement(element, sub_element.xmlname, nsmap=self.NSMAP)
+                elem = etree.SubElement(
+                    element, sub_element.xmlname, nsmap=self.DEFAULT_NSMAP,
+                )
                 elem.text = value
         return element
 
     def _etree_components(self, name=None):
         if name is None:
             name = self.__class__.__name__
-        element = etree.Element(name, nsmap=self.NSMAP)
+        element = etree.Element(name, nsmap=self.DEFAULT_NSMAP)
         return self._etree_sub_components(element)
 
     @classmethod
@@ -84,16 +86,14 @@ class OCIType(Class):
 
 
 class OCIRequest(OCIType):
-    def build_xml(self, session="test-session-123"):
+    def _build_xml(self, session="test-session-123"):
         # document root element
         root = etree.Element(
-            "{C}BroadsoftDocument",
-            {"protocol": "OCI"},
-            nsmap={None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"},
+            "{C}BroadsoftDocument", {"protocol": "OCI"}, nsmap=self.DOCUMENT_NSMAP,
         )
         #
         # add the session
-        sess = etree.SubElement(root, "sessionId")
+        sess = etree.SubElement(root, "sessionId", nsmap=self.DEFAULT_NSMAP)
         sess.text = session
         #
         # and the command
@@ -101,9 +101,9 @@ class OCIRequest(OCIType):
             root,
             "command",
             {
-                "xmlns": "",
                 "{http://www.w3.org/2001/XMLSchema-instance}type": self.__class__.__name__,
             },
+            nsmap=self.DEFAULT_NSMAP,
         )
         self._etree_sub_components(element)  # attach parameters etc
         #
@@ -113,8 +113,8 @@ class OCIRequest(OCIType):
             tree,
             xml_declaration=True,
             encoding="ISO-8859-1",
-            standalone=False,
-            pretty_print=True,
+            # standalone=False,
+            # pretty_print=True,
         )
 
 
