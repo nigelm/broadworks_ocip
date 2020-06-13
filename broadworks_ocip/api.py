@@ -1,5 +1,7 @@
+import hashlib
 import inspect
 import logging
+import socket
 import sys
 import uuid
 
@@ -20,12 +22,15 @@ FORMATTER = logging.Formatter(
 class BroadoworksAPI(Class):
     session = Field(type=str)
     host = Field(type=str, required=True)
-    port = Field(type=int, required=True)
+    port = Field(type=int, default=2208)
     username = Field(type=str, required=True)
     password = Field(type=str, required=True)
     logger = Field(type=object)
     despatch_table = Field(type=dict)
-    authenticated = Field(type=bool, default=False)
+    connected = Field(type=bool, default=False)
+    timeout = Field(type=int, default=8)
+    socket = Field(type=object, default=None)
+    instream = Field(type=object, default=None)
 
     def on_init(self):
         if self.session is None:
@@ -33,6 +38,7 @@ class BroadoworksAPI(Class):
         if self.logger is None:
             self.configure_logger()
         self.build_despatch_table()
+        self.connected = False
 
     def build_despatch_table(self):
         self.logger.debug("Building Broadworks despatch table")
@@ -62,6 +68,30 @@ class BroadoworksAPI(Class):
         logger.addHandler(console_handler)
         self.logger = logger
 
+    def get_command_xml(self, command, **kwargs):
+        try:
+            cls = self.despatch_table[command]
+        except KeyError as e:
+            self.logger.error(f"Unknown command requested - {command}")
+            raise e
+        cmd = cls(**kwargs)
+        return cmd._build_xml(self.session)
+
+    def send_command(self, command, **kwargs):
+        xml = self.get_command_xml(command, **kwargs)
+        self.logger.debug(f"SEND: {str(xml)}")
+        self.socket.sendall(xml + b"\n")
+
+    def receive_response(self):
+        content = b""
+        while True:
+            line = self.instream.readline()
+            content += line.encode()
+            if line.endswith("</BroadsoftDocument>\n"):
+                break
+        self.logger.debug(f"RECV: {str(content)}")
+        return self.decode_xml(content)
+
     def decode_xml(self, xml):
         root = etree.fromstring(xml)
         if root.tag != "{C}BroadsoftDocument":
@@ -74,6 +104,30 @@ class BroadoworksAPI(Class):
                 cls = self.despatch_table[command]
                 result = cls._build_from_etree(element)
                 return result
+
+    def connect(self):
+        self.logger.debug(f"Attempting connection host={self.host} port={self.port}")
+        try:
+            address = (self.host, self.port)
+            conn = socket.create_connection(address=address, timeout=self.timeout)
+            self.instream = conn.makefile(mode="r")
+            self.socket = conn
+        except OSError as e:
+            self.logger.error("Connection failed")
+            raise e
+        self.authenticate()
+
+    def authenticate(self):
+        self.send_command("AuthenticationRequest", user_id=self.username)
+        resp = self.receive_response()
+        authhash = hashlib.sha1(self.password.encode()).hexdigest().lower()
+        signed_password = (
+            hashlib.md5(":".join([resp.nonce, authhash]).encode()).hexdigest().lower()
+        )
+        self.send_command(
+            "LoginRequest14sp4", user_id=self.username, signed_password=signed_password,
+        )
+        resp = self.receive_response()
 
 
 # end
