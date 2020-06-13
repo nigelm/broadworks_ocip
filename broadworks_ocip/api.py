@@ -78,6 +78,7 @@ class BroadoworksAPI(Class):
         return cmd._build_xml(self.session)
 
     def send_command(self, command, **kwargs):
+        self.logger.info(f">>> {command}")
         xml = self.get_command_xml(command, **kwargs)
         self.logger.debug(f"SEND: {str(xml)}")
         self.socket.sendall(xml + b"\n")
@@ -103,6 +104,7 @@ class BroadoworksAPI(Class):
                 self.logger.debug(f"Decoding command {command}")
                 cls = self.despatch_table[command]
                 result = cls._build_from_etree(element)
+                self.logger.info(f"<<< {self.__class__.__name__}")
                 return result
 
     def connect(self):
@@ -112,10 +114,12 @@ class BroadoworksAPI(Class):
             conn = socket.create_connection(address=address, timeout=self.timeout)
             self.instream = conn.makefile(mode="r")
             self.socket = conn
+            self.logger.info(f"Connected to host={self.host} port={self.port}")
         except OSError as e:
             self.logger.error("Connection failed")
             raise e
         self.authenticate()
+        self.connected = True
 
     def authenticate(self):
         self.send_command("AuthenticationRequest", user_id=self.username)
@@ -128,6 +132,26 @@ class BroadoworksAPI(Class):
             "LoginRequest14sp4", user_id=self.username, signed_password=signed_password,
         )
         resp = self.receive_response()
+
+    def command(self, command, **kwargs):
+        if not self.connected:
+            self.connect()
+        self.send_command(command, **kwargs)
+        return self.receive_response()
+
+    def close(self):
+        if self.connected:
+            self.send_command(
+                "LogoutRequest", user_id=self.username, reason="Connection close",
+            )
+            self.instream.close()
+            self.socket.shutdown(socket.SHUT_RDWR)
+            self.socket.close()
+            self.logger.info(f"Disconnected from host={self.host} port={self.port}")
+            self.connected = False
+
+    def __del__(self):
+        self.close()
 
 
 # end
