@@ -122,4 +122,35 @@ class OCIResponse(OCIType):
     pass
 
 
+class SuccessResponse(OCIResponse):
+    """
+    The SuccessResponse is concrete response sent whenever a transaction is successful
+    and does not return any data.
+    """
+
+    ELEMENTS = tuple()  # type: ignore # type: Tuple[Tuple]
+
+
+class ErrorResponse(OCIResponse):
+    """
+    The ErrorResponse is concrete response sent whenever a transaction fails and does not return any data.
+    """
+
+    ELEMENTS = (
+        ElementInfo("error_code", "errorCode", int, False, False, False),
+        ElementInfo("summary", "summary", str, False, True, False),
+        ElementInfo("summary_english", "summaryEnglish", str, False, True, False),
+        ElementInfo("detail", "detail", str, False, False, False),
+        ElementInfo("type", "type", str, False, True, False),
+    )
+    error_code = Field(type=int, required=False)
+    summary = Field(type=str, required=True)
+    summary_english = Field(type=str, required=True)
+    detail = Field(type=str, required=False)
+    type = Field(type=str, required=True)
+
+    def on_init(self):
+        raise Exception()
+
+
 # end
