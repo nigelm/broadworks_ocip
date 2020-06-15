@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import argparse
 
-from broadworks_ocip import BroadoworksAPI
+from broadworks_ocip import BroadworksAPI
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     parser.add_argument("--password", type=str, required=True)
     args = parser.parse_args()
 
-    api = BroadoworksAPI(
+    api = BroadworksAPI(
         host=args.host, port=args.port, username=args.username, password=args.password,
     )
     result = api.command("ServiceProviderGetListRequest")

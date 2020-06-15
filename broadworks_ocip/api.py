@@ -24,7 +24,7 @@ FORMATTER = logging.Formatter(
 )
 
 
-class BroadoworksAPI(Class):
+class BroadworksAPI(Class):
     """ """
 
     session = Field(type=str)
