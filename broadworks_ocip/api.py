@@ -1,3 +1,8 @@
+"""
+Broadworks OCI-P Interface API Class and code
+
+Main API interface - this is basically the only consumer visible part
+"""
 import hashlib
 import inspect
 import logging
@@ -20,6 +25,8 @@ FORMATTER = logging.Formatter(
 
 
 class BroadoworksAPI(Class):
+    """ """
+
     session = Field(type=str)
     host = Field(type=str, required=True)
     port = Field(type=int, default=2208)
@@ -33,6 +40,7 @@ class BroadoworksAPI(Class):
     instream = Field(type=object, default=None)
 
     def on_init(self):
+        """ """
         if self.session is None:
             self.session = str(uuid.uuid4())
         if self.logger is None:
@@ -41,6 +49,7 @@ class BroadoworksAPI(Class):
         self.connected = False
 
     def build_despatch_table(self):
+        """ """
         self.logger.debug("Building Broadworks despatch table")
         despatch_table = {}
         for module in (broadworks_ocip.responses, broadworks_ocip.requests):
@@ -60,6 +69,7 @@ class BroadoworksAPI(Class):
         self.logger.debug("Built Broadworks despatch table")
 
     def configure_logger(self):
+        """ """
         logger = logging.getLogger("broadworks_api")
         logger.setLevel(logging.DEBUG)
         console_handler = logging.StreamHandler(sys.stdout)
@@ -69,6 +79,12 @@ class BroadoworksAPI(Class):
         self.logger = logger
 
     def get_command_xml(self, command, **kwargs):
+        """
+
+        :param command:
+        :param **kwargs:
+
+        """
         try:
             cls = self.despatch_table[command]
         except KeyError as e:
@@ -78,12 +94,19 @@ class BroadoworksAPI(Class):
         return cmd._build_xml(self.session)
 
     def send_command(self, command, **kwargs):
+        """
+
+        :param command:
+        :param **kwargs:
+
+        """
         self.logger.info(f">>> {command}")
         xml = self.get_command_xml(command, **kwargs)
         self.logger.debug(f"SEND: {str(xml)}")
         self.socket.sendall(xml + b"\n")
 
     def receive_response(self):
+        """ """
         content = b""
         while True:
             line = self.instream.readline()
@@ -94,6 +117,11 @@ class BroadoworksAPI(Class):
         return self.decode_xml(content)
 
     def decode_xml(self, xml):
+        """
+
+        :param xml:
+
+        """
         root = etree.fromstring(xml)
         if root.tag != "{C}BroadsoftDocument":
             raise ValueError
@@ -108,6 +136,7 @@ class BroadoworksAPI(Class):
                 return result
 
     def connect(self):
+        """ """
         self.logger.debug(f"Attempting connection host={self.host} port={self.port}")
         try:
             address = (self.host, self.port)
@@ -122,6 +151,7 @@ class BroadoworksAPI(Class):
         self.connected = True
 
     def authenticate(self):
+        """ """
         self.send_command("AuthenticationRequest", user_id=self.username)
         resp = self.receive_response()
         authhash = hashlib.sha1(self.password.encode()).hexdigest().lower()
@@ -134,12 +164,19 @@ class BroadoworksAPI(Class):
         resp = self.receive_response()
 
     def command(self, command, **kwargs):
+        """
+
+        :param command:
+        :param **kwargs:
+
+        """
         if not self.connected:
             self.connect()
         self.send_command(command, **kwargs)
         return self.receive_response()
 
     def close(self):
+        """ """
         if self.connected:
             self.send_command(
                 "LogoutRequest", user_id=self.username, reason="Connection close",

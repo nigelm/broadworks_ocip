@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import argparse
 
-from broadworks_ocip.api import BroadoworksAPI
+from broadworks_ocip import BroadoworksAPI
 
 
 def main():

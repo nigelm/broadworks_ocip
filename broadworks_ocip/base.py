@@ -1,3 +1,9 @@
+"""
+Broadworks OCI-P Interface Base Classes
+
+Base classes used by the types, requests and responses as well as
+other components like ElementInfo that are used by those.
+"""
 import re
 from collections import namedtuple
 
@@ -12,14 +18,23 @@ class ElementInfo(
         ["name", "xmlname", "type", "is_complex", "is_required", "is_table"],
     ),
 ):
+    """ """
+
     pass
 
 
 class OCIType(Class):
+    """ """
+
     DEFAULT_NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
     DOCUMENT_NSMAP = {None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
 
     def _etree_sub_components(self, element):
+        """
+
+        :param element:
+
+        """
         for sub_element in self.ELEMENTS:
             value = getattr(self, sub_element.name)
             if value is None:
@@ -40,6 +55,11 @@ class OCIType(Class):
         return element
 
     def _etree_components(self, name=None):
+        """
+
+        :param name: Default value = None)
+
+        """
         if name is None:
             name = self.__class__.__name__
         element = etree.Element(name, nsmap=self.DEFAULT_NSMAP)
@@ -47,10 +67,20 @@ class OCIType(Class):
 
     @classmethod
     def _column_header_snake_case(cls, header):
+        """
+
+        :param header:
+
+        """
         return re.sub("[ _]+", r"_", header).lower()
 
     @classmethod
     def _decode_table(cls, element):
+        """
+
+        :param element:
+
+        """
         typename = element.tag
         results = []
         columns = [
@@ -66,6 +96,11 @@ class OCIType(Class):
 
     @classmethod
     def _build_from_etree(cls, element):
+        """
+
+        :param element:
+
+        """
         initialiser = {}
         for elem in cls.ELEMENTS:
             node = element.find(elem.xmlname)
@@ -86,7 +121,14 @@ class OCIType(Class):
 
 
 class OCIRequest(OCIType):
-    def _build_xml(self, session="test-session-123"):
+    """ """
+
+    def _build_xml(self, session="00000000-1111-2222-3333-444444444444"):
+        """
+
+        :param session: Default value = "00000000-1111-2222-3333-444444444444")
+
+        """
         # document root element
         root = etree.Element(
             "{C}BroadsoftDocument", {"protocol": "OCI"}, nsmap=self.DOCUMENT_NSMAP,
@@ -119,6 +161,8 @@ class OCIRequest(OCIType):
 
 
 class OCIResponse(OCIType):
+    """ """
+
     pass
 
 
@@ -150,6 +194,7 @@ class ErrorResponse(OCIResponse):
     type = Field(type=str, required=True)
 
     def on_init(self):
+        """ """
         raise Exception()
 
 
