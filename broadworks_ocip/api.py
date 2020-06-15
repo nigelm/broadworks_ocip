@@ -110,8 +110,8 @@ class BroadworksAPI(Class):
         content = b""
         while True:
             line = self.instream.readline()
-            content += line.encode()
-            if line.endswith("</BroadsoftDocument>\n"):
+            content += line
+            if line.endswith(b"</BroadsoftDocument>\n"):
                 break
         self.logger.debug(f"RECV: {str(content)}")
         return self.decode_xml(content)
@@ -141,7 +141,7 @@ class BroadworksAPI(Class):
         try:
             address = (self.host, self.port)
             conn = socket.create_connection(address=address, timeout=self.timeout)
-            self.instream = conn.makefile(mode="r")
+            self.instream = conn.makefile(mode="rb")
             self.socket = conn
             self.logger.info(f"Connected to host={self.host} port={self.port}")
         except OSError as e:
