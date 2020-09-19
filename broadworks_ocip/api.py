@@ -78,6 +78,14 @@ class BroadworksAPI(Class):
         logger.addHandler(console_handler)
         self.logger = logger
 
+    def get_command_class(self, command):
+        try:
+            cls = self.despatch_table[command]
+        except KeyError as e:
+            self.logger.error(f"Unknown command requested - {command}")
+            raise e
+        return cls
+
     def get_command_xml(self, command, **kwargs):
         """
 
@@ -85,13 +93,9 @@ class BroadworksAPI(Class):
         :param **kwargs:
 
         """
-        try:
-            cls = self.despatch_table[command]
-        except KeyError as e:
-            self.logger.error(f"Unknown command requested - {command}")
-            raise e
-        cmd = cls(**kwargs)
-        return cmd._build_xml(self.session)
+        cls = self.get_command_class(command)
+        cmd = cls(_session=self.session, **kwargs)
+        return cmd._build_xml()
 
     def send_command(self, command, **kwargs):
         """
@@ -132,7 +136,7 @@ class BroadworksAPI(Class):
                 self.logger.debug(f"Decoding command {command}")
                 cls = self.despatch_table[command]
                 result = cls._build_from_etree(element)
-                self.logger.info(f"<<< {self.__class__.__name__}")
+                self.logger.info(f"<<< {result._type}")
                 return result
 
     def connect(self):

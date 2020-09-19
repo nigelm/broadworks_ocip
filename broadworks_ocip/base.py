@@ -29,6 +29,10 @@ class OCIType(Class):
     DEFAULT_NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
     DOCUMENT_NSMAP = {None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
 
+    @property
+    def _type(self):
+        return self.__class__.__name__
+
     def _etree_sub_components(self, element):
         """
 
@@ -61,7 +65,7 @@ class OCIType(Class):
 
         """
         if name is None:
-            name = self.__class__.__name__
+            name = self._type
         element = etree.Element(name, nsmap=self.DEFAULT_NSMAP)
         return self._etree_sub_components(element)
 
@@ -120,14 +124,13 @@ class OCIType(Class):
         return cls(**initialiser)
 
 
-class OCIRequest(OCIType):
+class OCICommand(OCIType):
     """ """
 
-    def _build_xml(self, session="00000000-1111-2222-3333-444444444444"):
+    _session = Field(type=str, default="00000000-1111-2222-3333-444444444444")
+
+    def _build_xml(self):
         """
-
-        :param session: Default value = "00000000-1111-2222-3333-444444444444")
-
         """
         # document root element
         root = etree.Element(
@@ -136,15 +139,13 @@ class OCIRequest(OCIType):
         #
         # add the session
         sess = etree.SubElement(root, "sessionId", nsmap=self.DEFAULT_NSMAP)
-        sess.text = session
+        sess.text = self._session
         #
         # and the command
         element = etree.SubElement(
             root,
             "command",
-            {
-                "{http://www.w3.org/2001/XMLSchema-instance}type": self.__class__.__name__,
-            },
+            {"{http://www.w3.org/2001/XMLSchema-instance}type": self._type},
             nsmap=self.DEFAULT_NSMAP,
         )
         self._etree_sub_components(element)  # attach parameters etc
@@ -160,7 +161,13 @@ class OCIRequest(OCIType):
         )
 
 
-class OCIResponse(OCIType):
+class OCIRequest(OCICommand):
+    """ """
+
+    pass
+
+
+class OCIResponse(OCICommand):
     """ """
 
     pass
