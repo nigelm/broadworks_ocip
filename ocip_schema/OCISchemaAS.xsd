@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   A S   P A R T                                          -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
-
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2004-2005 Broadsoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!--                 O C I   X M L   S C H E M A                            -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="C" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:import namespace="C" schemaLocation="OCISchemaBASE.xsd"/>
-
   <xs:include schemaLocation="OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="OCISchemaSearchCriteria.xsd"/>
   <xs:include schemaLocation="OCISchemaEnterprise.xsd"/>
   <xs:include schemaLocation="OCISchemaGroup.xsd"/>
   <xs:include schemaLocation="OCISchemaLogin.xsd"/>
-  <xs:include schemaLocation="OCISchemaReseller.xsd"/>
   <xs:include schemaLocation="OCISchemaServiceProvider.xsd"/>
   <xs:include schemaLocation="OCISchemaSystem.xsd"/>
   <xs:include schemaLocation="OCISchemaUser.xsd"/>
+  <xs:include schemaLocation="OCISchemaHiddenDeprecated20.xsd"/>
+  <xs:include schemaLocation="OCISchemaLawfulInterceptDeprecated20.xsd"/>
   <xs:include schemaLocation="OCISchemaASDeprecatedSpecialExceptions.xsd"/>
-  <xs:include schemaLocation="OCISchemaDeprecated22.xsd"/>
-  <xs:include schemaLocation="OCISchemaDeprecated22AS.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaService3G4GContinuity.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAccountAuthorizationCodes.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAdviceOfCharge.xsd"/>
@@ -33,7 +29,6 @@
   <xs:include schemaLocation="Services/OCISchemaServiceAuthentication.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAutoAttendant.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAutomaticCallback.xsd"/>
-  <xs:include schemaLocation="Services/OCISchemaServiceAutomaticCollectCall.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAutomaticHoldRetrieve.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceBargeInExempt.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceBasicCallLogs.xsd"/>
@@ -45,7 +40,6 @@
   <xs:include schemaLocation="Services/OCISchemaServiceCallCenter.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceCallCenterMonitoring.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceCallForwardingAlways.xsd"/>
-  <xs:include schemaLocation="Services/OCISchemaServiceCallForwardingAlwaysSecondary.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceCallForwardingBusy.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceCallForwardingNoAnswer.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceCallForwardingNotReachable.xsd"/>
@@ -78,7 +72,6 @@
   <xs:include schemaLocation="Services/OCISchemaServiceCustomRingback.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceDirectedCallPickupWithBargeIn.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceDirectoryNumberHunting.xsd"/>
-  <xs:include schemaLocation="Services/OCISchemaServiceDirectRoute.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceDoNotDisturb.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceDualModeVCC.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceEmergencyZones.xsd"/>
@@ -128,7 +121,6 @@
   <xs:include schemaLocation="Services/OCISchemaServiceReceptionistOffice.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceReceptionistSmallBusiness.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceRemoteOffice.xsd"/>
-  <xs:include schemaLocation="Services/OCISchemaServiceResourcePriority.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceRouteList.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceRoutePoint.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceSecurityClassification.xsd"/>
@@ -138,7 +130,6 @@
   <xs:include schemaLocation="Services/OCISchemaServiceSeriesCompletion.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceServiceScripts.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceSharedCallAppearance.xsd"/>
-  <xs:include schemaLocation="Services/OCISchemaServiceSilentAlerting.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceSimultaneousRingFamily.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceSimultaneousRingPersonal.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceSMDIMessageDesk.xsd"/>
@@ -155,9 +146,13 @@
   <xs:include schemaLocation="Services/OCISchemaServiceVoiceXml.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceZoneCallingRestrictions.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceCustomerOriginatedTrace.xsd"/>
-  <xs:include schemaLocation="OCISchemaDeprecated.xsd"/>
-  <xs:include schemaLocation="OCISchemaDeprecatedAS.xsd"/>
-
+  <xs:include schemaLocation="OCISchemaDeprecated14.xsd"/>
+  <xs:include schemaLocation="OCISchemaDeprecated15.xsd"/>
+  <xs:include schemaLocation="OCISchemaDeprecated16.xsd"/>
+  <xs:include schemaLocation="OCISchemaDeprecated17.xsd"/>
+  <xs:include schemaLocation="OCISchemaDeprecated18.xsd"/>
+  <xs:include schemaLocation="OCISchemaDeprecated19.xsd"/>
+  <xs:include schemaLocation="OCISchemaDeprecated20.xsd"/>
   <!-- *********************************************************************** -->
   <!-- N A M I N G   C O N V E N T I O N S                                     -->
   <!-- *********************************************************************** -->
@@ -246,5 +241,4 @@
     to Feature Access Codes will not be placed in a separate schema file.
 
   -->
-
 </xs:schema>

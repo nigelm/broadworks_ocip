@@ -1,43 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- C A L L   P I C K U P   S E R V I C E                                                -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- C A L L   P I C K U P  S E R V I C E                                   -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
-  <xs:include schemaLocation="../OCISchemaSortCriteria.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- C A L L   P I C K U P   R E Q U E S T S   A N D   R E S P O N S E S                  -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- C A L L   P I C K U P    R E Q U E S T S  A N D  R E S P O N S E S                 -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    GroupCallPickupAddInstanceRequest    
-    GroupCallPickupDeleteInstanceRequest    
-    GroupCallPickupGetAvailableUserListRequest    
-    GroupCallPickupGetAvailableUserPagedSortedListRequest    
-    GroupCallPickupGetInstanceListRequest    
-    GroupCallPickupGetInstancePagedSortedListRequest    
-    GroupCallPickupGetInstancePagedSortedRequest    
-    GroupCallPickupGetInstanceRequest    
-    GroupCallPickupModifyInstanceRequest    
-    UserCallPickupGetRequest    
--->
+    GroupCallPickupAddInstanceRequest
+    GroupCallPickupDeleteInstanceRequest
+    GroupCallPickupGetAvailableUserListRequest
+    GroupCallPickupGetInstanceListRequest
+    GroupCallPickupGetInstanceRequest
+    GroupCallPickupModifyInstanceRequest
+    UserCallPickupGetRequest
+
+  -->
 
   <xs:complexType name="GroupCallPickupAddInstanceRequest">
     <xs:annotation>
@@ -120,63 +123,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupCallPickupGetAvailableUserPagedSortedListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get a list of users that can be assigned to a Call Pickup group.
-        The available user list for a new Call Pickup group can be obtained
-        by not setting the name.
-        
-        If the responsePagingControl element is not provided, the paging startIndex will be set to 1 
-        by default, and the responsePageSize will be set to the maximum ResponsePageSize by default.
-        It is possible to search by various criteria to restrict the number of rows returned.
-        
-        If no sortOrder is included the response is sorted by User Id ascending by default.
-        
-        Multiple search criteria are logically ANDed together unless the searchCriteriaModeOr option is included.
-        Then the search criteria are logically ORed together.
-        
-        The response is either GroupCallPickupGetAvailableUserPagedSortedListResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="name" type="ServiceInstanceName" minOccurs="0"/>
-          <xs:element name="responsePagingControl" type="ResponsePagingControl" minOccurs="0"/>
-          <xs:element name="sortOrder" type="SortOrderGroupCallPickupGetAvailableUserPagedSortedList" minOccurs="0" maxOccurs="3"/>
-          <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaUserLastName" type="SearchCriteriaUserLastName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaUserFirstName" type="SearchCriteriaUserFirstName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaDn" type="SearchCriteriaDn" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaDepartmentName" type="SearchCriteriaDepartmentName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaEmailAddress" type="SearchCriteriaEmailAddress" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaModeOr" type="xs:boolean" fixed="true" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupCallPickupGetAvailableUserPagedSortedListResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupCallPickupGetAvailableUserPagedSortedListRequest.
-        Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
-        "Phone Number", "Extension", "Department", "Email Address".
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="userTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="GroupCallPickupGetInstanceListRequest">
     <xs:annotation>
       <xs:documentation>
@@ -204,105 +150,6 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="name" type="ServiceInstanceName" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupCallPickupGetInstancePagedSortedListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Request to get a list of Call Pickup instances within a group.
-        
-        If the responsePagingControl element is not provided, the paging startIndex will be set to 1 
-        by default, and the responsePageSize will be set to the maximum ResponsePageSize by default.
-        It is possible to search by various criteria to restrict the number of rows returned.
-        
-        Multiple search criteria are logically ANDed together unless the searchCriteriaModeOr option is included.
-        Then the search criteria are logically ORed together.
-        
-        The response is either GroupCallPickupGetInstancePagedSortedListResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="responsePagingControl" type="ResponsePagingControl" minOccurs="0"/>
-          <xs:element name="sortByCallPickupName" type="SortByCallPickupName" minOccurs="0"/>
-          <xs:element name="searchCriteriaCallPickupName" type="SearchCriteriaCallPickupName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaModeOr" type="xs:boolean" fixed="true" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupCallPickupGetInstancePagedSortedListResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupCallPickupGetInstancePagedSortedListRequest.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="name" type="ServiceInstanceName" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupCallPickupGetInstancePagedSortedRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Gets a Call Pickup group.
-        
-        If the responsePagingControl element is not provided, the paging startIndex will be set to 1 
-        by default, and the responsePageSize will be set to the maximum ResponsePageSize by default.
-        It is possible to search by various criteria to restrict the number of rows returned.
-        
-        Multiple search criteria are logically ANDed together unless the searchCriteriaModeOr option is included.
-        Then the search criteria are logically ORed together.
-        
-        If no sortOrder is included the response is sorted by User Id ascending by default.
-        
-        The response is either GroupCallPickupGetInstancePagedSortedResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="name" type="ServiceInstanceName"/>
-          <xs:element name="responsePagingControl" type="ResponsePagingControl" minOccurs="0"/>
-          <xs:element name="sortOrder" type="SortOrderGroupCallPickupGetInstancePagedSorted" minOccurs="0" maxOccurs="3"/>
-          <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaUserLastName" type="SearchCriteriaUserLastName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaUserFirstName" type="SearchCriteriaUserFirstName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaDn" type="SearchCriteriaDn" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaDepartmentName" type="SearchCriteriaDepartmentName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaEmailAddress" type="SearchCriteriaEmailAddress" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaModeOr" type="xs:boolean" fixed="true" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupCallPickupGetInstancePagedSortedResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupCallPickupGetInstancePagedSortedRequest.
-        Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
-        "Phone Number", "Extension", "Department", "Email Address".
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="userTable" type="core:OCITable"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -399,45 +246,4 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <!-- ******************************************************************** -->
-  <!-- M E S S A G E   P A R A M E T E R S                                  -->
-  <!-- ******************************************************************** -->
-  <!--
-  The Call Pickup specific non-primitive attributes are listed here in alphabetical order.
-  -->
-  
-
-  <xs:complexType name="SortOrderGroupCallPickupGetAvailableUserPagedSortedList">
-    <xs:annotation>
-      <xs:documentation>
-        Used to sort the GroupCallPickupGetAvailableUserPagedSortedListRequest request.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:choice>
-      <xs:element name="sortByUserId" type="SortByUserId"/>
-      <xs:element name="sortByUserLastName" type="SortByUserLastName"/>
-      <xs:element name="sortByUserFirstName" type="SortByUserFirstName"/>
-      <xs:element name="sortByDn" type="SortByDn"/>
-      <xs:element name="sortByExtension" type="SortByExtension"/>
-      <xs:element name="sortByDepartmentName" type="SortByDepartmentName"/>
-      <xs:element name="sortByEmailAddress" type="SortByEmailAddress"/>
-    </xs:choice>
-  </xs:complexType>
-
-  <xs:complexType name="SortOrderGroupCallPickupGetInstancePagedSorted">
-    <xs:annotation>
-      <xs:documentation>
-        Used to sort the GroupCallPickupGetInstancePagedSortedRequest request.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:choice>
-      <xs:element name="sortByUserId" type="SortByUserId"/>
-      <xs:element name="sortByUserLastName" type="SortByUserLastName"/>
-      <xs:element name="sortByUserFirstName" type="SortByUserFirstName"/>
-      <xs:element name="sortByDn" type="SortByDn"/>
-      <xs:element name="sortByExtension" type="SortByExtension"/>
-      <xs:element name="sortByDepartmentName" type="SortByDepartmentName"/>
-      <xs:element name="sortByEmailAddress" type="SortByEmailAddress"/>
-    </xs:choice>
-  </xs:complexType>
 </xs:schema>

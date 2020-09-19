@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- C A L L   F O R W A R D I N G   S E L E C T I V E                                    -->
-<!-- S E R V I C E                                                                        -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- C A L L   F O R W A R D I N G   S E L E C T I V E  S E R V I C E       -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- C A L L   F O R W A R D I N G   S E L E C T I V E                                    -->
-  <!-- R E Q U E S T S   A N D   R E S P O N S E S                                          -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- C A L L   F O R W A R D I N G   S E L E C T I V E                                  -->
+  <!-- R E Q U E S T S  A N D  R E S P O N S E S                                          -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    UserCallForwardingSelectiveAddCriteriaRequest16    
-    UserCallForwardingSelectiveDeleteCriteriaRequest    
-    UserCallForwardingSelectiveGetCriteriaRequest21    
-    UserCallForwardingSelectiveGetRequest16    
-    UserCallForwardingSelectiveModifyCriteriaRequest    
-    UserCallForwardingSelectiveModifyRequest    
--->
+    UserCallForwardingSelectiveAddCriteriaRequest16
+    UserCallForwardingSelectiveDeleteCriteriaRequest
+    UserCallForwardingSelectiveGetCriteriaRequest21
+    UserCallForwardingSelectiveGetRequest16
+    UserCallForwardingSelectiveModifyCriteriaRequest
+    UserCallForwardingSelectiveModifyRequest
+
+  -->
 
   <xs:complexType name="UserCallForwardingSelectiveAddCriteriaRequest16">
     <xs:annotation>
       <xs:documentation>
         Add a criteria to the user's call forwarding selective service.
-        The following elements are only used in AS data mode:
-          callToNumber
-          
         For the callToNumber, the extension element is not used and the number element is only used when the type is BroadWorks Mobility.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
@@ -137,13 +140,10 @@
       <xs:documentation>
         Response to the UserCallForwardingSelectiveGetRequest16. The criteria table's column headings are:
         "Is Active", "Criteria Name", "Time Schedule", "Calls From", "Forward To", "Blacklisted", "Holiday Schedule", "Calls To Type", "Calls To Number" and "Calls To Extension".
-        The following columns are only returned in AS data mode:       
-          "Calls To Type", "Calls To Number" and "Calls To Extension"
-          
-        The possible values for the "Calls To Type" column are the following or a combination of them separated by comma:
+       The possible values for the "Calls To Type" column are the following or a combination of them separated by comma:
           - Primary
           - Alternate X (where x is a number between 1 and 10)
-          - Mobility        
+          - Mobility
         The possible values for the "Calls To Number" column are the following or a combination of them separated by comma:
           - The value of the phone number for the corresponding Calls To Type, when the number is available. i.e. Alternate 1 may have extension, but no number.
           - When no number is available a blank space is provided instead.
@@ -169,9 +169,6 @@
     <xs:annotation>
       <xs:documentation>
         Modify a criteria for the user's call forwarding selective service.
-        The following elements are only used in AS data mode:
-          callToNumber
-          
         For the callToNumbers in the callToNumberList, the extension element is not used and the number element is only used when the type is BroadWorks Mobility.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
@@ -212,4 +209,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
+  <xs:simpleType name="CallForwardingSelectiveNumberSelection16">
+    <xs:annotation>
+      <xs:documentation>
+        Forward to Number Selection.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Forward To Default Number"/>
+      <xs:enumeration value="Forward To Specified Number"/>
+      <xs:enumeration value="Do not forward"/>
+    </xs:restriction>
+  </xs:simpleType>
+
 </xs:schema>

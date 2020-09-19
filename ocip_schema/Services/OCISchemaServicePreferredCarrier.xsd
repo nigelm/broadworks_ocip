@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- P R E F E R R E D   C A R R I E R   S E R V I C E                                    -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- P R E F E R R E D   C A R R I E R  S E R V I C E                       -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- P R E F E R R E D   C A R R I E R   R E Q U E S T S   A N D   R E S P O N S E S      -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- P R E F E R R E D   C A R R I E R    R E Q U E S T S  A N D  R E S P O N S E S     -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    GroupPreferredCarrierGroupGetRequest    
-    GroupPreferredCarrierGroupModifyRequest    
-    ServiceProviderPreferredCarrierAddRequest    
-    ServiceProviderPreferredCarrierDeleteRequest    
-    ServiceProviderPreferredCarrierGetAvailableCountryCodeListRequest    
-    ServiceProviderPreferredCarrierGetCarrierListRequest    
-    ServiceProviderPreferredCarrierGetListRequest    
-    ServiceProviderPreferredCarrierGetRequest    
-    ServiceProviderPreferredCarrierModifyRequest    
-    SystemPreferredCarrierAddRequest    
-    SystemPreferredCarrierDeleteRequest    
-    SystemPreferredCarrierGetGroupListRequest    
-    SystemPreferredCarrierGetListRequest    
-    SystemPreferredCarrierGetRequest    
-    SystemPreferredCarrierGetUserListRequest    
-    SystemPreferredCarrierModifyRequest    
-    UserPreferredCarrierUserGetRequest    
-    UserPreferredCarrierUserModifyRequest    
--->
+    GroupPreferredCarrierGroupGetRequest
+    GroupPreferredCarrierGroupModifyRequest
+    ServiceProviderPreferredCarrierAddRequest
+    ServiceProviderPreferredCarrierDeleteRequest
+    ServiceProviderPreferredCarrierGetAvailableCountryCodeListRequest
+    ServiceProviderPreferredCarrierGetCarrierListRequest
+    ServiceProviderPreferredCarrierGetListRequest
+    ServiceProviderPreferredCarrierGetRequest
+    ServiceProviderPreferredCarrierModifyRequest
+    SystemPreferredCarrierAddRequest
+    SystemPreferredCarrierDeleteRequest
+    SystemPreferredCarrierGetGroupListRequest
+    SystemPreferredCarrierGetListRequest
+    SystemPreferredCarrierGetRequest
+    SystemPreferredCarrierGetUserListRequest
+    SystemPreferredCarrierModifyRequest
+    UserPreferredCarrierUserGetRequest
+    UserPreferredCarrierUserModifyRequest
+
+  -->
 
   <xs:complexType name="GroupPreferredCarrierGroupGetRequest">
     <xs:annotation>
@@ -362,7 +369,6 @@
           <xs:element name="searchCriteriaGroupId" type="SearchCriteriaGroupId" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaGroupName" type="SearchCriteriaGroupName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaExactServiceProvider" type="SearchCriteriaExactServiceProvider" minOccurs="0" maxOccurs="1"/>
-          <xs:element name="searchCriteriaServiceProviderId" type="SearchCriteriaServiceProviderId" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -576,14 +582,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <!-- ******************************************************************** -->
-  <!-- M E S S A G E   P A R A M E T E R S                                  -->
-  <!-- ******************************************************************** -->
-  <!--
-  The Preferred Carrier specific non-primitive attributes are listed here in alphabetical order.
-  -->
-  
-
   <xs:complexType name="GroupPreferredCarrierName">
     <xs:annotation>
       <xs:documentation>
@@ -610,6 +608,26 @@
       <xs:element name="carrier" type="PreferredCarrierName" nillable="true" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
+
+  <xs:simpleType name="PreferredCarrierIdCode">
+    <xs:annotation>
+      <xs:documentation>A digit code used by network signaling to identifiy a carrier.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PreferredCarrierName">
+    <xs:annotation>
+      <xs:documentation>Uniquely identifies a carrier.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <xs:complexType name="UserPreferredCarrierName">
     <xs:annotation>
@@ -638,23 +656,4 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="PreferredCarrierIdCode">
-    <xs:annotation>
-      <xs:documentation>A digit code used by network signaling to identifiy a carrier.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="6"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="PreferredCarrierName">
-    <xs:annotation>
-      <xs:documentation>Uniquely identifies a carrier.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="80"/>
-    </xs:restriction>
-  </xs:simpleType>
 </xs:schema>

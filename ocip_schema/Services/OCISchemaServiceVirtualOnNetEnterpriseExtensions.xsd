@@ -1,44 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- V I R T U A L   O N   N E T   E N T E R P R I S E   E X T E N S I O N S              -->
-<!-- S E R V I C E                                                                        -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- V I R T U A L   O N   N E T   E N T E R P R I S E                      -->
+<!-- E X T E N S I O N S  S E R V I C E                                     -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- V I R T U A L   O N   N E T   E N T E R P R I S E   E X T E N S I O N S              -->
-  <!-- R E Q U E S T S   A N D   R E S P O N S E S                                          -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- V I R T U A L   O N   N E T   E N T E R P R I S E   E X T E N S I O N S            -->
+  <!-- R E Q U E S T S  A N D  R E S P O N S E S                                          -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    EnterpriseVirtualOnNetEnterpriseExtensionsGetUserListRequest    
-    GroupVirtualOnNetEnterpriseExtensionsAddUserRequest    
-    GroupVirtualOnNetEnterpriseExtensionsDeleteUserRequest    
-    GroupVirtualOnNetEnterpriseExtensionsGetUserListRequest    
-    GroupVirtualOnNetEnterpriseExtensionsGetUserRequest    
-    GroupVirtualOnNetEnterpriseExtensionsModifyUserRequest    
-    SystemVirtualOnNetCallTypeAddRequest    
-    SystemVirtualOnNetCallTypeDeleteRequest    
-    SystemVirtualOnNetCallTypeGetListRequest    
-    SystemVirtualOnNetCallTypeModifyRequest    
--->
+    EnterpriseVirtualOnNetEnterpriseExtensionsGetUserListRequest
+    GroupVirtualOnNetEnterpriseExtensionsAddUserRequest
+    GroupVirtualOnNetEnterpriseExtensionsDeleteUserRequest
+    GroupVirtualOnNetEnterpriseExtensionsGetUserListRequest
+    GroupVirtualOnNetEnterpriseExtensionsGetUserRequest
+    GroupVirtualOnNetEnterpriseExtensionsModifyUserRequest
+    SystemVirtualOnNetCallTypeAddRequest
+    SystemVirtualOnNetCallTypeDeleteRequest
+    SystemVirtualOnNetCallTypeGetListRequest
+    SystemVirtualOnNetCallTypeModifyRequest
+
+  -->
 
   <xs:complexType name="EnterpriseVirtualOnNetEnterpriseExtensionsGetUserListRequest">
     <xs:annotation>
@@ -46,7 +53,7 @@
         Request the list of Virtual On-Net users in an Enterprise.
         It is possible to search by various criteria to restrict the number of rows returned.
         Multiple search criteria are logically ANDed together.
-        The response is either a  EnterpriseVirtualOnNetEnterpriseExtensionsGetUserListResponse or 
+        The response is either a  EnterpriseVirtualOnNetEnterpriseExtensionsGetUserListResponse or
         an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -70,7 +77,7 @@
     <xs:annotation>
       <xs:documentation>
         Response to   EnterpriseVirtualOnNetEnterpriseExtensionsGetUserListRequest.
-        Contains a table with column headings : "Group Id", "Last Name", "First Name", "Phone Number", "Extension", 
+        Contains a table with column headings : "Group Id", "Last Name", "First Name", "Phone Number", "Extension",
         "Virtual On-Net Call Type" in a row for each user.
       </xs:documentation>
     </xs:annotation>
@@ -86,8 +93,8 @@
   <xs:complexType name="GroupVirtualOnNetEnterpriseExtensionsAddUserRequest">
     <xs:annotation>
       <xs:documentation>
-        Adds Virtual On-Net users to a Group. It is possible to add 
-        either: a single user,  or a list of users, or a range of users, 
+        Adds Virtual On-Net users to a Group. It is possible to add
+        either: a single user,  or a list of users, or a range of users,
         or any combination thereof.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
@@ -126,11 +133,11 @@
     <xs:annotation>
       <xs:documentation>
         Request the list of Virtual On-Net users in a Group.
-        It is possible to search by various criteria to restrict the number 
+        It is possible to search by various criteria to restrict the number
         of rows returned.
         Multiple search criteria are logically ANDed together.
-        The response is either a 
-        GroupVirtualOnNetEnterpriseExtensionsGetUserListResponse or an 
+        The response is either a
+        GroupVirtualOnNetEnterpriseExtensionsGetUserListResponse or an
         ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -154,8 +161,8 @@
     <xs:annotation>
       <xs:documentation>
         Response to GroupVirtualOnNetEnterpriseExtensionsGetUserListRequest.
-        Contains a table with column headings: "Last Name", 
-        "First Name", "Phone Number", "Extension", 
+        Contains a table with column headings: "Last Name",
+        "First Name", "Phone Number", "Extension",
         "Virtual On-Net Call Type Name"
         in a row for each user.
       </xs:documentation>
@@ -173,7 +180,7 @@
     <xs:annotation>
       <xs:documentation>
         Get an existing Virtual On-Net user from a Group.
-        The response is either a 
+        The response is either a
         GroupVirtualOnNetEnterpriseExtensionsGetUserResponse
         or an ErrorResponse.
       </xs:documentation>
@@ -213,8 +220,8 @@
     <xs:annotation>
       <xs:documentation>
         Modify an existing Virtual On-Net user of a Group.
-        The serviceProviderId, groupId and phoneNumber combination uniquely 
-        identifies a Virtual On-Net User. 
+        The serviceProviderId, groupId and phoneNumber combination uniquely
+        identifies a Virtual On-Net User.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -272,7 +279,7 @@
     <xs:annotation>
       <xs:documentation>
         Get the list Virtual On-Net Call Types in the system.
-        The response is either a SystemVirtualOnNetCallTypeGetListResponse 
+        The response is either a SystemVirtualOnNetCallTypeGetListResponse
         or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -287,8 +294,8 @@
     <xs:annotation>
       <xs:documentation>
         Response to SystemVirtualOnNetCallTypeGetListRequest.
-        Contains a table with column headings: 
-        "Virtual On-Net Call Type Name", "Virtual On-Net Call Type CDR Value" 
+        Contains a table with column headings:
+        "Virtual On-Net Call Type Name", "Virtual On-Net Call Type CDR Value"
         in a row for each Virtual On-Net Call Type.
       </xs:documentation>
     </xs:annotation>
@@ -317,14 +324,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-
-  <!-- ******************************************************************** -->
-  <!-- M E S S A G E   P A R A M E T E R S                                  -->
-  <!-- ******************************************************************** -->
-  <!--
-  The Virtual On Net Enterprise Extensions specific non-primitive attributes are listed here in alphabetical order.
-  -->
-  
 
   <xs:complexType name="VirtualOnNetUser">
     <xs:annotation>
@@ -359,4 +358,5 @@
       <xs:element name="virtualOnNetCallTypeName" type="VirtualOnNetCallTypeName"/>
     </xs:sequence>
   </xs:complexType>
+
 </xs:schema>
