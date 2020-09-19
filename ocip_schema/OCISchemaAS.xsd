@@ -17,8 +17,6 @@
   <xs:include schemaLocation="OCISchemaServiceProvider.xsd"/>
   <xs:include schemaLocation="OCISchemaSystem.xsd"/>
   <xs:include schemaLocation="OCISchemaUser.xsd"/>
-  <xs:include schemaLocation="OCISchemaHiddenDeprecated20.xsd"/>
-  <xs:include schemaLocation="OCISchemaLawfulInterceptDeprecated20.xsd"/>
   <xs:include schemaLocation="OCISchemaASDeprecatedSpecialExceptions.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaService3G4GContinuity.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAccountAuthorizationCodes.xsd"/>

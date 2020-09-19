@@ -1246,7 +1246,7 @@
           <xs:element name="isActive" type="xs:boolean"/>
           <xs:element name="useMobileIdentityCallAnchoring" type="xs:boolean"/>
           <xs:element name="preventCallsToOwnMobiles" type="xs:boolean"/>
-          <xs:element name="mobileIdentity" type="BroadWorksMobilityUserMobileIdentityEntry" minOccurs="0" maxOccurs=" unbounded"/>
+          <xs:element name="mobileIdentity" type="BroadWorksMobilityUserMobileIdentityEntry" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="profileIdentityDevicesToRing" type="BroadWorksMobilityPhoneToRing"/>
           <xs:element name="profileIdentityIncludeSharedCallAppearance" type="xs:boolean"/>
           <xs:element name="profileIdentityIncludeBroadworksAnywhere" type="xs:boolean"/>
