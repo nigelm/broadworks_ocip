@@ -1,3 +1,4 @@
+# This code is based on https://medium.com/@hmajid2301/pytest-with-background-thread-fixtures-f0dc34ee3c46
 import logging
 import socket
 import sys
@@ -23,6 +24,7 @@ class FakeServer:
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.stream = None
         self.configure_logger()
+        self.logger.debug("Instantiated FakeServer")
 
     def __enter__(self):
         self.socket.bind(("127.0.0.1", self.port))
@@ -34,7 +36,11 @@ class FakeServer:
     def __exit__(self, exception_type, exception_value, traceback):
         if self.stream is not None:
             self.stream.close()
-        self.socket.shutdown(socket.SHUT_RDWR)
+        try:
+            self.socket.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            # this seems to happen...
+            pass
         self.socket.close()
         self.logger.info(f"Disconnected socket port={self.port}")
 
@@ -48,14 +54,18 @@ class FakeServer:
             self.stream = stream
             api = BroadworksAPI(**BASIC_API_PARAMS)
             while True:
-                content = b""
-                while True:
-                    line = self.stream.readline()
-                    content += line
-                    if line.endswith(b"</BroadsoftDocument>\n"):
-                        break
-                self.logger.debug(f"RECV: {str(content)}")
-                self.process_command(connection, content, api)
+                try:
+                    content = b""
+                    while True:
+                        line = self.stream.readline()
+                        content += line
+                        if line.endswith(b"</BroadsoftDocument>\n"):
+                            break
+                    self.logger.debug(f"RECV: {str(content)}")
+                    self.process_command(connection, content, api)
+                except ValueError:
+                    self.logger.debug("Connection had been closed on me")
+                    return
 
     def configure_logger(self):
         """ """
