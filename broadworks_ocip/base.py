@@ -53,9 +53,14 @@ class OCIType(Class):
                 sub_element.append(value._etree_components(sub_element.xmlname))
             else:
                 elem = etree.SubElement(
-                    element, sub_element.xmlname, nsmap=self.DEFAULT_NSMAP,
+                    element,
+                    sub_element.xmlname,
+                    nsmap=self.DEFAULT_NSMAP,
                 )
-                elem.text = value
+                if sub_element.type == bool:
+                    elem.text = "true" if value else "false"
+                else:
+                    elem.text = value
         return element
 
     def _etree_components(self, name=None):
@@ -130,11 +135,12 @@ class OCICommand(OCIType):
     _session = Field(type=str, default="00000000-1111-2222-3333-444444444444")
 
     def _build_xml(self):
-        """
-        """
+        """"""
         # document root element
         root = etree.Element(
-            "{C}BroadsoftDocument", {"protocol": "OCI"}, nsmap=self.DOCUMENT_NSMAP,
+            "{C}BroadsoftDocument",
+            {"protocol": "OCI"},
+            nsmap=self.DOCUMENT_NSMAP,
         )
         #
         # add the session
@@ -179,7 +185,7 @@ class SuccessResponse(OCIResponse):
     and does not return any data.
     """
 
-    ELEMENTS = tuple()  # type: ignore # type: Tuple[Tuple]
+    ELEMENTS = ()  # type: ignore # type: Tuple[Tuple]
 
 
 class ErrorResponse(OCIResponse):
