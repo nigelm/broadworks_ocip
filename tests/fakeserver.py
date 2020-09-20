@@ -52,7 +52,7 @@ class FakeServer:
             self.logger.info(f"Connection from host={host} port={port}")
             stream = connection.makefile(mode="rb")
             self.stream = stream
-            api = BroadworksAPI(**BASIC_API_PARAMS)
+            api = BroadworksAPI(**BASIC_API_PARAMS, logger=self.logger)
             while True:
                 try:
                     content = b""
