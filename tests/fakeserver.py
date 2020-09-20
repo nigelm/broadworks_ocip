@@ -84,20 +84,36 @@ class FakeServer:
         if cmd._type == "AuthenticationRequest":
             cls = api.get_command_class("AuthenticationResponse")
             response = cls(
-                user_id=cmd.user_id, nonce="1234567890123", password_algorithm="MD5",
+                user_id=cmd.user_id,
+                nonce="1234567890123",
+                password_algorithm="MD5",
             )
         elif cmd._type == "LoginRequest14sp4":
+            domain = cmd.user_id.partition("@")[2]
+            if domain == "":
+                domain = "example.org"
             cls = api.get_command_class("LoginResponse14sp4")
             response = cls(
                 login_type="System",
                 locale="en_GB",
                 encoding="ISO-8859",
                 is_enterprise=False,
+                user_domain=domain,
             )
+        elif cmd._type == "SystemSoftwareVersionGetRequest":
+            cls = api.get_command_class("SystemSoftwareVersionGetResponse")
+            response = cls(version="21sp1")
         else:
-            cls = api.get_command_class("SuccessResponse")
-            response = cls()
+            cls = api.get_command_class("ErrorResponse")
+            response = cls(
+                error_code="0001",
+                summary="Server is a fake and a fraud",
+                summary_english="This is not a real server and doesn't implement many things",
+                detail="There might be more detail if this was a real server",
+                type="abject_panic",
+            )
         response._session = cmd._session
+        self.logger.debug(f"Built response {cmd._type}")
         xml = response._build_xml()
         self.logger.debug(f"F>>>: {response._type}")
         connection.sendall(xml + b"\n")
