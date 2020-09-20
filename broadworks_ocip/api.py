@@ -52,6 +52,7 @@ class BroadworksAPI(Class):
         """ """
         self.logger.debug("Building Broadworks despatch table")
         despatch_table = {}
+        # deal with all the main request/responses
         for module in (broadworks_ocip.responses, broadworks_ocip.requests):
             for name, data in inspect.getmembers(module, inspect.isclass):
                 if name.startswith("__"):
@@ -65,6 +66,11 @@ class BroadworksAPI(Class):
                         despatch_table[name] = data
                 except AttributeError:
                     continue
+        # deal with special cases in base
+        for name, data in inspect.getmembers(broadworks_ocip.base, inspect.isclass):
+            if name in ("SuccessResponse", "ErrorResponse"):
+                despatch_table[name] = data
+        # we now have a despatch table...
         self.despatch_table = despatch_table
         self.logger.debug("Built Broadworks despatch table")
 
