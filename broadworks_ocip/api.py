@@ -139,7 +139,7 @@ class BroadworksAPI(Class):
                 self.logger.info(f"<<< {result._type}")
                 return result
 
-    def connect(self):
+    def just_connect(self):
         """ """
         self.logger.debug(f"Attempting connection host={self.host} port={self.port}")
         try:
@@ -151,6 +151,9 @@ class BroadworksAPI(Class):
         except OSError as e:
             self.logger.error("Connection failed")
             raise e
+
+    def connect(self):
+        self.just_connect()
         self.authenticate()
         self.connected = True
 
@@ -163,7 +166,9 @@ class BroadworksAPI(Class):
             hashlib.md5(":".join([resp.nonce, authhash]).encode()).hexdigest().lower()
         )
         self.send_command(
-            "LoginRequest14sp4", user_id=self.username, signed_password=signed_password,
+            "LoginRequest14sp4",
+            user_id=self.username,
+            signed_password=signed_password,
         )
         resp = self.receive_response()
 
@@ -183,13 +188,21 @@ class BroadworksAPI(Class):
         """ """
         if self.connected:
             self.send_command(
-                "LogoutRequest", user_id=self.username, reason="Connection close",
+                "LogoutRequest",
+                user_id=self.username,
+                reason="Connection close",
             )
+            self.logger.debug("Disconnect by logging out")
+            self.connected = False
+        if self.instream:
             self.instream.close()
+            self.logger.debug("Closed stream")
+            self.instream = None
+        if self.socket:
             self.socket.shutdown(socket.SHUT_RDWR)
             self.socket.close()
             self.logger.info(f"Disconnected from host={self.host} port={self.port}")
-            self.connected = False
+            self.socket = None
 
     def __del__(self):
         self.close()
