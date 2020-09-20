@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This code is based on https://medium.com/@hmajid2301/pytest-with-background-thread-fixtures-f0dc34ee3c46
 """Tests for `broadworks_ocip` package."""
 import threading
 
@@ -14,7 +15,7 @@ BASIC_API_PARAMS = {
     "username": "username@example.com",
     "password": "password",
     "session": "00000000-1111-2222-3333-444444444444",
-    "timeout": 20,
+    "timeout": 3,
 }
 
 
@@ -32,8 +33,11 @@ def test_server_login():
     api = BroadworksAPI(**BASIC_API_PARAMS)
     assert api is not None
     assert api.__class__.__name__ == "BroadworksAPI"
+    assert api.connected is False
     response = api.command("SystemSoftwareVersionGetRequest")
+    assert api.connected is True
     assert response is not None
+    assert response._type == "SystemSoftwareVersionGetResponse"
 
 
 # end
