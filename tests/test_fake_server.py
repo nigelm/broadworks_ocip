@@ -6,6 +6,7 @@ import threading
 import pytest  # noqa: F401
 
 from broadworks_ocip import BroadworksAPI
+from broadworks_ocip import OCIErrorResponse
 from tests.fakeserver import FakeServer
 
 SERVER_TCP_PORT = 2208
@@ -15,7 +16,7 @@ BASIC_API_PARAMS = {
     "username": "username@example.com",
     "password": "password",
     "session": "00000000-1111-2222-3333-444444444444",
-    "timeout": 3,
+    "connect_timeout": 3,
 }
 
 
@@ -33,11 +34,24 @@ def test_server_login():
     api = BroadworksAPI(**BASIC_API_PARAMS)
     assert api is not None
     assert api.__class__.__name__ == "BroadworksAPI"
-    assert api.connected is False
+    assert api.authenticated is False
     response = api.command("SystemSoftwareVersionGetRequest")
-    assert api.connected is True
+    assert api.authenticated is True
     assert response is not None
     assert response._type == "SystemSoftwareVersionGetResponse"
+
+
+def test_server_login_fail():
+    params = BASIC_API_PARAMS
+    params["password"] = "wrong wrong wrong"
+    api = BroadworksAPI(**params)
+    assert api is not None
+    assert api.__class__.__name__ == "BroadworksAPI"
+    assert api.authenticated is False
+    with pytest.raises(OCIErrorResponse) as excinfo:
+        api.command("SystemSoftwareVersionGetRequest")
+    assert excinfo.object.error_code == 9998
+    assert api.authenticated is False
 
 
 # end

@@ -6,6 +6,7 @@ Main API interface - this is basically the only consumer visible part
 import hashlib
 import inspect
 import logging
+import select
 import socket
 import sys
 import uuid
@@ -36,10 +37,10 @@ class BroadworksAPI(Class):
     password = Field(type=str, required=True)
     logger = Field(type=object)
     despatch_table = Field(type=dict)
-    connected = Field(type=bool, default=False)
-    timeout = Field(type=int, default=8)
+    authenticated = Field(type=bool, default=False)
+    connect_timeout = Field(type=int, default=8)
+    command_timeout = Field(type=int, default=30)
     socket = Field(type=object, default=None)
-    instream = Field(type=object, default=None)
 
     def on_init(self):
         """ """
@@ -48,7 +49,7 @@ class BroadworksAPI(Class):
         if self.logger is None:
             self.configure_logger()
         self.build_despatch_table()
-        self.connected = False
+        self.authenticated = False
 
     def build_despatch_table(self):
         """ """
@@ -122,10 +123,20 @@ class BroadworksAPI(Class):
         """ """
         content = b""
         while True:
-            line = self.instream.readline()
-            content += line
-            if line.endswith(b"</BroadsoftDocument>\n"):
-                break
+            readable, writable, exceptional = select.select(
+                [self.socket],
+                [],
+                [],
+                self.command_timeout,
+            )
+            if readable:  # there is only one thing in the set...
+                content += self.socket.recv(4096)
+                # look for the end of document marker (we ignore line ends)
+                splits = content.partition(b"</BroadsoftDocument>")
+                if len(splits[1]) > 0:
+                    break
+            elif not readable and not writable and not exceptional:
+                raise OCIErrorTimeOut(object=self, message="Read timeout")
         self.logger.debug(f"RECV: {str(content)}")
         return self.decode_xml(content)
 
@@ -149,23 +160,23 @@ class BroadworksAPI(Class):
                 result._post_xml_decode()
                 return result
 
-    def just_connect(self):
+    def connect(self):
         """ """
         self.logger.debug(f"Attempting connection host={self.host} port={self.port}")
         try:
             address = (self.host, self.port)
-            conn = socket.create_connection(address=address, timeout=self.timeout)
-            self.instream = conn.makefile(mode="rb")
+            conn = socket.create_connection(
+                address=address,
+                timeout=self.connect_timeout,
+            )
             self.socket = conn
             self.logger.info(f"Connected to host={self.host} port={self.port}")
         except OSError as e:
             self.logger.error("Connection failed")
             raise e
-
-    def connect(self):
-        self.just_connect()
-        self.authenticate()
-        self.connected = True
+        except socket.timeout as e:
+            self.logger.error("Connection timed out")
+            raise e
 
     def authenticate(self):
         """ """
@@ -193,25 +204,22 @@ class BroadworksAPI(Class):
         :param **kwargs:
 
         """
-        if not self.connected:
+        if not self.authenticated:
             self.connect()
+            self.authenticate()
         self.send_command(command, **kwargs)
         return self.receive_response()
 
     def close(self):
         """ """
-        if self.connected:
+        if self.authenticated:
+            self.logger.debug("Disconnect by logging out")
             self.send_command(
                 "LogoutRequest",
                 user_id=self.username,
                 reason="Connection close",
             )
-            self.logger.debug("Disconnect by logging out")
-            self.connected = False
-        if self.instream:
-            self.instream.close()
-            self.logger.debug("Closed stream")
-            self.instream = None
+            self.authenticated = False
         if self.socket:
             self.socket.shutdown(socket.SHUT_RDWR)
             self.socket.close()
