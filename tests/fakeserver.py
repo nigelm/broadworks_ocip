@@ -1,5 +1,6 @@
 # This code is based on https://medium.com/@hmajid2301/pytest-with-background-thread-fixtures-f0dc34ee3c46
 import logging
+import signal
 import socket
 import sys
 
@@ -15,6 +16,12 @@ BASIC_API_PARAMS = {
     "password": "password",
     "session": "00000000-1111-2222-3333-444444444444",
 }
+
+
+class TimeoutException(Exception):
+    def __init__(self, message, errors):
+        super().__init__(message)
+        self.errors = errors
 
 
 class FakeServer:
@@ -45,6 +52,7 @@ class FakeServer:
         self.logger.info(f"Disconnected socket port={self.port}")
 
     def listen_for_traffic(self):
+        signal.signal(signal.SIGALRM, signal_handler)
         while True:
             self.socket.listen(5)
             connection, address = self.socket.accept()
@@ -57,15 +65,21 @@ class FakeServer:
                 try:
                     content = b""
                     while True:
+                        signal.alarm(5)
                         line = self.stream.readline()
+                        signal.alarm(0)
                         content += line
                         if line.endswith(b"</BroadsoftDocument>\n"):
                             break
                     self.logger.debug(f"RECV: {str(content)}")
                     self.process_command(connection, content, api)
-                except ValueError:
+                except (TimeoutException, ValueError) as _:
+                    signal.alarm(0)
                     self.logger.debug("Connection had been closed on me")
                     return
+
+    def signal_handler(signum, frame):
+        raise TimeoutException()
 
     def configure_logger(self):
         """ """
@@ -89,31 +103,46 @@ class FakeServer:
                 password_algorithm="MD5",
             )
         elif cmd._type == "LoginRequest14sp4":
-            domain = cmd.user_id.partition("@")[2]
-            if domain == "":
-                domain = "example.org"
-            cls = api.get_command_class("LoginResponse14sp4")
-            response = cls(
-                login_type="System",
-                locale="en_GB",
-                encoding="ISO-8859",
-                is_enterprise=False,
-                user_domain=domain,
-            )
+            # hard coded password corresponding to the hard coded params at top
+            if cmd.signed_password == "77e4a6de3a1e00be05e121cf0ebee860":
+                domain = cmd.user_id.partition("@")[2]
+                if domain == "":
+                    domain = "example.org"
+                cls = api.get_command_class("LoginResponse14sp4")
+                response = cls(
+                    login_type="System",
+                    locale="en_GB",
+                    encoding="ISO-8859",
+                    is_enterprise=False,
+                    user_domain=domain,
+                )
+            else:
+                cls = api.get_command_class("ErrorResponse")
+                response = cls(
+                    error_code=9998,
+                    summary="Thats so not the right password",
+                    summary_english="This is not a real server but it knows the right password",
+                    detail="There might be more detail if this was a real server",
+                    type="security_panic",
+                )
         elif cmd._type == "SystemSoftwareVersionGetRequest":
             cls = api.get_command_class("SystemSoftwareVersionGetResponse")
             response = cls(version="21sp1")
+        elif cmd._type == "LogoutRequest":
+            # This normally never gets sent because the other end drops the connection
+            cls = api.get_command_class("SuccessResponse")
+            response = cls()
         else:
             cls = api.get_command_class("ErrorResponse")
             response = cls(
-                error_code="0001",
+                error_code=9999,
                 summary="Server is a fake and a fraud",
                 summary_english="This is not a real server and doesn't implement many things",
                 detail="There might be more detail if this was a real server",
                 type="abject_panic",
             )
         response._session = cmd._session
-        self.logger.debug(f"Built response {cmd._type}")
+        self.logger.debug(f"Built response {response._type}")
         xml = response._build_xml()
         self.logger.debug(f"F>>>: {response._type}")
         connection.sendall(xml + b"\n")
