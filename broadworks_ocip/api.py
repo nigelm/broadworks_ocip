@@ -14,9 +14,11 @@ from classforge import Class
 from classforge import Field
 from lxml import etree
 
+import broadworks_ocip.base
 import broadworks_ocip.requests
 import broadworks_ocip.responses
 import broadworks_ocip.types
+from broadworks_ocip.exceptions import OCIErrorTimeOut
 
 
 FORMATTER = logging.Formatter(
@@ -70,6 +72,7 @@ class BroadworksAPI(Class):
         for name, data in inspect.getmembers(broadworks_ocip.base, inspect.isclass):
             if name in ("SuccessResponse", "ErrorResponse"):
                 despatch_table[name] = data
+                despatch_table["c:" + name] = data  # namespace issues
         # we now have a despatch table...
         self.despatch_table = despatch_table
         self.logger.debug("Built Broadworks despatch table")
@@ -143,6 +146,7 @@ class BroadworksAPI(Class):
                 cls = self.despatch_table[command]
                 result = cls._build_from_etree(element)
                 self.logger.info(f"<<< {result._type}")
+                result._post_xml_decode()
                 return result
 
     def just_connect(self):
@@ -176,7 +180,11 @@ class BroadworksAPI(Class):
             user_id=self.username,
             signed_password=signed_password,
         )
+        # if this fails to authenticate an ErrorResponse will be returned which forces
+        # an exception to be raised
         resp = self.receive_response()
+        # if authentication failed this line will never be executed
+        self.authenticated = True
 
     def command(self, command, **kwargs):
         """

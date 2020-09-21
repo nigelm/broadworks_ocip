@@ -11,6 +11,8 @@ from classforge import Class
 from classforge import Field
 from lxml import etree
 
+from broadworks_ocip.exceptions import OCIErrorResponse
+
 
 class ElementInfo(
     namedtuple(
@@ -28,10 +30,19 @@ class OCIType(Class):
 
     DEFAULT_NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
     DOCUMENT_NSMAP = {None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
+    ERROR_NSMAP = {
+        "c": "C",
+        None: "",
+        "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    }
 
     @property
     def _type(self):
         return self.__class__.__name__
+
+    def _post_xml_decode(self):
+        """Carry out any operations after the XML decode"""
+        pass
 
     def _etree_sub_components(self, element):
         """
@@ -59,6 +70,8 @@ class OCIType(Class):
                 )
                 if sub_element.type == bool:
                     elem.text = "true" if value else "false"
+                elif sub_element.type == int:
+                    elem.text = str(value)
                 else:
                     elem.text = value
         return element
@@ -148,12 +161,7 @@ class OCICommand(OCIType):
         sess.text = self._session
         #
         # and the command
-        element = etree.SubElement(
-            root,
-            "command",
-            {"{http://www.w3.org/2001/XMLSchema-instance}type": self._type},
-            nsmap=self.DEFAULT_NSMAP,
-        )
+        element = self._build_xml_command_element(root)
         self._etree_sub_components(element)  # attach parameters etc
         #
         # wrap a tree around it
@@ -164,6 +172,14 @@ class OCICommand(OCIType):
             encoding="ISO-8859-1",
             # standalone=False,
             # pretty_print=True,
+        )
+
+    def _build_xml_command_element(self, root):
+        return etree.SubElement(
+            root,
+            "command",
+            {"{http://www.w3.org/2001/XMLSchema-instance}type": self._type},
+            nsmap=self.DEFAULT_NSMAP,
         )
 
 
@@ -198,17 +214,32 @@ class ErrorResponse(OCIResponse):
         ElementInfo("summary", "summary", str, False, True, False),
         ElementInfo("summary_english", "summaryEnglish", str, False, True, False),
         ElementInfo("detail", "detail", str, False, False, False),
-        ElementInfo("type", "type", str, False, True, False),
+        ElementInfo("type", "type", str, False, False, False),
     )
     error_code = Field(type=int, required=False)
     summary = Field(type=str, required=True)
     summary_english = Field(type=str, required=True)
     detail = Field(type=str, required=False)
-    type = Field(type=str, required=True)
+    type = Field(type=str, required=False)
 
-    def on_init(self):
-        """ """
-        raise Exception()
+    def _post_xml_decode(self):
+        """Raise an exception as this is an error"""
+        raise OCIErrorResponse(
+            object=self,
+            message=f"{self.error_code}: {self.summary} - {self.detail}",
+        )
+
+    def _build_xml_command_element(self, root):
+        return etree.SubElement(
+            root,
+            "command",
+            {
+                "type": "Error",
+                "echo": "",
+                "{http://www.w3.org/2001/XMLSchema-instance}type": "c:" + self._type,
+            },
+            nsmap=self.ERROR_NSMAP,
+        )
 
 
 # end
