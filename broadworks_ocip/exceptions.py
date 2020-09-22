@@ -17,6 +17,9 @@ class OCIError(Exception):
         self.message = message
         self.object = object
 
+    def __str__(self):
+        return f"{self.__class__.__name__}({self.message})"
+
 
 class OCIErrorResponse(OCIError):
     pass

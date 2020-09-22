@@ -1,6 +1,6 @@
 # This code is based on https://medium.com/@hmajid2301/pytest-with-background-thread-fixtures-f0dc34ee3c46
 import logging
-import signal
+import select
 import socket
 import sys
 
@@ -18,18 +18,11 @@ BASIC_API_PARAMS = {
 }
 
 
-class TimeoutException(Exception):
-    def __init__(self, message, errors):
-        super().__init__(message)
-        self.errors = errors
-
-
 class FakeServer:
     def __init__(self, port=0):
         self.port = port
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.stream = None
         self.configure_logger()
         self.logger.debug("Instantiated FakeServer")
 
@@ -41,8 +34,6 @@ class FakeServer:
         return self
 
     def __exit__(self, exception_type, exception_value, traceback):
-        if self.stream is not None:
-            self.stream.close()
         try:
             self.socket.shutdown(socket.SHUT_RDWR)
         except OSError:
@@ -52,34 +43,43 @@ class FakeServer:
         self.logger.info(f"Disconnected socket port={self.port}")
 
     def listen_for_traffic(self):
-        signal.signal(signal.SIGALRM, signal_handler)
         while True:
             self.socket.listen(5)
             connection, address = self.socket.accept()
             (host, port) = address
             self.logger.info(f"Connection from host={host} port={port}")
-            stream = connection.makefile(mode="rb")
-            self.stream = stream
             api = BroadworksAPI(**BASIC_API_PARAMS, logger=self.logger)
-            while True:
-                try:
-                    content = b""
-                    while True:
-                        signal.alarm(5)
-                        line = self.stream.readline()
-                        signal.alarm(0)
-                        content += line
-                        if line.endswith(b"</BroadsoftDocument>\n"):
-                            break
-                    self.logger.debug(f"RECV: {str(content)}")
-                    self.process_command(connection, content, api)
-                except (TimeoutException, ValueError) as _:
-                    signal.alarm(0)
-                    self.logger.debug("Connection had been closed on me")
-                    return
 
-    def signal_handler(signum, frame):
-        raise TimeoutException()
+            while True:
+                content = b""
+                while True:
+                    readable, writable, exceptional = select.select(
+                        [connection],
+                        [],
+                        [connection],
+                        5,
+                    )
+                    if readable:  # there is only one thing in the set...
+                        try:
+                            content += connection.recv(4096)
+                        except ConnectionResetError:
+                            self.logger.debug("Connection got reset")
+                            connection.close()
+                            return
+                        # look for the end of document marker (we ignore line ends)
+                        splits = content.partition(b"</BroadsoftDocument>")
+                        if len(splits[1]) > 0:
+                            break
+                    elif exceptional:
+                        self.logger.debug("Connection likely terminated")
+                        connection.close()
+                        return
+                    elif not readable and not writable and not exceptional:
+                        self.logger.debug("Read timeout")
+                        connection.close()
+                        return
+                self.logger.debug(f"RECV: {str(content)}")
+                self.process_command(connection, content, api)
 
     def configure_logger(self):
         """ """
@@ -119,11 +119,8 @@ class FakeServer:
             else:
                 cls = api.get_command_class("ErrorResponse")
                 response = cls(
-                    error_code=9998,
-                    summary="Thats so not the right password",
-                    summary_english="This is not a real server but it knows the right password",
-                    detail="There might be more detail if this was a real server",
-                    type="security_panic",
+                    summary="[Error 4962] Invalid password",
+                    summary_english="[Error 4962] Invalid password",
                 )
         elif cmd._type == "SystemSoftwareVersionGetRequest":
             cls = api.get_command_class("SystemSoftwareVersionGetResponse")

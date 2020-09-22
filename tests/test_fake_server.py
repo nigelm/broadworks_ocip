@@ -50,7 +50,7 @@ def test_server_login_fail():
     assert api.authenticated is False
     with pytest.raises(OCIErrorResponse) as excinfo:
         api.command("SystemSoftwareVersionGetRequest")
-    assert excinfo.object.error_code == 9998
+    assert "Invalid password" in str(excinfo.value)
     assert api.authenticated is False
 
 
