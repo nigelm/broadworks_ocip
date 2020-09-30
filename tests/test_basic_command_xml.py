@@ -29,7 +29,7 @@ def compare_command_xml(wanted, command, **kwargs):
     assert canon_xml(generated) == canon_xml(wanted)
 
 
-def test_command_xml():
+def test_authentication_request_xml():
     compare_command_xml(
         (
             b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
@@ -40,6 +40,23 @@ def test_command_xml():
         ),
         "AuthenticationRequest",
         user_id="username@example.com",
+    )
+
+
+def test_error_response_xml():
+    compare_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command type="Error" echo="" xsi:type="c:ErrorResponse" xmlns:c="C" xmlns="">'
+            b"<summary>[Error 4962] Invalid password</summary>"
+            b"<summaryEnglish>[Error 4962] Invalid password</summaryEnglish>"
+            b"</command></BroadsoftDocument>"
+        ),
+        "ErrorResponse",
+        summary="[Error 4962] Invalid password",
+        summary_english="[Error 4962] Invalid password",
     )
 
 

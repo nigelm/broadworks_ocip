@@ -1,90 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- E N H A N C E D   C A L L   L O G S   S E R V I C E                                  -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- E N H A N C E D   C A L L   L O G S  S E R V I C E                     -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- E N H A N C E D   C A L L   L O G S   R E Q U E S T S   A N D   R E S P O N S E S    -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- E N H A N C E D   C A L L   L O G S    R E Q U E S T S  A N D  R E S P O N S E S   -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    GroupEnhancedCallLogsSchemaInstanceGetRequest    
-    GroupEnhancedCallLogsSchemaInstanceModifyRequest    
-    ServiceProviderEnhancedCallLogsGetRequest17sp4    
-    ServiceProviderEnhancedCallLogsModifyRequest    
-    ServiceProviderEnhancedCallLogsSchemaInstanceGetRequest    
-    ServiceProviderEnhancedCallLogsSchemaInstanceModifyRequest    
-    SystemEnhancedCallLogsActiveSchemaInstanceGetListRequest    
-    SystemEnhancedCallLogsGetRequest22V2    
-    SystemEnhancedCallLogsModifyRequest22    
-    SystemEnhancedCallLogsSchemaInstanceGetListRequest    
-    UserEnhancedCallLogsGetListRequest22    
--->
+    EnterpriseEnhancedCallLogsGetListRequest21
+    GroupEnhancedCallLogsGetListRequest21
+    ServiceProviderEnhancedCallLogsGetRequest17sp4
+    ServiceProviderEnhancedCallLogsModifyRequest
+    SystemEnhancedCallLogsGetRequest20sp1
+    SystemEnhancedCallLogsModifyRequest
+    UserEnhancedCallLogsGetListRequest21
 
-  <xs:complexType name="GroupEnhancedCallLogsSchemaInstanceGetRequest">
+  -->
+
+  <xs:complexType name="EnterpriseEnhancedCallLogsGetListRequest21">
     <xs:annotation>
       <xs:documentation>
-      Get the enhanced call log database schema instance associated with a group of  
-      a service provider.
-      The response is either a GroupEnhancedCallLogsSchemaInstanceGetResponse or an ErrorResponse.
-    </xs:documentation>
+        Request users' call logs within an enterprise
+        If the callLogType is not specified, all types of calls logs (placed, received, missed) are returned.
+        It is possible to restrict the number of rows returned using responsePagingControl. If responsePagingControl
+        is not specified, the value of Enhanced Call Logs system parameter maxNonPagedResponseSize will control
+        the maximum number of call logs can be returned.
+        The response is either an EnterpriseEnhancedCallLogsGetListResponse21 or an ErrorResponse.
+        The following elements are only used in AS data mode and ignored in HSS data mode:
+          callAuthorizationCodeFilter
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="callLogType" type="EnhancedCallLogsCallLogsRequestType" minOccurs="0"/>
+          <xs:choice>
+            <xs:element name="groupId" type="GroupId" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="userDnRange" type="DNRange" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="userExtensionRange" type="ExtensionRange17" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:choice>
+          <xs:element name="dateTimeRange" type="EnhancedCallLogsTimeRange"/>
+          <xs:element name="numberFilter" type="EnhancedCallLogsNumberFilter" minOccurs="0"/>
+          <xs:element name="redirectedNumberFilter" type="EnhancedCallLogsRedirectedNumberFilter21" minOccurs="0"/>
+          <xs:element name="accountAuthorizationCodeFilter" type="EnhancedCallLogsAccountAuthorizationCodeFilter" minOccurs="0"/>
+          <xs:element name="callAuthorizationCodeFilter" type="EnhancedCallLogsCallAuthorizationCodeFilter" minOccurs="0"/>
+          <xs:element name="subscriberType" type="EnhancedCallLogsSubscriberType20" minOccurs="0"/>
+          <xs:element name="responsePagingControl" type="EnhancedCallLogsResponsePagingControl" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupEnhancedCallLogsSchemaInstanceGetResponse">
+  <xs:complexType name="EnterpriseEnhancedCallLogsGetListResponse21">
     <xs:annotation>
       <xs:documentation>
-      Response to GroupEnhancedCallLogsSchemaInstanceGetRequest.
-    </xs:documentation>
+        Response to EnterpriseEnhancedCallLogsGetListRequest21.
+        Total numbers of rows is:
+        - the total number of retrievable logs of the call log type that was specified in the EnterpriseEnhancedCallLogsGetListRequest21,
+          if a call log type was specified in the request.
+        - the total number of retrievable logs, if no call log type was specified in the request.
+        A list of ExtendedMixedCallLogsEntry21 will be returned if the call logs are stored on DBS. Otherwise, an error response will be returned.
+        The result is sorted by date/time of the call.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
-          <xs:element name="name" type="DbSchemaInstanceName" minOccurs="0"/>
+          <xs:element name="totalNumberOfRows" type="xs:int"/>
+          <xs:element name="extendedCallLog" type="ExtendedMixedCallLogsEntry21" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupEnhancedCallLogsSchemaInstanceModifyRequest">
+  <xs:complexType name="GroupEnhancedCallLogsGetListRequest21">
     <xs:annotation>
       <xs:documentation>
-      Modify the Enhanced Call Logs schema instance associated with a group of a service provider.
-      The response is either a SuccessResponse or an ErrorResponse.
-    </xs:documentation>
+        Request users' call logs within a group
+        If the callLogType is not specified, all types of calls logs (placed, received, missed) are returned.
+        It is possible to restrict the number of rows returned using responsePagingControl.If responsePagingControl
+        is not specified, the value of Enhanced Call Logs system parameter maxNonPagedResponseSize will control
+        the maximum number of call logs can be returned.
+        The response is either a GroupEnhancedCallLogsGetListResponse21 or an ErrorResponse.
+        The following elements are only used in AS data mode and ignored in HSS data mode:
+          callAuthorizationCodeFilter
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="name" type="DbSchemaInstanceName" nillable="true" minOccurs="0"/>
+          <xs:element name="callLogType" type="EnhancedCallLogsCallLogsRequestType" minOccurs="0"/>
+          <xs:choice>
+            <xs:element name="userDnRange" type="DNRange" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="userExtensionRange" type="ExtensionRange17" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:choice>
+          <xs:element name="dateTimeRange" type="EnhancedCallLogsTimeRange"/>
+          <xs:element name="numberFilter" type="EnhancedCallLogsNumberFilter" minOccurs="0"/>
+          <xs:element name="redirectedNumberFilter" type="EnhancedCallLogsRedirectedNumberFilter21" minOccurs="0"/>
+          <xs:element name="accountAuthorizationCodeFilter" type="EnhancedCallLogsAccountAuthorizationCodeFilter" minOccurs="0"/>
+          <xs:element name="callAuthorizationCodeFilter" type="EnhancedCallLogsCallAuthorizationCodeFilter" minOccurs="0"/>
+          <xs:element name="subscriberType" type="EnhancedCallLogsSubscriberType20" minOccurs="0"/>
+          <xs:element name="responsePagingControl" type="EnhancedCallLogsResponsePagingControl" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupEnhancedCallLogsGetListResponse21">
+    <xs:annotation>
+      <xs:documentation>
+        Response to GroupEnhancedCallLogsGetListRequest21.
+        Total numbers of rows is:
+        - the total number of retrievable logs of the call log type that was specified in the GroupEnhancedCallLogsGetListRequest21,
+          if a call log type was specified in the request.
+        - the total number of retrievable logs, if no call log type was specified in the request.
+        A list of ExtendedMixedCallLogsEntry21 will be returned if the call logs are stored on DBS. Otherwise, an error response will be returned.
+        The logs are sorted by date/time of the call.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="totalNumberOfRows" type="xs:int"/>
+          <xs:element name="extendedCallLog" type="ExtendedMixedCallLogsEntry21" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -143,92 +209,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderEnhancedCallLogsSchemaInstanceGetRequest">
+  <xs:complexType name="SystemEnhancedCallLogsGetRequest20sp1">
     <xs:annotation>
       <xs:documentation>
-      Get the enhanced call log database schema instance associated with this 
-      service provider.
-      The response is either a ServiceProviderEnhancedCallLogsSchemaInstanceGetResponse or an ErrorResponse.
-    </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="ServiceProviderEnhancedCallLogsSchemaInstanceGetResponse">
-    <xs:annotation>
-      <xs:documentation>
-      Response to ServiceProviderEnhancedCallLogsSchemaInstanceGetRequest.
-    </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="name" type="DbSchemaInstanceName" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="ServiceProviderEnhancedCallLogsSchemaInstanceModifyRequest">
-    <xs:annotation>
-      <xs:documentation>
-      Modify the Enhanced Call Logs schema instance associated with this Service Provider.
-      The response is either a SuccessResponse or an ErrorResponse.
-    </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="name" type="DbSchemaInstanceName" nillable="true" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemEnhancedCallLogsActiveSchemaInstanceGetListRequest">
-    <xs:annotation>
-      <xs:documentation>
-      Request the system level database schema instances defined for Enhanced Call Logs. 
-      For each instance, the number of actual users (users that have the Enhanced Call Logs service,
-      are assigned to that schema instance and have recorded call logs on the NDS) are given. 
-      The response is either a SystemEnhancedCallLogsActiveSchemaInstanceGetListResponse or an ErrorResponse.
-    </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemEnhancedCallLogsActiveSchemaInstanceGetListResponse">
-    <xs:annotation>
-      <xs:documentation>
-      Response to SystemEnhancedCallLogsSchemaInstanceActualUsageGetListRequest.
-      Contains a table with column headings: "Instance Name", "Active Users".     
-    </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="schemaInstanceUsageTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemEnhancedCallLogsGetRequest22V2">
-    <xs:annotation>
-      <xs:documentation>
-        Request the system level data associated with Enhanced Call Logs. The response is either a 
-        SystemEnhancedCallLogsGetResponse22V2 or an ErrorResponse.
+        Request the system level data associated with Enhanced Call Logs. The response is either a
+        SystemEnhancedCallLogsGetResponse20sp1 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -238,16 +223,42 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemEnhancedCallLogsGetResponse22V2">
+  <xs:complexType name="SystemEnhancedCallLogsGetResponse20sp1">
     <xs:annotation>
       <xs:documentation>
-        Response to SystemEnhancedCallLogsGetRequest22V2.
+        Response to SystemEnhancedCallLogsGetRequest20sp1.
+        The following elements are only used in AS data mode:
+          isSendEnabled
+          server1NetAddress
+          server1SendPort
+          server1RetrievePort
+          server2NetAddress
+          server2SendPort
+          server2RetrievePort
+          sharedSecret
+          retransmissionDelayMilliSeconds
+          maxTransmissions
+          soapTimeoutSeconds
+          useDBS
+          eclQueryApplicationURL
+          eclQueryDataRepositoryURL
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
-          <xs:element name="defaultSchema" type="DbSchemaInstanceName" minOccurs="0"/>
+          <xs:element name="isSendEnabled" type="xs:boolean"/>
+          <xs:element name="server1NetAddress" type="NetAddress" minOccurs="0"/>
+          <xs:element name="server1SendPort" type="Port1025"/>
+          <xs:element name="server1RetrievePort" type="Port"/>
+          <xs:element name="server2NetAddress" type="NetAddress" minOccurs="0"/>
+          <xs:element name="server2SendPort" type="Port1025"/>
+          <xs:element name="server2RetrievePort" type="Port"/>
+          <xs:element name="sharedSecret" type="EnhancedCallLogsSharedSecret" minOccurs="0"/>
+          <xs:element name="retransmissionDelayMilliSeconds" type="EnhancedCallLogsRetransmissionDelayMilliSeconds"/>
+          <xs:element name="maxTransmissions" type="EnhancedCallLogsMaxTransmissions"/>
+          <xs:element name="soapTimeoutSeconds" type="EnhancedCallLogsSoapTimeoutSeconds"/>
+          <xs:element name="useDBS" type="xs:boolean"/>
           <xs:element name="maxNonPagedResponseSize" type="EnhancedCallLogsNonPagedResponseSize"/>
           <xs:element name="eclQueryApplicationURL" type="URL" minOccurs="0"/>
           <xs:element name="eclQueryDataRepositoryURL" type="URL" minOccurs="0"/>
@@ -256,38 +267,47 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemEnhancedCallLogsModifyRequest22">
+  <xs:complexType name="SystemEnhancedCallLogsModifyRequest">
     <xs:annotation>
       <xs:documentation>
         Modify the system level data associated with Enhanced Call Logs.
         The response is either a SuccessResponse or an ErrorResponse.
+        The following elements are only used in AS data mode:
+          isSendEnabled
+          server1NetAddress
+          server1SendPort
+          server1RetrievePort
+          server2NetAddress
+          server2SendPort
+          server2RetrievePort
+          sharedSecret
+          retransmissionDelayMilliSeconds
+          maxTransmissions
+          soapTimeoutSeconds
+          useDBS
+          eclQueryApplicationURL
+          eclQueryDataRepositoryURL
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
+          <xs:element name="isSendEnabled" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="server1NetAddress" type="NetAddress" nillable="true" minOccurs="0"/>
+          <xs:element name="server1SendPort" type="Port1025" minOccurs="0"/>
+          <xs:element name="server1RetrievePort" type="Port" minOccurs="0"/>
+          <xs:element name="server2NetAddress" type="NetAddress" nillable="true" minOccurs="0"/>
+          <xs:element name="server2SendPort" type="Port1025" minOccurs="0"/>
+          <xs:element name="server2RetrievePort" type="Port" minOccurs="0"/>
+          <xs:element name="sharedSecret" type="EnhancedCallLogsSharedSecret" nillable="true" minOccurs="0"/>
+          <xs:element name="retransmissionDelayMilliSeconds" type="EnhancedCallLogsRetransmissionDelayMilliSeconds" minOccurs="0"/>
+          <xs:element name="maxTransmissions" type="EnhancedCallLogsMaxTransmissions" minOccurs="0"/>
+          <xs:element name="soapTimeoutSeconds" type="EnhancedCallLogsSoapTimeoutSeconds" minOccurs="0"/>
+          <xs:element name="useDBS" type="xs:boolean" minOccurs="0"/>
           <xs:element name="maxNonPagedResponseSize" type="EnhancedCallLogsNonPagedResponseSize" minOccurs="0"/>
           <xs:element name="eclQueryApplicationURL" type="URL" nillable="true" minOccurs="0"/>
           <xs:element name="eclQueryDataRepositoryURL" type="URL" nillable="true" minOccurs="0"/>
-          <xs:element name="defaultSchema" type="DbSchemaInstanceName" nillable="true" minOccurs="0"/>
         </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemEnhancedCallLogsSchemaInstanceGetListRequest">
-    <xs:annotation>
-      <xs:documentation>
-      Request the system level database schema instances defined for Enhanced Call Logs. 
-      For each instance, the number of actual users (users that have the Enhanced Call Logs service 
-      and are assigned to that schema instance) and the number of potential users are given 
-      (users part of a group or service provider using that schema instance). 
-      The response is either a SystemEnhancedCallLogsSchemaInstanceGetListResponse or an ErrorResponse.
-    </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -296,7 +316,7 @@
     <xs:annotation>
       <xs:documentation>
       Response to SystemEnhancedCallLogsSchemaInstanceGetListRequest.
-      Contains a table with column headings: "Instance Name", "Actual Users", "Potential Users".     
+      Contains a table with column headings: "Instance Name", "Actual Users", "Potential Users".
     </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -308,7 +328,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserEnhancedCallLogsGetListRequest22">
+  <xs:complexType name="UserEnhancedCallLogsGetListRequest21">
     <xs:annotation>
       <xs:documentation>
         Request user's call logs.
@@ -319,9 +339,9 @@
         placed will be returned.
         It is possible to restrict the number of rows returned using responsePagingControl. If responsePagingControl
         is not specified, the value of Enhanced Call Logs system parameter maxNonPagedResponseSize will control
-        the maximum number of call logs can be returned. 
-        The response is either a UserEnhancedCallLogsGetListResponse22 or an ErrorResponse.
-        The following elements are only used in AS data mode and ignored in XS data mode:
+        the maximum number of call logs can be returned.
+        The response is either a UserEnhancedCallLogsGetListResponse21 or an ErrorResponse.
+        The following elements are only used in AS data mode and ignored in HSS data mode:
           callAuthorizationCodeFilter
       </xs:documentation>
     </xs:annotation>
@@ -332,7 +352,7 @@
           <xs:element name="callLogType" type="EnhancedCallLogsCallLogsRequestType" minOccurs="0"/>
           <xs:element name="dateTimeRange" type="EnhancedCallLogsTimeRange"/>
           <xs:element name="numberFilter" type="EnhancedCallLogsNumberFilter" minOccurs="0"/>
-          <xs:element name="redirectedNumberFilter" type="EnhancedCallLogsRedirectedNumberFilter21sp1" minOccurs="0"/>
+          <xs:element name="redirectedNumberFilter" type="EnhancedCallLogsRedirectedNumberFilter21" minOccurs="0"/>
           <xs:element name="accountAuthorizationCodeFilter" type="EnhancedCallLogsAccountAuthorizationCodeFilter" minOccurs="0"/>
           <xs:element name="callAuthorizationCodeFilter" type="EnhancedCallLogsCallAuthorizationCodeFilter" minOccurs="0"/>
           <xs:element name="subscriberType" type="EnhancedCallLogsSubscriberType20" minOccurs="0"/>
@@ -342,16 +362,16 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserEnhancedCallLogsGetListResponse22">
+  <xs:complexType name="UserEnhancedCallLogsGetListResponse21">
     <xs:annotation>
       <xs:documentation>
-        Response to UserEnhancedCallLogsGetListRequest22.
+        Response to UserEnhancedCallLogsGetListRequest21.
         Total numbers of rows is:
-        - the total number of retrievable logs of the call log type that was specified in the UserEnhancedCallLogsGetListRequest22, 
+        - the total number of retrievable logs of the call log type that was specified in the UserEnhancedCallLogsGetListRequest21,
           if a call log type was specified in the request.
         - the total number of retrievable logs, if no call log type was specified in the request.
         A list of MixedCallLogsEntry will be returned if the call logs are stored on CDS
-        A list of ExtendedMixedCallLogsEntry22 will be returned if the call logs are stored on DBS or Couchbase
+        A list of ExtendedMixedCallLogsEntry21 will be returned if the call logs are stored on DBS
         The logs are sorted by date/time of the call.
       </xs:documentation>
     </xs:annotation>
@@ -372,7 +392,7 @@
               <xs:complexType>
                 <xs:annotation/>
                 <xs:sequence>
-                  <xs:element name="extendedCallLog" type="ExtendedMixedCallLogsEntry22" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="extendedCallLog" type="ExtendedMixedCallLogsEntry21" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
@@ -382,32 +402,87 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <!-- ******************************************************************** -->
-  <!-- M E S S A G E   P A R A M E T E R S                                  -->
-  <!-- ******************************************************************** -->
-  <!--
-  The Enhanced Call Logs specific non-primitive attributes are listed here in alphabetical order.
-  -->
-  
-
-  <xs:complexType name="EnhancedCallLogsRedirectedCallSelection21sp1">
+  <xs:simpleType name="EnhancedCallLogsCallExpirationDays">
     <xs:annotation>
       <xs:documentation>
-      Redirected call selection.
-      When " redirectedCall " is set to true, all call logs with redirected call are returned. When it
-      set to false, all call logs without redirected call are returned.
-      The redirected call can be defined by including a subset of Service Invocation Disposition here. 
-      If none included, any call has a ServiceInvocationDisposition value defined in ServiceInvocationDisposition21sp1
-      is considered as a redirected call.
+        The maximum length of time the system will store logged calls.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnhancedCallLogsMaxLoggedCalls17sp4">
+    <xs:annotation>
+      <xs:documentation>
+       Sets the maximum number of logged calls that can be stored.
+     </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="99000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnhancedCallLogsMaxTransmissions">
+    <xs:annotation>
+      <xs:documentation>
+        Maximum transmissions.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnhancedCallLogsNonPagedResponseSize">
+    <xs:annotation>
+      <xs:documentation>
+        The maximum number of call log entries to return when paging information is
+        not specified in the request.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="100"/>
+      <xs:maxInclusive value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EnhancedCallLogsNumberFilter">
+    <xs:annotation>
+      <xs:documentation>
+        Filter criteria based on the called number or number called.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="redirectedCall" type="xs:boolean"/>
-      <xs:element name="redirectType" type="ServiceInvocationDisposition21sp1" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:choice>
+        <xs:element name="includeBasicCallType" type="BasicCallType" maxOccurs="unbounded"/>
+        <xs:element name="includeCallCategory" type="CallCategory" maxOccurs="unbounded"/>
+        <xs:element name="includeConfigurableCallType" type="CommunicationBarringCallType" maxOccurs="unbounded"/>
+        <xs:element name="searchCriteriaDialedNumber" type="SearchCriteriaOutgoingDNorSIPURI" maxOccurs="unbounded"/>
+        <xs:element name="searchCriteriaCalledNumber" type="SearchCriteriaOutgoingDNorSIPURI" maxOccurs="unbounded"/>
+        <xs:element name="searchCriteriaNetworkTranslatedNumber" type="SearchCriteriaOutgoingDNorSIPURI" maxOccurs="unbounded"/>
+        <xs:element name="searchCriteriaCallingPresentationNumber" type="SearchCriteriaOutgoingDNorSIPURI" maxOccurs="unbounded"/>
+      </xs:choice>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="EnhancedCallLogsRedirectedNumberFilter21sp1">
+  <xs:simpleType name="EnhancedCallLogsOutgoingDnis">
+    <xs:annotation>
+      <xs:documentation>
+        Outgoing call center dnis name. In the format of call center id + ":" + DNIS name.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="202"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EnhancedCallLogsRedirectedNumberFilter21">
     <xs:annotation>
       <xs:documentation>
         Filter criteria based on the transferred/forwarded number.
@@ -415,7 +490,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:choice>
-        <xs:element name="redirectedCall" type="EnhancedCallLogsRedirectedCallSelection21sp1"/>
+        <xs:element name="redirectedCall" type="EnhancedCallLogsRedirectedCallSelection21"/>
         <xs:element name="includeServiceInvocationBasicCallType" type="BasicCallType" maxOccurs="unbounded"/>
         <xs:element name="includeServiceInvocationCallCategory" type="CallCategory" maxOccurs="unbounded"/>
         <xs:element name="includeServiceInvocationConfigurableCallType" type="CommunicationBarringCallType" maxOccurs="unbounded"/>
@@ -426,7 +501,109 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="ExtendedMixedCallLogsEntry22">
+  <xs:complexType name="EnhancedCallLogsRedirectedCallSelection21">
+    <xs:annotation>
+      <xs:documentation>
+      Redirected call selection.
+      When " redirectedCall " is set to true, all call logs with redirected call are returned. When it
+      set to false, all call logs without redirected call are returned.
+      The redirected call can be defined by including a subset of Service Invocation Disposition here.
+      If none included, any call has a ServiceInvocationDisposition  value defined in ServiceInvocationDisposition
+      is considered as a redirected call.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="redirectedCall" type="xs:boolean"/>
+      <xs:element name="redirectType" type="ServiceInvocationDisposition21" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EnhancedCallLogsAccountAuthorizationCodeFilter">
+    <xs:annotation>
+      <xs:documentation>
+        Filter criteria based on the account code.
+        When "callsWithCodes" is set to true, all call logs with account/authorization codes are returned.
+        When it set to false, all call logs without account/authorization codes are returned.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="callsWithCodes" type="xs:boolean"/>
+        <xs:element name="accountAuthorizationCode" type="OutgoingCallingPlanAuthorizationCode"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EnhancedCallLogsCallAuthorizationCodeFilter">
+    <xs:annotation>
+      <xs:documentation>
+        Filter criteria based on call authorization code. Note that this code
+        filter is different than EnhancedCallLogsAccountAuthorizationCodeFilter,
+        which applies strictly to codes entered using the account/authorization
+        code service.
+        When "callsWithCodes" is set to true, all call logs with authorization
+        codes are returned.
+        When it set to false, all call logs without authorization codes are
+        returned.
+        If "authorizationCode" is set, all call logs matching that specific
+        authorization code are returned.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="callsWithCodes" type="xs:boolean"/>
+        <xs:element name="authorizationCode" type="OutgoingCallingPlanAuthorizationCode"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="EnhancedCallLogsRetransmissionDelayMilliSeconds">
+    <xs:annotation>
+      <xs:documentation>
+        Retransmission delay in milli-seconds.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="200"/>
+      <xs:maxInclusive value="5000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnhancedCallLogsSharedSecret">
+    <xs:annotation>
+      <xs:documentation>Shared Secret.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnhancedCallLogsSoapTimeoutSeconds">
+    <xs:annotation>
+      <xs:documentation>
+        Timeout when retrieving enhanced call logs through the SOAP interface.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="120"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EnhancedCallLogsTimeRange">
+    <xs:annotation>
+      <xs:documentation>
+        Time range used to filter call logs.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="startDateTime" type="xs:dateTime"/>
+      <xs:element name="endDateTime" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExtendedMixedCallLogsEntry21">
     <xs:annotation>
       <xs:documentation>
         Extended Call Log entry describing a placed, received, or missed call.
@@ -434,19 +611,17 @@
         The following time elements are represented as timestamp, i.e., the number of milliseconds
         since January 1, 1970, 00:00:00 GMT.
         "startTime" represents the time when the system sends out a call invitation message (e.g. for
-        placed calls) or receives a call invitation message (e.g. for missed/received calls). 
+        placed calls) or receives a call invitation message (e.g. for missed/received calls).
         "answerTime" represents the time when the call is answered by the terminating party.
-        "detachedTime" represents the time when the call is successfully redirected by the system.  
-        "releaseTime" represents the time when the call is released. This time corresponds to the 
-        moment the call is released by the system, and not necessarily when one party hangs up, since this 
+        "detachedTime" represents the time when the call is successfully redirected by the system.
+        "releaseTime" represents the time when the call is released. This time corresponds to the
+        moment the call is released by the system, and not necessarily when one party hangs up, since this
         does not always mean the call is released (e.g. Emergency/911 calls).
         The elements "userGroupId", "userId","userPrimaryDn" and "userPrimaryExtension"
         are only returned when the enterprise or group level requests are used.
         The following elements are only used in AS data mode:
           callAuthorizationCode
           securityClassification
-          
-        ExtendedMixedCallLogsEntry21sp1 version: only the ServiceInvocationDisposition21sp1 name changed.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -483,7 +658,7 @@
       <xs:element name="detachedTime" type="xs:long" minOccurs="0"/>
       <xs:element name="detachedAnswerTime" type="xs:long" minOccurs="0"/>
       <xs:element name="outgoingDnis" type="EnhancedCallLogsOutgoingDnis" minOccurs="0"/>
-      <xs:element name="serviceInvocationDisposition" type="ServiceInvocationDisposition21sp1" minOccurs="0"/>
+      <xs:element name="serviceInvocationDisposition" type="ServiceInvocationDisposition21" minOccurs="0"/>
       <xs:element name="serviceInvocationDialedNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
       <xs:element name="serviceInvocationCalledNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
       <xs:element name="serviceInvocationNetworkTranslatedAddress" type="OutgoingDNorSIPURI" minOccurs="0"/>
@@ -506,36 +681,115 @@
       <xs:element name="userPrimaryDn" type="DN" minOccurs="0"/>
       <xs:element name="userPrimaryExtension" type="Extension17" minOccurs="0"/>
       <xs:element name="securityClassification" type="SecurityClassificationName" minOccurs="0"/>
-      <xs:element name="directRouteNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
-      <xs:element name="routeListDN" type="DN" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="EnhancedCallLogsCallExpirationDays">
+  <xs:simpleType name="CallId">
     <xs:annotation>
       <xs:documentation>
-        The maximum length of time the system will store logged calls.
+        The call Id of a call associated a this call log entry
       </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="1000"/>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="40"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="EnhancedCallLogsMaxLoggedCalls17sp4">
+  <xs:simpleType name="CallingPresentationNumberSource">
     <xs:annotation>
       <xs:documentation>
-       Sets the maximum number of logged calls that can be stored.
-     </xs:documentation>
+        Identifies the source of the number used in the Calling Presentation Number field
+      </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="99000"/>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Configurable CLID"/>
+      <xs:enumeration value="DNIS"/>
+      <xs:enumeration value="Emergency"/>
+      <xs:enumeration value="Group"/>
+      <xs:enumeration value="Trunk Group"/>
+      <xs:enumeration value="User"/>
+      <xs:enumeration value="Department"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="ServiceInvocationDisposition21sp1">
+  <xs:simpleType name="PresentationIndicator">
+    <xs:annotation>
+      <xs:documentation>
+        Presentation Indicator
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Anonymous"/>
+      <xs:enumeration value="Anonymous Name"/>
+      <xs:enumeration value="Anonymous URI"/>
+      <xs:enumeration value="Anonymous Unavailable"/>
+      <xs:enumeration value="Public"/>
+      <xs:enumeration value="Unavailable"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ConnectedNumberSource">
+    <xs:annotation>
+      <xs:documentation>
+        Connected Number Type
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Configurable CLID"/>
+      <xs:enumeration value="Group"/>
+      <xs:enumeration value="User"/>
+      <xs:enumeration value="Department"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NetworkType">
+    <xs:annotation>
+      <xs:documentation>
+        The Type of Network for the call provided in the most significant contact from the NS
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Private"/>
+      <xs:enumeration value="Public"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CallCategory">
+    <xs:annotation>
+      <xs:documentation>
+        The Call Category for the call provided in the most significant contact from the NS
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Local"/>
+      <xs:enumeration value="National"/>
+      <xs:enumeration value="Interlata"/>
+      <xs:enumeration value="Intralata"/>
+      <xs:enumeration value="International"/>
+      <xs:enumeration value="Private"/>
+      <xs:enumeration value="Emergency"/>
+      <xs:enumeration value="Other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BasicCallType">
+    <xs:annotation>
+      <xs:documentation>
+        The basic call type for the origination
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Group"/>
+      <xs:enumeration value="Enterprise"/>
+      <xs:enumeration value="Network"/>
+      <xs:enumeration value="Network URL"/>
+      <xs:enumeration value="Repair"/>
+      <xs:enumeration value="Emergency"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ServiceInvocationDisposition21">
     <xs:annotation>
       <xs:documentation>
         Indicates the type of service invocation that caused the call to be detached.
@@ -544,7 +798,6 @@
     <xs:restriction base="xs:token">
       <xs:enumeration value="Automatic Hold/Retrieve"/>
       <xs:enumeration value="Call Forward Always"/>
-      <xs:enumeration value="Call Forward Always Secondary"/>
       <xs:enumeration value="Call Forward Busy"/>
       <xs:enumeration value="Call Forward No Answer"/>
       <xs:enumeration value="Call Forward Not Reachable"/>
@@ -574,4 +827,120 @@
       <xs:enumeration value="Personal Assistant"/>
     </xs:restriction>
   </xs:simpleType>
+
+  <xs:simpleType name="RedirectingPresentationIndicator">
+    <xs:annotation>
+      <xs:documentation>
+        The presentation indicator for the last redirecting party
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Anonymous"/>
+      <xs:enumeration value="Anonymous Name"/>
+      <xs:enumeration value="Anonymous URI"/>
+      <xs:enumeration value="Public"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RedirectingReason">
+    <xs:annotation>
+      <xs:documentation>
+        The reason for the redirection by the last redirecting party
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnhancedCallLogsResponsePageSize">
+    <xs:annotation>
+      <xs:documentation>
+        Maximum number of rows to return in response to a paging request for enhanced call logs
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EnhancedCallLogsResponsePagingControl">
+    <xs:annotation>
+      <xs:documentation>
+        Used in enhanced call logs group and enterprise queries to restrict the set of result
+        rows when making a request that can result in a large dataset. The client specifies the
+        starting row and the number of rows requested.
+        The server only provides those rows in results, if available.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="responseStartIndex" type="ResponseStartIndex"/>
+      <xs:element name="responsePageSize" type="EnhancedCallLogsResponsePageSize"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="EnhancedCallLogsSubscriberType20">
+    <xs:annotation>
+      <xs:documentation>
+        Subscriber type
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Auto Attendant"/>
+      <xs:enumeration value="BroadWorks Anywhere Portal"/>
+      <xs:enumeration value="Call Center"/>
+      <xs:enumeration value="Find-me/Follow-me"/>
+      <xs:enumeration value="Flexible Seating Host"/>
+      <xs:enumeration value="Hunt Group"/>
+      <xs:enumeration value="Route Point"/>
+      <xs:enumeration value="User"/>
+      <xs:enumeration value="VoiceXML"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnhancedCallLogsCallLogsRequestType">
+    <xs:annotation>
+      <xs:documentation>
+        Call Log type used by enhanced call logs requests
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Placed"/>
+      <xs:enumeration value="Received"/>
+      <xs:enumeration value="Missed"/>
+      <xs:enumeration value="ReceivedOrMissed"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CallLogsEntryName17sp4">
+    <xs:annotation>
+      <xs:documentation>
+         Calling Name.
+       </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SearchCriteriaOutgoingDNorSIPURI">
+    <xs:annotation>
+      <xs:documentation>
+        Criteria for searching for a phone number or SIPURI.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="SearchCriteria">
+        <xs:sequence>
+          <xs:element name="mode" type="SearchMode"/>
+          <xs:element name="value" type="OutgoingDNorSIPURI"/>
+          <xs:element name="isCaseInsensitive" type="xs:boolean" fixed="false"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
 </xs:schema>

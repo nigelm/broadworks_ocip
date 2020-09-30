@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- V O I C E   X M L   S E R V I C E                                                    -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- V O I C E   X M L  S E R V I C E                                       -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- V O I C E   X M L   R E Q U E S T S   A N D   R E S P O N S E S                      -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- V O I C E   X M L    R E Q U E S T S  A N D  R E S P O N S E S                     -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    GroupVoiceXmlAddInstanceRequest    
-    GroupVoiceXmlDeleteInstanceRequest    
-    GroupVoiceXmlGetInstanceListRequest    
-    GroupVoiceXmlGetInstanceRequest22    
-    GroupVoiceXmlModifyActiveInstanceListRequest    
-    GroupVoiceXmlModifyInstanceRequest    
--->
+    GroupVoiceXmlAddInstanceRequest
+    GroupVoiceXmlDeleteInstanceRequest
+    GroupVoiceXmlGetInstanceListRequest
+    GroupVoiceXmlGetInstanceRequest19sp1
+    GroupVoiceXmlModifyActiveInstanceListRequest
+    GroupVoiceXmlModifyInstanceRequest
+
+  -->
 
   <xs:complexType name="GroupVoiceXmlAddInstanceRequest">
     <xs:annotation>
@@ -110,11 +117,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupVoiceXmlGetInstanceRequest22">
+  <xs:complexType name="GroupVoiceXmlGetInstanceRequest19sp1">
     <xs:annotation>
       <xs:documentation>
         Request to get all the information of a VoiceXML instance.
-        The response is either GroupVoiceXmlGetInstanceResponse22 or ErrorResponse.
+        The response is either GroupVoiceXmlGetInstanceResponse19sp1 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -126,10 +133,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupVoiceXmlGetInstanceResponse22">
+  <xs:complexType name="GroupVoiceXmlGetInstanceResponse19sp1">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupVoiceXmlGetInstanceRequest22.
+        Response to GroupVoiceXmlGetInstanceRequest19sp1.
         Contains the service profile information and possibly access device information.
       </xs:documentation>
     </xs:annotation>
@@ -138,7 +145,7 @@
         <xs:sequence>
           <xs:element name="serviceInstanceProfile" type="ServiceInstanceReadProfile19sp1"/>
           <xs:element name="networkClassOfService" type="NetworkClassOfServiceName" minOccurs="0"/>
-          <xs:element name="accessDeviceEndpoint" type="AccessDeviceEndpointWithPortNumberRead22" minOccurs="0"/>
+          <xs:element name="accessDeviceEndpoint" type="AccessDeviceEndpointWithPortNumberRead" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -179,4 +186,5 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
 </xs:schema>

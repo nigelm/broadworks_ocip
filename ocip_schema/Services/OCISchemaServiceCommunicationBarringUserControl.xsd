@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- C O M M U N I C A T I O N   B A R R I N G   U S E R   C O N T R O L                  -->
-<!-- S E R V I C E                                                                        -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- C O M M U N I C A T I O N   B A R R I N G   U S E R                    -->
+<!-- C O N T R O L  S E R V I C E                                           -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- C O M M U N I C A T I O N   B A R R I N G   U S E R   C O N T R O L                  -->
-  <!-- R E Q U E S T S   A N D   R E S P O N S E S                                          -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- C O M M U N I C A T I O N   B A R R I N G   U S E R   C O N T R O L                -->
+  <!-- R E Q U E S T S  A N D  R E S P O N S E S                                          -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    SystemCommunicationBarringUserControlGetRequest    
-    SystemCommunicationBarringUserControlModifyRequest    
-    UserCommunicationBarringUserControlGetRequest    
-    UserCommunicationBarringUserControlModifyRequest    
--->
+    SystemCommunicationBarringUserControlGetRequest
+    SystemCommunicationBarringUserControlModifyRequest
+    UserCommunicationBarringUserControlGetRequest
+    UserCommunicationBarringUserControlModifyRequest
+
+  -->
 
   <xs:complexType name="SystemCommunicationBarringUserControlGetRequest">
     <xs:annotation>
@@ -124,7 +131,7 @@
       <xs:documentation>
         Enabling a profile automatically disables the currently active profile.
         Also allows the passcode for the service to be modified and the lockout to be reset.
-        Admins only need to populate the newPasscode field when changing the passcode.  
+        Admins only need to populate the newPasscode field when changing the passcode.
         Users must populate both the oldPasscode and new Passcode fields when changing the passcode.
         The response is either SuccessResponse or ErrorResponse.
       </xs:documentation>
@@ -141,14 +148,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-
-  <!-- ******************************************************************** -->
-  <!-- M E S S A G E   P A R A M E T E R S                                  -->
-  <!-- ******************************************************************** -->
-  <!--
-  The Communication Barring User Control specific non-primitive attributes are listed here in alphabetical order.
-  -->
-  
 
   <xs:simpleType name="CommunicationBarringUserControlLockoutMinutes">
     <xs:annotation>
@@ -169,4 +168,15 @@
       <xs:maxInclusive value="10"/>
     </xs:restriction>
   </xs:simpleType>
+
+  <xs:simpleType name="CommunicationBarringUserControlProfileCode">
+    <xs:annotation>
+      <xs:documentation>Communication Barring Profile code identifying a profile within a Network Class of Service.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+
 </xs:schema>

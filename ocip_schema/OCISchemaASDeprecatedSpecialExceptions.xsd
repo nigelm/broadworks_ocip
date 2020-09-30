@@ -1,71 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   A S   D E P R E C A T E D   S P E C I A L   E X C E P T I O N S   P A R T  -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  A   S   D E P R E C A T E D   S P E C I A L   E X C E P T I O N S  P A R T  -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="OCISchemaUser.xsd"/>
   <xs:include schemaLocation="OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="OCISchemaSearchCriteria.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- A S   D E P R E C A T E D   S P E C I A L   E X C E P T I O N S                      -->
-  <!-- R E Q U E S T S   A N D   R E S P O N S E S                                          -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- A   S   D E P R E C A T E D   S P E C I A L   E X C E P T I O N S  P A R T         -->
+  <!-- R E Q U E S T S  A N D  R E S P O N S E S                                          -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    ExternalAuthenticationAuthorizeTokenRequest    
-    GroupCallCenterForcedForwardingModifyRequest17    
-    GroupCallCenterNightServiceGetRequest17sp1    
-    GroupCallCenterNightServiceModifyRequest17sp1    
-    UserBroadWorksMobilityGetRequest    
-    UserBroadWorksMobilityModifyRequest    
-    UserBroadWorksMobilityModifyRequest20    
-    UserCustomRingbackUserAddCriteriaRequest16    
-    UserCustomRingbackUserGetCriteriaRequest16    
-    UserCustomRingbackUserModifyCriteriaRequest16    
-    UserVoiceMessagingUserGetGreetingRequest18sp1    
-    UserVoiceMessagingUserGetVoicePortalRequest16    
-    UserVoiceMessagingUserModifyGreetingRequest16    
-    UserVoiceMessagingUserModifyVoicePortalRequest16    
--->
+    GroupCallCenterForcedForwardingModifyRequest17
+    GroupCallCenterNightServiceGetRequest17sp1
+    GroupCallCenterNightServiceModifyRequest17sp1
+    UserCustomRingbackUserAddCriteriaRequest16
+    UserCustomRingbackUserModifyCriteriaRequest16
+    UserCustomRingbackUserGetCriteriaRequest16
+    UserVoiceMessagingUserGetGreetingRequest18sp1
+    UserVoiceMessagingUserGetVoicePortalRequest16
+    UserVoiceMessagingUserModifyVoicePortalRequest16
+    UserVoiceMessagingUserModifyGreetingRequest16
+    UserBroadWorksMobilityModifyRequest
+    UserBroadWorksMobilityGetRequest
+    UserBroadWorksMobilityModifyRequest20
 
-  <xs:complexType name="ExternalAuthenticationAuthorizeTokenRequest">
-    <xs:annotation>
-      <xs:documentation>
-        This command is part of the Portal API.
-        Sent when a Web or CLI user logs in using external authentication.
-        The password must be hashed. The password hashing algorithm is:
-        1) The message digest of the user's plain password is calculated using the SHA algorithm.
-        2) For every four bits in the 160-bit digest, starting from the first bit, it is
-           converted into a character in ASCII Hex format (0 through 9, a through f).
-           The result is a 40-character string, for example, f7a9e24777ec23212c54d7a350bc5bea5477fdbb.
-        3) The above string then is used to populate the password field in the request.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="userId" type="UserId"/>
-          <xs:element name="password" type="Password" minOccurs="0"/>
-          <xs:element name="loginToken" type="LoginToken"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+  -->
 
   <xs:complexType name="GroupCallCenterForcedForwardingModifyRequest17">
     <xs:annotation>
@@ -186,103 +167,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserBroadWorksMobilityGetRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get the user's broadworks mobility service settings.
-        The response is either a UserBroadWorksMobilityGetResponse or an ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="userId" type="UserId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserBroadWorksMobilityGetResponse">
-    <xs:annotation>
-      <xs:documentation>
-         Response to a UserBroadWorksMobilityGetRequest.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="isActive" type="xs:boolean"/>
-          <xs:element name="phonesToRing" type="BroadWorksMobilityPhoneToRing"/>
-          <xs:element name="mobilePhoneNumber" type="DN" minOccurs="0"/>
-          <xs:element name="alertClickToDialCalls" type="xs:boolean"/>
-          <xs:element name="alertGroupPagingCalls" type="xs:boolean"/>
-          <xs:element name="enableDiversionInhibitor" type="xs:boolean"/>
-          <xs:element name="requireAnswerConfirmation" type="xs:boolean"/>
-          <xs:element name="broadworksCallControl" type="xs:boolean"/>
-          <xs:element name="useSettingLevel" type="BroadWorksMobilityUserSettingLevel"/>
-          <xs:element name="denyCallOriginations" type="xs:boolean"/>
-          <xs:element name="denyCallTerminations" type="xs:boolean"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserBroadWorksMobilityModifyRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Modify the user's broadworks mobility service settings.
-        The response is either a SuccessResponse or an ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="userId" type="UserId"/>
-          <xs:element name="isActive" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="phonesToRing" type="BroadWorksMobilityPhoneToRing" minOccurs="0"/>
-          <xs:element name="mobilePhoneNumber" type="DN" minOccurs="0" nillable="true"/>
-          <xs:element name="alertClickToDialCalls" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="alertGroupPagingCalls" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="enableDiversionInhibitor" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="requireAnswerConfirmation" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="broadworksCallControl" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="useSettingLevel" type="BroadWorksMobilityUserSettingLevel" minOccurs="0"/>
-          <xs:element name="denyCallOriginations" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="denyCallTerminations" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserBroadWorksMobilityModifyRequest20">
-    <xs:annotation>
-      <xs:documentation>
-        Modify the user's broadworks mobility service settings.
-        The response is either a SuccessResponse or an ErrorResponse.
-        If the request modifies the mobilePhoneNumber and the new number does not belong to the appropriate Mobile Subscriber Directory Numbers pool, the request is rejected. For a service provider the number must belong to the group Mobile Subscriber Directory Numbers pool. For an enterprise user, the number must belong to the enterprise Mobile Subscriber Directory Numbers pool. 
-        If the request is executed by a user and modifies the mobilePhoneNumber, the request is rejected. 
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="userId" type="UserId"/>
-          <xs:element name="isActive" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="phonesToRing" type="BroadWorksMobilityPhoneToRing" minOccurs="0"/>
-          <xs:element name="mobilePhoneNumber" type="DN" minOccurs="0" nillable="true"/>
-          <xs:element name="alertClickToDialCalls" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="alertGroupPagingCalls" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="enableDiversionInhibitor" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="requireAnswerConfirmation" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="broadworksCallControl" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="useSettingLevel" type="BroadWorksMobilityUserSettingLevel" minOccurs="0"/>
-          <xs:element name="denyCallOriginations" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="denyCallTerminations" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="UserCustomRingbackUserAddCriteriaRequest16">
     <xs:annotation>
       <xs:documentation>
@@ -310,61 +194,6 @@
           <xs:element name="callWaitingAudioFile" type="ExtendedMediaFileResource" minOccurs="0"/>
           <xs:element name="callWaitingVideoSelection" type="ExtendedFileResourceSelection" minOccurs="0"/>
           <xs:element name="callWaitingVideoFile" type="ExtendedMediaFileResource" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserCustomRingbackUserGetCriteriaRequest16">
-    <xs:annotation>
-      <xs:documentation>
-        Get a criteria for the user's custom ringback service.
-        The response is either a UserCustomRingbackUserGetCriteriaResponse16 or an ErrorResponse.
-        
-        Replaced by: UserCustomRingbackUserGetCriteriaRequest20 in AS data mode
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="userId" type="UserId"/>
-          <xs:element name="criteriaName" type="CriteriaName"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserCustomRingbackUserGetCriteriaResponse16">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the UserCustomRingbackUserGetCriteriaRequest16.
-        
-        Replaced by: UserCustomRingbackUserGetCriteriaResponse20 in AS data mode
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="timeSchedule" type="TimeSchedule" minOccurs="0"/>
-          <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0"/>
-          <xs:element name="blacklisted" type="xs:boolean"/>
-          <xs:element name="fromDnCriteria" type="CriteriaFromDn"/>
-          <xs:element name="audioSelection" type="ExtendedFileResourceSelection"/>
-          <xs:element name="audioFileDescription" type="FileDescription" minOccurs="0"/>
-          <xs:element name="audioMediaType" type="MediaFileType" minOccurs="0"/>
-          <xs:element name="audioFileUrl" type="URL" minOccurs="0"/>
-          <xs:element name="videoSelection" type="ExtendedFileResourceSelection"/>
-          <xs:element name="videoFileDescription" type="FileDescription" minOccurs="0"/>
-          <xs:element name="videoMediaType" type="MediaFileType" minOccurs="0"/>
-          <xs:element name="videoFileUrl" type="URL" minOccurs="0"/>
-          <xs:element name="callWaitingAudioSelection" type="ExtendedFileResourceSelection" minOccurs="0"/>
-          <xs:element name="callWaitingAudioFileDescription" type="FileDescription" minOccurs="0"/>
-          <xs:element name="callWaitingAudioMediaType" type="MediaFileType" minOccurs="0"/>
-          <xs:element name="callWaitingAudioFileUrl" type="URL" minOccurs="0"/>
-          <xs:element name="callWaitingVideoSelection" type="ExtendedFileResourceSelection" minOccurs="0"/>
-          <xs:element name="callWaitingVideoFileDescription" type="FileDescription" minOccurs="0"/>
-          <xs:element name="callWaitingVideoMediaType" type="MediaFileType" minOccurs="0"/>
-          <xs:element name="callWaitingVideoFileUrl" type="URL" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -403,13 +232,64 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="UserCustomRingbackUserGetCriteriaRequest16">
+    <xs:annotation>
+      <xs:documentation>
+        Get a criteria for the user's custom ringback service.
+        The response is either a UserCustomRingbackUserGetCriteriaResponse16 or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="criteriaName" type="CriteriaName"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserCustomRingbackUserGetCriteriaResponse16">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the UserCustomRingbackUserGetCriteriaRequest16.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="timeSchedule" type="TimeSchedule" minOccurs="0"/>
+          <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0"/>
+          <xs:element name="blacklisted" type="xs:boolean"/>
+          <xs:element name="fromDnCriteria" type="CriteriaFromDn"/>
+          <xs:element name="audioSelection" type="ExtendedFileResourceSelection"/>
+          <xs:element name="audioFileDescription" type="FileDescription" minOccurs="0"/>
+          <xs:element name="audioMediaType" type="MediaFileType" minOccurs="0"/>
+          <xs:element name="audioFileUrl" type="URL" minOccurs="0"/>
+          <xs:element name="videoSelection" type="ExtendedFileResourceSelection"/>
+          <xs:element name="videoFileDescription" type="FileDescription" minOccurs="0"/>
+          <xs:element name="videoMediaType" type="MediaFileType" minOccurs="0"/>
+          <xs:element name="videoFileUrl" type="URL" minOccurs="0"/>
+          <xs:element name="callWaitingAudioSelection" type="ExtendedFileResourceSelection" minOccurs="0"/>
+          <xs:element name="callWaitingAudioFileDescription" type="FileDescription" minOccurs="0"/>
+          <xs:element name="callWaitingAudioMediaType" type="MediaFileType" minOccurs="0"/>
+          <xs:element name="callWaitingAudioFileUrl" type="URL" minOccurs="0"/>
+          <xs:element name="callWaitingVideoSelection" type="ExtendedFileResourceSelection" minOccurs="0"/>
+          <xs:element name="callWaitingVideoFileDescription" type="FileDescription" minOccurs="0"/>
+          <xs:element name="callWaitingVideoMediaType" type="MediaFileType" minOccurs="0"/>
+          <xs:element name="callWaitingVideoFileUrl" type="URL" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="UserVoiceMessagingUserGetGreetingRequest18sp1">
     <xs:annotation>
       <xs:documentation>
         Get the user's voice messaging greeting information.
         The response is either a UserVoiceMessagingUserGetGreetingResponse18sp1 or an ErrorResponse.
-        
-        Replaced by: UserVoiceMessagingUserGetGreetingRequest20 in AS data mode
+
+        Replaced by UserVoiceMessagingUserGetGreetingRequest20
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -427,19 +307,17 @@
         Response to UserVoiceMessagingUserGetGreetingRequest18sp1.
         Contains the greeting configuration for a user's voice messaging.
         The following elements are only used in AS data mode:
-          disableMessageDeposit, value "false" is returned in XS data mode
-          disableMessageDepositAction, value "Disconnect" is returned in XS data mode
-          extendedAwayEnabled, value "false" is returned in XS data mode
-          extendedAwayDisableMessageDeposit, value "true" is returned in XS data mode
-          
-        The following elements are only used in AS data mode and not returned in XS data mode:
+          disableMessageDeposit
+          disableMessageDepositAction
           greetingOnlyForwardDestination
+          extendedAwayEnabled
+          extendedAwayDisableMessageDeposit
           extendedAwayAudioFile
           extendedAwayAudioMediaType
           extendedAwayVideoFile
-          extendedAwayVideoMediaType
-          
-          Replaced by: UserVoiceMessagingUserGetGreetingResponse20 in AS data mode
+          extendedAwayVideoMediaTyp
+
+          Replaced by UserVoiceMessagingUserGetGreetingResponse20
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -507,18 +385,59 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="VoiceMessagingAlternateNoAnswerGreetingRead16">
+    <xs:annotation>
+      <xs:documentation>
+        The configuration of a alternate no answer greeting.
+        It is used when geting a user's voice messaging greeting.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" type="VoiceMessagingAlternateNoAnswerGreetingName"/>
+      <xs:element name="audioFile" type="FileDescription" minOccurs="0"/>
+      <xs:element name="audioMediaType" type="MediaFileType" minOccurs="0"/>
+      <xs:element name="videoFile" type="FileDescription" minOccurs="0"/>
+      <xs:element name="videoMediaType" type="MediaFileType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UserVoiceMessagingUserModifyVoicePortalRequest16">
+    <xs:annotation>
+      <xs:documentation>
+        Modify the user's voice messaging voice portal settings.
+        The response is either a SuccessResponse
+        or an ErrorResponse.
+        Engineering Note: This command is used internally by Call Processing.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="usePersonalizedName" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="voicePortalAutoLogin" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="personalizedNameAudioFile" type="LabeledMediaFileResource" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="UserVoiceMessagingUserModifyGreetingRequest16">
     <xs:annotation>
+      <xs:appinfo>
+        <asDataModeSupported>true</asDataModeSupported>
+        <hssDataModeSupported>true</hssDataModeSupported>
+      </xs:appinfo>
       <xs:documentation>
         Modify the user's voice messaging greeting.
         The response is either a SuccessResponse or an ErrorResponse.
         Engineering Note: This command is used internally by Call Processing.
-        The following elements are only used in AS data mode and ignored in XS data mode:
+        The following elements are only used in AS data mode:
           disableMessageDeposit
           disableMessageDepositAction
           greetingOnlyForwardDestination
-          
-        Replaced by UserVoiceMessagingUserModifyGreetingRequest20 in AS data mode    
+
+        Replaced by UserVoiceMessagingUserModifyGreetingRequest20
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -547,24 +466,145 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserVoiceMessagingUserModifyVoicePortalRequest16">
+  <xs:complexType name="CallCenterAnnouncementDescriptionList">
     <xs:annotation>
       <xs:documentation>
-        Modify the user's voice messaging voice portal settings.
-        The response is either a SuccessResponse
-        or an ErrorResponse.
-        Engineering Note: This command is used internally by Call Processing.
+        Contains list of file descriptions for audio or video files
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fileDescription1" type="FileDescription" minOccurs="0"/>
+      <xs:element name="fileDescription2" type="FileDescription" minOccurs="0"/>
+      <xs:element name="fileDescription3" type="FileDescription" minOccurs="0"/>
+      <xs:element name="fileDescription4" type="FileDescription" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CallCenterAnnouncementMediaFileTypeList">
+    <xs:annotation>
+      <xs:documentation>
+        Contains list of file media types for audio or video files
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="mediaType1" type="MediaFileType" minOccurs="0"/>
+      <xs:element name="mediaType2" type="MediaFileType" minOccurs="0"/>
+      <xs:element name="mediaType3" type="MediaFileType" minOccurs="0"/>
+      <xs:element name="mediaType4" type="MediaFileType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UserBroadWorksMobilityModifyRequest">
+    <xs:annotation>
+      <xs:appinfo>
+        <asDataModeSupported>true</asDataModeSupported>
+        <hssDataModeSupported>false</hssDataModeSupported>
+      </xs:appinfo>
+      <xs:documentation>
+        Modify the user's broadworks mobility service settings.
+        The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
           <xs:element name="userId" type="UserId"/>
-          <xs:element name="usePersonalizedName" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="voicePortalAutoLogin" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="personalizedNameAudioFile" type="LabeledMediaFileResource" minOccurs="0"/>
+          <xs:element name="isActive" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="phonesToRing" type="BroadWorksMobilityPhoneToRing" minOccurs="0"/>
+          <xs:element name="mobilePhoneNumber" type="DN" minOccurs="0" nillable="true"/>
+          <xs:element name="alertClickToDialCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="alertGroupPagingCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enableDiversionInhibitor" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="requireAnswerConfirmation" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="broadworksCallControl" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="useSettingLevel" type="BroadWorksMobilityUserSettingLevel" minOccurs="0"/>
+          <xs:element name="denyCallOriginations" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="denyCallTerminations" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
+  <xs:complexType name="UserBroadWorksMobilityGetRequest">
+    <xs:annotation>
+      <xs:appinfo>
+        <asDataModeSupported>true</asDataModeSupported>
+        <hssDataModeSupported>false</hssDataModeSupported>
+      </xs:appinfo>
+      <xs:documentation>
+        Get the user's broadworks mobility service settings.
+        The response is either a UserBroadWorksMobilityGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserBroadWorksMobilityGetResponse">
+    <xs:annotation>
+      <xs:appinfo>
+        <asDataModeSupported>true</asDataModeSupported>
+        <hssDataModeSupported>false</hssDataModeSupported>
+      </xs:appinfo>
+      <xs:documentation>
+         Response to a UserBroadWorksMobilityGetRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="isActive" type="xs:boolean"/>
+          <xs:element name="phonesToRing" type="BroadWorksMobilityPhoneToRing"/>
+          <xs:element name="mobilePhoneNumber" type="DN" minOccurs="0"/>
+          <xs:element name="alertClickToDialCalls" type="xs:boolean"/>
+          <xs:element name="alertGroupPagingCalls" type="xs:boolean"/>
+          <xs:element name="enableDiversionInhibitor" type="xs:boolean"/>
+          <xs:element name="requireAnswerConfirmation" type="xs:boolean"/>
+          <xs:element name="broadworksCallControl" type="xs:boolean"/>
+          <xs:element name="useSettingLevel" type="BroadWorksMobilityUserSettingLevel"/>
+          <xs:element name="denyCallOriginations" type="xs:boolean"/>
+          <xs:element name="denyCallTerminations" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserBroadWorksMobilityModifyRequest20">
+    <xs:annotation>
+      <xs:appinfo>
+        <asDataModeSupported>true</asDataModeSupported>
+        <hssDataModeSupported>false</hssDataModeSupported>
+      </xs:appinfo>
+      <xs:documentation>
+        Modify the user's broadworks mobility service settings.
+        The response is either a SuccessResponse or an ErrorResponse.
+        If the request modifies the mobilePhoneNumber and the new number does not belong to the appropriate Mobile Subscriber Directory Numbers pool, the request is rejected. For a service provider the number must belong to the group Mobile Subscriber Directory Numbers pool. For an enterprise user, the number must belong to the enterprise Mobile Subscriber Directory Numbers pool.
+        If the request is executed by a user and modifies the mobilePhoneNumber, the request is rejected.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="isActive" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="phonesToRing" type="BroadWorksMobilityPhoneToRing" minOccurs="0"/>
+          <xs:element name="mobilePhoneNumber" type="DN" minOccurs="0" nillable="true"/>
+          <xs:element name="alertClickToDialCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="alertGroupPagingCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enableDiversionInhibitor" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="requireAnswerConfirmation" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="broadworksCallControl" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="useSettingLevel" type="BroadWorksMobilityUserSettingLevel" minOccurs="0"/>
+          <xs:element name="denyCallOriginations" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="denyCallTerminations" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
 </xs:schema>

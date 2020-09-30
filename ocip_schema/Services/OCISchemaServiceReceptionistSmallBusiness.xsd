@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- R E C E P T I O N I S T   S M A L L   B U S I N E S S                                -->
-<!-- S E R V I C E                                                                        -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- R E C E P T I O N I S T   S M A L L   B U S I N E S S  S E R V I C E   -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- R E C E P T I O N I S T   S M A L L   B U S I N E S S                                -->
-  <!-- R E Q U E S T S   A N D   R E S P O N S E S                                          -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- R E C E P T I O N I S T   S M A L L   B U S I N E S S                              -->
+  <!-- R E Q U E S T S  A N D  R E S P O N S E S                                          -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    UserBroadWorksReceptionistSmallBusinessGetAvailableUserListRequest    
-    UserBroadWorksReceptionistSmallBusinessGetRequest    
-    UserBroadWorksReceptionistSmallBusinessModifyRequest    
--->
+    UserBroadWorksReceptionistSmallBusinessGetAvailableUserListRequest
+    UserBroadWorksReceptionistSmallBusinessGetRequest
+    UserBroadWorksReceptionistSmallBusinessModifyRequest
+
+  -->
 
   <xs:complexType name="UserBroadWorksReceptionistSmallBusinessGetAvailableUserListRequest">
     <xs:annotation>
@@ -63,8 +69,8 @@
       <xs:documentation>
         Response to the UserBroadWorksReceptionistSmallBusinessGetAvailableUserListRequest.
         Returns a 11 column table with column headings:
-          "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name", 
-          "Group Id", "Phone Number", "Extension", "Mobile", "Email Address", "Department", "IMP Id", "Title".
+          "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
+          "Group Id", "Phone Number", "Extension", "Mobile", "Email Address", "Department", "IMP Id".
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -97,8 +103,8 @@
       <xs:documentation>
         Response to UserBroadWorksReceptionistSmallBusinessGetRequest.
         Returns a 12 column table with column headings:
-          "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name", 
-          "Group Id", "Phone Number", "Extension", "Mobile", "Email Address", "Department", "IMP Id", "Title".
+          "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
+          "Group Id", "Phone Number", "Extension", "Mobile", "Email Address", "Department", "IMP Id".
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -126,4 +132,5 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
 </xs:schema>

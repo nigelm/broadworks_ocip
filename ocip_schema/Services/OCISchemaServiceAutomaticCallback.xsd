@@ -1,99 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ************************************************************************************ -->
-<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
-<!-- ************************************************************************************ -->
-<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
-<!--                                                                                      -->
-<!-- A U T O M A T I C   C A L L B A C K   S E R V I C E                                  -->
-<!--                                                                                      -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
-<!-- Open Client Interface (OCI).                                                         -->
-<!-- ************************************************************************************ -->
-<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+<!-- ********************************************************************** -->
+<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
+<!-- ********************************************************************** -->
+<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
+<!--                                                                        -->
+<!-- A U T O M A T I C   C A L L B A C K  S E R V I C E                     -->
+<!--                                                                        -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
+<!-- Open Client Interface (OCI).                                           -->
+<!-- ********************************************************************** -->
 
-  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
+           xmlns:core           = "C"
+           xmlns                = ""
+           attributeFormDefault = "qualified"
+           elementFormDefault   = "qualified">
+
+  <xs:import namespace      = "C"
+             schemaLocation = "../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
 
-  <!-- ************************************************************************************ -->
-  <!-- A U T O M A T I C   C A L L B A C K   R E Q U E S T S   A N D   R E S P O N S E S    -->
-  <!-- ************************************************************************************ -->
+  <!-- ********************************************************************************** -->
+  <!-- A U T O M A T I C   C A L L B A C K    R E Q U E S T S  A N D  R E S P O N S E S   -->
+  <!-- ********************************************************************************** -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    SystemAutomaticCallbackAddReleaseCauseListRequest    
-    SystemAutomaticCallbackDeleteReleaseCauseListRequest    
-    SystemAutomaticCallbackGetReleaseCauseListRequest    
-    SystemAutomaticCallbackGetRequest17    
-    SystemAutomaticCallbackModifyRequest15    
-    UserAutomaticCallbackGetRequest    
-    UserAutomaticCallbackModifyRequest    
--->
+    SystemAutomaticCallbackGetRequest17
+    SystemAutomaticCallbackModifyRequest15
+    SystemAutomaticCallbackGetReleaseCauseListRequest
+    SystemAutomaticCallbackAddReleaseCauseListRequest
+    SystemAutomaticCallbackDeleteReleaseCauseListRequest
+    UserAutomaticCallbackGetRequest
+    UserAutomaticCallbackModifyRequest
 
-  <xs:complexType name="SystemAutomaticCallbackAddReleaseCauseListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Adds automatic callback release cause to the releaseCause attribute.
-        The response is either a SuccessResponse or an ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="releaseCause" type="AutomaticCallbackReleaseCause" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemAutomaticCallbackDeleteReleaseCauseListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Deletes automatic callback release causes from the release cause attribute.
-        The response is either a SuccessResponse or an ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="releaseCause" type="AutomaticCallbackReleaseCause" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemAutomaticCallbackGetReleaseCauseListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Request the system's automatic callback attributes.
-        The response is either a SystemAutomaticCallbackGetReleaseCauseListResponse or an ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemAutomaticCallbackGetReleaseCauseListResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to SystemAutomaticCallbackGetReleaseCauseListRequest.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="releaseCause" type="AutomaticCallbackReleaseCause" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+  -->
 
   <xs:complexType name="SystemAutomaticCallbackGetRequest17">
     <xs:annotation>
@@ -154,6 +100,67 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemAutomaticCallbackGetReleaseCauseListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request the system's automatic callback attributes.
+        The response is either a SystemAutomaticCallbackGetReleaseCauseListResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemAutomaticCallbackGetReleaseCauseListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemAutomaticCallbackGetReleaseCauseListRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="releaseCause" type="AutomaticCallbackReleaseCause" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemAutomaticCallbackAddReleaseCauseListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Adds automatic callback release cause to the releaseCause attribute.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="releaseCause" type="AutomaticCallbackReleaseCause" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemAutomaticCallbackDeleteReleaseCauseListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Deletes automatic callback release causes from the release cause attribute.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="releaseCause" type="AutomaticCallbackReleaseCause" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="UserAutomaticCallbackGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -203,23 +210,15 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <!-- ******************************************************************** -->
-  <!-- M E S S A G E   P A R A M E T E R S                                  -->
-  <!-- ******************************************************************** -->
-  <!--
-  The Automatic Callback specific non-primitive attributes are listed here in alphabetical order.
-  -->
-  
-
-  <xs:simpleType name="AutomaticCallbackActivationDigit">
+  <xs:simpleType name="AutomaticCallbackMethod">
     <xs:annotation>
       <xs:documentation>
-        Callback Activation Digit.
+        Automatic Callback methods.
       </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="0"/>
-      <xs:maxInclusive value="9"/>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Notify Only"/>
+      <xs:enumeration value="Notify If Possible And Polling Otherwise"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -259,18 +258,6 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="AutomaticCallbackMethod">
-    <xs:annotation>
-      <xs:documentation>
-        Automatic Callback methods.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Notify Only"/>
-      <xs:enumeration value="Notify If Possible And Polling Otherwise"/>
-    </xs:restriction>
-  </xs:simpleType>
-
   <xs:simpleType name="AutomaticCallbackMonitorMinutes">
     <xs:annotation>
       <xs:documentation>
@@ -306,4 +293,36 @@
       <xs:maxInclusive value="300"/>
     </xs:restriction>
   </xs:simpleType>
+
+  <xs:simpleType name="AutomaticCallbackActivationDigit">
+    <xs:annotation>
+      <xs:documentation>
+        Callback Activation Digit.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AutomaticCallbackReleaseCause">
+    <xs:annotation>
+      <xs:documentation>
+        Callback Release Cause.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Busy"/>
+      <xs:enumeration value="Forbidden"/>
+      <xs:enumeration value="Global Failure"/>
+      <xs:enumeration value="Request Failure"/>
+      <xs:enumeration value="Server Failure"/>
+      <xs:enumeration value="Translation Failure"/>
+      <xs:enumeration value="Temporarily Unavailable"/>
+      <xs:enumeration value="User Not Found"/>
+      <xs:enumeration value="Request Timeout"/>
+    </xs:restriction>
+  </xs:simpleType>
+
 </xs:schema>
