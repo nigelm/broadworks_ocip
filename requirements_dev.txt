@@ -11,5 +11,5 @@ toposort==1.5
 tox==3.20.0
 twine==3.2.0
 watchdog==0.10.3
-wheel
+wheel==0.35.1
 xmlschema==1.2.0
