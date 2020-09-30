@@ -26,12 +26,19 @@ Interfaces to the OCI-P provisioning interface of a Broadworks softswitch
 Features
 --------
 
-* TODO
+* python objects to match all Broadworks schema objects
+* API framework to talk to a Broadworks server
+* additional magic to handle atuhentication and sessions
+* Based on Broadworks schema R21
+
 
 Credits
 -------
 
+The class is built using Michael DeHaan's `ClassForge`_ object system.
+
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
+.. _ClassForge: https://classforge.io/
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
