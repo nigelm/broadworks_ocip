@@ -28,22 +28,36 @@ FORMATTER = logging.Formatter(
 
 
 class BroadworksAPI(Class):
-    """ """
+    """
+    BroadworksAPI - A class encapsulating the Broadworks OCI-P API
+    """
 
-    session = Field(type=str)
-    host = Field(type=str, required=True)
-    port = Field(type=int, default=2208)
-    username = Field(type=str, required=True)
-    password = Field(type=str, required=True)
+    #: string: hostname/ip to connect to
+    host = Field(type=str, required=True, mutable=False)
+    #: int: port number to connect to. Default 2208
+    port = Field(type=int, default=2208, mutable=False)
+    #: string: username to authenticate with
+    username = Field(type=str, required=True, mutable=False)
+    #: string: password to authenticate with
+    password = Field(type=str, required=True, mutable=False)
+    #: logger to use - set up internally by default
     logger = Field(type=object)
-    despatch_table = Field(type=dict)
+    _despatch_table = Field(type=dict)
+    #: boolean: are we authenticated?
     authenticated = Field(type=bool, default=False)
+    #: integer: connection timeout value (default 8)
     connect_timeout = Field(type=int, default=8)
+    #: integer: command timeout value (default 30)
     command_timeout = Field(type=int, default=30)
+    #: socket: connection socket - set up internally
     socket = Field(type=object, default=None)
+    #: string: session id - set up internally, only set this for testing
+    session = Field(type=str)
 
     def on_init(self):
-        """ """
+        """
+        Initialise the API object
+        """
         if self.session is None:
             self.session = str(uuid.uuid4())
         if self.logger is None:
@@ -52,7 +66,9 @@ class BroadworksAPI(Class):
         self.authenticated = False
 
     def build_despatch_table(self):
-        """ """
+        """
+        Create a despatch table of commands and types used
+        """
         self.logger.debug("Building Broadworks despatch table")
         despatch_table = {}
         # deal with all the main request/responses
@@ -75,11 +91,13 @@ class BroadworksAPI(Class):
                 despatch_table[name] = data
                 despatch_table["c:" + name] = data  # namespace issues
         # we now have a despatch table...
-        self.despatch_table = despatch_table
+        self._despatch_table = despatch_table
         self.logger.debug("Built Broadworks despatch table")
 
     def configure_logger(self):
-        """ """
+        """
+        Create and configure a logging object
+        """
         logger = logging.getLogger("broadworks_api")
         logger.setLevel(logging.DEBUG)
         console_handler = logging.StreamHandler(sys.stdout)
@@ -89,29 +107,53 @@ class BroadworksAPI(Class):
         self.logger = logger
 
     def get_command_class(self, command):
+        """
+        Given a name (Request/Response/Type) name, return a class object for it
+
+        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
+        :type command: str
+        :rtype: class object
+        :raises: KeyError
+        """
         try:
-            cls = self.despatch_table[command]
+            cls = self._despatch_table[command]
         except KeyError as e:
             self.logger.error(f"Unknown command requested - {command}")
             raise e
         return cls
 
-    def get_command_xml(self, command, **kwargs):
+    def get_command_object(self, command, **kwargs):
         """
+        Build the OCICommand object instance for a command and parameter
 
-        :param command:
-        :param **kwargs:
-
+        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
+        :type command: str
+        :param kwargs: The parameters for the command
+        :rtype: Object instance
         """
         cls = self.get_command_class(command)
         cmd = cls(_session=self.session, **kwargs)
+        return cmd
+
+    def get_command_xml(self, command, **kwargs):
+        """
+        Build the XML for a command and parameter
+
+        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
+        :type command: str
+        :param kwargs: The parameters for the command
+        :rtype: XML string
+        """
+        cmd = self.get_command_object(command, **kwargs)
         return cmd._build_xml()
 
     def send_command(self, command, **kwargs):
         """
+        Build the XML for a command and parameter and send it to the server
 
-        :param command:
-        :param **kwargs:
+        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
+        :type command: str
+        :param kwargs: The parameters for the command
 
         """
         self.logger.info(f">>> {command}")
@@ -120,7 +162,12 @@ class BroadworksAPI(Class):
         self.socket.sendall(xml + b"\n")
 
     def receive_response(self):
-        """ """
+        """
+        Wait and receive response XML from server, and decode it
+
+        :rtype: Object instance
+        :raises: OCIErrorTimeOut
+        """
         content = b""
         while True:
             readable, writable, exceptional = select.select(
@@ -142,9 +189,11 @@ class BroadworksAPI(Class):
 
     def decode_xml(self, xml):
         """
+        Decode XML into an OCICommand based object instance
 
-        :param xml:
-
+        :param xml:XML string
+        :type command: str
+        :rtype: Object instance
         """
         root = etree.fromstring(xml)
         if root.tag != "{C}BroadsoftDocument":
@@ -154,14 +203,19 @@ class BroadworksAPI(Class):
             if element.tag == "command":
                 command = element.get("{http://www.w3.org/2001/XMLSchema-instance}type")
                 self.logger.debug(f"Decoding command {command}")
-                cls = self.despatch_table[command]
+                cls = self._despatch_table[command]
                 result = cls._build_from_etree(element)
                 self.logger.info(f"<<< {result._type}")
                 result._post_xml_decode()
                 return result
 
     def connect(self):
-        """ """
+        """
+        Open the connection to the OCI-P server
+
+        :raises: OSError
+        :raises: socket.timeout
+        """
         self.logger.debug(f"Attempting connection host={self.host} port={self.port}")
         try:
             address = (self.host, self.port)
@@ -179,7 +233,11 @@ class BroadworksAPI(Class):
             raise e
 
     def authenticate(self):
-        """ """
+        """
+        Authenticate the connection to the OCI-P server
+
+        :raises: OCIErrorResponse
+        """
         self.send_command("AuthenticationRequest", user_id=self.username)
         resp = self.receive_response()
         authhash = hashlib.sha1(self.password.encode()).hexdigest().lower()
@@ -199,10 +257,14 @@ class BroadworksAPI(Class):
 
     def command(self, command, **kwargs):
         """
+        Send a command and parameters to the server, receive and decode a response
 
-        :param command:
-        :param **kwargs:
-
+        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
+        :type command: str
+        :param kwargs: The parameters for the command
+        :rtype: Object instance
+        :raises: OCIErrorResponse
+        :raises: OCIErrorResponse
         """
         if not self.authenticated:
             self.connect()
@@ -211,7 +273,9 @@ class BroadworksAPI(Class):
         return self.receive_response()
 
     def close(self):
-        """ """
+        """
+        Close the connection to the OCI-P server
+        """
         if self.authenticated:
             self.logger.debug("Disconnect by logging out")
             self.send_command(
