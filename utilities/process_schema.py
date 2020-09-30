@@ -37,6 +37,8 @@ def process_element_type(element, params, phash, prefix):
             thistype = "bool"
         elif type.primitive_type.id == "decimal":
             thistype = "int"
+        elif phash["is_array"]:
+            thistype = "list"
     params.append(f"type={thistype}")
     phash["type"] = thistype
 
@@ -47,10 +49,15 @@ def process_class_elements(file, xsd_component, prefix=""):
         name = camel_to_snake(elem.name)
         params = []
         is_required = True if elem.min_occurs > 0 else False
+        if elem.min_occurs == 0 and elem.max_occurs is None:
+            is_array = True
+        else:
+            is_array = False
         phash = {
             "name": name,
             "xmlname": elem.name,
             "is_required": is_required,
+            "is_array": is_array,
             "is_table": False,
             "unknown": False,
         }
@@ -65,8 +72,8 @@ def process_class_elements(file, xsd_component, prefix=""):
         comment = "  # unknown" if item["unknown"] else ""
         file.write(
             f'        E("{item["name"]}", "{item["xmlname"]}", {item["type"]}, '
-            f'{item["is_complex"]}, {item["is_required"]}, {item["is_table"]}, ),'
-            f"{comment}\n",
+            f'{item["is_complex"]}, {item["is_required"]}, {item["is_array"]}, '
+            f'{item["is_table"]}, ),{comment}\n',
         )
     file.write("    )\n")
     for item in element_hash.values():
@@ -79,6 +86,8 @@ def process_class_elements(file, xsd_component, prefix=""):
         else:
             comment_bits.append("*Optional*")
         comment_bits.append(item["xmlname"])
+        if item["is_array"]:
+            comment_bits.append(" *Array*")
         if item["is_table"]:
             comment_bits.append(" *Tabular*")
         comment_length = 0

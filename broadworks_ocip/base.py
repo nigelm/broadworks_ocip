@@ -17,7 +17,15 @@ from broadworks_ocip.exceptions import OCIErrorResponse
 class ElementInfo(
     namedtuple(
         "ElementInfo",
-        ["name", "xmlname", "type", "is_complex", "is_required", "is_table"],
+        [
+            "name",
+            "xmlname",
+            "type",
+            "is_complex",
+            "is_required",
+            "is_array",
+            "is_table",
+        ],
     ),
 ):
     """
@@ -150,18 +158,25 @@ class OCIType(Class):
         """
         initialiser = {}
         for elem in cls._ELEMENTS:
-            node = element.find(elem.xmlname)
-            if node is not None:
-                if elem.is_table:
-                    initialiser[elem.name] = cls._decode_table(node)
-                elif elem.is_complex:
-                    initialiser[elem.name] = elem.type._build_from_etree(node)
-                else:
-                    initialiser[elem.name] = elem.type(node.text)
-            # else...
-            # I am inclined to thow an error here - at least after checking if
-            # the thing is require, but the class builder should do that so lets
-            # let it do its thing
+            if elem.is_array:
+                result = []
+                nodes = element.findall(elem.xmlname)
+                for node in nodes:
+                    result.append(node.text)
+                initialiser[elem.name] = result
+            else:
+                node = element.find(elem.xmlname)
+                if node is not None:
+                    if elem.is_table:
+                        initialiser[elem.name] = cls._decode_table(node)
+                    elif elem.is_complex:
+                        initialiser[elem.name] = elem.type._build_from_etree(node)
+                    else:
+                        initialiser[elem.name] = elem.type(node.text)
+                # else...
+                # I am inclined to thow an error here - at least after checking if
+                # the thing is require, but the class builder should do that so lets
+                # let it do its thing
         # now have a dict with all the bits in it.
         # use that to build a new object
         return cls(**initialiser)
@@ -252,11 +267,19 @@ class ErrorResponse(OCIResponse):
     """
 
     _ELEMENTS = (
-        ElementInfo("error_code", "errorCode", int, False, False, False),
-        ElementInfo("summary", "summary", str, False, True, False),
-        ElementInfo("summary_english", "summaryEnglish", str, False, True, False),
-        ElementInfo("detail", "detail", str, False, False, False),
-        ElementInfo("type", "type", str, False, False, False),
+        ElementInfo("error_code", "errorCode", int, False, False, False, False),
+        ElementInfo("summary", "summary", str, False, True, False, False),
+        ElementInfo(
+            "summary_english",
+            "summaryEnglish",
+            str,
+            False,
+            True,
+            False,
+            False,
+        ),
+        ElementInfo("detail", "detail", str, False, False, False, False),
+        ElementInfo("type", "type", str, False, False, False, False),
     )
     error_code = Field(type=int, required=False)
     summary = Field(type=str, required=True)
