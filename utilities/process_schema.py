@@ -37,6 +37,11 @@ def process_element_type(element, params, phash, prefix):
             thistype = "bool"
         elif type.primitive_type.id == "decimal":
             thistype = "int"
+    # special case some types
+    if thistype in ("UnboundedPositiveInt"):
+        thistype = "str"
+        phash["is_complex"] = False
+    # emit type info
     if phash["is_array"]:
         params.append("type=list")
     else:
