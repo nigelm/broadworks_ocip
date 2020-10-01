@@ -37,9 +37,10 @@ def process_element_type(element, params, phash, prefix):
             thistype = "bool"
         elif type.primitive_type.id == "decimal":
             thistype = "int"
-        elif phash["is_array"]:
-            thistype = "list"
-    params.append(f"type={thistype}")
+    if phash["is_array"]:
+        params.append("type=list")
+    else:
+        params.append(f"type={thistype}")
     phash["type"] = thistype
 
 
@@ -49,6 +50,8 @@ def process_class_elements(file, xsd_component, prefix=""):
         name = camel_to_snake(elem.name)
         params = []
         is_required = True if elem.min_occurs > 0 else False
+        if is_required and elem.parent.model == "choice":
+            is_required = False
         if elem.min_occurs == 0 and elem.max_occurs is None:
             is_array = True
         else:
@@ -80,7 +83,10 @@ def process_class_elements(file, xsd_component, prefix=""):
         params = item["params"]
         param_str = ", ".join(params) + ", "
         # build the comment up with name/types etc
-        comment_bits = [f"{item['type']}:"]
+        if item["is_array"]:
+            comment_bits = [f"list({item['type']}):"]
+        else:
+            comment_bits = [f"{item['type']}:"]
         if item["is_required"]:
             comment_bits.append("*Required*")
         else:
