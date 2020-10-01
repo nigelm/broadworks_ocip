@@ -72,7 +72,11 @@ class BroadworksAPI(Class):
         self.logger.debug("Building Broadworks despatch table")
         despatch_table = {}
         # deal with all the main request/responses
-        for module in (broadworks_ocip.responses, broadworks_ocip.requests):
+        for module in (
+            broadworks_ocip.responses,
+            broadworks_ocip.requests,
+            broadworks_ocip.types,
+        ):
             for name, data in inspect.getmembers(module, inspect.isclass):
                 if name.startswith("__"):
                     continue
