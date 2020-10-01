@@ -88,29 +88,51 @@ class OCIType(Class):
         """
         for sub_element in self._ELEMENTS:
             value = getattr(self, sub_element.name)
-            if value is None:
-                if sub_element.is_required:
-                    etree.SubElement(
-                        element,
-                        sub_element.xmlname,
-                        {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
-                        nsmap=self._DEFAULT_NSMAP,
-                    )
-            elif sub_element.is_complex:
-                sub_element.append(value._etree_components(sub_element.xmlname))
+            if sub_element.is_array:
+                if value is not None:
+                    for subvalue in value:
+                        print(subvalue)
+                        self._etree_sub_element(element, sub_element, subvalue)
             else:
-                elem = etree.SubElement(
+                self._etree_sub_element(element, sub_element, value)
+        return element
+
+    def _etree_sub_element(self, element, sub_element, value):
+        """
+        Build XML etree subelement for one elemnt within this OCIType
+
+        :param element: The element that is the parent of the subelements
+        :type element: etree.Element()
+        :rtype: etree.Element()
+
+        """
+        if value is None:
+            if sub_element.is_required:
+                etree.SubElement(
                     element,
                     sub_element.xmlname,
+                    {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
                     nsmap=self._DEFAULT_NSMAP,
                 )
-                if sub_element.type == bool:
-                    elem.text = "true" if value else "false"
-                elif sub_element.type == int:
-                    elem.text = str(value)
-                else:
-                    elem.text = value
-        return element
+        elif sub_element.is_complex:
+            elem = etree.SubElement(
+                element,
+                sub_element.xmlname,
+                nsmap=self._DEFAULT_NSMAP,
+            )
+            value._etree_sub_components(elem)
+        else:
+            elem = etree.SubElement(
+                element,
+                sub_element.xmlname,
+                nsmap=self._DEFAULT_NSMAP,
+            )
+            if sub_element.type == bool:
+                elem.text = "true" if value else "false"
+            elif sub_element.type == int:
+                elem.text = str(value)
+            else:
+                elem.text = value
 
     @classmethod
     def _column_header_snake_case(cls, header):
