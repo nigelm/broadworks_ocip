@@ -12,6 +12,8 @@ BASIC_API_PARAMS = {
     "session": "00000000-1111-2222-3333-444444444444",
 }
 
+api = BroadworksAPI(**BASIC_API_PARAMS)
+
 
 def canon_xml(inxml):
     """
@@ -22,11 +24,16 @@ def canon_xml(inxml):
     return etree.tostring(etree.fromstring(inxml), pretty_print=True).decode()
 
 
+def check_command_xml(wanted, cmd):
+    """Create a Broadworks XML command framgment from the argumenta"""
+    generated = cmd._build_xml()
+    assert canon_xml(generated) == canon_xml(wanted)
+
+
 def compare_command_xml(wanted, command, **kwargs):
     """Create a Broadworks XML command framgment from the argumenta"""
-    api = BroadworksAPI(**BASIC_API_PARAMS)
-    generated = api.get_command_xml(command, **kwargs)
-    assert canon_xml(generated) == canon_xml(wanted)
+    cmd = api.get_command_object(command, **kwargs)
+    check_command_xml(wanted, cmd)
 
 
 def test_authentication_request_xml():
@@ -57,6 +64,44 @@ def test_error_response_xml():
         "ErrorResponse",
         summary="[Error 4962] Invalid password",
         summary_english="[Error 4962] Invalid password",
+    )
+
+
+def test_group_authorization_modify_xml():
+    sp_class = api.get_command_class("ServicePackAuthorization")
+    cmd = api.get_command_object(
+        "GroupServiceModifyAuthorizationListRequest",
+        service_provider_id="some_enterprise",
+        group_id="somegroup",
+        service_pack_authorization=[
+            sp_class(service_pack_name="Voicemail", authorized_quantity="Unlimited"),
+            sp_class(service_pack_name="Hushmail", authorized_quantity="32"),
+            sp_class(service_pack_name="Phone", unauthorized=True),
+        ],
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xmlns="" xsi:type="GroupServiceModifyAuthorizationListRequest">'
+            b"<serviceProviderId>some_enterprise</serviceProviderId>"
+            b"<groupId>somegroup</groupId>"
+            b"<servicePackAuthorization>"
+            b"<servicePackName>Voicemail</servicePackName>"
+            b"<authorizedQuantity>Unlimited</authorizedQuantity>"
+            b"</servicePackAuthorization>"
+            b"<servicePackAuthorization>"
+            b"<servicePackName>Hushmail</servicePackName>"
+            b"<authorizedQuantity>32</authorizedQuantity>"
+            b"</servicePackAuthorization>"
+            b"<servicePackAuthorization>"
+            b"<servicePackName>Phone</servicePackName>"
+            b"<unauthorized>true</unauthorized>"
+            b"</servicePackAuthorization>"
+            b"</command></BroadsoftDocument>"
+        ),
+        cmd,
     )
 
 
