@@ -13,3 +13,11 @@ History
 ------------------
 
 * Support for list returns - eg ``ServiceProviderServicePackGetListResponse``
+
+0.3.0 (2020-10-01)
+------------------
+
+* Support for lists in XML generation
+* Support for XSD choice elements - handled by making them optional
+* Handling of embedded types in XML generation
+* Start of special casing some base types - ie UnboundedPositiveInt
