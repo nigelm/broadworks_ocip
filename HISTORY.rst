@@ -21,3 +21,8 @@ History
 * Support for XSD choice elements - handled by making them optional
 * Handling of embedded types in XML generation
 * Start of special casing some base types - ie UnboundedPositiveInt
+
+0.3.1 (2020-10-05)
+------------------
+
+* Fixed error where exception thrown as tests cleaned up.

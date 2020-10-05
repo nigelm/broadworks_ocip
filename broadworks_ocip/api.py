@@ -276,11 +276,11 @@ class BroadworksAPI(Class):
         self.send_command(command, **kwargs)
         return self.receive_response()
 
-    def close(self):
+    def close(self, close_fast=False):
         """
         Close the connection to the OCI-P server
         """
-        if self.authenticated:
+        if self.authenticated and not close_fast:
             self.logger.debug("Disconnect by logging out")
             self.send_command(
                 "LogoutRequest",
@@ -291,11 +291,12 @@ class BroadworksAPI(Class):
         if self.socket:
             self.socket.shutdown(socket.SHUT_RDWR)
             self.socket.close()
-            self.logger.info(f"Disconnected from host={self.host} port={self.port}")
+            if not close_fast:
+                self.logger.info(f"Disconnected from host={self.host} port={self.port}")
             self.socket = None
 
     def __del__(self):
-        self.close()
+        self.close(close_fast=True)
 
 
 # end
