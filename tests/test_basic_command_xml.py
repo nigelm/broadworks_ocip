@@ -76,12 +76,18 @@ def test_group_authorization_modify_xml():
             api.get_type_object(
                 "ServicePackAuthorization",
                 service_pack_name="Voicemail",
-                authorized_quantity="Unlimited",
+                authorized_quantity=api.get_type_object(
+                    "UnboundedPositiveInt",
+                    unlimited=True,
+                ),
             ),
             api.get_type_object(
                 "ServicePackAuthorization",
                 service_pack_name="Hushmail",
-                authorized_quantity="32",
+                authorized_quantity=api.get_type_object(
+                    "UnboundedPositiveInt",
+                    quantity=32,
+                ),
             ),
             api.get_type_object(
                 "ServicePackAuthorization",
@@ -100,11 +106,11 @@ def test_group_authorization_modify_xml():
             b"<groupId>somegroup</groupId>"
             b"<servicePackAuthorization>"
             b"<servicePackName>Voicemail</servicePackName>"
-            b"<authorizedQuantity>Unlimited</authorizedQuantity>"
+            b"<authorizedQuantity><unlimited>true</unlimited></authorizedQuantity>"
             b"</servicePackAuthorization>"
             b"<servicePackAuthorization>"
             b"<servicePackName>Hushmail</servicePackName>"
-            b"<authorizedQuantity>32</authorizedQuantity>"
+            b"<authorizedQuantity><quantity>32</quantity></authorizedQuantity>"
             b"</servicePackAuthorization>"
             b"<servicePackAuthorization>"
             b"<servicePackName>Phone</servicePackName>"

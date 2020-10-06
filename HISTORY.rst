@@ -33,3 +33,10 @@ History
 * Split out handling in API of Types and Commands.
 * This changes ``get_command_class()`` to ``get_type_class()`` and adds
   ``get_type_object()``
+
+0.5.0 (2020-10-06)
+------------------
+
+* Reversed the stupid mistake of trying to special case complex types
+  such as ``UnboundedPositiveInt`` - these now need to be treated as
+  the complex types they are.
