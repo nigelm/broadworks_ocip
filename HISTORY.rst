@@ -40,3 +40,8 @@ History
 * Reversed the stupid mistake of trying to special case complex types
   such as ``UnboundedPositiveInt`` - these now need to be treated as
   the complex types they are.
+
+0.5.1 (2020-10-06)
+------------------
+
+* Removed a development debug print which had managed to stay hidden...

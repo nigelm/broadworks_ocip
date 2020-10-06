@@ -91,7 +91,6 @@ class OCIType(Class):
             if sub_element.is_array:
                 if value is not None:
                     for subvalue in value:
-                        print(subvalue)
                         self._etree_sub_element(element, sub_element, subvalue)
             else:
                 self._etree_sub_element(element, sub_element, value)
