@@ -110,7 +110,7 @@ class BroadworksAPI(Class):
         logger.addHandler(console_handler)
         self.logger = logger
 
-    def get_command_class(self, command):
+    def get_type_class(self, command):
         """
         Given a name (Request/Response/Type) name, return a class object for it
 
@@ -126,16 +126,29 @@ class BroadworksAPI(Class):
             raise e
         return cls
 
-    def get_command_object(self, command, **kwargs):
+    def get_type_object(self, command, **kwargs):
         """
-        Build the OCICommand object instance for a command and parameter
+        Build the OCIType object instance for a type and parameters
 
-        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
+        :param command: A single word name of a OCIType()
         :type command: str
         :param kwargs: The parameters for the command
         :rtype: Object instance
         """
-        cls = self.get_command_class(command)
+        cls = self.get_type_class(command)
+        cmd = cls(**kwargs)
+        return cmd
+
+    def get_command_object(self, command, **kwargs):
+        """
+        Build the OCICommand object instance for a command and parameter
+
+        :param command: A single word name of a OCIRequest(),OCIResponse()
+        :type command: str
+        :param kwargs: The parameters for the command
+        :rtype: Object instance
+        """
+        cls = self.get_type_class(command)
         cmd = cls(_session=self.session, **kwargs)
         return cmd
 

@@ -68,15 +68,26 @@ def test_error_response_xml():
 
 
 def test_group_authorization_modify_xml():
-    sp_class = api.get_command_class("ServicePackAuthorization")
     cmd = api.get_command_object(
         "GroupServiceModifyAuthorizationListRequest",
         service_provider_id="some_enterprise",
         group_id="somegroup",
         service_pack_authorization=[
-            sp_class(service_pack_name="Voicemail", authorized_quantity="Unlimited"),
-            sp_class(service_pack_name="Hushmail", authorized_quantity="32"),
-            sp_class(service_pack_name="Phone", unauthorized=True),
+            api.get_type_object(
+                "ServicePackAuthorization",
+                service_pack_name="Voicemail",
+                authorized_quantity="Unlimited",
+            ),
+            api.get_type_object(
+                "ServicePackAuthorization",
+                service_pack_name="Hushmail",
+                authorized_quantity="32",
+            ),
+            api.get_type_object(
+                "ServicePackAuthorization",
+                service_pack_name="Phone",
+                unauthorized=True,
+            ),
         ],
     )
     check_command_xml(

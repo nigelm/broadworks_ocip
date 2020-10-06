@@ -96,8 +96,8 @@ class FakeServer:
         self.logger.debug(f"F<<<: {cmd._type}")
         response = None
         if cmd._type == "AuthenticationRequest":
-            cls = api.get_command_class("AuthenticationResponse")
-            response = cls(
+            response = api.get_command_object(
+                "AuthenticationResponse",
                 user_id=cmd.user_id,
                 nonce="1234567890123",
                 password_algorithm="MD5",
@@ -108,8 +108,8 @@ class FakeServer:
                 domain = cmd.user_id.partition("@")[2]
                 if domain == "":
                     domain = "example.org"
-                cls = api.get_command_class("LoginResponse14sp4")
-                response = cls(
+                response = api.get_command_object(
+                    "LoginResponse14sp4",
                     login_type="System",
                     locale="en_GB",
                     encoding="ISO-8859",
@@ -117,21 +117,22 @@ class FakeServer:
                     user_domain=domain,
                 )
             else:
-                cls = api.get_command_class("ErrorResponse")
-                response = cls(
+                response = api.get_command_object(
+                    "ErrorResponse",
                     summary="[Error 4962] Invalid password",
                     summary_english="[Error 4962] Invalid password",
                 )
         elif cmd._type == "SystemSoftwareVersionGetRequest":
-            cls = api.get_command_class("SystemSoftwareVersionGetResponse")
-            response = cls(version="21sp1")
+            response = api.get_command_object(
+                "SystemSoftwareVersionGetResponse",
+                version="21sp1",
+            )
         elif cmd._type == "LogoutRequest":
             # This normally never gets sent because the other end drops the connection
-            cls = api.get_command_class("SuccessResponse")
-            response = cls()
+            response = api.get_command_object("SuccessResponse")
         else:
-            cls = api.get_command_class("ErrorResponse")
-            response = cls(
+            response = api.get_command_object(
+                "ErrorResponse",
                 error_code=9999,
                 summary="Server is a fake and a fraud",
                 summary_english="This is not a real server and doesn't implement many things",
