@@ -45,3 +45,8 @@ History
 ------------------
 
 * Removed a development debug print which had managed to stay hidden...
+
+0.5.2 (2020-10-07)
+------------------
+
+* Logging was on at debug level by default - switched to WARNING level.

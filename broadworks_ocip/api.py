@@ -103,9 +103,9 @@ class BroadworksAPI(Class):
         Create and configure a logging object
         """
         logger = logging.getLogger("broadworks_api")
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.WARNING)
         console_handler = logging.StreamHandler(sys.stdout)
-        console_handler.setLevel(logging.DEBUG)
+        console_handler.setLevel(logging.WARNING)
         console_handler.setFormatter(FORMATTER)
         logger.addHandler(console_handler)
         self.logger = logger
