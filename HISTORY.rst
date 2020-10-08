@@ -50,3 +50,9 @@ History
 ------------------
 
 * Logging was on at debug level by default - switched to WARNING level.
+
+0.5.3 (2020-10-07)
+------------------
+
+* Occaisionally you can get an exception thrown on socket close as the
+  api object is deleted.  Added try/except around this to catch.
