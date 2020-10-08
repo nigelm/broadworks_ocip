@@ -22,11 +22,6 @@ import broadworks_ocip.types
 from broadworks_ocip.exceptions import OCIErrorTimeOut
 
 
-FORMATTER = logging.Formatter(
-    "%(asctime)s — %(name)s — %(levelname)s — %(funcName)s:%(lineno)d — %(message)s",
-)
-
-
 class BroadworksAPI(Class):
     """
     BroadworksAPI - A class encapsulating the Broadworks OCI-P API
@@ -102,11 +97,10 @@ class BroadworksAPI(Class):
         """
         Create and configure a logging object
         """
-        logger = logging.getLogger("broadworks_api")
+        logger = logging.getLogger(__name__)
         logger.setLevel(logging.WARNING)
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(logging.WARNING)
-        console_handler.setFormatter(FORMATTER)
         logger.addHandler(console_handler)
         self.logger = logger
 

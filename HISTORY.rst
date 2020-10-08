@@ -56,3 +56,4 @@ History
 
 * Occaisionally you can get an exception thrown on socket close as the
   api object is deleted.  Added try/except around this to catch.
+* More log modifications - less opinionated
