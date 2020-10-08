@@ -5,4 +5,4 @@ from .exceptions import OCIErrorTimeOut  # noqa: F401
 
 __author__ = """Nigel Metheringham"""
 __email__ = "nigelm@cpan.org"
-__version__ = "0.5.2"
+__version__ = "0.5.3"
