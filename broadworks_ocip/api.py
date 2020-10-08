@@ -21,6 +21,8 @@ import broadworks_ocip.responses
 import broadworks_ocip.types
 from broadworks_ocip.exceptions import OCIErrorTimeOut
 
+VERBOSE_DEBUG = 9
+
 
 class BroadworksAPI(Class):
     """
@@ -169,7 +171,7 @@ class BroadworksAPI(Class):
         """
         self.logger.info(f">>> {command}")
         xml = self.get_command_xml(command, **kwargs)
-        self.logger.debug(f"SEND: {str(xml)}")
+        self.logger.log(VERBOSE_DEBUG, f"SEND: {str(xml)}")
         self.socket.sendall(xml + b"\n")
 
     def receive_response(self):
@@ -195,7 +197,7 @@ class BroadworksAPI(Class):
                     break
             elif not readable and not writable and not exceptional:
                 raise OCIErrorTimeOut(object=self, message="Read timeout")
-        self.logger.debug(f"RECV: {str(content)}")
+        self.logger.log(VERBOSE_DEBUG, f"RECV: {str(content)}")
         return self.decode_xml(content)
 
     def decode_xml(self, xml):
