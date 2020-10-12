@@ -14,7 +14,7 @@ BASIC_API_PARAMS = {
     "host": "localhost",
     "username": "username@example.com",
     "password": "password",
-    "session": "00000000-1111-2222-3333-444444444444",
+    "session_id": "00000000-1111-2222-3333-444444444444",
 }
 
 
@@ -139,7 +139,6 @@ class FakeServer:
                 detail="There might be more detail if this was a real server",
                 type="abject_panic",
             )
-        response._session = cmd._session
         self.logger.debug(f"Built response {response._type}")
         xml = response._build_xml()
         self.logger.debug(f"F>>>: {response._type}")

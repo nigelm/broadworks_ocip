@@ -10,7 +10,7 @@ BASIC_API_PARAMS = {
     "host": "localhost",
     "username": "username@example.com",
     "password": "password",
-    "session": "00000000-1111-2222-3333-444444444444",
+    "session_id": "00000000-1111-2222-3333-444444444444",
 }
 
 
@@ -59,7 +59,7 @@ def test_service_provider_list_xml():
         ),
         "ServiceProviderGetListResponse",
         {
-            "_session": "00000000-1111-2222-3333-444444444444",
+            "session_id": "00000000-1111-2222-3333-444444444444",
             "service_provider_table": [
                 serviceProviderTable(
                     service_provider_id="one",
@@ -141,7 +141,7 @@ def test_service_pack_list_xml():
         ),
         "ServiceProviderServicePackGetListResponse",
         {
-            "_session": "00000000-1111-2222-3333-444444444444",
+            "session_id": "00000000-1111-2222-3333-444444444444",
             "service_pack_name": [
                 "Pack_1",
                 "Pack_2",

@@ -163,6 +163,16 @@ class OCIType(Class):
         return results
 
     @classmethod
+    def _build_from_etree_non_parameters(cls, element, initialiser):
+        """
+        Handle any items outside the parameter set
+
+        Intended for use by subclasses where they need to take actions immediately
+        after they are created from an incoming XML document.
+        """
+        pass
+
+    @classmethod
     def _build_from_etree(cls, element):
         """
         Create an OciType based instance from an XML etree element
@@ -203,7 +213,7 @@ class OCICommand(OCIType):
     OCICommand - base class for all OCI Command (Request/Response) types
     """
 
-    _session = Field(type=str, default="00000000-1111-2222-3333-444444444444")
+    session_id = Field(type=str, default="00000000-1111-2222-3333-444444444444")
 
     def _build_xml(self):
         """
@@ -219,8 +229,8 @@ class OCICommand(OCIType):
         )
         #
         # add the session
-        sess = etree.SubElement(root, "sessionId", nsmap=self._DEFAULT_NSMAP)
-        sess.text = self._session
+        session = etree.SubElement(root, "sessionId", nsmap=self._DEFAULT_NSMAP)
+        session.text = self.session_id
         #
         # and the command
         element = self._build_xml_command_element(root)
@@ -250,6 +260,17 @@ class OCICommand(OCIType):
             {"{http://www.w3.org/2001/XMLSchema-instance}type": self._type},
             nsmap=self._DEFAULT_NSMAP,
         )
+
+    @classmethod
+    def _build_from_etree_non_parameters(cls, element, initialiser):
+        """
+        Pick up the session id from the command set
+
+        Overrides the class method defined in OCIType.
+        """
+        node = element.find("sessionId")
+        if node is not None:
+            initialiser["session_id"] = node.text
 
 
 class OCIRequest(OCICommand):
