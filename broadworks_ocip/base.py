@@ -7,6 +7,7 @@ other components like ElementInfo that are used by those.
 import re
 from collections import namedtuple
 
+import attr
 from classforge import Class
 from classforge import Field
 from lxml import etree
@@ -14,27 +15,21 @@ from lxml import etree
 from broadworks_ocip.exceptions import OCIErrorResponse
 
 
-class ElementInfo(
-    namedtuple(
-        "ElementInfo",
-        [
-            "name",
-            "xmlname",
-            "type",
-            "is_complex",
-            "is_required",
-            "is_array",
-            "is_table",
-        ],
-    ),
-):
+@attr.s(slots=True, frozen=True)
+class ElementInfo:
     """
     ElementInfo - information on each element of a Broadsoft OCIType
 
     Used to describe the element when serialising to/from XML
     """
 
-    pass
+    name = attr.ib(type=str)
+    xmlname = attr.ib(type=str)
+    type = attr.ib()
+    is_complex = attr.ib(type=bool, default=False)
+    is_required = attr.ib(type=bool, default=False)
+    is_array = attr.ib(type=bool, default=False)
+    is_table = attr.ib(type=bool, default=False)
 
 
 class OCIType(Class):
