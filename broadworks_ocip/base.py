@@ -15,11 +15,6 @@ from lxml import etree
 from broadworks_ocip.exceptions import OCIErrorResponse
 
 
-def camel_to_snake(name):
-    name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
-    return re.sub("([a-z0-9])([A-Z])", r"\1_\2", name).lower()
-
-
 @attr.s(slots=True, frozen=True)
 class ElementInfo:
     """
@@ -35,10 +30,6 @@ class ElementInfo:
     is_required = attr.ib(type=bool, default=False)
     is_array = attr.ib(type=bool, default=False)
     is_table = attr.ib(type=bool, default=False)
-
-    @classmethod
-    def bld(cls, xmltype, type, **kwargs):
-        return cls(camel_to_snake(xmltype), xmltype, type, **kwargs)
 
 
 class OCIType(Class):
@@ -313,19 +304,11 @@ class ErrorResponse(OCIResponse):
     """
 
     _ELEMENTS = (
-        ElementInfo("error_code", "errorCode", int, False, False, False, False),
-        ElementInfo("summary", "summary", str, False, True, False, False),
-        ElementInfo(
-            "summary_english",
-            "summaryEnglish",
-            str,
-            False,
-            True,
-            False,
-            False,
-        ),
-        ElementInfo("detail", "detail", str, False, False, False, False),
-        ElementInfo("type", "type", str, False, False, False, False),
+        ElementInfo("error_code", "errorCode", int),
+        ElementInfo("summary", "summary", str, is_required=True),
+        ElementInfo("summary_english", "summaryEnglish", str, is_required=True),
+        ElementInfo("detail", "detail", str),
+        ElementInfo("type", "type", str),
     )
     error_code = Field(type=int, required=False)
     summary = Field(type=str, required=True)

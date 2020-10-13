@@ -79,13 +79,17 @@ def write_elements(file, elements):
         # We have elements - write them out
         file.write("    _ELEMENTS = (\n")
         for item in elements.values():
-            ele = ['"' + item["xmlname"] + '"', item["type"]]
+            ele = [
+                ('"' + item["name"] + '"'),
+                ('"' + item["xmlname"] + '"'),
+                item["type"],
+            ]
             for query in ("is_complex", "is_required", "is_array", "is_table"):
                 if item[query]:
                     ele.append(query + "=True")
             comment = "  # unknown" if item["unknown"] else ""
             file.write(
-                f'        E.bld({", ".join(ele)}),{comment}\n',
+                f'        E({", ".join(ele)}),{comment}\n',
             )
         file.write("    )\n\n")
     else:
