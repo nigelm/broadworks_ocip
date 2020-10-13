@@ -67,6 +67,7 @@ def build_element_hash(xsd_component, prefix=""):
         }
         process_element_type(elem, params, phash, prefix)
         params.append(f"required={is_required}")
+        params.append("mutable=False")
         phash["params"] = params
         element_hash[name] = phash
     return element_hash
@@ -74,51 +75,60 @@ def build_element_hash(xsd_component, prefix=""):
 
 def write_elements(file, elements):
     """Write the _Elements array used for serializing to/from XML"""
-    file.write("    _ELEMENTS = (\n")
-    for item in elements.values():
-        comment = "  # unknown" if item["unknown"] else ""
-        file.write(
-            f'        E("{item["name"]}", "{item["xmlname"]}", {item["type"]}, '
-            f'{item["is_complex"]}, {item["is_required"]}, {item["is_array"]}, '
-            f'{item["is_table"]}, ),{comment}\n',
-        )
-    file.write("    )\n")
+    if len(elements):
+        # We have elements - write them out
+        file.write("    _ELEMENTS = (\n")
+        for item in elements.values():
+            comment = "  # unknown" if item["unknown"] else ""
+            file.write(
+                f'        E("{item["name"]}", "{item["xmlname"]}", {item["type"]}, '
+                f'{item["is_complex"]}, {item["is_required"]}, {item["is_array"]}, '
+                f'{item["is_table"]}),{comment}\n',
+            )
+        file.write("    )\n\n")
+    else:
+        # No elements - we write an empty set out
+        file.write("    _ELEMENTS = ()\n")
 
 
-def write_attributes(file, elements):
-    for item in elements.values():
-        params = item["params"]
-        param_str = ", ".join(params) + ", "
-        # build the comment up with name/types etc
-        if item["is_array"]:
-            comment_bits = [f"list({item['type']}):"]
-        else:
-            comment_bits = [f"{item['type']}:"]
-        if item["is_required"]:
-            comment_bits.append("*Required*")
-        else:
-            comment_bits.append("*Optional*")
-        comment_bits.append(item["xmlname"])
-        if item["is_array"]:
-            comment_bits.append(" *Array*")
-        if item["is_table"]:
-            comment_bits.append(" *Tabular*")
-        comment_length = 0
-        file.write("    #:")
-        for comment_bit in comment_bits:
-            if comment_length > 0 and comment_length + len(comment_bit) > 80:
-                file.write("\n    #:")
-                comment_length = 0
-            file.write(" " + comment_bit)
-            comment_length += len(comment_bit)
-        file.write("\n")
-        file.write(f"    {item['name']} = Field({param_str})\n")
+def write_attribute_comment(file, element):
+    """Write an attribute comment with type and other info for the docs"""
+    if element["is_array"]:
+        comment_bits = [f"list({element['type']}):"]
+    else:
+        comment_bits = [f"{element['type']}:"]
+    if element["is_required"]:
+        comment_bits.append("*Required*")
+    else:
+        comment_bits.append("*Optional*")
+    comment_bits.append(element["xmlname"])
+    if element["is_array"]:
+        comment_bits.append(" *Array*")
+    if element["is_table"]:
+        comment_bits.append(" *Tabular*")
+    comment_length = 0
+    file.write("    #:")
+    for comment_bit in comment_bits:
+        if comment_length > 0 and comment_length + len(comment_bit) > 80:
+            file.write("\n    #:")
+            comment_length = 0
+        file.write(" " + comment_bit)
+        comment_length += len(comment_bit)
+    file.write("\n")
+
+
+def write_attribute(file, element):
+    params = element["params"]
+    param_str = ", ".join(params)
+    file.write(f"    {element['name']} = Field({param_str})\n")
 
 
 def process_class_elements(file, xsd_component, prefix=""):
     elements = build_element_hash(xsd_component, prefix)
     write_elements(file, elements)
-    write_attributes(file, elements)
+    for element in elements.values():
+        write_attribute_comment(file, element)
+        write_attribute(file, element)
 
 
 def process_documentation(file, xsd_component):
@@ -162,25 +172,23 @@ def process_documentation(file, xsd_component):
             file.write('    """\n\n')
 
 
-def process_request(file, xsd_component):
-    file.write(f"class {xsd_component.name}(OCIRequest):\n")
+def process_thing(file, xsd_component, thing, prefix=""):
+    file.write(f"class {xsd_component.name}({thing}):\n")
     process_documentation(file, xsd_component)
-    process_class_elements(file, xsd_component, "OCI.")
+    process_class_elements(file, xsd_component, prefix)
     file.write("\n\n")
+
+
+def process_request(file, xsd_component):
+    process_thing(file, xsd_component, "OCIRequest", "OCI.")
 
 
 def process_response(file, xsd_component):
-    file.write(f"class {xsd_component.name}(OCIResponse):\n")
-    process_documentation(file, xsd_component)
-    process_class_elements(file, xsd_component, "OCI.")
-    file.write("\n\n")
+    process_thing(file, xsd_component, "OCIResponse", "OCI.")
 
 
 def process_type(file, xsd_component):
-    file.write(f"class {xsd_component.name}(OCIType):\n")
-    process_documentation(file, xsd_component)
-    process_class_elements(file, xsd_component)
-    file.write("\n\n")
+    process_thing(file, xsd_component, "OCIType", "")
 
 
 def process_schema(schema, class_list, types_file, requests_file, responses_file):
