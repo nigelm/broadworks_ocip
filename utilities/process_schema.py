@@ -6,6 +6,7 @@ import re
 import sys
 from collections import Counter
 from datetime import datetime
+from textwrap import TextWrapper
 
 import xmlschema
 from toposort import toposort_flatten
@@ -76,8 +77,15 @@ def build_element_hash(xsd_component, prefix=""):
 def write_elements(file, elements):
     """Write the _Elements array used for serializing to/from XML"""
     if len(elements):
-        # We have elements - write them out
+        # We have elements - write them out - starting with the header
         file.write("    _ELEMENTS = (\n")
+        wrapper = TextWrapper(
+            width=90,
+            replace_whitespace=False,
+            initial_indent=" " * 12,
+            subsequent_indent=" " * 12,
+            break_long_words=False,
+        )
         for item in elements.values():
             ele = [
                 ('"' + item["name"] + '"'),
@@ -88,9 +96,13 @@ def write_elements(file, elements):
                 if item[query]:
                     ele.append(query + "=True")
             comment = "  # unknown" if item["unknown"] else ""
-            file.write(
-                f'        E({", ".join(ele)}),{comment}\n',
-            )
+            outstr = " " * 8 + "E(" + ", ".join(ele) + ")," + comment
+            if len(outstr) >= 95:
+                file.write(" " * 8 + "E(\n")
+                file.write("\n".join(wrapper.wrap(", ".join(ele))) + ",\n")
+                file.write(" " * 8 + ")," + comment + "\n")
+            else:
+                file.write(outstr + "\n")
         file.write("    )\n\n")
     else:
         # No elements - we write an empty set out
@@ -112,21 +124,32 @@ def write_attribute_comment(file, element):
         comment_bits.append(" *Array*")
     if element["is_table"]:
         comment_bits.append(" *Tabular*")
-    comment_length = 0
-    file.write("    #:")
-    for comment_bit in comment_bits:
-        if comment_length > 0 and comment_length + len(comment_bit) > 80:
-            file.write("\n    #:")
-            comment_length = 0
-        file.write(" " + comment_bit)
-        comment_length += len(comment_bit)
-    file.write("\n")
+    wrapper = TextWrapper(
+        width=90,
+        initial_indent="    #: ",
+        subsequent_indent="    #: ",
+        break_long_words=False,
+    )
+    file.write("\n".join(wrapper.wrap(" ".join(comment_bits))) + "\n")
 
 
 def write_attribute(file, element):
     params = element["params"]
     param_str = ", ".join(params)
-    file.write(f"    {element['name']} = Field({param_str})\n")
+    outstr = " " * 4 + element["name"] + " = Field(" + param_str + ")"
+    if len(outstr) >= 95:
+        wrapper = TextWrapper(
+            width=90,
+            replace_whitespace=False,
+            initial_indent=" " * 8,
+            subsequent_indent=" " * 8,
+            break_long_words=False,
+        )
+        file.write(" " * 4 + element["name"] + " = Field(\n")
+        file.write("\n".join(wrapper.wrap(param_str)) + ",\n")
+        file.write(" " * 4 + ")\n")
+    else:
+        file.write(outstr + "\n")
 
 
 def process_class_elements(file, xsd_component, prefix=""):
@@ -141,41 +164,52 @@ def process_documentation(file, xsd_component):
     anno = xsd_component.annotation
     lines = []
     if anno:
+        wrapper = TextWrapper(
+            width=90,
+            initial_indent=" " * 4,
+            subsequent_indent=" " * 4,
+            break_long_words=False,
+            drop_whitespace=True,
+            fix_sentence_endings=True,
+            expand_tabs=False,
+        )
         for doc in anno.documentation:
-            for line in doc.text.splitlines():
-                line = line.replace("\t", "    ")
-                line = line.strip()
-                line = re.sub(
-                    r"\b([A-Z][A-Za-z0-9]*(?:Request|Response)(?:\d+(?:(?:mp|sp|V)\d+)?)?)\b",
-                    r"``\1()``",
-                    line,
-                )
-                line = re.sub(r"^Replaced [Bb]y:", r"Replaced By", line)
-                while len(line) > 90:
-                    pos = line.rfind(" ", 35, 82)
-                    if pos < 0:
-                        pos = line.find(" ", 30)
-                    if pos > 0:
-                        lines.append(line[:pos].strip())
-                        line = line[pos + 1 :].strip()
-                    else:
-                        break
-                lines.append(line)
-        # strip leading and trailing blank lines
-        while len(lines) > 0 and len(lines[0]) == 0:
-            del lines[0]
-        while len(lines) > 0 and len(lines[-1]) == 0:
-            del lines[-1]
+            # text with leading/trailing spaces stripped
+            text = doc.text.strip()
+            # text with internal spacing collapsed
+            text = re.sub(r"\s+", " ", text)
+            # mark up magic method markers
+            text = re.sub(
+                r"\b([A-Z][A-Za-z0-9]*(?:Request|Response)(?:\d+(?:(?:mp|sp|V)\d+)?)?)\b",
+                r"``\1()``",
+                text,
+            )
+            # Fix a standard oddity
+            text = re.sub(r"^Replaced [Bb]y:", r"Replaced By", text)
+            # break off first sentence
+            segments = text.split(".", 1)
+            text = segments.pop().lstrip()
+            if len(segments) > 0:
+                segments[0] += "."  # put the full stop back
+            # break off response part if present
+            pos = text.find("The response")
+            if pos > 0:
+                segments.append(text[:pos].rstrip())
+                text = text[pos:]
+            # break off Replaced By
+            pos = text.find("Replaced By")
+            if pos > 0:
+                segments.append(text[:pos].rstrip())
+                segments.append(text[pos:])
+            else:
+                segments.append(text)
+            for mystr in segments:
+                if len(lines) > 0:
+                    lines.append("")
+                lines += wrapper.wrap(mystr)
         if len(lines) > 0:
             # output the documentation bits
-            file.write('    """\n')
-            for line in lines:
-                line = line.rstrip()  # trailing spaces gives check errors
-                if len(line) > 0:
-                    file.write(f"    {line}\n")
-                else:
-                    file.write("\n")
-            file.write('    """\n\n')
+            file.write('    """\n' + "\n".join(lines) + '\n    """\n\n')
 
 
 def process_thing(file, xsd_component, thing, prefix=""):
