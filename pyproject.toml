@@ -5,6 +5,9 @@ description = "API interface to the OCI-P provisioning interface of a Broadworks
 authors = ["Nigel Metheringham <nigelm@cpan.org>"]
 license = "BSD"
 readme = "README.rst"
+homepage = "https://pypi.org/project/broadworks-ocip/"
+repository = "https://github.com/nigelm/broadworks_ocip"
+documentation = "https://broadworks-ocip.readthedocs.io/"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
