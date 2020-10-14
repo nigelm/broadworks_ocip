@@ -6,6 +6,7 @@ import re
 import sys
 from collections import Counter
 from datetime import datetime
+from textwrap import TextWrapper
 
 import xmlschema
 from toposort import toposort_flatten
@@ -45,7 +46,7 @@ def process_element_type(element, params, phash, prefix):
     phash["type"] = thistype
 
 
-def process_class_elements(file, xsd_component, prefix=""):
+def build_element_hash(xsd_component, prefix=""):
     element_hash = {}
     for elem in xsd_component.content_type.iter_elements():
         name = camel_to_snake(elem.name)
@@ -67,108 +68,167 @@ def process_class_elements(file, xsd_component, prefix=""):
         }
         process_element_type(elem, params, phash, prefix)
         params.append(f"required={is_required}")
+        params.append("mutable=False")
         phash["params"] = params
         element_hash[name] = phash
-    #
-    # output the list of elements used for input and output
-    file.write("    _ELEMENTS = (\n")
-    for item in element_hash.values():
-        comment = "  # unknown" if item["unknown"] else ""
-        file.write(
-            f'        E("{item["name"]}", "{item["xmlname"]}", {item["type"]}, '
-            f'{item["is_complex"]}, {item["is_required"]}, {item["is_array"]}, '
-            f'{item["is_table"]}, ),{comment}\n',
+    return element_hash
+
+
+def write_elements(file, elements):
+    """Write the _Elements array used for serializing to/from XML"""
+    if len(elements):
+        # We have elements - write them out - starting with the header
+        file.write("    _ELEMENTS = (\n")
+        wrapper = TextWrapper(
+            width=90,
+            replace_whitespace=False,
+            initial_indent=" " * 12,
+            subsequent_indent=" " * 12,
+            break_long_words=False,
         )
-    file.write("    )\n")
-    for item in element_hash.values():
-        params = item["params"]
-        param_str = ", ".join(params) + ", "
-        # build the comment up with name/types etc
-        if item["is_array"]:
-            comment_bits = [f"list({item['type']}):"]
-        else:
-            comment_bits = [f"{item['type']}:"]
-        if item["is_required"]:
-            comment_bits.append("*Required*")
-        else:
-            comment_bits.append("*Optional*")
-        comment_bits.append(item["xmlname"])
-        if item["is_array"]:
-            comment_bits.append(" *Array*")
-        if item["is_table"]:
-            comment_bits.append(" *Tabular*")
-        comment_length = 0
-        file.write("    #:")
-        for comment_bit in comment_bits:
-            if comment_length > 0 and comment_length + len(comment_bit) > 80:
-                file.write("\n    #:")
-                comment_length = 0
-            file.write(" " + comment_bit)
-            comment_length += len(comment_bit)
-        file.write("\n")
-        file.write(f"    {item['name']} = Field({param_str})\n")
+        for item in elements.values():
+            ele = [
+                ('"' + item["name"] + '"'),
+                ('"' + item["xmlname"] + '"'),
+                item["type"],
+            ]
+            for query in ("is_complex", "is_required", "is_array", "is_table"):
+                if item[query]:
+                    ele.append(query + "=True")
+            comment = "  # unknown" if item["unknown"] else ""
+            outstr = " " * 8 + "E(" + ", ".join(ele) + ")," + comment
+            if len(outstr) >= 95:
+                file.write(" " * 8 + "E(\n")
+                file.write("\n".join(wrapper.wrap(", ".join(ele))) + ",\n")
+                file.write(" " * 8 + ")," + comment + "\n")
+            else:
+                file.write(outstr + "\n")
+        file.write("    )\n\n")
+    else:
+        # No elements - we write an empty set out
+        file.write("    _ELEMENTS = ()\n")
+
+
+def write_attribute_comment(file, element):
+    """Write an attribute comment with type and other info for the docs"""
+    if element["is_array"]:
+        comment_bits = [f"list({element['type']}):"]
+    else:
+        comment_bits = [f"{element['type']}:"]
+    if element["is_required"]:
+        comment_bits.append("*Required*")
+    else:
+        comment_bits.append("*Optional*")
+    comment_bits.append(element["xmlname"])
+    if element["is_array"]:
+        comment_bits.append(" *Array*")
+    if element["is_table"]:
+        comment_bits.append(" *Tabular*")
+    wrapper = TextWrapper(
+        width=90,
+        initial_indent="    #: ",
+        subsequent_indent="    #: ",
+        break_long_words=False,
+    )
+    file.write("\n".join(wrapper.wrap(" ".join(comment_bits))) + "\n")
+
+
+def write_attribute(file, element):
+    params = element["params"]
+    param_str = ", ".join(params)
+    outstr = " " * 4 + element["name"] + " = Field(" + param_str + ")"
+    if len(outstr) >= 95:
+        wrapper = TextWrapper(
+            width=90,
+            replace_whitespace=False,
+            initial_indent=" " * 8,
+            subsequent_indent=" " * 8,
+            break_long_words=False,
+        )
+        file.write(" " * 4 + element["name"] + " = Field(\n")
+        file.write("\n".join(wrapper.wrap(param_str)) + ",\n")
+        file.write(" " * 4 + ")\n")
+    else:
+        file.write(outstr + "\n")
+
+
+def process_class_elements(file, xsd_component, prefix=""):
+    elements = build_element_hash(xsd_component, prefix)
+    write_elements(file, elements)
+    for element in elements.values():
+        write_attribute_comment(file, element)
+        write_attribute(file, element)
 
 
 def process_documentation(file, xsd_component):
     anno = xsd_component.annotation
     lines = []
     if anno:
+        wrapper = TextWrapper(
+            width=90,
+            initial_indent=" " * 4,
+            subsequent_indent=" " * 4,
+            break_long_words=False,
+            drop_whitespace=True,
+            fix_sentence_endings=True,
+            expand_tabs=False,
+        )
         for doc in anno.documentation:
-            for line in doc.text.splitlines():
-                line = line.replace("\t", "    ")
-                line = line.strip()
-                line = re.sub(
-                    r"\b([A-Z][A-Za-z0-9]*(?:Request|Response)(?:\d+(?:(?:mp|sp|V)\d+)?)?)\b",
-                    r"``\1()``",
-                    line,
-                )
-                line = re.sub(r"^Replaced [Bb]y:", r"Replaced By", line)
-                while len(line) > 90:
-                    pos = line.rfind(" ", 35, 82)
-                    if pos < 0:
-                        pos = line.find(" ", 30)
-                    if pos > 0:
-                        lines.append(line[:pos].strip())
-                        line = line[pos + 1 :].strip()
-                    else:
-                        break
-                lines.append(line)
-        # strip leading and trailing blank lines
-        while len(lines) > 0 and len(lines[0]) == 0:
-            del lines[0]
-        while len(lines) > 0 and len(lines[-1]) == 0:
-            del lines[-1]
+            # text with leading/trailing spaces stripped
+            text = doc.text.strip()
+            # text with internal spacing collapsed
+            text = re.sub(r"\s+", " ", text)
+            # mark up magic method markers
+            text = re.sub(
+                r"\b([A-Z][A-Za-z0-9]*(?:Request|Response)(?:\d+(?:(?:mp|sp|V)\d+)?)?)\b",
+                r"``\1()``",
+                text,
+            )
+            # Fix a standard oddity
+            text = re.sub(r"^Replaced [Bb]y:", r"Replaced By", text)
+            # break off first sentence
+            segments = text.split(".", 1)
+            text = segments.pop().lstrip()
+            if len(segments) > 0:
+                segments[0] += "."  # put the full stop back
+            # break off response part if present
+            pos = text.find("The response")
+            if pos > 0:
+                segments.append(text[:pos].rstrip())
+                text = text[pos:]
+            # break off Replaced By
+            pos = text.find("Replaced By")
+            if pos > 0:
+                segments.append(text[:pos].rstrip())
+                segments.append(text[pos:])
+            else:
+                segments.append(text)
+            for mystr in segments:
+                if len(lines) > 0:
+                    lines.append("")
+                lines += wrapper.wrap(mystr)
         if len(lines) > 0:
             # output the documentation bits
-            file.write('    """\n')
-            for line in lines:
-                line = line.rstrip()  # trailing spaces gives check errors
-                if len(line) > 0:
-                    file.write(f"    {line}\n")
-                else:
-                    file.write("\n")
-            file.write('    """\n\n')
+            file.write('    """\n' + "\n".join(lines) + '\n    """\n\n')
+
+
+def process_thing(file, xsd_component, thing, prefix=""):
+    file.write(f"class {xsd_component.name}({thing}):\n")
+    process_documentation(file, xsd_component)
+    process_class_elements(file, xsd_component, prefix)
+    file.write("\n\n")
 
 
 def process_request(file, xsd_component):
-    file.write(f"class {xsd_component.name}(OCIRequest):\n")
-    process_documentation(file, xsd_component)
-    process_class_elements(file, xsd_component, "OCI.")
-    file.write("\n\n")
+    process_thing(file, xsd_component, "OCIRequest", "OCI.")
 
 
 def process_response(file, xsd_component):
-    file.write(f"class {xsd_component.name}(OCIResponse):\n")
-    process_documentation(file, xsd_component)
-    process_class_elements(file, xsd_component, "OCI.")
-    file.write("\n\n")
+    process_thing(file, xsd_component, "OCIResponse", "OCI.")
 
 
 def process_type(file, xsd_component):
-    file.write(f"class {xsd_component.name}(OCIType):\n")
-    process_documentation(file, xsd_component)
-    process_class_elements(file, xsd_component)
-    file.write("\n\n")
+    process_thing(file, xsd_component, "OCIType", "")
 
 
 def process_schema(schema, class_list, types_file, requests_file, responses_file):
@@ -212,6 +272,7 @@ def open_output_files():
         out.write("# Autogenerated from the Broadworks XML Schemas.\n")
         out.write("# Do not edit as changes will be overwritten.\n")
         out.write(f"# Generated on {generation_time.isoformat()}\n")
+        out.write("# fmt: off\n")
         out.write("from classforge import Field\n\n")
         if thing in ("request", "response"):
             out.write("import broadworks_ocip.types as OCI\n")
@@ -224,7 +285,8 @@ def open_output_files():
 
 def close_output_files(types_file, requests_file, responses_file):
     for out in (types_file, requests_file, responses_file):
-        out.write("\n# end\n\n")
+        out.write("# fmt: on\n")
+        out.write("# end\n")
 
 
 def main():

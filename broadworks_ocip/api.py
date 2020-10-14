@@ -49,14 +49,14 @@ class BroadworksAPI(Class):
     #: socket: connection socket - set up internally
     socket = Field(type=object, default=None)
     #: string: session id - set up internally, only set this for testing
-    session = Field(type=str)
+    session_id = Field(type=str)
 
     def on_init(self):
         """
         Initialise the API object
         """
-        if self.session is None:
-            self.session = str(uuid.uuid4())
+        if self.session_id is None:
+            self.session_id = str(uuid.uuid4())
         if self.logger is None:
             self.configure_logger()
         self.build_despatch_table()
@@ -145,7 +145,7 @@ class BroadworksAPI(Class):
         :rtype: Object instance
         """
         cls = self.get_type_class(command)
-        cmd = cls(_session=self.session, **kwargs)
+        cmd = cls(session_id=self.session_id, **kwargs)
         return cmd
 
     def get_command_xml(self, command, **kwargs):

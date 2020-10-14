@@ -7,6 +7,7 @@ other components like ElementInfo that are used by those.
 import re
 from collections import namedtuple
 
+import attr
 from classforge import Class
 from classforge import Field
 from lxml import etree
@@ -14,27 +15,21 @@ from lxml import etree
 from broadworks_ocip.exceptions import OCIErrorResponse
 
 
-class ElementInfo(
-    namedtuple(
-        "ElementInfo",
-        [
-            "name",
-            "xmlname",
-            "type",
-            "is_complex",
-            "is_required",
-            "is_array",
-            "is_table",
-        ],
-    ),
-):
+@attr.s(slots=True, frozen=True)
+class ElementInfo:
     """
     ElementInfo - information on each element of a Broadsoft OCIType
 
     Used to describe the element when serialising to/from XML
     """
 
-    pass
+    name = attr.ib(type=str)
+    xmlname = attr.ib(type=str)
+    type = attr.ib()
+    is_complex = attr.ib(type=bool, default=False)
+    is_required = attr.ib(type=bool, default=False)
+    is_array = attr.ib(type=bool, default=False)
+    is_table = attr.ib(type=bool, default=False)
 
 
 class OCIType(Class):
@@ -168,6 +163,16 @@ class OCIType(Class):
         return results
 
     @classmethod
+    def _build_from_etree_non_parameters(cls, element, initialiser):
+        """
+        Handle any items outside the parameter set
+
+        Intended for use by subclasses where they need to take actions immediately
+        after they are created from an incoming XML document.
+        """
+        pass
+
+    @classmethod
     def _build_from_etree(cls, element):
         """
         Create an OciType based instance from an XML etree element
@@ -208,7 +213,7 @@ class OCICommand(OCIType):
     OCICommand - base class for all OCI Command (Request/Response) types
     """
 
-    _session = Field(type=str, default="00000000-1111-2222-3333-444444444444")
+    session_id = Field(type=str, default="00000000-1111-2222-3333-444444444444")
 
     def _build_xml(self):
         """
@@ -224,8 +229,8 @@ class OCICommand(OCIType):
         )
         #
         # add the session
-        sess = etree.SubElement(root, "sessionId", nsmap=self._DEFAULT_NSMAP)
-        sess.text = self._session
+        session = etree.SubElement(root, "sessionId", nsmap=self._DEFAULT_NSMAP)
+        session.text = self.session_id
         #
         # and the command
         element = self._build_xml_command_element(root)
@@ -255,6 +260,17 @@ class OCICommand(OCIType):
             {"{http://www.w3.org/2001/XMLSchema-instance}type": self._type},
             nsmap=self._DEFAULT_NSMAP,
         )
+
+    @classmethod
+    def _build_from_etree_non_parameters(cls, element, initialiser):
+        """
+        Pick up the session id from the command set
+
+        Overrides the class method defined in OCIType.
+        """
+        node = element.find("sessionId")
+        if node is not None:
+            initialiser["session_id"] = node.text
 
 
 class OCIRequest(OCICommand):
@@ -288,19 +304,11 @@ class ErrorResponse(OCIResponse):
     """
 
     _ELEMENTS = (
-        ElementInfo("error_code", "errorCode", int, False, False, False, False),
-        ElementInfo("summary", "summary", str, False, True, False, False),
-        ElementInfo(
-            "summary_english",
-            "summaryEnglish",
-            str,
-            False,
-            True,
-            False,
-            False,
-        ),
-        ElementInfo("detail", "detail", str, False, False, False, False),
-        ElementInfo("type", "type", str, False, False, False, False),
+        ElementInfo("error_code", "errorCode", int),
+        ElementInfo("summary", "summary", str, is_required=True),
+        ElementInfo("summary_english", "summaryEnglish", str, is_required=True),
+        ElementInfo("detail", "detail", str),
+        ElementInfo("type", "type", str),
     )
     error_code = Field(type=int, required=False)
     summary = Field(type=str, required=True)

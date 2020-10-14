@@ -3,8 +3,10 @@ Broadworks OCI-P Interface Exception Classes
 
 Exception classes used by the API.
 """
+import attr
 
 
+@attr.s(slots=True, frozen=True)
 class OCIError(Exception):
     """Base Exception raised by OCI operations.
 
@@ -13,9 +15,8 @@ class OCIError(Exception):
         object -- the thing that went bang
     """
 
-    def __init__(self, message, object=None):
-        self.message = message
-        self.object = object
+    message = attr.ib(type=str)
+    object = attr.ib(default=None)
 
     def __str__(self):
         return f"{self.__class__.__name__}({self.message})"

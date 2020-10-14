@@ -58,3 +58,11 @@ History
   api object is deleted.  Added try/except around this to catch.
 * More log modifications - less opinionated
 * Split traffic logging to a VERBOSE_DEBUG setting - log level 9
+
+x.x.x (2020-xx-xx)
+------------------
+
+* Reworked ElementInfo into attrs based class
+* Various improvements to schema parsing into classes
+* Session Id is no longer hidden on command classes
+* Additional how/why documentation

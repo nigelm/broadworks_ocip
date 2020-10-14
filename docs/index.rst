@@ -9,6 +9,7 @@ Welcome to Broadworks OCI-P Interface's documentation!
    installation
    usage
    modules
+   internals
    contributing
    authors
    history
