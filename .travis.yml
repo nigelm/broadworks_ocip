@@ -2,22 +2,50 @@
 
 language: python
 python:
-- 3.8
-- 3.7
-- 3.6
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
-# Command to run tests, e.g. python setup.py test
+  - "3.6"
+  - "3.7"
+  - "3.8"
+install: pip install poetry tox-travis codecov
 script: tox
+after_success: codecov
+
+stages:
+  - test
+  - lint
+  - name: deploy
+    if: tag IS present
+
+jobs:
+  fast_finish: true
+  #include:
+  #  - stage: test
+  #    python: 3.8
+  #    env: TOXENV=docs
+  #  - stage: lint
+  #    python: 3.8
+  #    env: TOXENV=black
+  #  - python: 3.8
+  #    env: TOXENV=mypy
+  #  - python: 3.8
+  #    env: TOXENV=pylint
+  #  - python: 3.8
+  #    env: TOXENV=vulture
+  #  - stage: deploy
+  #    python: 3.8
+  #    install: true
+  #    script: true
+  #    after_success: true
+
+before_deploy:
+  - pip install --upgrade pip
+  - pip install poetry
+  - poetry config pypi-token.pypi $PYPI_PASSWORD
+
 deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  user: __token__
+- provider: script
+  script: poetry publish
   on:
+    branch: master
     tags: true
-    repo: nigelm/broadworks_ocip
-    python: 3.8
-  password:
-    secure: ixxmMnzJ4z6rUVmZ4HlBwL1PFQF9Piv3CYoFoXuuA2jNs3sVPxuX5vysjRzQoUw//9Tzkjcp1H4xHYl5APJ1AfvLPd/korGHka2g1//Zp4vf522K2rDImX7ixDse7LmkYzacF+PAdC3N3MzP8JCtX8eHHU9lHwohpB/S4S7DJZgY7QYRVb+7WOvIiMe6dQOYwVZZ/+eeCuSx4iTTdES7EayV0Cz1fPUJFAnpCuYviufVUlxt7LoWYbDnsL/gow66UtGj7PbHw4KJ+FTN3/+mvs1UwOW5pVDXbjchE1VlCsAgbHUexZUXxXhICg80S32Dh+dCUi78gccF7Pl25rDxA7mRYDxEpy9g2Faxs6aQm2jGpjNJE2vh0XDsoz/AGQnPz1e4wCY7WXX4lV+5RqFTT3vsYMRz8okPmdK56MkcoiXxxFn1zHxWi4lNfnpPRrgjegrz3fdBUE2jOw7ONSrLFpFm0MWnNsfJKfbXuzvdGBhnGBMBMsxe/Zr6jbz4xsHVjTwXAC94VLEymKEFPKUwH73U1SwXD/v3hmYouwmqqUZ/JFDfOjqy460JqjPLd1pGgBzq6NA6p80V/oKk++9+KHaTHk1FfbuJHZCHgcNowdBFISl9x/tynmeit19TtjXjGwE+2bMKzLbOYXI1+DQ5jaXhq1kmL+H5eHNlcO4U8Bk=
 
 # end
