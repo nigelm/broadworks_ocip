@@ -28,8 +28,26 @@ Features
 
 * python objects to match all Broadworks schema objects
 * API framework to talk to a Broadworks server
-* additional magic to handle atuhentication and sessions
+* additional magic to handle authentication and sessions
 * Based on Broadworks schema R21
+
+
+Usage
+-----
+
+More details is given within the usage section of the documentation, but the
+minimal summary is::
+
+    from broadworks_ocip import BroadworksAPI
+
+    # configure the API, connect and authenticate to the server
+    api = BroadworksAPI(
+        host=args.host, port=args.port, username=args.username, password=args.password,
+    )
+
+    # get the platform software level
+    response = api.command("SystemSoftwareVersionGetRequest")
+    print(response.version)
 
 
 Credits
