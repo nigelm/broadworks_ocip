@@ -37,7 +37,7 @@ exclude = [
 python = ">=3.6"
 classforge = "^0.92"
 lxml = "^4.5.2"
-attr = "^0.3.1"
+attrs = "^20.2.0"
 
 [tool.poetry.dev-dependencies]
 bump2version = "^1.0.1"

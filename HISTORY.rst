@@ -59,10 +59,11 @@ History
 * More log modifications - less opinionated
 * Split traffic logging to a VERBOSE_DEBUG setting - log level 9
 
-x.x.x (2020-xx-xx)
+1.0.1 (2020-10-15)
 ------------------
 
 * Reworked ElementInfo into attrs based class
 * Various improvements to schema parsing into classes
 * Session Id is no longer hidden on command classes
 * Additional how/why documentation
+* Converted to use poetry for development management
