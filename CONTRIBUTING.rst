@@ -110,7 +110,7 @@ Tips
 
 To run a subset of tests::
 
-$ pytest tests.test_broadworks_ocip
+$ poetry run pytest tests.test_broadworks_ocip
 
 
 Deploying
