@@ -1,9 +1,10 @@
-=====
-Usage
-=====
+# Usage
 
-To use Broadworks OCI-P Interface in a project::
+## Simple Usage
 
+To use Broadworks OCI-P Interface in a project:-
+
+```python
     from broadworks_ocip import BroadworksAPI
 
     # configure the API, connect and authenticate to the server
@@ -21,11 +22,15 @@ To use Broadworks OCI-P Interface in a project::
     # the response table is provided as a list of named tuple entries
     for provider in response.service_provider_table:
         print(provider.service_provider_id)
+```
 
+
+## More Complex Usage
 
 Some commands are more complex and made up of additional type components.
 This could lead to commands such as this::
 
+```python
     result = api.get_command_object(
         "GroupServiceModifyAuthorizationListRequest",
         service_provider_id="some_enterprise",
@@ -54,11 +59,21 @@ This could lead to commands such as this::
             ),
         ],
     )
+```
 
+## Failures and Exceptions
 
-A failed command typically returns an ErrorResponse.  When decoded the
-ErrorResponse will raise a OCIErrorResponse exception.
+A failed command typically returns an `ErrorResponse`.  When decoded the
+`ErrorResponse` will raise a `OCIErrorResponse` exception.
 
 Additionally a command may raise other exceptions, related to the TCP
-communications layers, or a OCIErrorTimeOut if no response is received in
+communications layers, or a `OCIErrorTimeOut` if no response is received in
 reasonable time.
+
+## Server
+
+Due to the way these objects have been built it *should* be fairly simple to
+make a Broadworks OCI-P server which accepts and decodes requests and replies
+with appropriate responses; and this was done in a very simplified form to
+make the `fakeserver.py` which is used in testing.  However this is not likely
+to be very useful in practice.

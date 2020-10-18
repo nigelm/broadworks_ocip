@@ -1,0 +1,44 @@
+site_name: broadworks_ocip
+site_description: "Automatic documentation from sources, for MkDocs."
+site_url: "https://nigelm.github.io/broadworks_ocip/"
+repo_url: "https://github.com/nigelm/broadworks_ocip"
+repo_name: "nigelm/broadworks_ocip"
+
+nav:
+  - Overview: index.md
+  - Usage: usage.md
+  - API Reference: library.md
+  - Internal Design: internals.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
+  - License: license.md
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.expand
+
+extra_css:
+  - css/mkdocstrings.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      linenums_style: pymdownx.inline
+  - pymdownx.magiclink
+  - pymdownx.superfences
+  - markdown_include.include
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+          selection:
+            new_path_syntax: yes
+      watch:
+        - broadworks_ocip
+# end

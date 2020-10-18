@@ -4,10 +4,10 @@ version = "1.0.2"
 description = "API interface to the OCI-P provisioning interface of a Broadworks softswitch"
 authors = ["Nigel Metheringham <nigelm@cpan.org>"]
 license = "BSD"
-readme = "README.rst"
+readme = "README.md"
 homepage = "https://pypi.org/project/broadworks-ocip/"
 repository = "https://github.com/nigelm/broadworks_ocip"
-documentation = "https://broadworks-ocip.readthedocs.io/"
+documentation = "https://nigelm.github.io/broadworks_ocip/"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
@@ -20,11 +20,9 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 include = [
-    "AUTHORS.rst",
-    "CONTRIBUTING.rst",
-    "HISTORY.rst",
-    "LICENSE",
-    "README.rst",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "README.md",
     "tests/*",
     "docs/*"
 ]
@@ -34,7 +32,7 @@ exclude = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6"
+python = ">=3.6,<4.0"
 classforge = "^0.92"
 lxml = "^4.5.2"
 attrs = "^20.2.0"
@@ -45,11 +43,13 @@ distlib = "^0.3.1"
 flake8 = "^3.8.4"
 pytest = "^6.1.1"
 pytest-runner = "^5.2"
-Sphinx = "^3.2.1"
-sphinx-rtd-theme = "^0.5.0"
 toposort = "^1.5"
 tox = "^3.20.1"
 xmlschema = "^1.2.5"
+mkdocs = "^1.1.2"
+mkdocs-material = "^6.1.0"
+mkdocstrings = "^0.13.6"
+markdown-include = "^0.6.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
