@@ -26,7 +26,7 @@ def canon_xml(inxml):
 
 def check_command_xml(wanted, cmd):
     """Create a Broadworks XML command framgment from the argumenta"""
-    generated = cmd._build_xml()
+    generated = cmd.build_xml_()
     assert canon_xml(generated) == canon_xml(wanted)
 
 

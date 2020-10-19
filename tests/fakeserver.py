@@ -93,16 +93,16 @@ class FakeServer:
 
     def process_command(self, connection, content, api):
         cmd = api.decode_xml(content)
-        self.logger.debug(f"F<<<: {cmd._type}")
+        self.logger.debug(f"F<<<: {cmd.type_}")
         response = None
-        if cmd._type == "AuthenticationRequest":
+        if cmd.type_ == "AuthenticationRequest":
             response = api.get_command_object(
                 "AuthenticationResponse",
                 user_id=cmd.user_id,
                 nonce="1234567890123",
                 password_algorithm="MD5",
             )
-        elif cmd._type == "LoginRequest14sp4":
+        elif cmd.type_ == "LoginRequest14sp4":
             # hard coded password corresponding to the hard coded params at top
             if cmd.signed_password == "77e4a6de3a1e00be05e121cf0ebee860":
                 domain = cmd.user_id.partition("@")[2]
@@ -122,12 +122,12 @@ class FakeServer:
                     summary="[Error 4962] Invalid password",
                     summary_english="[Error 4962] Invalid password",
                 )
-        elif cmd._type == "SystemSoftwareVersionGetRequest":
+        elif cmd.type_ == "SystemSoftwareVersionGetRequest":
             response = api.get_command_object(
                 "SystemSoftwareVersionGetResponse",
                 version="21sp1",
             )
-        elif cmd._type == "LogoutRequest":
+        elif cmd.type_ == "LogoutRequest":
             # This normally never gets sent because the other end drops the connection
             response = api.get_command_object("SuccessResponse")
         else:
@@ -139,8 +139,8 @@ class FakeServer:
                 detail="There might be more detail if this was a real server",
                 type="abject_panic",
             )
-        self.logger.debug(f"Built response {response._type}")
-        xml = response._build_xml()
-        self.logger.debug(f"F>>>: {response._type}")
+        self.logger.debug(f"Built response {response.type_}")
+        xml = response.build_xml_()
+        self.logger.debug(f"F>>>: {response.type_}")
         connection.sendall(xml + b"\n")
         self.logger.debug(f"SEND: {str(xml)}")

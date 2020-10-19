@@ -200,7 +200,7 @@ class BroadworksAPI(Class):
             xml: An XML string
         """
         cmd = self.get_command_object(command, **kwargs)
-        return cmd._build_xml()
+        return cmd.build_xml_()
 
     def send_command(self, command, **kwargs):
         """
@@ -278,9 +278,9 @@ class BroadworksAPI(Class):
                 command = element.get("{http://www.w3.org/2001/XMLSchema-instance}type")
                 self.logger.debug(f"Decoding command {command}")
                 cls = self._despatch_table[command]
-                result = cls._build_from_etree(element)
-                self.logger.info(f"<<< {result._type}")
-                result._post_xml_decode()
+                result = cls.build_from_etree_(element)
+                self.logger.info(f"<<< {result.type_}")
+                result.post_xml_decode_()
                 return result
         raise OCIErrorUnknown(message="Unknown XML decode", object=root)
 
