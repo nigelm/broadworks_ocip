@@ -23,10 +23,32 @@ class OCIError(Exception):
 
 
 class OCIErrorResponse(OCIError):
+    """
+    Exception raised when an ErrorResponse is received and decoded.
+
+    Subclass of OCIError()
+    """
+
     pass
 
 
 class OCIErrorTimeOut(OCIError):
+    """
+    Exception raised when nothing is head back from the server.
+
+    Subclass of OCIError()
+    """
+
+    pass
+
+
+class OCIErrorUnknown(OCIError):
+    """
+    Exception raised when life becomes too much for the software.
+
+    Subclass of OCIError()
+    """
+
     pass
 
 
