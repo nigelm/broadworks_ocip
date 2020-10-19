@@ -37,6 +37,7 @@ class OCIType(Class):
     OCIType - Base type for all the OCI-P component classes
     """
 
+    # Namespace maps used for various XML build tasks
     _DEFAULT_NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
     _DOCUMENT_NSMAP = {None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
     _ERROR_NSMAP = {
@@ -47,6 +48,7 @@ class OCIType(Class):
 
     @property
     def _type(self):
+        """Return the typename of the class"""
         return self.__class__.__name__
 
     def _post_xml_decode(self):
@@ -62,24 +64,26 @@ class OCIType(Class):
         """
         Build XML etree element tree for this OCIType
 
-        :param name: The name or tag of the element - defaults to the ``_type``
-        :type name: string
-        :rtype: etree.Element()
+        Arguments:
+            name: The name or tag of the element - defaults to the `_type`
 
+        Returns:
+            etree: etree.Element() for this class
         """
         if name is None:
             name = self._type
         element = etree.Element(name, nsmap=self._DEFAULT_NSMAP)
         return self._etree_sub_components(element)
 
-    def _etree_sub_components(self, element):
+    def _etree_sub_components(self, element: "etree._Element"):
         """
         Build XML etree subelements for the components within this OCIType
 
-        :param element: The element that is the parent of the subelements
-        :type element: etree.Element()
-        :rtype: etree.Element()
+        Arguments:
+            element: The parent element that the components are to be attached to
 
+        Returns:
+            etree: etree.Element() for this class
         """
         for sub_element in self._ELEMENTS:
             value = getattr(self, sub_element.name)
@@ -91,14 +95,22 @@ class OCIType(Class):
                 self._etree_sub_element(element, sub_element, value)
         return element
 
-    def _etree_sub_element(self, element, sub_element, value):
+    def _etree_sub_element(
+        self,
+        element: "etree._Element",
+        sub_element: "ElementInfo",
+        value,
+    ):
         """
         Build XML etree subelement for one elemnt within this OCIType
 
-        :param element: The element that is the parent of the subelements
-        :type element: etree.Element()
-        :rtype: etree.Element()
+        Arguments:
+            element: The parent element that the components are to be attached to
+            sub_element: The definition of the sub element to be attached
+            value: Value of the sub element - quite possibly None
 
+        Returns:
+            etree: etree.Element() for this class
         """
         if value is None:
             if sub_element.is_required:
@@ -133,29 +145,32 @@ class OCIType(Class):
         """
         Converts an XML name into a pythonic snake case name
 
-        :param header: The name to convert
-        :type header: string
-        :rtype: string
+        Arguments:
+            header: The header name in space separated words
 
+        Returns:
+            snake: lower cased and underscore separated result name
         """
         return re.sub("[ _]+", r"_", header).lower()
 
     @classmethod
-    def _decode_table(cls, element):
+    def _decode_table(cls, element: "etree._Element"):
         """
         Decode a table (used in a OCIResponse) into a list of named tuples
 
-        :param element:
-        :rtype: list of named tuples
+        Arguments:
+            element: The OCITable XML element
 
+        Returns:
+            results: List of namedtuple elements, one for each table row
         """
-        typename = element.tag
+        typename: str = element.tag
         results = []
         columns = [
             cls._column_header_snake_case(b.text)
             for b in element.iterfind("colHeading")
         ]
-        type = namedtuple(typename, columns)
+        type = namedtuple(typename, columns)  # type: ignore
         for row in element.iterfind("row"):
             rowdata = [b.text for b in row.iterfind("col")]
             rowobj = type(*rowdata)
@@ -163,7 +178,11 @@ class OCIType(Class):
         return results
 
     @classmethod
-    def _build_from_etree_non_parameters(cls, element, initialiser):
+    def _build_from_etree_non_parameters(
+        cls,
+        element: "etree._Element",
+        initialiser: dict,
+    ):
         """
         Handle any items outside the parameter set
 
@@ -173,7 +192,7 @@ class OCIType(Class):
         pass
 
     @classmethod
-    def _build_from_etree(cls, element):
+    def _build_from_etree(cls, element: "etree._Element"):
         """
         Create an OciType based instance from an XML etree element
 
@@ -211,15 +230,25 @@ class OCIType(Class):
 class OCICommand(OCIType):
     """
     OCICommand - base class for all OCI Command (Request/Response) types
+
+    Attributes:
+        session_id: The session ID used for the command exchange.  We use
+            UUIDs by default, although this is not required.  The default
+            is fixed on here (but normally passed in from the containing
+            API object) - do not use the default in production - its simply
+            there to give a known value for testing.
     """
 
-    session_id = Field(type=str, default="00000000-1111-2222-3333-444444444444")
+    session_id: str = Field(type=str, default="00000000-1111-2222-3333-444444444444")
 
     def _build_xml(self):
         """
         Build an XML document of the current Command (Request/Response)
 
-        :rtype: string containing XML document
+        Parameters:
+
+        Returns:
+            xml: string containing XML document
         """
         # document root element
         root = etree.Element(
@@ -246,7 +275,7 @@ class OCICommand(OCIType):
             # pretty_print=True,
         )
 
-    def _build_xml_command_element(self, root):
+    def _build_xml_command_element(self, root: "etree._Element"):
         """
         Build the XML etree of the main command element of the current Command
         Intended to be overridden in a subclass for the few elements that do things
@@ -262,7 +291,11 @@ class OCICommand(OCIType):
         )
 
     @classmethod
-    def _build_from_etree_non_parameters(cls, element, initialiser):
+    def _build_from_etree_non_parameters(
+        cls,
+        element: "etree._Element",
+        initialiser: dict,
+    ):
         """
         Pick up the session id from the command set
 
@@ -300,7 +333,11 @@ class SuccessResponse(OCIResponse):
 
 class ErrorResponse(OCIResponse):
     """
-    The ErrorResponse is concrete response sent whenever a transaction fails and does not return any data.
+    The ErrorResponse is concrete response sent whenever a transaction fails
+    and does not return any data.
+
+    As this an error, when it is created from an incoming command response, a
+    `OCIErrorResponse` exception is raised in `_post_xml_decode`.
     """
 
     _ELEMENTS = (
