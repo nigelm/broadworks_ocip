@@ -112,7 +112,7 @@ def write_elements(file, elements):
 def write_attribute_comment(file, element):
     """Write an attribute comment with type and other info for the docs"""
     if element["is_array"]:
-        comment_bits = [f"list({element['type']}):"]
+        comment_bits = [f"list[{element['type']}]:"]
     else:
         comment_bits = [f"{element['type']}:"]
     if element["is_required"]:
@@ -136,7 +136,13 @@ def write_attribute_comment(file, element):
 def write_attribute(file, element):
     params = element["params"]
     param_str = ", ".join(params)
-    outstr = " " * 4 + element["name"] + " = Field(" + param_str + ")"
+    if element["is_array"]:
+        mytype = '"List[' + element["type"] + ']"'
+    elif element["type"] in ("str", "bool", "int"):
+        mytype = element["type"]
+    else:
+        mytype = '"' + element["type"] + '"'
+    outstr = " " * 4 + element["name"] + ": " + mytype + " = Field(" + param_str + ")"
     if len(outstr) >= 95:
         wrapper = TextWrapper(
             width=90,
@@ -145,22 +151,38 @@ def write_attribute(file, element):
             subsequent_indent=" " * 8,
             break_long_words=False,
         )
-        file.write(" " * 4 + element["name"] + " = Field(\n")
+        file.write(" " * 4 + element["name"] + ": " + mytype + " = Field(\n")
         file.write("\n".join(wrapper.wrap(param_str)) + ",\n")
         file.write(" " * 4 + ")\n")
     else:
         file.write(outstr + "\n")
 
 
-def process_class_elements(file, xsd_component, prefix=""):
-    elements = build_element_hash(xsd_component, prefix)
+def process_class_elements(file, elements):
     write_elements(file, elements)
     for element in elements.values():
-        write_attribute_comment(file, element)
+        # write_attribute_comment(file, element)
         write_attribute(file, element)
 
 
-def process_documentation(file, xsd_component):
+def process_attribute_documentation(file, elements):
+    if len(elements):
+        file.write("\n    Attributes:\n")
+        wrapper = TextWrapper(
+            width=90,
+            initial_indent=" " * 8,
+            subsequent_indent=" " * 12,
+            break_long_words=False,
+            drop_whitespace=True,
+            fix_sentence_endings=True,
+            expand_tabs=False,
+        )
+        for element in elements.values():
+            data = element["name"] + ": " + element["xmlname"]
+            file.write("\n".join(wrapper.wrap(data)) + "\n")
+
+
+def process_documentation(file, xsd_component, elements):
     anno = xsd_component.annotation
     lines = []
     if anno:
@@ -209,13 +231,16 @@ def process_documentation(file, xsd_component):
                 lines += wrapper.wrap(mystr)
         if len(lines) > 0:
             # output the documentation bits
-            file.write('    """\n' + "\n".join(lines) + '\n    """\n\n')
+            file.write('    """\n' + "\n".join(lines) + "\n")
+            process_attribute_documentation(file, elements)
+            file.write('    """\n\n')
 
 
 def process_thing(file, xsd_component, thing, prefix=""):
     file.write(f"class {xsd_component.name}({thing}):\n")
-    process_documentation(file, xsd_component)
-    process_class_elements(file, xsd_component, prefix)
+    elements = build_element_hash(xsd_component, prefix)
+    process_documentation(file, xsd_component, elements)
+    process_class_elements(file, elements)
     file.write("\n\n")
 
 
@@ -273,6 +298,7 @@ def open_output_files():
         out.write("# Do not edit as changes will be overwritten.\n")
         out.write(f"# Generated on {generation_time.isoformat()}\n")
         out.write("# fmt: off\n")
+        out.write("from typing import List\n\n")
         out.write("from classforge import Field\n\n")
         if thing in ("request", "response"):
             out.write("import broadworks_ocip.types as OCI\n")
