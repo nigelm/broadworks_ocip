@@ -2,6 +2,7 @@
 schema.pkl
 # test files - may have system specific data in
 test_data/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
