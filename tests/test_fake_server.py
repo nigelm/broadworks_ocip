@@ -38,7 +38,7 @@ def test_server_login():
     response = api.command("SystemSoftwareVersionGetRequest")
     assert api.authenticated is True
     assert response is not None
-    assert response._type == "SystemSoftwareVersionGetResponse"
+    assert response.type_ == "SystemSoftwareVersionGetResponse"
 
 
 def test_server_login_fail():

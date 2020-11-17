@@ -27,7 +27,7 @@ def make_command_from_xml(xml, command, serialised):
     """Create a Broadworks XML command framgment from the argumenta"""
     api = BroadworksAPI(**BASIC_API_PARAMS)
     generated = api.decode_xml(xml)
-    assert generated._type == command
+    assert generated.type_ == command
     assert generated.to_dict() == serialised
 
 

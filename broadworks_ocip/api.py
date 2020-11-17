@@ -20,6 +20,7 @@ import broadworks_ocip.requests
 import broadworks_ocip.responses
 import broadworks_ocip.types
 from broadworks_ocip.exceptions import OCIErrorTimeOut
+from broadworks_ocip.exceptions import OCIErrorUnknown
 
 VERBOSE_DEBUG = 9
 
@@ -27,33 +28,44 @@ VERBOSE_DEBUG = 9
 class BroadworksAPI(Class):
     """
     BroadworksAPI - A class encapsulating the Broadworks OCI-P API
+
+    This encapsulates a connection to the Broadworks OCI-P API server and
+    provides an interface to cerate and despatch commands to the server and
+    receive responses back (as response class instances).
+
+    Attributes:
+        host: hostname/ip to connect to
+        port: port number to connect to. Default 2208
+        username: username to authenticate with
+        password: password to authenticate with
+        logger: logger object to use - set up internally by default
+        authenticated: are we authenticated?
+        connect_timeout: connection timeout value (default 8)
+        command_timeout: command timeout value (default 30)
+        socket: connection socket - set up internally
+        session_id: session id - set up internally, only set this for testing
+
     """
 
-    #: string: hostname/ip to connect to
-    host = Field(type=str, required=True, mutable=False)
-    #: int: port number to connect to. Default 2208
-    port = Field(type=int, default=2208, mutable=False)
-    #: string: username to authenticate with
-    username = Field(type=str, required=True, mutable=False)
-    #: string: password to authenticate with
-    password = Field(type=str, required=True, mutable=False)
-    #: logger to use - set up internally by default
-    logger = Field(type=object)
+    host: str = Field(type=str, required=True, mutable=False)
+    port: int = Field(type=int, default=2208, mutable=False)
+    username: str = Field(type=str, required=True, mutable=False)
+    password: str = Field(type=str, required=True, mutable=False)
+    logger = Field(type=logging.Logger)
+    authenticated: bool = Field(type=bool, default=False)
+    connect_timeout: int = Field(type=int, default=8)
+    command_timeout: int = Field(type=int, default=30)
+    socket = Field(type=socket.socket, default=None)  # type: socket.socket
+    session_id: str = Field(type=str)
     _despatch_table = Field(type=dict)
-    #: boolean: are we authenticated?
-    authenticated = Field(type=bool, default=False)
-    #: integer: connection timeout value (default 8)
-    connect_timeout = Field(type=int, default=8)
-    #: integer: command timeout value (default 30)
-    command_timeout = Field(type=int, default=30)
-    #: socket: connection socket - set up internally
-    socket = Field(type=object, default=None)
-    #: string: session id - set up internally, only set this for testing
-    session_id = Field(type=str)
 
     def on_init(self):
         """
-        Initialise the API object
+        Initialise the API object.
+
+        Automatically called by the object initialisation code. Sets up the
+        session_id to a random `uuid.uuid4()`, builds a logger object if none
+        was passed and builds a despatch table.
         """
         if self.session_id is None:
             self.session_id = str(uuid.uuid4())
@@ -98,6 +110,9 @@ class BroadworksAPI(Class):
     def configure_logger(self):
         """
         Create and configure a logging object
+
+        By default sets up a basic logger logging to the console and syslog at
+        `WARNING` level.
         """
         logger = logging.getLogger(__name__)
         logger.setLevel(logging.WARNING)
@@ -106,14 +121,18 @@ class BroadworksAPI(Class):
         logger.addHandler(console_handler)
         self.logger = logger
 
-    def get_type_class(self, command):
+    def get_type_class(self, command: str):
         """
         Given a name (Request/Response/Type) name, return a class object for it
 
-        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
-        :type command: str
-        :rtype: class object
-        :raises: KeyError
+        Arguments:
+            command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
+
+        Raises:
+            KeyError: If command could not be found
+
+        Returns:
+            cls: An appropriate class object
         """
         try:
             cls = self._despatch_table[command]
@@ -126,10 +145,19 @@ class BroadworksAPI(Class):
         """
         Build the OCIType object instance for a type and parameters
 
-        :param command: A single word name of a OCIType()
-        :type command: str
-        :param kwargs: The parameters for the command
-        :rtype: Object instance
+        The difference between this method, and `get_command_object()` is that
+        the latter set up the session_id (which is only relevant for a command
+        object).
+
+        Arguments:
+            command: A single word name of a `OCIType()`
+            kwargs: The arguments for the type
+
+        Raises:
+            KeyError: If command could not be found
+
+        Returns:
+            cmd: An appropriate class instance
         """
         cls = self.get_type_class(command)
         cmd = cls(**kwargs)
@@ -139,10 +167,19 @@ class BroadworksAPI(Class):
         """
         Build the OCICommand object instance for a command and parameter
 
-        :param command: A single word name of a OCIRequest(),OCIResponse()
-        :type command: str
-        :param kwargs: The parameters for the command
-        :rtype: Object instance
+        The difference between `get_type_object`, and this method is that this
+        one sets up the session_id (which is only relevant for a command
+        object).
+
+        Arguments:
+            command: A single word name of a `OCIRequest()` or `OCIResponse()`
+            kwargs: The arguments for the command
+
+        Raises:
+            KeyError: If command could not be found
+
+        Returns:
+            cmd: An appropriate class instance
         """
         cls = self.get_type_class(command)
         cmd = cls(session_id=self.session_id, **kwargs)
@@ -152,22 +189,32 @@ class BroadworksAPI(Class):
         """
         Build the XML for a command and parameter
 
-        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
-        :type command: str
-        :param kwargs: The parameters for the command
-        :rtype: XML string
+        Arguments:
+            command: A single word name of a `OCIRequest()` or `OCIResponse()`
+            kwargs: The arguments for the command
+
+        Raises:
+            KeyError: If command could not be found
+
+        Returns:
+            xml: An XML string
         """
         cmd = self.get_command_object(command, **kwargs)
-        return cmd._build_xml()
+        return cmd.build_xml_()
 
     def send_command(self, command, **kwargs):
         """
         Build the XML for a command and parameter and send it to the server
 
-        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
-        :type command: str
-        :param kwargs: The parameters for the command
+        Arguments:
+            command: A single word name of a `OCIRequest()` or `OCIResponse()`
+            kwargs: The arguments for the command
 
+        Raises:
+            KeyError: If command could not be found
+
+        Returns:
+            None
         """
         self.logger.info(f">>> {command}")
         xml = self.get_command_xml(command, **kwargs)
@@ -178,8 +225,16 @@ class BroadworksAPI(Class):
         """
         Wait and receive response XML from server, and decode it
 
-        :rtype: Object instance
-        :raises: OCIErrorTimeOut
+        Arguments:
+
+        Raises:
+            OCIErrorResponse: An error was returned from the server
+            OCIErrorTimeOut: The client timed out waiting for the server
+            OCIErrorUnknown: Unknown return from the server
+            IOError: Communications failure
+
+        Returns:
+            Class instance object
         """
         content = b""
         while True:
@@ -204,9 +259,15 @@ class BroadworksAPI(Class):
         """
         Decode XML into an OCICommand based object instance
 
-        :param xml:XML string
-        :type command: str
-        :rtype: Object instance
+        Arguments:
+            xml: An XML string
+
+        Raises:
+            OCIErrorResponse: An error was returned from the server
+            OCIErrorUnknown: Unknown return from the server
+
+        Returns:
+            Class instance object
         """
         root = etree.fromstring(xml)
         if root.tag != "{C}BroadsoftDocument":
@@ -217,17 +278,23 @@ class BroadworksAPI(Class):
                 command = element.get("{http://www.w3.org/2001/XMLSchema-instance}type")
                 self.logger.debug(f"Decoding command {command}")
                 cls = self._despatch_table[command]
-                result = cls._build_from_etree(element)
-                self.logger.info(f"<<< {result._type}")
-                result._post_xml_decode()
+                result = cls.build_from_etree_(element)
+                self.logger.info(f"<<< {result.type_}")
+                result.post_xml_decode_()
                 return result
+        raise OCIErrorUnknown(message="Unknown XML decode", object=root)
 
     def connect(self):
         """
         Open the connection to the OCI-P server
 
-        :raises: OSError
-        :raises: socket.timeout
+        Arguments:
+
+        Raises:
+            IOError: Communications failure
+
+        Returns:
+            None
         """
         self.logger.debug(f"Attempting connection host={self.host} port={self.port}")
         try:
@@ -249,7 +316,13 @@ class BroadworksAPI(Class):
         """
         Authenticate the connection to the OCI-P server
 
-        :raises: OCIErrorResponse
+        Arguments:
+
+        Raises:
+            OCIErrorResponse: An error was returned from the server
+
+        Returns:
+            resp: Response object
         """
         self.send_command("AuthenticationRequest", user_id=self.username)
         resp = self.receive_response()
@@ -267,17 +340,24 @@ class BroadworksAPI(Class):
         resp = self.receive_response()
         # if authentication failed this line will never be executed
         self.authenticated = True
+        return resp
 
     def command(self, command, **kwargs):
         """
         Send a command and parameters to the server, receive and decode a response
 
-        :param command: A single word name of a OCIType(),OCIRequest(),OCIResponse()
-        :type command: str
-        :param kwargs: The parameters for the command
-        :rtype: Object instance
-        :raises: OCIErrorResponse
-        :raises: OCIErrorResponse
+        Arguments:
+            command: A single word name of a `OCIRequest()`
+            kwargs: The arguments for the command
+
+        Raises:
+            OCIErrorResponse: An error was returned from the server
+            OCIErrorTimeOut: The client timed out waiting for the server
+            OCIErrorUnknown: Unknown return from the server
+            IOError: Communications failure
+
+        Returns:
+            resp: Response class instance object
         """
         if not self.authenticated:
             self.connect()

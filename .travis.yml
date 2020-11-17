@@ -1,13 +1,21 @@
 # Config file for automatic testing at travis-ci.com
+##
+## NB This requires the following variables to be defined against
+## The project in travis-ci:-
+##  GH_TOKEN        - Github PAT allowing documentation push to github pages
+##  PYPI_PASSWORD   - PYPI Token (not password) allowing push to pypi
 
 language: python
 python:
   - "3.6"
   - "3.7"
   - "3.8"
-install: pip install poetry tox-travis codecov
-script: tox
-after_success: codecov
+install:
+  - pip install poetry
+  - poetry install
+script:
+  - poetry run pytest
+  - poetry run mkdocs build
 
 stages:
   - test
@@ -17,24 +25,6 @@ stages:
 
 jobs:
   fast_finish: true
-  #include:
-  #  - stage: test
-  #    python: 3.8
-  #    env: TOXENV=docs
-  #  - stage: lint
-  #    python: 3.8
-  #    env: TOXENV=black
-  #  - python: 3.8
-  #    env: TOXENV=mypy
-  #  - python: 3.8
-  #    env: TOXENV=pylint
-  #  - python: 3.8
-  #    env: TOXENV=vulture
-  #  - stage: deploy
-  #    python: 3.8
-  #    install: true
-  #    script: true
-  #    after_success: true
 
 before_deploy:
   - pip install --upgrade pip
@@ -48,5 +38,13 @@ deploy:
     python: 3.8
     branch: master
     tags: true
+
+# push the documentation out
+after_deploy:
+  - git config user.name "Travis Docs Builder"
+  - git config user.email "travis@example.org"
+  - git remote add gh-token "https://${GH_TOKEN}@github.com/nigelm/broadworks_ocip.git";
+  - git fetch gh-token && git fetch gh-token gh-pages:gh-pages;
+  - poetry run mkdocs gh-deploy -v --clean --remote-name gh-token;
 
 # end
