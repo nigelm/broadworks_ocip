@@ -215,10 +215,60 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="../library/" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
       API Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        API Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/api/" class="md-nav__link">
+      API
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/base/" class="md-nav__link">
+      Base Classes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/exceptions/" class="md-nav__link">
+      Exceptions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -281,6 +331,20 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unreleased-changes" class="md-nav__link">
+    Unreleased Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#111-2020-11-17" class="md-nav__link">
+    [1.1.1] - 2020-11-17
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#101-2020-10-15" class="md-nav__link">
@@ -395,6 +459,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#unreleased-changes" class="md-nav__link">
+    Unreleased Changes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#111-2020-11-17" class="md-nav__link">
+    [1.1.1] - 2020-11-17
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#101-2020-10-15" class="md-nav__link">
     [1.0.1] - 2020-10-15
   </a>
@@ -485,7 +563,24 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<h2 id="unreleased-changes">Unreleased Changes</h2>
 <!-- insertion marker -->
+<h2 id="111-2020-11-17">[1.1.1] - 2020-11-17</h2>
+<ul>
+<li>Moved the following classes into the module top level declarations:-<ul>
+<li><code>ElementInfo</code></li>
+<li><code>ErrorResponse</code></li>
+<li><code>OCICommand</code></li>
+<li><code>OCIRequest</code></li>
+<li><code>OCIResponse</code></li>
+<li><code>OCIType</code></li>
+<li><code>SuccessResponse</code></li>
+</ul>
+</li>
+<li>Fixed some Makefile issues</li>
+<li>Internal documentation improvements</li>
+<li>Fixed the Changelog auto update</li>
+</ul>
 <h2 id="101-2020-10-15">[1.0.1] - 2020-10-15</h2>
 <ul>
 <li>Reworked ElementInfo into attrs based class</li>

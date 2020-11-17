@@ -1,0 +1,1848 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Automatic documentation from sources, for MkDocs.">
+      
+      
+        <link rel="canonical" href="https://nigelm.github.io/broadworks_ocip/api/base/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+    
+    
+      
+        <title>Base Classes - broadworks_ocip</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bc7e593a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab28b872.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/mkdocstrings.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#base-classes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://nigelm.github.io/broadworks_ocip/" title="broadworks_ocip" class="md-header-nav__button md-logo" aria-label="broadworks_ocip">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            broadworks_ocip
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Base Classes
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/nigelm/broadworks_ocip/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nigelm/broadworks_ocip
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://nigelm.github.io/broadworks_ocip/" title="broadworks_ocip" class="md-nav__button md-logo" aria-label="broadworks_ocip">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    broadworks_ocip
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nigelm/broadworks_ocip/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nigelm/broadworks_ocip
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../usage/" class="md-nav__link">
+      Usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      API Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        API Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Base Classes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Base Classes
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base" class="md-nav__link">
+    broadworks_ocip.base
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ElementInfo" class="md-nav__link">
+    ElementInfo
+  </a>
+  
+    <nav class="md-nav" aria-label="ElementInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ElementInfo.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ErrorResponse" class="md-nav__link">
+    ErrorResponse
+  </a>
+  
+    <nav class="md-nav" aria-label="ErrorResponse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ErrorResponse.build_xml_command_element_" class="md-nav__link">
+    build_xml_command_element_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ErrorResponse.post_xml_decode_" class="md-nav__link">
+    post_xml_decode_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand" class="md-nav__link">
+    OCICommand
+  </a>
+  
+    <nav class="md-nav" aria-label="OCICommand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand.build_from_etree_non_parameters_" class="md-nav__link">
+    build_from_etree_non_parameters_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand.build_xml_" class="md-nav__link">
+    build_xml_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand.build_xml_command_element_" class="md-nav__link">
+    build_xml_command_element_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIRequest" class="md-nav__link">
+    OCIRequest
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIResponse" class="md-nav__link">
+    OCIResponse
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType" class="md-nav__link">
+    OCIType
+  </a>
+  
+    <nav class="md-nav" aria-label="OCIType">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.type_" class="md-nav__link">
+    type_
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.build_from_etree_" class="md-nav__link">
+    build_from_etree_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.build_from_etree_non_parameters_" class="md-nav__link">
+    build_from_etree_non_parameters_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.column_header_snake_case_" class="md-nav__link">
+    column_header_snake_case_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.decode_table_" class="md-nav__link">
+    decode_table_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.etree_components_" class="md-nav__link">
+    etree_components_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.etree_sub_components_" class="md-nav__link">
+    etree_sub_components_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.etree_sub_element_" class="md-nav__link">
+    etree_sub_element_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.post_xml_decode_" class="md-nav__link">
+    post_xml_decode_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.SuccessResponse" class="md-nav__link">
+    SuccessResponse
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../exceptions/" class="md-nav__link">
+      Exceptions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../internals/" class="md-nav__link">
+      Internal Design
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../license/" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base" class="md-nav__link">
+    broadworks_ocip.base
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ElementInfo" class="md-nav__link">
+    ElementInfo
+  </a>
+  
+    <nav class="md-nav" aria-label="ElementInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ElementInfo.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ErrorResponse" class="md-nav__link">
+    ErrorResponse
+  </a>
+  
+    <nav class="md-nav" aria-label="ErrorResponse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ErrorResponse.build_xml_command_element_" class="md-nav__link">
+    build_xml_command_element_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.ErrorResponse.post_xml_decode_" class="md-nav__link">
+    post_xml_decode_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand" class="md-nav__link">
+    OCICommand
+  </a>
+  
+    <nav class="md-nav" aria-label="OCICommand">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand.build_from_etree_non_parameters_" class="md-nav__link">
+    build_from_etree_non_parameters_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand.build_xml_" class="md-nav__link">
+    build_xml_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCICommand.build_xml_command_element_" class="md-nav__link">
+    build_xml_command_element_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIRequest" class="md-nav__link">
+    OCIRequest
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIResponse" class="md-nav__link">
+    OCIResponse
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType" class="md-nav__link">
+    OCIType
+  </a>
+  
+    <nav class="md-nav" aria-label="OCIType">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.type_" class="md-nav__link">
+    type_
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.build_from_etree_" class="md-nav__link">
+    build_from_etree_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.build_from_etree_non_parameters_" class="md-nav__link">
+    build_from_etree_non_parameters_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.column_header_snake_case_" class="md-nav__link">
+    column_header_snake_case_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.decode_table_" class="md-nav__link">
+    decode_table_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.etree_components_" class="md-nav__link">
+    etree_components_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.etree_sub_components_" class="md-nav__link">
+    etree_sub_components_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.etree_sub_element_" class="md-nav__link">
+    etree_sub_element_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.post_xml_decode_" class="md-nav__link">
+    post_xml_decode_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.SuccessResponse" class="md-nav__link">
+    SuccessResponse
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nigelm/broadworks_ocip/edit/master/docs/api/base.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="base-classes">Base Classes</h1>
+<p>All of the command/request/response classes for Broadworks are built on top of
+these base classes:</p>
+<div class="doc doc-object doc-module">
+<h2 class="hidden-toc" href="#broadworks_ocip.base" id="broadworks_ocip.base" style="visibility: hidden; position: absolute;">
+        </h2>
+<div class="doc doc-contents first">
+<p>Broadworks OCI-P Interface Base Classes</p>
+<p>Base classes used by the types, requests and responses as well as
+other components like ElementInfo that are used by those.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="broadworks_ocip.base.ElementInfo">
+
+        <code>ElementInfo</code>
+
+
+      </h2>
+<div class="doc doc-contents ">
+<p>ElementInfo - information on each element of a Broadsoft OCIType</p>
+<p>Used to describe the element when serialising to/from XML</p>
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>
+<p>name of this element (in python snake case)</p>
+</td>
+</tr>
+<tr>
+<td><code>xmlname</code></td>
+<td><code>str</code></td>
+<td>
+<p>name of this element (in Java like camel case)</p>
+</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code></code></td>
+<td>
+<p>the type of the resulting element</p>
+</td>
+</tr>
+<tr>
+<td><code>is_complex</code></td>
+<td><code>bool</code></td>
+<td>
+<p>is this a complex element - containing another OCIType derived class</p>
+</td>
+</tr>
+<tr>
+<td><code>is_required</code></td>
+<td><code>bool</code></td>
+<td>
+<p>Is this required (True) or Optional (False)</p>
+</td>
+</tr>
+<tr>
+<td><code>is_array</code></td>
+<td><code>bool</code></td>
+<td>
+<p>Is this an array/list of element values</p>
+</td>
+</tr>
+<tr>
+<td><code>is_table</code></td>
+<td><code>bool</code></td>
+<td>
+<p>Is this a Broadworks table type - only seen in Responses</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.ElementInfo.__init__">
+
+        <code class="highlight language-python">
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">xmlname</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">is_complex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_array</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_table</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Method generated by attrs for class ElementInfo.</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">xmlname</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">is_complex</span><span class="o">=</span><span class="n">attr_dict</span><span class="p">[</span><span class="s1">'is_complex'</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">is_required</span><span class="o">=</span><span class="n">attr_dict</span><span class="p">[</span><span class="s1">'is_required'</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">is_array</span><span class="o">=</span><span class="n">attr_dict</span><span class="p">[</span><span class="s1">'is_array'</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">is_table</span><span class="o">=</span><span class="n">attr_dict</span><span class="p">[</span><span class="s1">'is_table'</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
+    <span class="n">_setattr</span> <span class="o">=</span> <span class="n">_cached_setattr</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+    <span class="n">_setattr</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="n">_setattr</span><span class="p">(</span><span class="s1">'xmlname'</span><span class="p">,</span> <span class="n">xmlname</span><span class="p">)</span>
+    <span class="n">_setattr</span><span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+    <span class="n">_setattr</span><span class="p">(</span><span class="s1">'is_complex'</span><span class="p">,</span> <span class="n">is_complex</span><span class="p">)</span>
+    <span class="n">_setattr</span><span class="p">(</span><span class="s1">'is_required'</span><span class="p">,</span> <span class="n">is_required</span><span class="p">)</span>
+    <span class="n">_setattr</span><span class="p">(</span><span class="s1">'is_array'</span><span class="p">,</span> <span class="n">is_array</span><span class="p">)</span>
+    <span class="n">_setattr</span><span class="p">(</span><span class="s1">'is_table'</span><span class="p">,</span> <span class="n">is_table</span><span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="broadworks_ocip.base.ErrorResponse">
+
+        <code>ErrorResponse</code>
+
+
+      </h2>
+<div class="doc doc-contents ">
+<p>The ErrorResponse is concrete response sent whenever a transaction fails
+and does not return any data.</p>
+<p>As this an error, when it is created from an incoming command response, a
+<code>OCIErrorResponse</code> exception is raised in <code>post_xml_decode_</code>.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.ErrorResponse.build_xml_command_element_">
+
+        <code class="highlight language-python">
+build_xml_command_element_<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Build the XML etree of the main command element of the current Command
+Intended to be overridden in a subclass for the few elements that do things
+a little differently (for example errors).</p>
+<p>:rtype: etree.Element()</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">build_xml_command_element_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
+        <span class="n">root</span><span class="p">,</span>
+        <span class="s2">"command"</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Error"</span><span class="p">,</span>
+            <span class="s2">"echo"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"{http://www.w3.org/2001/XMLSchema-instance}type"</span><span class="p">:</span> <span class="s2">"c:"</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ERROR_NSMAP</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.ErrorResponse.post_xml_decode_">
+
+        <code class="highlight language-python">
+post_xml_decode_<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Raise an exception as this is an error</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">post_xml_decode_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">"""Raise an exception as this is an error"""</span>
+    <span class="k">raise</span> <span class="n">OCIErrorResponse</span><span class="p">(</span>
+        <span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">summary</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">detail</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="broadworks_ocip.base.OCICommand">
+
+        <code>OCICommand</code>
+
+
+      </h2>
+<div class="doc doc-contents ">
+<p>OCICommand - base class for all OCI Command (Request/Response) types</p>
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>The session ID used for the command exchange.  We use
+UUIDs by default, although this is not required.  The default
+is fixed on here (but normally passed in from the containing
+API object) - do not use the default in production - its simply
+there to give a known value for testing.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCICommand.build_from_etree_non_parameters_">
+
+        <code class="highlight language-python">
+build_from_etree_non_parameters_<span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">initialiser</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Pick up the session id from the command set</p>
+<p>Overrides the class method defined in OCIType.</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">build_from_etree_non_parameters_</span><span class="p">(</span>
+    <span class="bp">cls</span><span class="p">,</span>
+    <span class="n">element</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">,</span>
+    <span class="n">initialiser</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Pick up the session id from the command set</span>
+
+<span class="sd">    Overrides the class method defined in OCIType.</span>
+<span class="sd">    """</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"sessionId"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">initialiser</span><span class="p">[</span><span class="s2">"session_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">text</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCICommand.build_xml_">
+
+        <code class="highlight language-python">
+build_xml_<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Build an XML document of the current Command (Request/Response)</p>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>xml</code></td>
+<td>
+<p>string containing XML document</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">build_xml_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Build an XML document of the current Command (Request/Response)</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        xml: string containing XML document</span>
+<span class="sd">    """</span>
+    <span class="c1"># document root element</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span>
+        <span class="s2">"</span><span class="si">{C}</span><span class="s2">BroadsoftDocument"</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">"protocol"</span><span class="p">:</span> <span class="s2">"OCI"</span><span class="p">},</span>
+        <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DOCUMENT_NSMAP</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># add the session</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">"sessionId"</span><span class="p">,</span> <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span>
+    <span class="c1">#</span>
+    <span class="c1"># and the command</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_xml_command_element_</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">etree_sub_components_</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>  <span class="c1"># attach parameters etc</span>
+    <span class="c1">#</span>
+    <span class="c1"># wrap a tree around it</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span>
+        <span class="n">tree</span><span class="p">,</span>
+        <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">"ISO-8859-1"</span><span class="p">,</span>
+        <span class="c1"># standalone=False,</span>
+        <span class="c1"># pretty_print=True,</span>
+    <span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCICommand.build_xml_command_element_">
+
+        <code class="highlight language-python">
+build_xml_command_element_<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Build the XML etree of the main command element of the current Command
+Intended to be overridden in a subclass for the few elements that do things
+a little differently (for example errors).</p>
+<p>:rtype: etree.Element()</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">build_xml_command_element_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Build the XML etree of the main command element of the current Command</span>
+<span class="sd">    Intended to be overridden in a subclass for the few elements that do things</span>
+<span class="sd">    a little differently (for example errors).</span>
+
+<span class="sd">    :rtype: etree.Element()</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
+        <span class="n">root</span><span class="p">,</span>
+        <span class="s2">"command"</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">"{http://www.w3.org/2001/XMLSchema-instance}type"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_</span><span class="p">},</span>
+        <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="broadworks_ocip.base.OCIRequest">
+
+        <code>OCIRequest</code>
+
+
+      </h2>
+<div class="doc doc-contents ">
+<p>OCIRequest - base class for all OCI Command Request types</p>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="broadworks_ocip.base.OCIResponse">
+
+        <code>OCIResponse</code>
+
+
+      </h2>
+<div class="doc doc-contents ">
+<p>OCIResponse - base class for all OCI Command Response types</p>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="broadworks_ocip.base.OCIType">
+
+        <code>OCIType</code>
+
+
+      </h2>
+<div class="doc doc-contents ">
+<p>OCIType - Base type for all the OCI-P component classes</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.type_">
+
+        <code class="highlight">
+type_        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Return the typename of the class</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.build_from_etree_">
+
+        <code class="highlight language-python">
+build_from_etree_<span class="p">(</span><span class="n">element</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Create an OciType based instance from an XML etree element</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>element</code></td>
+<td><code>etree._Element</code></td>
+<td>
+<p>The OCITable XML element</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>results</code></td>
+<td>
+<p>Object instance for this class</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">build_from_etree_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Create an OciType based instance from an XML etree element</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        element: The OCITable XML element</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        results: Object instance for this class</span>
+<span class="sd">    """</span>
+    <span class="n">initialiser</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_ELEMENTS</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_array</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">nodes</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">xmlname</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">xmlname</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_table</span><span class="p">:</span>
+                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">decode_table_</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_complex</span><span class="p">:</span>
+                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">_build_from_etree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="c1"># else...</span>
+            <span class="c1"># I am inclined to thow an error here - at least after checking if</span>
+            <span class="c1"># the thing is require, but the class builder should do that so lets</span>
+            <span class="c1"># let it do its thing</span>
+    <span class="c1"># now have a dict with all the bits in it.</span>
+    <span class="c1"># use that to build a new object</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">initialiser</span><span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.build_from_etree_non_parameters_">
+
+        <code class="highlight language-python">
+build_from_etree_non_parameters_<span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">initialiser</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Handle any items outside the parameter set</p>
+<p>Intended for use by subclasses where they need to take actions immediately
+after they are created from an incoming XML document.</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">build_from_etree_non_parameters_</span><span class="p">(</span>
+    <span class="bp">cls</span><span class="p">,</span>
+    <span class="n">element</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">,</span>
+    <span class="n">initialiser</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Handle any items outside the parameter set</span>
+
+<span class="sd">    Intended for use by subclasses where they need to take actions immediately</span>
+<span class="sd">    after they are created from an incoming XML document.</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.column_header_snake_case_">
+
+        <code class="highlight language-python">
+column_header_snake_case_<span class="p">(</span><span class="n">header</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Converts an XML name into a pythonic snake case name</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>header</code></td>
+<td><code></code></td>
+<td>
+<p>The header name in space separated words</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>snake</code></td>
+<td>
+<p>lower cased and underscore separated result name</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">column_header_snake_case_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Converts an XML name into a pythonic snake case name</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        header: The header name in space separated words</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        snake: lower cased and underscore separated result name</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"[ _]+"</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"_"</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.decode_table_">
+
+        <code class="highlight language-python">
+decode_table_<span class="p">(</span><span class="n">element</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Decode a table (used in a OCIResponse) into a list of named tuples</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>element</code></td>
+<td><code>etree._Element</code></td>
+<td>
+<p>The OCITable XML element</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>results</code></td>
+<td>
+<p>List of namedtuple elements, one for each table row</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">decode_table_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Decode a table (used in a OCIResponse) into a list of named tuples</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        element: The OCITable XML element</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        results: List of namedtuple elements, one for each table row</span>
+<span class="sd">    """</span>
+    <span class="n">typename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">column_header_snake_case_</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">iterfind</span><span class="p">(</span><span class="s2">"colHeading"</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="n">typename</span><span class="p">,</span> <span class="n">columns</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">iterfind</span><span class="p">(</span><span class="s2">"row"</span><span class="p">):</span>
+        <span class="n">rowdata</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">iterfind</span><span class="p">(</span><span class="s2">"col"</span><span class="p">)]</span>
+        <span class="n">rowobj</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="o">*</span><span class="n">rowdata</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rowobj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.etree_components_">
+
+        <code class="highlight language-python">
+etree_components_<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Build XML etree element tree for this OCIType</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code></code></td>
+<td>
+<p>The name or tag of the element - defaults to the <code>type_</code></p>
+</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>etree</code></td>
+<td>
+<p>etree.Element() for this class</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">etree_components_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Build XML etree element tree for this OCIType</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        name: The name or tag of the element - defaults to the `type_`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        etree: etree.Element() for this class</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">etree_sub_components_</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.etree_sub_components_">
+
+        <code class="highlight language-python">
+etree_sub_components_<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Build XML etree subelements for the components within this OCIType</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>element</code></td>
+<td><code>etree._Element</code></td>
+<td>
+<p>The parent element that the components are to be attached to</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>etree</code></td>
+<td>
+<p>etree.Element() for this class</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">etree_sub_components_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Build XML etree subelements for the components within this OCIType</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        element: The parent element that the components are to be attached to</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        etree: etree.Element() for this class</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">sub_element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ELEMENTS</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">is_array</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">subvalue</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">etree_sub_element_</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">sub_element</span><span class="p">,</span> <span class="n">subvalue</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">etree_sub_element_</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">sub_element</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">element</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.etree_sub_element_">
+
+        <code class="highlight language-python">
+etree_sub_element_<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">sub_element</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Build XML etree subelement for one elemnt within this OCIType</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>element</code></td>
+<td><code>etree._Element</code></td>
+<td>
+<p>The parent element that the components are to be attached to</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>sub_element</code></td>
+<td><code>ElementInfo</code></td>
+<td>
+<p>The definition of the sub element to be attached</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td><code></code></td>
+<td>
+<p>Value of the sub element - quite possibly None</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>etree</code></td>
+<td>
+<p>etree.Element() for this class</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">etree_sub_element_</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">element</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">,</span>
+    <span class="n">sub_element</span><span class="p">:</span> <span class="s2">"ElementInfo"</span><span class="p">,</span>
+    <span class="n">value</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Build XML etree subelement for one elemnt within this OCIType</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        element: The parent element that the components are to be attached to</span>
+<span class="sd">        sub_element: The definition of the sub element to be attached</span>
+<span class="sd">        value: Value of the sub element - quite possibly None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        etree: etree.Element() for this class</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">is_required</span><span class="p">:</span>
+            <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
+                <span class="n">element</span><span class="p">,</span>
+                <span class="n">sub_element</span><span class="o">.</span><span class="n">xmlname</span><span class="p">,</span>
+                <span class="p">{</span><span class="s2">"{http://www.w3.org/2001/XMLSchema-instance}nil"</span><span class="p">:</span> <span class="s2">"true"</span><span class="p">},</span>
+                <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">is_complex</span><span class="p">:</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
+            <span class="n">element</span><span class="p">,</span>
+            <span class="n">sub_element</span><span class="o">.</span><span class="n">xmlname</span><span class="p">,</span>
+            <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">value</span><span class="o">.</span><span class="n">etree_sub_components_</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
+            <span class="n">element</span><span class="p">,</span>
+            <span class="n">sub_element</span><span class="o">.</span><span class="n">xmlname</span><span class="p">,</span>
+            <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">"true"</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="s2">"false"</span>
+        <span class="k">elif</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">value</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.post_xml_decode_">
+
+        <code class="highlight language-python">
+post_xml_decode_<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Carry out any operations after the XML decode</p>
+<p>Intended for use by subclasses where they need to take actions immediately
+after they are created from an incoming XML document.</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">post_xml_decode_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Carry out any operations after the XML decode</span>
+
+<span class="sd">    Intended for use by subclasses where they need to take actions immediately</span>
+<span class="sd">    after they are created from an incoming XML document.</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="broadworks_ocip.base.SuccessResponse">
+
+        <code>SuccessResponse</code>
+
+
+      </h2>
+<div class="doc doc-contents ">
+<p>The SuccessResponse is concrete response sent whenever a transaction is successful
+and does not return any data.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../api/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                API
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../exceptions/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Exceptions
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.instant', 'navigation.expand'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://nigelm.github.io/broadworks_ocip/</loc>
-     <lastmod>2020-10-18</lastmod>
+     <lastmod>2020-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://nigelm.github.io/broadworks_ocip/usage/</loc>
-     <lastmod>2020-10-18</lastmod>
+     <lastmod>2020-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://nigelm.github.io/broadworks_ocip/library/</loc>
-     <lastmod>2020-10-18</lastmod>
+     <loc>https://nigelm.github.io/broadworks_ocip/api/api/</loc>
+     <lastmod>2020-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://nigelm.github.io/broadworks_ocip/api/base/</loc>
+     <lastmod>2020-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://nigelm.github.io/broadworks_ocip/api/exceptions/</loc>
+     <lastmod>2020-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://nigelm.github.io/broadworks_ocip/internals/</loc>
-     <lastmod>2020-10-18</lastmod>
+     <lastmod>2020-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://nigelm.github.io/broadworks_ocip/contributing/</loc>
-     <lastmod>2020-10-18</lastmod>
+     <lastmod>2020-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://nigelm.github.io/broadworks_ocip/changelog/</loc>
-     <lastmod>2020-10-18</lastmod>
+     <lastmod>2020-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://nigelm.github.io/broadworks_ocip/license/</loc>
-     <lastmod>2020-10-18</lastmod>
+     <lastmod>2020-11-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
