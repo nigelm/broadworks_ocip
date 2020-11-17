@@ -11,11 +11,11 @@ class OCIError(Exception):
     """Base Exception raised by OCI operations.
 
     Attributes:
-        message -- explanation of why it went bang
-        object -- the thing that went bang
+        message: explanation of why it went bang
+        object: the thing that went bang
     """
 
-    message = attr.ib(type=str)
+    message: str = attr.ib()
     object = attr.ib(default=None)
 
     def __str__(self):

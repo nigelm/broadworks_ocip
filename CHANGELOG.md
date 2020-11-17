@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - `OCIType`
     - `SuccessResponse`
 - Fixed some Makefile issues
+- Internal documentation improvements
 
 ## [1.0.1] - 2020-10-15
 - Reworked ElementInfo into attrs based class

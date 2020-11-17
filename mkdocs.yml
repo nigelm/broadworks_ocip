@@ -7,7 +7,10 @@ repo_name: "nigelm/broadworks_ocip"
 nav:
   - Overview: index.md
   - Usage: usage.md
-  - API Reference: library.md
+  - API Reference:
+    - API: api/api.md
+    - Base Classes: api/base.md
+    - Exceptions: api/exceptions.md
   - Internal Design: internals.md
   - Contributing: contributing.md
   - Changelog: changelog.md
@@ -39,6 +42,9 @@ plugins:
             show_source: true
           selection:
             new_path_syntax: yes
+            filters:
+              - "!^_"  # exlude all members starting with _
+              - "^__init__$"  # but always include __init__ modules and methods
       watch:
         - broadworks_ocip
 # end

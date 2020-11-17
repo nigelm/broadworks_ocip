@@ -21,15 +21,24 @@ class ElementInfo:
     ElementInfo - information on each element of a Broadsoft OCIType
 
     Used to describe the element when serialising to/from XML
+
+    Attributes:
+        name: name of this element (in python snake case)
+        xmlname: name of this element (in Java like camel case)
+        type: the type of the resulting element
+        is_complex: is this a complex element - containing another OCIType derived class
+        is_required: Is this required (True) or Optional (False)
+        is_array: Is this an array/list of element values
+        is_table: Is this a Broadworks table type - only seen in Responses
     """
 
-    name = attr.ib(type=str)
-    xmlname = attr.ib(type=str)
+    name: str = attr.ib()
+    xmlname: str = attr.ib()
     type = attr.ib()
-    is_complex = attr.ib(type=bool, default=False)
-    is_required = attr.ib(type=bool, default=False)
-    is_array = attr.ib(type=bool, default=False)
-    is_table = attr.ib(type=bool, default=False)
+    is_complex: bool = attr.ib(default=False)
+    is_required: bool = attr.ib(default=False)
+    is_array: bool = attr.ib(default=False)
+    is_table: bool = attr.ib(default=False)
 
 
 class OCIType(Class):
