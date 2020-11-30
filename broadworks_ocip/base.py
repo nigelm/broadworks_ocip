@@ -129,6 +129,23 @@ class OCIType(Class):
                     {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
                     nsmap=self.DEFAULT_NSMAP,
                 )
+        elif sub_element.is_table:
+            # any table should be a list of namedtuple elements
+            if type(value) is list and len(value) > 0:
+                elem = etree.SubElement(
+                    element,
+                    sub_element.xmlname,
+                    nsmap=self.DEFAULT_NSMAP,
+                )
+                first = value[0]
+                for col in first._fields:
+                    col_heading = etree.SubElement(elem, "colHeading")
+                    col_heading.text = self.snake_case_to_column_header(col)
+                for row in value:
+                    row_item = etree.SubElement(elem, "row")
+                    for col in row:
+                        col_item = etree.SubElement(row_item, "col")
+                        col_item.text = col
         elif sub_element.is_complex:
             elem = etree.SubElement(
                 element,
@@ -161,6 +178,21 @@ class OCIType(Class):
             snake: lower cased and underscore separated result name
         """
         return re.sub("[ _]+", r"_", header).lower()
+
+    def snake_case_to_column_header(self, snake_str):
+        """
+        Converts a pythonic snake case name into a column header name
+
+        Arguments:
+            header: The header name in snake lower case
+
+        Returns:
+            snake: initial capital and space separated result name
+        """
+        components = snake_str.split("_")
+        # We capitalize the first letter of each component except the first one
+        # with the 'title' method and join them together.
+        return " ".join(x.title() for x in components)
 
     @classmethod
     def decode_table_(cls, element: "etree._Element"):
@@ -225,7 +257,7 @@ class OCIType(Class):
                     if elem.is_table:
                         initialiser[elem.name] = cls.decode_table_(node)
                     elif elem.is_complex:
-                        initialiser[elem.name] = elem.type._build_from_etree(node)
+                        initialiser[elem.name] = elem.type.build_from_etree_(node)
                     else:
                         initialiser[elem.name] = elem.type(node.text)
                 # else...
@@ -329,7 +361,19 @@ class OCIResponse(OCICommand):
     OCIResponse - base class for all OCI Command Response types
     """
 
-    pass
+    def build_xml_command_element_(self, root: "etree._Element"):
+        """
+        Build the XML etree of the main command element of the current Command
+        Responses have an echo attribute in the element.
+
+        :rtype: etree.Element()
+        """
+        return etree.SubElement(
+            root,
+            "command",
+            {"echo": "", "{http://www.w3.org/2001/XMLSchema-instance}type": self.type_},
+            nsmap=self.DEFAULT_NSMAP,
+        )
 
 
 class SuccessResponse(OCIResponse):

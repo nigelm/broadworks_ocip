@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Unreleased Changes
 ------------------
+- Add tests to show issues with ServiceProviderGetListResponse
+- Fix echo="" attribute on responses command element
+- Fix parsing of embedded subtypes due to incorrect method rename earlier
+- Build XML generator for table elements
 
 <!-- insertion marker -->
 [1.1.1] - 2020-11-17

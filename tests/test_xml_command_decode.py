@@ -156,4 +156,56 @@ def test_service_pack_list_xml():
     )
 
 
+def test_service_provider_service_pack_get_detail_list_response_xml():
+    userServiceTable = namedtuple(
+        "userServiceTable",
+        ["service", "authorized", "allocated", "available"],
+    )
+    make_command_from_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command echo="" xsi:type="ServiceProviderServicePackGetDetailListResponse" xmlns="">'
+            b"<servicePackName>Service-Pack-Standard</servicePackName>"
+            b"<servicePackDescription>Service Pack - Standard</servicePackDescription>"
+            b"<isAvailableForUse>true</isAvailableForUse>"
+            b"<servicePackQuantity><unlimited>true</unlimited></servicePackQuantity>"
+            b"<assignedQuantity><unlimited>true</unlimited></assignedQuantity>"
+            b"<allowedQuantity><unlimited>true</unlimited></allowedQuantity>"
+            b"<userServiceTable>"
+            b"<colHeading>Service</colHeading>"
+            b"<colHeading>Authorized</colHeading>"
+            b"<colHeading>Allocated</colHeading>"
+            b"<colHeading>Available</colHeading>"
+            b"<row>"
+            b"<col>Call Center - Standard</col>"
+            b"<col>Unlimited</col>"
+            b"<col>Unlimited</col>"
+            b"<col>Unlimited</col>"
+            b"</row>"
+            b"</userServiceTable>"
+            b"</command></BroadsoftDocument>"
+        ),
+        "ServiceProviderServicePackGetDetailListResponse",
+        {
+            "session_id": "00000000-1111-2222-3333-444444444444",
+            "allowed_quantity": {"quantity": None, "unlimited": True},
+            "assigned_quantity": {"quantity": None, "unlimited": True},
+            "is_available_for_use": True,
+            "service_pack_description": "Service Pack - Standard",
+            "service_pack_name": "Service-Pack-Standard",
+            "service_pack_quantity": {"quantity": None, "unlimited": True},
+            "user_service_table": [
+                userServiceTable(
+                    service="Call Center - Standard",
+                    authorized="Unlimited",
+                    allocated="Unlimited",
+                    available="Unlimited",
+                ),
+            ],
+        },
+    )
+
+
 # end
