@@ -381,6 +381,19 @@
     OCIResponse
   </a>
   
+    <nav class="md-nav" aria-label="OCIResponse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIResponse.build_xml_command_element_" class="md-nav__link">
+    build_xml_command_element_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -450,6 +463,13 @@
           <li class="md-nav__item">
   <a href="#broadworks_ocip.base.OCIType.post_xml_decode_" class="md-nav__link">
     post_xml_decode_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.snake_case_to_column_header" class="md-nav__link">
+    snake_case_to_column_header()
   </a>
   
 </li>
@@ -661,6 +681,19 @@
     OCIResponse
   </a>
   
+    <nav class="md-nav" aria-label="OCIResponse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIResponse.build_xml_command_element_" class="md-nav__link">
+    build_xml_command_element_()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -730,6 +763,13 @@
           <li class="md-nav__item">
   <a href="#broadworks_ocip.base.OCIType.post_xml_decode_" class="md-nav__link">
     post_xml_decode_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.snake_case_to_column_header" class="md-nav__link">
+    snake_case_to_column_header()
   </a>
   
 </li>
@@ -902,8 +942,7 @@ build_xml_command_element_<span class="p">(</span><span class="bp">self</span><s
       </h3>
 <div class="doc doc-contents ">
 <p>Build the XML etree of the main command element of the current Command
-Intended to be overridden in a subclass for the few elements that do things
-a little differently (for example errors).</p>
+Responses have an echo attribute in the element.</p>
 <p>:rtype: etree.Element()</p>
 <details class="quote">
           <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
@@ -1146,6 +1185,41 @@ a little differently (for example errors).</p>
       </h2>
 <div class="doc doc-contents ">
 <p>OCIResponse - base class for all OCI Command Response types</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIResponse.build_xml_command_element_">
+
+        <code class="highlight language-python">
+build_xml_command_element_<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Build the XML etree of the main command element of the current Command
+Responses have an echo attribute in the element.</p>
+<p>:rtype: etree.Element()</p>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">build_xml_command_element_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Build the XML etree of the main command element of the current Command</span>
+<span class="sd">    Responses have an echo attribute in the element.</span>
+
+<span class="sd">    :rtype: etree.Element()</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
+        <span class="n">root</span><span class="p">,</span>
+        <span class="s2">"command"</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">"echo"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"{http://www.w3.org/2001/XMLSchema-instance}type"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_</span><span class="p">},</span>
+        <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="doc doc-object doc-class">
@@ -1253,7 +1327,7 @@ build_from_etree_<span class="p">(</span><span class="n">element</span><span cla
                 <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_table</span><span class="p">:</span>
                     <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">decode_table_</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_complex</span><span class="p">:</span>
-                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">_build_from_etree</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">build_from_etree_</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
             <span class="c1"># else...</span>
@@ -1694,6 +1768,23 @@ etree_sub_element_<span class="p">(</span><span class="bp">self</span><span clas
                 <span class="p">{</span><span class="s2">"{http://www.w3.org/2001/XMLSchema-instance}nil"</span><span class="p">:</span> <span class="s2">"true"</span><span class="p">},</span>
                 <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">,</span>
             <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">is_table</span><span class="p">:</span>
+        <span class="c1"># any table should be a list of namedtuple elements</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">elem</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
+                <span class="n">element</span><span class="p">,</span>
+                <span class="n">sub_element</span><span class="o">.</span><span class="n">xmlname</span><span class="p">,</span>
+                <span class="n">nsmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAP</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">first</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">first</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span>
+                <span class="n">col_heading</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">"colHeading"</span><span class="p">)</span>
+                <span class="n">col_heading</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">snake_case_to_column_header</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">row_item</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s2">"row"</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                    <span class="n">col_item</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">row_item</span><span class="p">,</span> <span class="s2">"col"</span><span class="p">)</span>
+                    <span class="n">col_item</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">col</span>
     <span class="k">elif</span> <span class="n">sub_element</span><span class="o">.</span><span class="n">is_complex</span><span class="p">:</span>
         <span class="n">elem</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span>
             <span class="n">element</span><span class="p">,</span>
@@ -1741,6 +1832,76 @@ after they are created from an incoming XML document.</p>
 <span class="sd">    after they are created from an incoming XML document.</span>
 <span class="sd">    """</span>
     <span class="k">pass</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.snake_case_to_column_header">
+
+        <code class="highlight language-python">
+snake_case_to_column_header<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">snake_str</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Converts a pythonic snake case name into a column header name</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>header</code></td>
+<td><code></code></td>
+<td>
+<p>The header name in snake lower case</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>snake</code></td>
+<td>
+<p>initial capital and space separated result name</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">snake_case_to_column_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">snake_str</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Converts a pythonic snake case name into a column header name</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        header: The header name in snake lower case</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        snake: initial capital and space separated result name</span>
+<span class="sd">    """</span>
+    <span class="n">components</span> <span class="o">=</span> <span class="n">snake_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)</span>
+    <span class="c1"># We capitalize the first letter of each component except the first one</span>
+    <span class="c1"># with the 'title' method and join them together.</span>
+    <span class="k">return</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">components</span><span class="p">)</span>
 </code></pre>
 </div>
 </details>
