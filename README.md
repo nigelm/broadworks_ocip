@@ -26,7 +26,7 @@
 
 With `pip`:
 ```bash
-python3.6 -m pip install ssh2_parse_key
+python3 -m pip install broadworks-ocip
 ```
 
 ----
