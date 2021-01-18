@@ -8,6 +8,8 @@ Unreleased Changes
 ------------------
 
 <!-- insertion marker -->
+- Fixed problems with boolean response value decode (added tests)
+
 [1.2.1] - 2020-12-01
 --------------------
 - Corrected the install information for the project

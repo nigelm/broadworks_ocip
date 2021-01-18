@@ -258,6 +258,10 @@ class OCIType(Class):
                         initialiser[elem.name] = cls.decode_table_(node)
                     elif elem.is_complex:
                         initialiser[elem.name] = elem.type.build_from_etree_(node)
+                    elif elem.type == bool:
+                        initialiser[elem.name] = elem.type(
+                            True if node.text == "true" else False,
+                        )
                     else:
                         initialiser[elem.name] = elem.type(node.text)
                 # else...
