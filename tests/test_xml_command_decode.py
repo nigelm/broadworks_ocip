@@ -208,4 +208,27 @@ def test_service_provider_service_pack_get_detail_list_response_xml():
     )
 
 
+def test_user_call_forwarding_always_get_response():
+    make_command_from_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-2"?>'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command echo="" xsi:type="UserCallForwardingAlwaysGetResponse" xmlns="">'
+            b"<isActive>false</isActive>"
+            b"<forwardToPhoneNumber>1234567890</forwardToPhoneNumber>"
+            b"<isRingSplashActive>true</isRingSplashActive>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        "UserCallForwardingAlwaysGetResponse",
+        {
+            "session_id": "00000000-1111-2222-3333-444444444444",
+            "is_active": False,
+            "forward_to_phone_number": "1234567890",
+            "is_ring_splash_active": True,
+        },
+    )
+
+
 # end
