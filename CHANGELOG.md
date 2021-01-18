@@ -8,6 +8,8 @@ Unreleased Changes
 ------------------
 
 <!-- insertion marker -->
+[1.3.0] - 2021-01-18
+--------------------
 - Fixed problems with boolean response value decode (added tests)
 
 [1.2.1] - 2020-12-01
