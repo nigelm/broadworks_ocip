@@ -8,6 +8,9 @@ Unreleased Changes
 ------------------
 
 <!-- insertion marker -->
+- Added little bit of documentation on return values.
+- Added version number to README and top of documentation tree
+
 [1.3.0] - 2021-01-18
 --------------------
 - Fixed problems with boolean response value decode (added tests)

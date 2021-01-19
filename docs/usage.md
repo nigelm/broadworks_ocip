@@ -31,7 +31,7 @@ Some commands are more complex and made up of additional type components.
 This could lead to commands such as this::
 
 ```python
-    result = api.get_command_object(
+    result = api.command(
         "GroupServiceModifyAuthorizationListRequest",
         service_provider_id="some_enterprise",
         group_id="somegroup",
@@ -61,7 +61,12 @@ This could lead to commands such as this::
     )
 ```
 
-## Failures and Exceptions
+## Return Values, Failures and Exceptions
+
+Most of the query type commands return a ...Response object, which can be
+dealt with appropriately.   Some of the action commands will return either a
+`SuccessResponse` - which is close to an empty object - or alteratively an
+`ErrorResponse` which will cause an exception to be raised.
 
 A failed command typically returns an `ErrorResponse`.  When decoded the
 `ErrorResponse` will raise a `OCIErrorResponse` exception.
@@ -69,6 +74,19 @@ A failed command typically returns an `ErrorResponse`.  When decoded the
 Additionally a command may raise other exceptions, related to the TCP
 communications layers, or a `OCIErrorTimeOut` if no response is received in
 reasonable time.
+
+This means that a command invocation should normally be wrapped in a
+try/except structure:-
+
+```python
+    try:
+        result = api.command("AvailabilityTestRequest")
+        print("Availability test OK")
+    except OCIErrorResponse:
+        print("Availability test failed")
+        return
+    # carry on...
+```
 
 ## Server
 

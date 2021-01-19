@@ -20,6 +20,10 @@
 - additional magic to handle authentication and sessions
 - Based on Broadworks schema R21
 
+## Current Version
+
+Version: `1.3.0`
+
 ----
 
 ## Installation
