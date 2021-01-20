@@ -8,6 +8,7 @@ Unreleased Changes
 ------------------
 
 <!-- insertion marker -->
+- Updated Credits
 - Fixed an error decoding an array of complex types, added test case
 - Added little bit of documentation on return values.
 - Added version number to README and top of documentation tree

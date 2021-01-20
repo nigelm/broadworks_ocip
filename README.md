@@ -57,6 +57,11 @@ print(response.version)
 
 The class is built using Michael DeHaan's [`ClassForge`](https://classforge.io/) object system.
 
-Development on the python version was done by [`Nigel Metheringham <nigelm@cpan.org>`](https://github.com/nigelm/)
+Development on the python version was done by
+[Nigel Metheringham `<nigelm@cpan.org>`](https://github.com/nigelm/)
+
+Karol Skibiński has been using the package, and has a talent for both finding
+bugs within it and providing a good bug report that allows a test case and fix
+to be made.  The package has been immensely improved by this work.
 
 ----
