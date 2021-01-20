@@ -426,6 +426,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.build_from_node_" class="md-nav__link">
+    build_from_node_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#broadworks_ocip.base.OCIType.column_header_snake_case_" class="md-nav__link">
     column_header_snake_case_()
   </a>
@@ -721,6 +728,13 @@
           <li class="md-nav__item">
   <a href="#broadworks_ocip.base.OCIType.build_from_etree_non_parameters_" class="md-nav__link">
     build_from_etree_non_parameters_()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadworks_ocip.base.OCIType.build_from_node_" class="md-nav__link">
+    build_from_node_()
   </a>
   
 </li>
@@ -1319,21 +1333,12 @@ build_from_etree_<span class="p">(</span><span class="n">element</span><span cla
             <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">nodes</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">xmlname</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">build_from_node_</span><span class="p">(</span><span class="n">elem</span><span class="o">=</span><span class="n">elem</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">))</span>
             <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">node</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">xmlname</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_table</span><span class="p">:</span>
-                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">decode_table_</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_complex</span><span class="p">:</span>
-                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">build_from_etree_</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
-                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="p">(</span>
-                        <span class="kc">True</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s2">"true"</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">initialiser</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">build_from_node_</span><span class="p">(</span><span class="n">elem</span><span class="o">=</span><span class="n">elem</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">node</span><span class="p">)</span>
             <span class="c1"># else...</span>
             <span class="c1"># I am inclined to thow an error here - at least after checking if</span>
             <span class="c1"># the thing is require, but the class builder should do that so lets</span>
@@ -1377,6 +1382,98 @@ after they are created from an incoming XML document.</p>
 <span class="sd">    after they are created from an incoming XML document.</span>
 <span class="sd">    """</span>
     <span class="k">pass</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="broadworks_ocip.base.OCIType.build_from_node_">
+
+        <code class="highlight language-python">
+build_from_node_<span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Creates an OCI subelement from a single  XML etree node</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>elem</code></td>
+<td><code>ElementInfo</code></td>
+<td>
+<p>The subelement descriptor</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>node</code></td>
+<td><code>etree._Element</code></td>
+<td>
+<p>The OCITable XML element node</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>results</code></td>
+<td>
+<p>Object instance for this class</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>broadworks_ocip/base.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">build_from_node_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">elem</span><span class="p">:</span> <span class="n">ElementInfo</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="s2">"etree._Element"</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Creates an OCI subelement from a single  XML etree node</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        elem: The subelement descriptor</span>
+<span class="sd">        node: The OCITable XML element node</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        results: Object instance for this class</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_table</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">decode_table_</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_complex</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">build_from_etree_</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="p">(</span>
+                <span class="kc">True</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s2">"true"</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
 </code></pre>
 </div>
 </details>

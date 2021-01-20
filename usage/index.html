@@ -249,8 +249,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#failures-and-exceptions" class="md-nav__link">
-    Failures and Exceptions
+  <a href="#return-values-failures-and-exceptions" class="md-nav__link">
+    Return Values, Failures and Exceptions
   </a>
   
 </li>
@@ -417,8 +417,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#failures-and-exceptions" class="md-nav__link">
-    Failures and Exceptions
+  <a href="#return-values-failures-and-exceptions" class="md-nav__link">
+    Return Values, Failures and Exceptions
   </a>
   
 </li>
@@ -471,7 +471,7 @@
 <h2 id="more-complex-usage">More Complex Usage</h2>
 <p>Some commands are more complex and made up of additional type components.
 This could lead to commands such as this::</p>
-<div class="highlight"><pre><span></span><code>    <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_command_object</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code>    <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
         <span class="s2">&quot;GroupServiceModifyAuthorizationListRequest&quot;</span><span class="p">,</span>
         <span class="n">service_provider_id</span><span class="o">=</span><span class="s2">&quot;some_enterprise&quot;</span><span class="p">,</span>
         <span class="n">group_id</span><span class="o">=</span><span class="s2">&quot;somegroup&quot;</span><span class="p">,</span>
@@ -500,12 +500,26 @@ This could lead to commands such as this::</p>
         <span class="p">],</span>
     <span class="p">)</span>
 </code></pre></div>
-<h2 id="failures-and-exceptions">Failures and Exceptions</h2>
+<h2 id="return-values-failures-and-exceptions">Return Values, Failures and Exceptions</h2>
+<p>Most of the query type commands return a ...Response object, which can be
+dealt with appropriately.   Some of the action commands will return either a
+<code>SuccessResponse</code> - which is close to an empty object - or alteratively an
+<code>ErrorResponse</code> which will cause an exception to be raised.</p>
 <p>A failed command typically returns an <code>ErrorResponse</code>.  When decoded the
 <code>ErrorResponse</code> will raise a <code>OCIErrorResponse</code> exception.</p>
 <p>Additionally a command may raise other exceptions, related to the TCP
 communications layers, or a <code>OCIErrorTimeOut</code> if no response is received in
 reasonable time.</p>
+<p>This means that a command invocation should normally be wrapped in a
+try/except structure:-</p>
+<div class="highlight"><pre><span></span><code>    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;AvailabilityTestRequest&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Availability test OK&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">OCIErrorResponse</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Availability test failed&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="c1"># carry on...</span>
+</code></pre></div>
 <h2 id="server">Server</h2>
 <p>Due to the way these objects have been built it <em>should</em> be fairly simple to
 make a Broadworks OCI-P server which accepts and decodes requests and replies
