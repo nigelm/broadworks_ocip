@@ -8,6 +8,8 @@ Unreleased Changes
 ------------------
 
 <!-- insertion marker -->
+[1.4.0] - 2021-01-20
+--------------------
 - Updated Credits
 - Fixed an error decoding an array of complex types, added test case
 - Added little bit of documentation on return values.
