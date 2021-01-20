@@ -231,4 +231,59 @@ def test_user_call_forwarding_always_get_response():
     )
 
 
+def test_user_assigned_services_get_list_response():
+    # Unfortunately I can't use the basic function for this due to differing object locations
+    xml = (
+        b'<?xml version="1.0" encoding="ISO-8859-2"?>'
+        b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+        b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+        b'<command echo="" xsi:type="UserAssignedServicesGetListResponse" xmlns="">'
+        b"<groupServiceEntry>"
+        b"<serviceName>Music On Hold</serviceName>"
+        b"<isActive>true</isActive>"
+        b"</groupServiceEntry>"
+        b"<userServiceEntry>"
+        b"<serviceName>Anonymous Call Rejection</serviceName>"
+        b"<isActive>false</isActive>"
+        b"</userServiceEntry>"
+        b"<userServiceEntry>"
+        b"<serviceName>Three-Way Call</serviceName>"
+        b"<isActive>true</isActive>"
+        b"</userServiceEntry>"
+        b"</command>"
+        b"</BroadsoftDocument>"
+    )
+
+    api = BroadworksAPI(**BASIC_API_PARAMS)
+    generated = api.decode_xml(xml)
+    assert generated.type_ == "UserAssignedServicesGetListResponse"
+
+    assert (
+        generated.group_service_entry[0].to_dict()
+        == api.get_type_object(  # noqa: W503
+            "AssignedGroupServicesEntry",
+            service_name="Music On Hold",
+            is_active=True,
+        ).to_dict()
+    )
+
+    assert (
+        generated.user_service_entry[0].to_dict()
+        == api.get_type_object(  # noqa: W503
+            "AssignedUserServicesEntry",
+            service_name="Anonymous Call Rejection",
+            is_active=False,
+        ).to_dict()
+    )
+
+    assert (
+        generated.user_service_entry[1].to_dict()
+        == api.get_type_object(  # noqa: W503
+            "AssignedUserServicesEntry",
+            service_name="Three-Way Call",
+            is_active=True,
+        ).to_dict()
+    )
+
+
 # end

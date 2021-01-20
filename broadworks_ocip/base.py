@@ -233,6 +233,32 @@ class OCIType(Class):
         pass
 
     @classmethod
+    def build_from_node_(cls, elem: ElementInfo, node: "etree._Element"):
+        """
+        Creates an OCI subelement from a single  XML etree node
+
+        Arguments:
+            elem: The subelement descriptor
+            node: The OCITable XML element node
+
+        Returns:
+            results: Object instance for this class
+        """
+        if node is not None:
+            if elem.is_table:
+                return cls.decode_table_(node)
+            elif elem.is_complex:
+                return elem.type.build_from_etree_(node)
+            elif elem.type == bool:
+                return elem.type(
+                    True if node.text == "true" else False,
+                )
+            else:
+                return elem.type(node.text)
+        else:
+            return None
+
+    @classmethod
     def build_from_etree_(cls, element: "etree._Element"):
         """
         Create an OciType based instance from an XML etree element
@@ -249,21 +275,12 @@ class OCIType(Class):
                 result = []
                 nodes = element.findall(elem.xmlname)
                 for node in nodes:
-                    result.append(node.text)
+                    result.append(cls.build_from_node_(elem=elem, node=node))
                 initialiser[elem.name] = result
             else:
                 node = element.find(elem.xmlname)
                 if node is not None:
-                    if elem.is_table:
-                        initialiser[elem.name] = cls.decode_table_(node)
-                    elif elem.is_complex:
-                        initialiser[elem.name] = elem.type.build_from_etree_(node)
-                    elif elem.type == bool:
-                        initialiser[elem.name] = elem.type(
-                            True if node.text == "true" else False,
-                        )
-                    else:
-                        initialiser[elem.name] = elem.type(node.text)
+                    initialiser[elem.name] = cls.build_from_node_(elem=elem, node=node)
                 # else...
                 # I am inclined to thow an error here - at least after checking if
                 # the thing is require, but the class builder should do that so lets
