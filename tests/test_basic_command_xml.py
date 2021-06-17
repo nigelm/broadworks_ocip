@@ -182,4 +182,34 @@ def test_service_provider_service_pack_get_detail_list_response_xml():
     )
 
 
+def test_group_outgoing_calling_plan_redirecting_modify_list_request_xml():
+    cmd = api.get_command_object(
+        "GroupOutgoingCallingPlanRedirectingModifyListRequest",
+        service_provider_id="SP01",
+        group_id="GRP01",
+        group_permissions=api.get_type_object(
+            "OutgoingCallingPlanRedirectingPermissionsModify",
+            group=True,
+            international=False,
+        ),
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="GroupOutgoingCallingPlanRedirectingModifyListRequest" xmlns="">'
+            b"<serviceProviderId>SP01</serviceProviderId>"
+            b"<groupId>GRP01</groupId>"
+            b"<groupPermissions>"
+            b"<group>true</group>"
+            b"<international>false</international>"
+            b"</groupPermissions>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
 # end
