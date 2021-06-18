@@ -11,6 +11,9 @@ nav:
     - API: api/api.md
     - Base Classes: api/base.md
     - Exceptions: api/exceptions.md
+    - Requests: api/requests.md
+    - Responses: api/responses.md
+    - Types: api/types.md
   - Internal Design: internals.md
   - Contributing: contributing.md
   - Changelog: changelog.md
