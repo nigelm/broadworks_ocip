@@ -46,9 +46,9 @@ pytest-runner = "^5.2"
 toposort = "^1.5"
 tox = "^3.20.1"
 xmlschema = "^1.2.5"
-mkdocs = "^1.1.2"
+mkdocs = "^1.2.1"
 mkdocs-material = "^6.1.0"
-mkdocstrings = "^0.13.6"
+mkdocstrings = "^0.15.2"
 markdown-include = "^0.6.0"
 
 [build-system]
