@@ -212,4 +212,90 @@ def test_group_outgoing_calling_plan_redirecting_modify_list_request_xml():
     )
 
 
+def test_group_dn_unassign_list_request_xml():
+    cmd = api.get_command_object(
+        "GroupDnUnassignListRequest",
+        service_provider_id="SP01",
+        group_id="GRP01",
+        phone_number=["+1-55512340", "+1-55512342"],
+        dn_range=[
+            api.get_type_object(
+                "DNRange",
+                min_phone_number="+1-55512345",
+                max_phone_number="+1-55512350",
+            ),
+            api.get_type_object(
+                "DNRange",
+                min_phone_number="+1-55512355",
+                max_phone_number="+1-55512360",
+            ),
+        ],
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="GroupDnUnassignListRequest" xmlns="">'
+            b"<serviceProviderId>SP01</serviceProviderId>"
+            b"<groupId>GRP01</groupId>"
+            b"<phoneNumber>+1-55512340</phoneNumber>"
+            b"<phoneNumber>+1-55512342</phoneNumber>"
+            b"<dnRange>"
+            b"<minPhoneNumber>+1-55512345</minPhoneNumber>"
+            b"<maxPhoneNumber>+1-55512350</maxPhoneNumber>"
+            b"</dnRange>"
+            b"<dnRange>"
+            b"<minPhoneNumber>+1-55512355</minPhoneNumber>"
+            b"<maxPhoneNumber>+1-55512360</maxPhoneNumber>"
+            b"</dnRange>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
+def test_service_provider_dn_delete_list_request_xml():
+    cmd = api.get_command_object(
+        "ServiceProviderDnDeleteListRequest",
+        service_provider_id="SP01",
+        phone_number=["+1-55512340", "+1-55512342"],
+        dn_range=[
+            api.get_type_object(
+                "DNRange",
+                min_phone_number="+1-55512345",
+                max_phone_number="+1-55512350",
+            ),
+            api.get_type_object(
+                "DNRange",
+                min_phone_number="+1-55512355",
+                max_phone_number="+1-55512360",
+            ),
+        ],
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="ServiceProviderDnDeleteListRequest" xmlns="">'
+            b"<serviceProviderId>SP01</serviceProviderId>"
+            b"<phoneNumber>+1-55512340</phoneNumber>"
+            b"<phoneNumber>+1-55512342</phoneNumber>"
+            b"<dnRange>"
+            b"<minPhoneNumber>+1-55512345</minPhoneNumber>"
+            b"<maxPhoneNumber>+1-55512350</maxPhoneNumber>"
+            b"</dnRange>"
+            b"<dnRange>"
+            b"<minPhoneNumber>+1-55512355</minPhoneNumber>"
+            b"<maxPhoneNumber>+1-55512360</maxPhoneNumber>"
+            b"</dnRange>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
 # end
