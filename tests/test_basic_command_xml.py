@@ -298,4 +298,31 @@ def test_service_provider_dn_delete_list_request_xml():
     )
 
 
+def test_user_voice_messaging_user_modify_voice_management_request_xml():
+    cmd = api.get_command_object(
+        "UserVoiceMessagingUserModifyVoiceManagementRequest",
+        user_id="fred.flintstone@boulder.org",
+        is_active=True,
+        send_carbon_copy_voice_message=True,
+        busy_redirect_to_voice_mail=True,
+        no_answer_redirect_to_voice_mail=True,
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="UserVoiceMessagingUserModifyVoiceManagementRequest" xmlns="">'
+            b"<userId>fred.flintstone@boulder.org</userId>"
+            b"<isActive>true</isActive>"
+            b"<sendCarbonCopyVoiceMessage>true</sendCarbonCopyVoiceMessage>"
+            b"<busyRedirectToVoiceMail>true</busyRedirectToVoiceMail>"
+            b"<noAnswerRedirectToVoiceMail>true</noAnswerRedirectToVoiceMail>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
 # end
