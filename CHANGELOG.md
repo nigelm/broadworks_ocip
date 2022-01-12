@@ -8,6 +8,11 @@ Unreleased Changes
 ------------------
 
 <!-- insertion marker -->
+- Change schema processor to pick up many more places where array values are
+  appropriate. This is going to break the API signature for a lot of
+  functions - although not likely to be ones people were using considering
+  this has been broken for a while.
+
 [1.4.0] - 2021-01-20
 --------------------
 - Updated Credits

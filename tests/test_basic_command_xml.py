@@ -325,4 +325,35 @@ def test_user_voice_messaging_user_modify_voice_management_request_xml():
     )
 
 
+def test_user_busy_lap_field_modify_request_xml():
+    cmd = api.get_command_object(
+        "UserBusyLampFieldModifyRequest",
+        user_id="fred.flintstone@boulder.org",
+        list_uri="list_sip_uri@boulder.org",
+        monitored_user_id_list=api.get_type_object(
+            "ReplacementUserIdList",
+            user_id=["one@boulder.org", "two@boulder.org"],
+        ),
+        enable_call_park_notification=True,
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xmlns="" xsi:type="UserBusyLampFieldModifyRequest">'
+            b"<userId>fred.flintstone@boulder.org</userId>"
+            b"<listURI>list_sip_uri@boulder.org</listURI>"
+            b"<monitoredUserIdList>"
+            b"<userId>one@boulder.org</userId>"
+            b"<userId>two@boulder.org</userId>"
+            b"</monitoredUserIdList>"
+            b"<enableCallParkNotification>true</enableCallParkNotification>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
 # end

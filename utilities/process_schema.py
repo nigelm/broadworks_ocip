@@ -54,10 +54,17 @@ def build_element_hash(xsd_component, prefix=""):
         is_required = True if elem.min_occurs > 0 else False
         if is_required and elem.parent.model == "choice":
             is_required = False
-        if elem.min_occurs == 0 and elem.max_occurs is None:
-            is_array = True
-        else:
+        if elem.min_occurs is None:
+            if elem.max_occurs is None:
+                is_array = False
+            elif elem.max_occurs == 1:
+                is_array = False
+            else:
+                is_array = True
+        elif elem.min_occurs <= 1 and elem.max_occurs == 1:
             is_array = False
+        else:
+            is_array = True
         phash = {
             "name": name,
             "xmlname": elem.name,
