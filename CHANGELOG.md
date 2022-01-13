@@ -12,6 +12,15 @@ Unreleased Changes
   appropriate. This is going to break the API signature for a lot of
   functions - although not likely to be ones people were using considering
   this has been broken for a while.
+- chore: update dependencies
+- ci: update pre-commit rules
+- test: added test for UserVoiceMessagingUserModifyVoiceManagementRequest
+- Added two more example tests for complex commands
+- Update dependancies include pre-commit
+- Updated dependencies
+- Added request/response/type docs to API docs
+- Additional test/sample of complex command
+
 
 [1.4.0] - 2021-01-20
 --------------------
