@@ -9,11 +9,12 @@
         <meta name="description" content="Automatic documentation from sources, for MkDocs.">
       
       
+      
+      
         <link rel="canonical" href="https://nigelm.github.io/broadworks_ocip/api/api/">
       
-      
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
     
     
       
@@ -21,10 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.bc7e593a.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab28b872.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
         
       
     
@@ -32,12 +33,14 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
       <link rel="stylesheet" href="../../css/mkdocstrings.css">
     
@@ -56,6 +59,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
       
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -85,18 +89,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             broadworks_ocip
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               API
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -107,7 +113,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -155,10 +161,14 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
+
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
@@ -190,24 +200,15 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../.." class="md-nav__link">
-      Overview
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../usage/" class="md-nav__link">
-      Usage
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
 
     
       
@@ -215,48 +216,66 @@
       
 
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
 
+    
+      
+      
+      
 
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+  
+  
     
-    <label class="md-nav__link" for="nav-3">
-      API Reference
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      
+      <label class="md-nav__link" for="nav-3">
         API Reference
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        API
         <span class="md-nav__icon md-icon"></span>
       </label>
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
     
-    <a href="./" class="md-nav__link md-nav__link--active">
-      API
-    </a>
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        API
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -390,121 +409,135 @@
     </ul>
   
 </nav>
-    
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../base/" class="md-nav__link">
-      Base Classes
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../exceptions/" class="md-nav__link">
-      Exceptions
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../requests/" class="md-nav__link">
-      Requests
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../responses/" class="md-nav__link">
-      Responses
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../types/" class="md-nav__link">
-      Types
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
       
-      
-      
+    </li>
+  
 
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../base/" class="md-nav__link">
+        Base Classes
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="../../internals/" class="md-nav__link">
-      Internal Design
-    </a>
-  </li>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions/" class="md-nav__link">
+        Exceptions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requests/" class="md-nav__link">
+        Requests
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../responses/" class="md-nav__link">
+        Responses
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../types/" class="md-nav__link">
+        Types
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../../contributing/" class="md-nav__link">
-      Contributing
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../changelog/" class="md-nav__link">
-      Changelog
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internals/" class="md-nav__link">
+        Internal Design
+      </a>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="../../license/" class="md-nav__link">
-      License
-    </a>
-  </li>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
 
     
   </ul>
@@ -514,7 +547,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -667,157 +701,178 @@
                 
                 <h1 id="main-api">Main API</h1>
 <p>The library is mainly used via the <code>BroadworksAPI</code> class in the api module:</p>
-<div class="doc doc-object doc-module">
-<h2 class="hidden-toc" href="#broadworks_ocip.api" id="broadworks_ocip.api" style="visibility: hidden; position: absolute;">
-        </h2>
-<div class="doc doc-contents first">
-<p>Broadworks OCI-P Interface API Class and code</p>
-<p>Main API interface - this is basically the only consumer visible part</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI">
 
+
+  <div class="doc doc-object doc-module">
+
+<a id="broadworks_ocip.api"></a>
+    <div class="doc doc-contents first">
+
+      <p>Broadworks OCI-P Interface API Class and code</p>
+<p>Main API interface - this is basically the only consumer visible part</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="broadworks_ocip.api.BroadworksAPI" class="doc doc-heading">
         <code>BroadworksAPI</code>
 
 
-      </h2>
-<div class="doc doc-contents ">
-<p>BroadworksAPI - A class encapsulating the Broadworks OCI-P API</p>
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>BroadworksAPI - A class encapsulating the Broadworks OCI-P API</p>
 <p>This encapsulates a connection to the Broadworks OCI-P API server and
 provides an interface to cerate and despatch commands to the server and
 receive responses back (as response class instances).</p>
+
 <p><strong>Attributes:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>host</code></td>
-<td><code>str</code></td>
-<td>
-<p>hostname/ip to connect to</p>
-</td>
-</tr>
-<tr>
-<td><code>port</code></td>
-<td><code>int</code></td>
-<td>
-<p>port number to connect to. Default 2208</p>
-</td>
-</tr>
-<tr>
-<td><code>username</code></td>
-<td><code>str</code></td>
-<td>
-<p>username to authenticate with</p>
-</td>
-</tr>
-<tr>
-<td><code>password</code></td>
-<td><code>str</code></td>
-<td>
-<p>password to authenticate with</p>
-</td>
-</tr>
-<tr>
-<td><code>logger</code></td>
-<td><code></code></td>
-<td>
-<p>logger object to use - set up internally by default</p>
-</td>
-</tr>
-<tr>
-<td><code>authenticated</code></td>
-<td><code>bool</code></td>
-<td>
-<p>are we authenticated?</p>
-</td>
-</tr>
-<tr>
-<td><code>connect_timeout</code></td>
-<td><code>int</code></td>
-<td>
-<p>connection timeout value (default 8)</p>
-</td>
-</tr>
-<tr>
-<td><code>command_timeout</code></td>
-<td><code>int</code></td>
-<td>
-<p>command timeout value (default 30)</p>
-</td>
-</tr>
-<tr>
-<td><code>socket</code></td>
-<td><code></code></td>
-<td>
-<p>connection socket - set up internally</p>
-</td>
-</tr>
-<tr>
-<td><code>session_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>session id - set up internally, only set this for testing</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>str</code></td>
+        <td><p>hostname/ip to connect to</p></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>port number to connect to. Default 2208</p></td>
+      </tr>
+      <tr>
+        <td><code>username</code></td>
+        <td><code>str</code></td>
+        <td><p>username to authenticate with</p></td>
+      </tr>
+      <tr>
+        <td><code>password</code></td>
+        <td><code>str</code></td>
+        <td><p>password to authenticate with</p></td>
+      </tr>
+      <tr>
+        <td><code>logger</code></td>
+        <td><code></code></td>
+        <td><p>logger object to use - set up internally by default</p></td>
+      </tr>
+      <tr>
+        <td><code>authenticated</code></td>
+        <td><code>bool</code></td>
+        <td><p>are we authenticated?</p></td>
+      </tr>
+      <tr>
+        <td><code>connect_timeout</code></td>
+        <td><code>int</code></td>
+        <td><p>connection timeout value (default 8)</p></td>
+      </tr>
+      <tr>
+        <td><code>command_timeout</code></td>
+        <td><code>int</code></td>
+        <td><p>command timeout value (default 30)</p></td>
+      </tr>
+      <tr>
+        <td><code>socket</code></td>
+        <td><code></code></td>
+        <td><p>connection socket - set up internally</p></td>
+      </tr>
+      <tr>
+        <td><code>session_id</code></td>
+        <td><code>str</code></td>
+        <td><p>session id - set up internally, only set this for testing</p></td>
+      </tr>
+  </tbody>
 </table>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.authenticate">
-
-        <code class="highlight language-python">
-authenticate<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Authenticate the connection to the OCI-P server</p>
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.authenticate" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Authenticate the connection to the OCI-P server</p>
+
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OCIErrorResponse</code></td>
-<td>
-<p>An error was returned from the server</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>OCIErrorResponse</code></td>
+        <td><p>An error was returned from the server</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>resp</code></td>
-<td>
-<p>Response object</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>resp</code></td>
+      <td><p>Response object</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Authenticate the connection to the OCI-P server</span>
 
 <span class="sd">    Arguments:</span>
@@ -827,15 +882,15 @@ authenticate<span class="p">(</span><span class="bp">self</span><span class="p">
 
 <span class="sd">    Returns:</span>
 <span class="sd">        resp: Response object</span>
-<span class="sd">    """</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="s2">"AuthenticationRequest"</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="s2">&quot;AuthenticationRequest&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_response</span><span class="p">()</span>
     <span class="n">authhash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="n">signed_password</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="s2">":"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">resp</span><span class="o">.</span><span class="n">nonce</span><span class="p">,</span> <span class="n">authhash</span><span class="p">])</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">resp</span><span class="o">.</span><span class="n">nonce</span><span class="p">,</span> <span class="n">authhash</span><span class="p">])</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span>
-        <span class="s2">"LoginRequest14sp4"</span><span class="p">,</span>
+        <span class="s2">&quot;LoginRequest14sp4&quot;</span><span class="p">,</span>
         <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
         <span class="n">signed_password</span><span class="o">=</span><span class="n">signed_password</span><span class="p">,</span>
     <span class="p">)</span>
@@ -845,29 +900,35 @@ authenticate<span class="p">(</span><span class="bp">self</span><span class="p">
     <span class="c1"># if authentication failed this line will never be executed</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="n">resp</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.build_despatch_table">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-build_despatch_table<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Create a despatch table of commands and types used</p>
-<details class="quote">
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.build_despatch_table" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">build_despatch_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Create a despatch table of commands and types used</p>
+
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">build_despatch_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">build_despatch_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a despatch table of commands and types used</span>
-<span class="sd">    """</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Building Broadworks despatch table"</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Building Broadworks despatch table&quot;</span><span class="p">)</span>
     <span class="n">despatch_table</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># deal with all the main request/responses</span>
     <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="p">(</span>
@@ -876,53 +937,59 @@ build_despatch_table<span class="p">(</span><span class="bp">self</span><span cl
         <span class="n">broadworks_ocip</span><span class="o">.</span><span class="n">types</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="vm">__module__</span> <span class="ow">in</span> <span class="p">(</span>
-                    <span class="s2">"broadworks_ocip.types"</span><span class="p">,</span>
-                    <span class="s2">"broadworks_ocip.requests"</span><span class="p">,</span>
-                    <span class="s2">"broadworks_ocip.responses"</span><span class="p">,</span>
+                    <span class="s2">&quot;broadworks_ocip.types&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;broadworks_ocip.requests&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;broadworks_ocip.responses&quot;</span><span class="p">,</span>
                 <span class="p">):</span>
                     <span class="n">despatch_table</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">continue</span>
     <span class="c1"># deal with special cases in base</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">broadworks_ocip</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"SuccessResponse"</span><span class="p">,</span> <span class="s2">"ErrorResponse"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;SuccessResponse&quot;</span><span class="p">,</span> <span class="s2">&quot;ErrorResponse&quot;</span><span class="p">):</span>
             <span class="n">despatch_table</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
-            <span class="n">despatch_table</span><span class="p">[</span><span class="s2">"c:"</span> <span class="o">+</span> <span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>  <span class="c1"># namespace issues</span>
+            <span class="n">despatch_table</span><span class="p">[</span><span class="s2">&quot;c:&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>  <span class="c1"># namespace issues</span>
     <span class="c1"># we now have a despatch table...</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_despatch_table</span> <span class="o">=</span> <span class="n">despatch_table</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Built Broadworks despatch table"</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.close">
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Built Broadworks despatch table&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-close<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">no_log</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Close the connection to the OCI-P server</p>
-<details class="quote">
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.close" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">no_log</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Close the connection to the OCI-P server</p>
+
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">no_log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">no_log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Close the connection to the OCI-P server</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">no_log</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Disconnect by logging out"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Disconnect by logging out&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span>
-            <span class="s2">"LogoutRequest"</span><span class="p">,</span>
+            <span class="s2">&quot;LogoutRequest&quot;</span><span class="p">,</span>
             <span class="n">user_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">"Connection close"</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Connection close&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="p">:</span>
@@ -932,109 +999,101 @@ close<span class="p">(</span><span class="bp">self</span><span class="p">,</span
         <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
             <span class="k">pass</span>  <span class="c1"># we just ignore this under these circumstances</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">no_log</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Disconnected from host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2"> port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Disconnected from host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2"> port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">socket</span> <span class="o">=</span> <span class="kc">None</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.command">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-command<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Send a command and parameters to the server, receive and decode a response</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.command" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Send a command and parameters to the server, receive and decode a response</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>command</code></td>
-<td><code></code></td>
-<td>
-<p>A single word name of a <code>OCIRequest()</code></p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>kwargs</code></td>
-<td><code></code></td>
-<td>
-<p>The arguments for the command</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>command</code></td>
+        <td><code></code></td>
+        <td><p>A single word name of a <code>OCIRequest()</code></p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code></code></td>
+        <td><p>The arguments for the command</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OCIErrorResponse</code></td>
-<td>
-<p>An error was returned from the server</p>
-</td>
-</tr>
-<tr>
-<td><code>OCIErrorTimeOut</code></td>
-<td>
-<p>The client timed out waiting for the server</p>
-</td>
-</tr>
-<tr>
-<td><code>OCIErrorUnknown</code></td>
-<td>
-<p>Unknown return from the server</p>
-</td>
-</tr>
-<tr>
-<td><code>IOError</code></td>
-<td>
-<p>Communications failure</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>OCIErrorResponse</code></td>
+        <td><p>An error was returned from the server</p></td>
+      </tr>
+      <tr>
+        <td><code>OCIErrorTimeOut</code></td>
+        <td><p>The client timed out waiting for the server</p></td>
+      </tr>
+      <tr>
+        <td><code>OCIErrorUnknown</code></td>
+        <td><p>Unknown return from the server</p></td>
+      </tr>
+      <tr>
+        <td><code>IOError</code></td>
+        <td><p>Communications failure</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>resp</code></td>
-<td>
-<p>Response class instance object</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>resp</code></td>
+      <td><p>Response class instance object</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Send a command and parameters to the server, receive and decode a response</span>
 
 <span class="sd">    Arguments:</span>
@@ -1049,99 +1108,107 @@ command<span class="p">(</span><span class="bp">self</span><span class="p">,</sp
 
 <span class="sd">    Returns:</span>
 <span class="sd">        resp: Response class instance object</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">send_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_response</span><span class="p">()</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.configure_logger">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-configure_logger<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Create and configure a logging object</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.configure_logger" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">configure_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Create and configure a logging object</p>
 <p>By default sets up a basic logger logging to the console and syslog at
 <code>WARNING</code> level.</p>
-<details class="quote">
+
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">configure_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">configure_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create and configure a logging object</span>
 
 <span class="sd">    By default sets up a basic logger logging to the console and syslog at</span>
 <span class="sd">    `WARNING` level.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
     <span class="n">console_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
     <span class="n">console_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console_handler</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.connect">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-connect<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Open the connection to the OCI-P server</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.connect" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Open the connection to the OCI-P server</p>
+
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>IOError</code></td>
-<td>
-<p>Communications failure</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>IOError</code></td>
+        <td><p>Communications failure</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code></code></td>
-<td>
-<p>None</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code></code></td>
+      <td><p>None</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open the connection to the OCI-P server</span>
 
 <span class="sd">    Arguments:</span>
@@ -1151,8 +1218,8 @@ connect<span class="p">(</span><span class="bp">self</span><span class="p">)</sp
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    """</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Attempting connection host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2"> port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting connection host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2"> port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="n">conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span>
@@ -1160,94 +1227,92 @@ connect<span class="p">(</span><span class="bp">self</span><span class="p">)</sp
             <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connect_timeout</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">socket</span> <span class="o">=</span> <span class="n">conn</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Connected to host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2"> port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connected to host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2"> port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Connection failed"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Connection failed&quot;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">e</span>
     <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">timeout</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Connection timed out"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Connection timed out&quot;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">e</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.decode_xml">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-decode_xml<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Decode XML into an OCICommand based object instance</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.decode_xml" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">decode_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Decode XML into an OCICommand based object instance</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>xml</code></td>
-<td><code></code></td>
-<td>
-<p>An XML string</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>xml</code></td>
+        <td><code></code></td>
+        <td><p>An XML string</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OCIErrorResponse</code></td>
-<td>
-<p>An error was returned from the server</p>
-</td>
-</tr>
-<tr>
-<td><code>OCIErrorUnknown</code></td>
-<td>
-<p>Unknown return from the server</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>OCIErrorResponse</code></td>
+        <td><p>An error was returned from the server</p></td>
+      </tr>
+      <tr>
+        <td><code>OCIErrorUnknown</code></td>
+        <td><p>Unknown return from the server</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code></code></td>
-<td>
-<p>Class instance object</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code></code></td>
+      <td><p>Class instance object</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">decode_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">decode_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Decode XML into an OCICommand based object instance</span>
 
 <span class="sd">    Arguments:</span>
@@ -1259,107 +1324,105 @@ decode_xml<span class="p">(</span><span class="bp">self</span><span class="p">,<
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Class instance object</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">"</span><span class="si">{C}</span><span class="s2">BroadsoftDocument"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="si">{C}</span><span class="s2">BroadsoftDocument&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Decoding BroadsoftDocument"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Decoding BroadsoftDocument&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">"command"</span><span class="p">:</span>
-            <span class="n">command</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"{http://www.w3.org/2001/XMLSchema-instance}type"</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Decoding command </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;command&quot;</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;{http://www.w3.org/2001/XMLSchema-instance}type&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Decoding command </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_despatch_table</span><span class="p">[</span><span class="n">command</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">build_from_etree_</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&lt;&lt;&lt; </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">type_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;&lt;&lt; </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">type_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">result</span><span class="o">.</span><span class="n">post_xml_decode_</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">result</span>
-    <span class="k">raise</span> <span class="n">OCIErrorUnknown</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">"Unknown XML decode"</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.get_command_object">
+    <span class="k">raise</span> <span class="n">OCIErrorUnknown</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Unknown XML decode&quot;</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-get_command_object<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Build the OCICommand object instance for a command and parameter</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.get_command_object" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_command_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Build the OCICommand object instance for a command and parameter</p>
 <p>The difference between <code>get_type_object</code>, and this method is that this
 one sets up the session_id (which is only relevant for a command
 object).</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>command</code></td>
-<td><code></code></td>
-<td>
-<p>A single word name of a <code>OCIRequest()</code> or <code>OCIResponse()</code></p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>kwargs</code></td>
-<td><code></code></td>
-<td>
-<p>The arguments for the command</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>command</code></td>
+        <td><code></code></td>
+        <td><p>A single word name of a <code>OCIRequest()</code> or <code>OCIResponse()</code></p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code></code></td>
+        <td><p>The arguments for the command</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>KeyError</code></td>
-<td>
-<p>If command could not be found</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>KeyError</code></td>
+        <td><p>If command could not be found</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>cmd</code></td>
-<td>
-<p>An appropriate class instance</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>cmd</code></td>
+      <td><p>An appropriate class instance</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_command_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_command_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Build the OCICommand object instance for a command and parameter</span>
 
 <span class="sd">    The difference between `get_type_object`, and this method is that this</span>
@@ -1375,93 +1438,91 @@ object).</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        cmd: An appropriate class instance</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type_class</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cmd</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.get_command_xml">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-get_command_xml<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Build the XML for a command and parameter</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.get_command_xml" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_command_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Build the XML for a command and parameter</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>command</code></td>
-<td><code></code></td>
-<td>
-<p>A single word name of a <code>OCIRequest()</code> or <code>OCIResponse()</code></p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>kwargs</code></td>
-<td><code></code></td>
-<td>
-<p>The arguments for the command</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>command</code></td>
+        <td><code></code></td>
+        <td><p>A single word name of a <code>OCIRequest()</code> or <code>OCIResponse()</code></p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code></code></td>
+        <td><p>The arguments for the command</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>KeyError</code></td>
-<td>
-<p>If command could not be found</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>KeyError</code></td>
+        <td><p>If command could not be found</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>xml</code></td>
-<td>
-<p>An XML string</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>xml</code></td>
+      <td><p>An XML string</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_command_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_command_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Build the XML for a command and parameter</span>
 
 <span class="sd">    Arguments:</span>
@@ -1473,84 +1534,84 @@ get_command_xml<span class="p">(</span><span class="bp">self</span><span class="
 
 <span class="sd">    Returns:</span>
 <span class="sd">        xml: An XML string</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_command_object</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cmd</span><span class="o">.</span><span class="n">build_xml_</span><span class="p">()</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.get_type_class">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-get_type_class<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Given a name (Request/Response/Type) name, return a class object for it</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.get_type_class" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_type_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Given a name (Request/Response/Type) name, return a class object for it</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>command</code></td>
-<td><code>str</code></td>
-<td>
-<p>A single word name of a OCIType(),OCIRequest(),OCIResponse()</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>command</code></td>
+        <td><code>str</code></td>
+        <td><p>A single word name of a OCIType(),OCIRequest(),OCIResponse()</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>KeyError</code></td>
-<td>
-<p>If command could not be found</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>KeyError</code></td>
+        <td><p>If command could not be found</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>cls</code></td>
-<td>
-<p>An appropriate class object</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>cls</code></td>
+      <td><p>An appropriate class object</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_type_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_type_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given a name (Request/Response/Type) name, return a class object for it</span>
 
 <span class="sd">    Arguments:</span>
@@ -1561,99 +1622,97 @@ get_type_class<span class="p">(</span><span class="bp">self</span><span class="p
 
 <span class="sd">    Returns:</span>
 <span class="sd">        cls: An appropriate class object</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_despatch_table</span><span class="p">[</span><span class="n">command</span><span class="p">]</span>
     <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown command requested - </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown command requested - </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">e</span>
     <span class="k">return</span> <span class="bp">cls</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.get_type_object">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-get_type_object<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Build the OCIType object instance for a type and parameters</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.get_type_object" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_type_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Build the OCIType object instance for a type and parameters</p>
 <p>The difference between this method, and <code>get_command_object()</code> is that
 the latter set up the session_id (which is only relevant for a command
 object).</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>command</code></td>
-<td><code></code></td>
-<td>
-<p>A single word name of a <code>OCIType()</code></p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>kwargs</code></td>
-<td><code></code></td>
-<td>
-<p>The arguments for the type</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>command</code></td>
+        <td><code></code></td>
+        <td><p>A single word name of a <code>OCIType()</code></p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code></code></td>
+        <td><p>The arguments for the type</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>KeyError</code></td>
-<td>
-<p>If command could not be found</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>KeyError</code></td>
+        <td><p>If command could not be found</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>cmd</code></td>
-<td>
-<p>An appropriate class instance</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>cmd</code></td>
+      <td><p>An appropriate class instance</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_type_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_type_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Build the OCIType object instance for a type and parameters</span>
 
 <span class="sd">    The difference between this method, and `get_command_object()` is that</span>
@@ -1669,117 +1728,119 @@ object).</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        cmd: An appropriate class instance</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_type_class</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cmd</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.on_init">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-on_init<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Initialise the API object.</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.on_init" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">on_init</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialise the API object.</p>
 <p>Automatically called by the object initialisation code. Sets up the
 session_id to a random <code>uuid.uuid4()</code>, builds a logger object if none
 was passed and builds a despatch table.</p>
-<details class="quote">
+
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">on_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">on_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialise the API object.</span>
 
 <span class="sd">    Automatically called by the object initialisation code. Sets up the</span>
 <span class="sd">    session_id to a random `uuid.uuid4()`, builds a logger object if none</span>
 <span class="sd">    was passed and builds a despatch table.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_logger</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">build_despatch_table</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">authenticated</span> <span class="o">=</span> <span class="kc">False</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.receive_response">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-receive_response<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Wait and receive response XML from server, and decode it</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.receive_response" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">receive_response</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Wait and receive response XML from server, and decode it</p>
+
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OCIErrorResponse</code></td>
-<td>
-<p>An error was returned from the server</p>
-</td>
-</tr>
-<tr>
-<td><code>OCIErrorTimeOut</code></td>
-<td>
-<p>The client timed out waiting for the server</p>
-</td>
-</tr>
-<tr>
-<td><code>OCIErrorUnknown</code></td>
-<td>
-<p>Unknown return from the server</p>
-</td>
-</tr>
-<tr>
-<td><code>IOError</code></td>
-<td>
-<p>Communications failure</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>OCIErrorResponse</code></td>
+        <td><p>An error was returned from the server</p></td>
+      </tr>
+      <tr>
+        <td><code>OCIErrorTimeOut</code></td>
+        <td><p>The client timed out waiting for the server</p></td>
+      </tr>
+      <tr>
+        <td><code>OCIErrorUnknown</code></td>
+        <td><p>Unknown return from the server</p></td>
+      </tr>
+      <tr>
+        <td><code>IOError</code></td>
+        <td><p>Communications failure</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code></code></td>
-<td>
-<p>Class instance object</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code></code></td>
+      <td><p>Class instance object</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">receive_response</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">receive_response</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wait and receive response XML from server, and decode it</span>
 
 <span class="sd">    Arguments:</span>
@@ -1792,8 +1853,8 @@ receive_response<span class="p">(</span><span class="bp">self</span><span class=
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Class instance object</span>
-<span class="sd">    """</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">""</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">readable</span><span class="p">,</span> <span class="n">writable</span><span class="p">,</span> <span class="n">exceptional</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="p">],</span>
@@ -1804,96 +1865,94 @@ receive_response<span class="p">(</span><span class="bp">self</span><span class=
         <span class="k">if</span> <span class="n">readable</span><span class="p">:</span>  <span class="c1"># there is only one thing in the set...</span>
             <span class="n">content</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
             <span class="c1"># look for the end of document marker (we ignore line ends)</span>
-            <span class="n">splits</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="sa">b</span><span class="s2">"&lt;/BroadsoftDocument&gt;"</span><span class="p">)</span>
+            <span class="n">splits</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;&lt;/BroadsoftDocument&gt;&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">splits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">break</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">readable</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">writable</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">exceptional</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">OCIErrorTimeOut</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">"Read timeout"</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">VERBOSE_DEBUG</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"RECV: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">OCIErrorTimeOut</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Read timeout&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">VERBOSE_DEBUG</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;RECV: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_xml</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="broadworks_ocip.api.BroadworksAPI.send_command">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-send_command<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Build the XML for a command and parameter and send it to the server</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="broadworks_ocip.api.BroadworksAPI.send_command" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">send_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Build the XML for a command and parameter and send it to the server</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>command</code></td>
-<td><code></code></td>
-<td>
-<p>A single word name of a <code>OCIRequest()</code> or <code>OCIResponse()</code></p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>kwargs</code></td>
-<td><code></code></td>
-<td>
-<p>The arguments for the command</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>command</code></td>
+        <td><code></code></td>
+        <td><p>A single word name of a <code>OCIRequest()</code> or <code>OCIResponse()</code></p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code></code></td>
+        <td><p>The arguments for the command</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>KeyError</code></td>
-<td>
-<p>If command could not be found</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>KeyError</code></td>
+        <td><p>If command could not be found</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code></code></td>
-<td>
-<p>None</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code></code></td>
+      <td><p>None</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>broadworks_ocip/api.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">send_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">send_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Build the XML for a command and parameter and send it to the server</span>
 
 <span class="sd">    Arguments:</span>
@@ -1905,22 +1964,38 @@ send_command<span class="p">(</span><span class="bp">self</span><span class="p">
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
-<span class="sd">    """</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&gt;&gt;&gt; </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&gt;&gt;&gt; </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">xml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_command_xml</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">VERBOSE_DEBUG</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"SEND: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">xml</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">VERBOSE_DEBUG</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;SEND: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">xml</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               
@@ -1987,15 +2062,15 @@ send_command<span class="p">(</span><span class="bp">self</span><span class="p">
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
-      <script src="../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: ['navigation.instant', 'navigation.expand'],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
