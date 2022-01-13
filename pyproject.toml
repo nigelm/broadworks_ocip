@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "broadworks_ocip"
-version = "1.4.0"
+version = "1.5.0"
 description = "API interface to the OCI-P provisioning interface of a Broadworks softswitch"
 authors = ["Nigel Metheringham <nigelm@cpan.org>"]
 license = "BSD"
