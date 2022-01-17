@@ -1,7 +1,6 @@
 # Broadworks OCI-P Interface
 
-
-[![ci](https://img.shields.io/travis/com/nigelm/broadworks_ocip.svg)](https://travis-ci.com/nigelm/broadworks_ocip)
+[![Tests](https://github.com/nigelm/broadworks_ocip/workflows/Tests/badge.svg)](https://github.com/nigelm/broadworks_ocip/actions?workflow=Tests)
 [![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://nigelm.github.io/broadworks_ocip/)
 [![pypi version](https://img.shields.io/pypi/v/broadworks_ocip.svg)](https://pypi.python.org/pypi/broadworks_ocip)
 
