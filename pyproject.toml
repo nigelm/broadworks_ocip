@@ -40,7 +40,6 @@ lxml = "^4.7.1"
 attrs = "^21.4.0"
 
 [tool.poetry.dev-dependencies]
-bump2version = "^1.0.1"
 pytest = "^6.2.5"
 toposort = "^1.7"
 xmlschema = "^1.9.2"
@@ -48,7 +47,22 @@ mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.7"
 mkdocstrings = "^0.17.0"
 tiangolo-markdown-include = "^0.7.0"
+python-semantic-release = "^7.23.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.semantic_release]
+branch = "master"
+version_toml = [ "pyproject.toml:tool.poetry.version" ]
+version_pattern = [
+    'README.md:Version: `(\d+\.\d+\.\d+)`',
+    'broadworks_ocip/__init__.py:__version__ = "(\d+\.\d+\.\d+)"',
+]
+version_source = "tag"
+commit_version_number = true
+patch_without_tag = true
+build_command = "poetry build"
+upload_to_pypi = false
+check_build_status = true
