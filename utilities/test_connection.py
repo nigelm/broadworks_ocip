@@ -15,7 +15,10 @@ def main():
     args = parser.parse_args()
 
     api = BroadworksAPI(
-        host=args.host, port=args.port, username=args.username, password=args.password,
+        host=args.host,
+        port=args.port,
+        username=args.username,
+        password=args.password,
     )
     result = api.command("ServiceProviderGetListRequest")
     for thing in result.service_provider_table:

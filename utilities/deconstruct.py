@@ -19,7 +19,8 @@ def deconstruct(elem, prefix=""):
 def main():
     parser = argparse.ArgumentParser(description="Rip a document apart")
     parser.add_argument(
-        "file", type=str,
+        "file",
+        type=str,
     )
     args = parser.parse_args()
     fp = open(args.file, "rb")

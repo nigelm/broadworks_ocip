@@ -1,0 +1,16 @@
+name: Run Complete Tests
+
+on:
+  workflow_call:
+
+jobs:
+  full_tests:
+    runs-on: ubuntu-latest
+    name: NOX test run
+    steps:
+    - uses: actions/checkout@v2
+    - uses: excitedleigh/setup-nox@v2.0.0
+    - run: pip install poetry==1.1.12
+    - run: nox
+
+# end

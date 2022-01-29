@@ -1,0 +1,11 @@
+# basic set of tests
+name: Tests
+on: push
+
+jobs:
+  lint:
+    uses: ./.github/workflows/_linting.yml
+  tests:
+    uses: ./.github/workflows/_test.yml
+
+# end

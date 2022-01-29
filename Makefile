@@ -37,6 +37,10 @@ lint: ## check style with flake8
 test: ## run tests quickly with the default Python
 	poetry run pytest
 
+.PHONY: nox
+nox: ## run tests and other checks against multiple python versions
+	nox
+
 .PHONY: servdocs
 servdocs: ## serve out the mkdocs documentation
 	poetry run mkdocs serve

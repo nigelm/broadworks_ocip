@@ -1,0 +1,25 @@
+# basic set of tests
+name: Deploy
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  tests:
+    uses: ./.github/workflows/_test.yml
+  lint:
+    uses: ./.github/workflows/_linting.yml
+
+  upload:
+    needs: [tests, lint]
+    uses: ./.github/workflows/_upload.yml
+    secrets:
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+
+  docs:
+    needs: [tests, lint]
+    uses: ./.github/workflows/_docs.yml
+
+
+# end
