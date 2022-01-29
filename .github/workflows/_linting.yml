@@ -4,17 +4,41 @@ on:
   workflow_call:
 
 jobs:
-  test:
+  lint:
     name: Run Linters
     runs-on: ubuntu-latest
     steps:
-      - name: Set up repository
-        uses: nigelm/gh_actions_python_poetry_setup@v1
+
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up python
+        uses: actions/setup-python@v2
         with:
           python-version: 3.10.2
-          poetry-version: 1.1.12
+
+      - name: Load cached pre-commit installation
+        id: cached-pre-comit-install
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/venv
+            ~/.cache/pre-commit
+          key: precommit-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}
+
+      - name: Install dependencies
+        if: steps.cached-pre-comit-install.outputs.cache-hit != 'true'
+        run: |
+          python -m venv ~/venv
+          source ~/venv/bin/activate
+          pip install --upgrade pip
+          pip install pre-commit
+        shell: bash
 
       - name: Run pre-commit set
-        run: make lint
+        run: |
+          source ~/venv/bin/activate
+          pre-commit run --all-files
+        shell: bash
 
 # end
