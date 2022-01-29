@@ -1,0 +1,25 @@
+# basic set of tests
+name: Deploy
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  tests:
+    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@main
+  lint:
+    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@main
+
+  upload:
+    needs: [tests, lint]
+    uses: nigelm/broadworks_ocip/.github/workflows/_upload.yml@main
+    secrets:
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+
+  docs:
+    needs: [tests, lint]
+    uses: nigelm/broadworks_ocip/.github/workflows/_docs.yml@main
+
+
+# end

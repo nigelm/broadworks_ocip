@@ -1,0 +1,25 @@
+name: Upload To Pypi
+
+on:
+  workflow_call:
+    secrets:
+      PYPI_TOKEN:
+        description: The pypi token to use for authentication
+        required: true
+
+jobs:
+  upload:
+    name: Upload To Pypi
+    runs-on: ubuntu-latest
+    environment: deployment
+    steps:
+      - name: Set up repository
+        uses: nigelm/gh_actions_python_poetry_setup@v1
+        with:
+          python-version: 3.10.2
+          poetry-version: 1.1.12
+
+      - run: poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+      - run: poetry publish --build --repository pypi
+
+# end

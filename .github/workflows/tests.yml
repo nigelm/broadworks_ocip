@@ -1,14 +1,11 @@
 # basic set of tests
 name: Tests
 on: push
+
 jobs:
+  lint:
+    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@main
   tests:
-    runs-on: ubuntu-latest
-    name: NOX test run
-    steps:
-    - uses: actions/checkout@v2
-    - uses: excitedleigh/setup-nox@v2.0.0
-    - run: pip install poetry==1.1.12
-    - run: nox
+    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@main
 
 # end

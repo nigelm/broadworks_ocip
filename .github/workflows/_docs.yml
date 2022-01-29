@@ -1,0 +1,25 @@
+name: Generate documentation
+
+on:
+  workflow_call:
+
+jobs:
+  generate_docs:
+    name: Generate documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: nigelm/gh_actions_python_poetry_setup@v1
+        with:
+          python-version: 3.10.2
+          poetry-version: 1.1.12
+          # needs fetch-depth to be set due to gh pages push
+          fetch-depth: 0
+
+      - name: Setup Git Commit Info
+        run:  git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Publish docs
+        run:  poetry run mkdocs gh-deploy
+
+# end
