@@ -2,12 +2,12 @@ name: Overall Release Process
 on: workflow_dispatch
 jobs:
   tests:
-    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@master
   lint:
-    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@master
   full_test:
     needs: [tests, lint]
-    uses: nigelm/broadworks_ocip/.github/workflows/_full_tests.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_full_tests.yml@master
 
   release:
     runs-on: ubuntu-latest

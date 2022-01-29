@@ -4,8 +4,8 @@ on: push
 
 jobs:
   lint:
-    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@master
   tests:
-    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@master
 
 # end

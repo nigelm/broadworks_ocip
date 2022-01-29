@@ -7,19 +7,19 @@ on:
 
 jobs:
   tests:
-    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_test.yml@master
   lint:
-    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_linting.yml@master
 
   upload:
     needs: [tests, lint]
-    uses: nigelm/broadworks_ocip/.github/workflows/_upload.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_upload.yml@master
     secrets:
       PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
 
   docs:
     needs: [tests, lint]
-    uses: nigelm/broadworks_ocip/.github/workflows/_docs.yml@main
+    uses: nigelm/broadworks_ocip/.github/workflows/_docs.yml@master
 
 
 # end
