@@ -103,30 +103,6 @@ def write_elements(file, elements):
         file.write("        return ()\n")
 
 
-def write_attribute_comment(file, element):
-    """Write an attribute comment with type and other info for the docs"""
-    if element["is_array"]:
-        comment_bits = [f"list[{element['type']}]:"]
-    else:
-        comment_bits = [f"{element['type']}:"]
-    if element["is_required"]:
-        comment_bits.append("*Required*")
-    else:
-        comment_bits.append("*Optional*")
-    comment_bits.append(element["xmlname"])
-    if element["is_array"]:
-        comment_bits.append(" *Array*")
-    if element["is_table"]:
-        comment_bits.append(" *Tabular*")
-    wrapper = TextWrapper(
-        width=90,
-        initial_indent="    #: ",
-        subsequent_indent="    #: ",
-        break_long_words=False,
-    )
-    file.write("\n".join(wrapper.wrap(" ".join(comment_bits))) + "\n")
-
-
 def write_attribute(file, element):
     param_str = "" if element["is_required"] else "default=None"
     if element["is_array"]:
@@ -136,26 +112,12 @@ def write_attribute(file, element):
     else:
         mytype = '"' + element["type"] + '"'
     outstr = " " * 4 + element["name"] + ": " + mytype + " = attr.ib(" + param_str + ")"
-    # if len(outstr) >= 95:
-    #    wrapper = TextWrapper(
-    #        width=90,
-    #        replace_whitespace=False,
-    #        initial_indent=" " * 8,
-    #        subsequent_indent=" " * 8,
-    #        break_long_words=False,
-    #    )
-    #    file.write(" " * 4 + element["name"] + ": " + mytype + " = attr.ib(\n")
-    #    file.write("\n".join(wrapper.wrap(param_str)) + ",\n")
-    #    file.write(" " * 4 + ")\n")
-    # else:
-    #    file.write(outstr + "\n")
     file.write(outstr + "\n")
 
 
 def process_class_elements(file, elements):
     count = 0
     for element in elements.values():
-        # write_attribute_comment(file, element)
         write_attribute(file, element)
         count += 1
     if count > 0:
