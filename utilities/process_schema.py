@@ -17,7 +17,7 @@ def camel_to_snake(name):
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", name).lower()
 
 
-def process_element_type(element, params, phash, prefix):
+def process_element_type(element, phash, prefix):
     type = element.type
     is_complex = type.is_complex()
     phash["is_complex"] = is_complex
@@ -38,19 +38,13 @@ def process_element_type(element, params, phash, prefix):
             thistype = "bool"
         elif type.primitive_type.id == "decimal":
             thistype = "int"
-    # emit type info
-    if phash["is_array"]:
-        params.append("type=list")
-    else:
-        params.append(f"type={thistype}")
     phash["type"] = thistype
 
 
 def build_element_hash(xsd_component, prefix=""):
     element_hash = {}
-    for elem in xsd_component.content_type.iter_elements():
+    for elem in xsd_component.content.iter_elements():
         name = camel_to_snake(elem.name)
-        params = []
         is_required = True if elem.min_occurs > 0 else False
         if is_required and elem.parent.model == "choice":
             is_required = False
@@ -73,26 +67,18 @@ def build_element_hash(xsd_component, prefix=""):
             "is_table": False,
             "unknown": False,
         }
-        process_element_type(elem, params, phash, prefix)
-        params.append(f"required={is_required}")
-        params.append("mutable=False")
-        phash["params"] = params
+        process_element_type(elem, phash, prefix)
         element_hash[name] = phash
     return element_hash
 
 
 def write_elements(file, elements):
     """Write the _Elements array used for serializing to/from XML"""
+    file.write("    @classmethod\n")
+    file.write("    def _elements(cls) -> Tuple[E, ...]:\n")
     if len(elements):
         # We have elements - write them out - starting with the header
-        file.write("    _ELEMENTS = (\n")
-        wrapper = TextWrapper(
-            width=90,
-            replace_whitespace=False,
-            initial_indent=" " * 12,
-            subsequent_indent=" " * 12,
-            break_long_words=False,
-        )
+        file.write("        return (\n")
         for item in elements.values():
             ele = [
                 ('"' + item["name"] + '"'),
@@ -103,17 +89,18 @@ def write_elements(file, elements):
                 if item[query]:
                     ele.append(query + "=True")
             comment = "  # unknown" if item["unknown"] else ""
-            outstr = " " * 8 + "E(" + ", ".join(ele) + ")," + comment
-            if len(outstr) >= 95:
-                file.write(" " * 8 + "E(\n")
-                file.write("\n".join(wrapper.wrap(", ".join(ele))) + ",\n")
-                file.write(" " * 8 + ")," + comment + "\n")
+            outstr = " " * 12 + "E(" + ", ".join(ele) + ")," + comment
+            if len(outstr) >= 90:
+                file.write(" " * 12 + "E(\n")
+                for bit in ele:
+                    file.write(" " * 16 + bit + ",\n")
+                file.write(" " * 12 + ")," + comment + "\n")
             else:
                 file.write(outstr + "\n")
-        file.write("    )\n\n")
+        file.write("        )\n")
     else:
         # No elements - we write an empty set out
-        file.write("    _ELEMENTS = ()\n")
+        file.write("        return ()\n")
 
 
 def write_attribute_comment(file, element):
@@ -141,35 +128,39 @@ def write_attribute_comment(file, element):
 
 
 def write_attribute(file, element):
-    params = element["params"]
-    param_str = ", ".join(params)
+    param_str = "" if element["is_required"] else "default=None"
     if element["is_array"]:
-        mytype = '"List[' + element["type"] + ']"'
+        mytype = f'List[{ element["type"] }]'
     elif element["type"] in ("str", "bool", "int"):
         mytype = element["type"]
     else:
         mytype = '"' + element["type"] + '"'
-    outstr = " " * 4 + element["name"] + ": " + mytype + " = Field(" + param_str + ")"
-    if len(outstr) >= 95:
-        wrapper = TextWrapper(
-            width=90,
-            replace_whitespace=False,
-            initial_indent=" " * 8,
-            subsequent_indent=" " * 8,
-            break_long_words=False,
-        )
-        file.write(" " * 4 + element["name"] + ": " + mytype + " = Field(\n")
-        file.write("\n".join(wrapper.wrap(param_str)) + ",\n")
-        file.write(" " * 4 + ")\n")
-    else:
-        file.write(outstr + "\n")
+    outstr = " " * 4 + element["name"] + ": " + mytype + " = attr.ib(" + param_str + ")"
+    # if len(outstr) >= 95:
+    #    wrapper = TextWrapper(
+    #        width=90,
+    #        replace_whitespace=False,
+    #        initial_indent=" " * 8,
+    #        subsequent_indent=" " * 8,
+    #        break_long_words=False,
+    #    )
+    #    file.write(" " * 4 + element["name"] + ": " + mytype + " = attr.ib(\n")
+    #    file.write("\n".join(wrapper.wrap(param_str)) + ",\n")
+    #    file.write(" " * 4 + ")\n")
+    # else:
+    #    file.write(outstr + "\n")
+    file.write(outstr + "\n")
 
 
 def process_class_elements(file, elements):
-    write_elements(file, elements)
+    count = 0
     for element in elements.values():
         # write_attribute_comment(file, element)
         write_attribute(file, element)
+        count += 1
+    if count > 0:
+        file.write("\n")
+    write_elements(file, elements)
 
 
 def process_attribute_documentation(file, elements):
@@ -244,6 +235,7 @@ def process_documentation(file, xsd_component, elements):
 
 
 def process_thing(file, xsd_component, thing, prefix=""):
+    file.write("@attr.s(slots=True, frozen=True, kw_only=True)\n")
     file.write(f"class {xsd_component.name}({thing}):\n")
     elements = build_element_hash(xsd_component, prefix)
     process_documentation(file, xsd_component, elements)
@@ -285,7 +277,7 @@ def sort_schema(schema):
         if xsd_component.is_complex():
             name = xsd_component.name
             dependancies = Counter()
-            for elem in xsd_component.content_type.iter_elements():
+            for elem in xsd_component.content.iter_elements():
                 type = elem.type
                 if type.is_complex() and type.name is not None:
                     if re.search(r"^[A-Za-z0-9]+$", type.name):
@@ -305,8 +297,9 @@ def open_output_files():
         out.write("# Do not edit as changes will be overwritten.\n")
         out.write(f"# Generated on {generation_time.isoformat()}\n")
         out.write("# fmt: off\n")
-        out.write("from typing import List\n\n")
-        out.write("from classforge import Field\n\n")
+        out.write("from typing import List\n")
+        out.write("from typing import Tuple\n\n")
+        out.write("import attr\n\n")
         if thing in ("request", "response"):
             out.write("import broadworks_ocip.types as OCI\n")
         out.write("from .base import ElementInfo as E\n")
