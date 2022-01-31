@@ -35,7 +35,6 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = ">=3.6.2,<4.0"
-classforge = "^0.92"
 lxml = "^4.7.1"
 attrs = "^21.4.0"
 

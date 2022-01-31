@@ -10,9 +10,10 @@ import select
 import socket
 import sys
 import uuid
+from typing import Callable
+from typing import Dict
 
-from classforge import Class
-from classforge import Field
+import attr
 from lxml import etree
 
 import broadworks_ocip.base
@@ -25,7 +26,8 @@ from broadworks_ocip.exceptions import OCIErrorUnknown
 VERBOSE_DEBUG = 9
 
 
-class BroadworksAPI(Class):
+@attr.s(slots=True, kw_only=True)
+class BroadworksAPI:
     """
     BroadworksAPI - A class encapsulating the Broadworks OCI-P API
 
@@ -47,19 +49,19 @@ class BroadworksAPI(Class):
 
     """
 
-    host: str = Field(type=str, required=True, mutable=False)
-    port: int = Field(type=int, default=2208, mutable=False)
-    username: str = Field(type=str, required=True, mutable=False)
-    password: str = Field(type=str, required=True, mutable=False)
-    logger = Field(type=logging.Logger)
-    authenticated: bool = Field(type=bool, default=False)
-    connect_timeout: int = Field(type=int, default=8)
-    command_timeout: int = Field(type=int, default=30)
-    socket = Field(type=socket.socket, default=None)  # type: socket.socket
-    session_id: str = Field(type=str)
-    _despatch_table = Field(type=dict)
+    host: str = attr.ib()
+    port: int = attr.ib(default=2208)
+    username: str = attr.ib()
+    password: str = attr.ib()
+    logger: logging.Logger = attr.ib(default=None)
+    authenticated: bool = attr.ib(default=False)
+    connect_timeout: int = attr.ib(default=8)
+    command_timeout: int = attr.ib(default=30)
+    socket = attr.ib(default=None)
+    session_id: str = attr.ib(default=None)
+    _despatch_table: Dict[str, Callable] = attr.ib(default=None)
 
-    def on_init(self):
+    def __attrs_post_init__(self):
         """
         Initialise the API object.
 

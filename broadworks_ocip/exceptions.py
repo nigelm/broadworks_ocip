@@ -22,6 +22,7 @@ class OCIError(Exception):
         return f"{self.__class__.__name__}({self.message})"
 
 
+@attr.s(slots=True, frozen=True)
 class OCIErrorResponse(OCIError):
     """
     Exception raised when an ErrorResponse is received and decoded.
@@ -32,6 +33,7 @@ class OCIErrorResponse(OCIError):
     pass
 
 
+@attr.s(slots=True, frozen=True)
 class OCIErrorTimeOut(OCIError):
     """
     Exception raised when nothing is head back from the server.
@@ -42,7 +44,19 @@ class OCIErrorTimeOut(OCIError):
     pass
 
 
+@attr.s(slots=True, frozen=True)
 class OCIErrorUnknown(OCIError):
+    """
+    Exception raised when life becomes too much for the software.
+
+    Subclass of OCIError()
+    """
+
+    pass
+
+
+@attr.s(slots=True, frozen=True)
+class OCIErrorAPISetup(OCIError):
     """
     Exception raised when life becomes too much for the software.
 
