@@ -103,25 +103,18 @@ def write_elements(file, elements):
         file.write("        return ()\n")
 
 
-def write_attribute(file, element):
-    param_str = "" if element["is_required"] else "default=None"
-    if element["is_array"]:
-        mytype = f'List[{ element["type"] }]'
-    elif element["type"] in ("str", "bool", "int"):
-        mytype = element["type"]
-    else:
-        mytype = '"' + element["type"] + '"'
-    outstr = " " * 4 + element["name"] + ": " + mytype + " = attr.ib(" + param_str + ")"
-    file.write(outstr + "\n")
-
-
-def process_class_elements(file, elements):
-    count = 0
+def write_slots(file, elements, thing):
+    file.write("    __slots__ = [\n")
     for element in elements.values():
-        write_attribute(file, element)
-        count += 1
-    if count > 0:
-        file.write("\n")
+        file.write(f'        "{element["name"]}",\n')
+    if thing != "OCIType":
+        file.write('        "session_id",\n')
+    file.write('        "_frozen",\n')
+    file.write("    ]\n\n")
+
+
+def process_class_elements(file, elements, thing):
+    write_slots(file, elements, thing)
     write_elements(file, elements)
 
 
@@ -197,11 +190,10 @@ def process_documentation(file, xsd_component, elements):
 
 
 def process_thing(file, xsd_component, thing, prefix=""):
-    file.write("@attr.s(slots=True, frozen=True, kw_only=True)\n")
     file.write(f"class {xsd_component.name}({thing}):\n")
     elements = build_element_hash(xsd_component, prefix)
     process_documentation(file, xsd_component, elements)
-    process_class_elements(file, elements)
+    process_class_elements(file, elements, thing)
     file.write("\n\n")
 
 
@@ -259,9 +251,7 @@ def open_output_files():
         out.write("# Do not edit as changes will be overwritten.\n")
         out.write(f"# Generated on {generation_time.isoformat()}\n")
         out.write("# fmt: off\n")
-        out.write("from typing import List\n")
         out.write("from typing import Tuple\n\n")
-        out.write("import attr\n\n")
         if thing in ("request", "response"):
             out.write("import broadworks_ocip.types as OCI\n")
         out.write("from .base import ElementInfo as E\n")

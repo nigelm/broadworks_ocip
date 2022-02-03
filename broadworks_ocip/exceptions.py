@@ -66,4 +66,26 @@ class OCIErrorAPISetup(OCIError):
     pass
 
 
+@attr.s(slots=True, frozen=True)
+class OCIErrorAttributeMissing(OCIError):
+    """
+    Exception raised when a required attribute is missing.
+
+    Subclass of OCIError()
+    """
+
+    pass
+
+
+@attr.s(slots=True, frozen=True)
+class OCIErrorUnexpectedAttribute(OCIError):
+    """
+    Exception raised when additional elements passed to __init__
+
+    Subclass of OCIError()
+    """
+
+    pass
+
+
 # end

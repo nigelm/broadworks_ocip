@@ -8,14 +8,15 @@ import re
 from collections import namedtuple
 from typing import Any
 from typing import Dict
-from typing import Optional
 from typing import Tuple
 
 import attr
 from lxml import etree
 
 from broadworks_ocip.exceptions import OCIErrorAPISetup
+from broadworks_ocip.exceptions import OCIErrorAttributeMissing
 from broadworks_ocip.exceptions import OCIErrorResponse
+from broadworks_ocip.exceptions import OCIErrorUnexpectedAttribute
 
 
 @attr.s(slots=True, frozen=True)
@@ -44,11 +45,43 @@ class ElementInfo:
     is_table: bool = attr.ib(default=False)
 
 
-@attr.s(slots=True, frozen=True, kw_only=True)
 class OCIType:
     """
     OCIType - Base type for all the OCI-P component classes
     """
+
+    __slots__ = ["_frozen"]
+
+    def __init__(self, **kwargs):
+        for elem in self._elements():
+            if elem.name in kwargs:
+                setattr(self, elem.name, kwargs[elem.name])
+                if elem.is_required and kwargs[elem.name] is None:
+                    raise OCIErrorAttributeMissing(
+                        message=f"Required attribute {elem.name} is missing",
+                    )
+                del kwargs[elem.name]
+            elif elem.is_required:
+                raise OCIErrorAttributeMissing(
+                    message=f"Required attribute {elem.name} is missing",
+                )
+            else:
+                setattr(self, elem.name, None)
+        if kwargs:
+            raise OCIErrorUnexpectedAttribute(
+                message=f"Unexpected attribute(s) {kwargs.keys()}",
+            )
+        self._frozen = True
+
+    def __delattr__(self, *args, **kwargs):
+        if hasattr(self, "_frozen"):
+            raise AttributeError("This object is frozen!")
+        object.__delattr__(self, *args, **kwargs)
+
+    def __setattr__(self, *args, **kwargs):
+        if hasattr(self, "_frozen"):
+            raise AttributeError("This object is frozen!")
+        object.__setattr__(self, *args, **kwargs)
 
     # Namespace maps used for various XML build tasks
     @classmethod
@@ -329,7 +362,6 @@ class OCIType:
         return elements
 
 
-@attr.s(slots=True, frozen=True, kw_only=True)
 class OCICommand(OCIType):
     """
     OCICommand - base class for all OCI Command (Request/Response) types
@@ -342,7 +374,15 @@ class OCICommand(OCIType):
             there to give a known value for testing.
     """
 
-    session_id: str = attr.ib(default="00000000-1111-2222-3333-444444444444")
+    __slots__ = ["_frozen", "session_id"]
+
+    def __init__(
+        self,
+        session_id: str = "00000000-1111-2222-3333-444444444444",
+        **kwargs,
+    ):
+        self.session_id = session_id
+        super().__init__(**kwargs)
 
     def build_xml_(self):
         """
@@ -421,7 +461,6 @@ class OCICommand(OCIType):
         return elements
 
 
-@attr.s(slots=True, frozen=True, kw_only=True)
 class OCIRequest(OCICommand):
     """
     OCIRequest - base class for all OCI Command Request types
@@ -430,7 +469,6 @@ class OCIRequest(OCICommand):
     pass
 
 
-@attr.s(slots=True, frozen=True, kw_only=True)
 class OCIResponse(OCICommand):
     """
     OCIResponse - base class for all OCI Command Response types
@@ -451,19 +489,19 @@ class OCIResponse(OCICommand):
         )
 
 
-@attr.s(slots=True, frozen=True, kw_only=True)
 class SuccessResponse(OCIResponse):
     """
     The SuccessResponse is concrete response sent whenever a transaction is successful
     and does not return any data.
     """
 
+    __slots__ = ["_frozen", "session_id"]
+
     @classmethod
     def _elements(cls) -> Tuple[ElementInfo, ...]:
         return ()
 
 
-@attr.s(slots=True, frozen=True, kw_only=True)
 class ErrorResponse(OCIResponse):
     """
     The ErrorResponse is concrete response sent whenever a transaction fails
@@ -473,11 +511,15 @@ class ErrorResponse(OCIResponse):
     `OCIErrorResponse` exception is raised in `post_xml_decode_`.
     """
 
-    error_code: Optional[int] = attr.ib(default=None)
-    summary: str = attr.ib()
-    summary_english: str = attr.ib()
-    detail: Optional[str] = attr.ib(default=None)
-    type: Optional[str] = attr.ib(default=None)
+    __slots__ = [
+        "error_code",
+        "summary",
+        "summary_english",
+        "detail",
+        "type",
+        "_frozen",
+        "session_id",
+    ]
 
     @classmethod
     def _elements(cls) -> Tuple[ElementInfo, ...]:
