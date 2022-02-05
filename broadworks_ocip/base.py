@@ -49,6 +49,12 @@ class ElementInfo:
 class OCIType:
     """
     OCIType - Base type for all the OCI-P component classes
+
+    Attributes:
+
+    There are no attributes of this base class (the `_frozen` attribute is
+    used as a flag to lock the instance).  The attributes are added in the
+    various subclasses.
     """
 
     __slots__: List[str] = ["_frozen"]
@@ -368,11 +374,11 @@ class OCICommand(OCIType):
     OCICommand - base class for all OCI Command (Request/Response) types
 
     Attributes:
-        session_id: The session ID used for the command exchange.  We use
-            UUIDs by default, although this is not required.  The default
-            is fixed on here (but normally passed in from the containing
-            API object) - do not use the default in production - its simply
-            there to give a known value for testing.
+        session_id (str): The session ID used for the command exchange.
+            We use UUIDs by default, although this is not required.  The
+            default is fixed on here (but normally passed in from the
+            containing API object) - do not use the default in production -
+            its simply there to give a known value for testing.
     """
 
     __slots__: List[str] = ["session_id"]
@@ -510,6 +516,14 @@ class ErrorResponse(OCIResponse):
 
     As this an error, when it is created from an incoming command response, a
     `OCIErrorResponse` exception is raised in `post_xml_decode_`.
+
+    Attributes:
+        error_code (int): The error code
+        summary (str): Summary of the error
+        summary_english (str): Summary of the error in english!
+        detail (str): Detail of the error
+        type (str): Type of the error
+
     """
 
     __slots__: List[str] = [

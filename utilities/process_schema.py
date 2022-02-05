@@ -128,7 +128,20 @@ def process_attribute_documentation(file, elements):
             expand_tabs=False,
         )
         for element in elements.values():
-            data = element["name"] + ": " + element["xmlname"]
+            if element["is_table"]:
+                type = f"List({element['xmlname']})"
+                suffix = f" - *Table* array of {element['xmlname']} named tuples"
+            else:
+                suffix = ""
+                if element["is_complex"]:
+                    type = "OCT.OCIType." + element["xmlname"]
+                else:
+                    type = element["type"]
+                if element["is_array"]:
+                    type = f"List[{type}]"
+            if not element["is_required"]:
+                suffix += " *Optional*"
+            data = f"{element['name']} ({type}): {element['xmlname']}{suffix}"
             file.write("\n".join(wrapper.wrap(data)) + "\n")
 
 
@@ -248,6 +261,7 @@ def open_output_files():
         out.write("# Do not edit as changes will be overwritten.\n")
         out.write(f"# Generated on {generation_time.isoformat()}\n")
         out.write("# fmt: off\n")
+        out.write("from typing import List\n")
         out.write("from typing import Tuple\n\n")
         if thing in ("request", "response"):
             out.write("import broadworks_ocip.types as OCI\n")
