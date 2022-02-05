@@ -9,6 +9,7 @@ from collections import namedtuple
 from typing import Any
 from typing import Dict
 from typing import List
+from typing import NamedTuple
 from typing import Tuple
 
 import attr
@@ -49,8 +50,6 @@ class ElementInfo:
 class OCIType:
     """
     OCIType - Base type for all the OCI-P component classes
-
-    Attributes:
 
     There are no attributes of this base class (the `_frozen` attribute is
     used as a flag to lock the instance).  The attributes are added in the
@@ -223,7 +222,7 @@ class OCIType:
                 elem.text = value
 
     @classmethod
-    def column_header_snake_case_(cls, header):
+    def column_header_snake_case_(cls, header:str)->str:
         """
         Converts an XML name into a pythonic snake case name
 
@@ -235,7 +234,7 @@ class OCIType:
         """
         return re.sub("[ _]+", r"_", header).lower()
 
-    def snake_case_to_column_header(self, snake_str):
+    def snake_case_to_column_header(self, snake_str:str)->str:
         """
         Converts a pythonic snake case name into a column header name
 
@@ -251,7 +250,7 @@ class OCIType:
         return " ".join(x.title() for x in components)
 
     @classmethod
-    def decode_table_(cls, element: "etree._Element"):
+    def decode_table_(cls, element: "etree._Element")->List[NamedTuple]:
         """
         Decode a table (used in a OCIResponse) into a list of named tuples
 
@@ -279,7 +278,7 @@ class OCIType:
         cls,
         element: "etree._Element",
         initialiser: dict,
-    ):
+    )->None:
         """
         Handle any items outside the parameter set
 
@@ -394,8 +393,6 @@ class OCICommand(OCIType):
     def build_xml_(self):
         """
         Build an XML document of the current Command (Request/Response)
-
-        Parameters:
 
         Returns:
             xml: string containing XML document
