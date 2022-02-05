@@ -104,12 +104,9 @@ def write_elements(file, elements):
 
 
 def write_slots(file, elements, thing):
-    file.write("    __slots__ = [\n")
+    file.write("    __slots__: List[str] = [\n")
     for element in elements.values():
         file.write(f'        "{element["name"]}",\n')
-    if thing != "OCIType":
-        file.write('        "session_id",\n')
-    file.write('        "_frozen",\n')
     file.write("    ]\n\n")
 
 

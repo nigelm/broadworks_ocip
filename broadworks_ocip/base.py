@@ -8,6 +8,7 @@ import re
 from collections import namedtuple
 from typing import Any
 from typing import Dict
+from typing import List
 from typing import Tuple
 
 import attr
@@ -50,7 +51,7 @@ class OCIType:
     OCIType - Base type for all the OCI-P component classes
     """
 
-    __slots__ = ["_frozen"]
+    __slots__: List[str] = ["_frozen"]
 
     def __init__(self, **kwargs):
         for elem in self._elements():
@@ -374,7 +375,7 @@ class OCICommand(OCIType):
             there to give a known value for testing.
     """
 
-    __slots__ = ["_frozen", "session_id"]
+    __slots__: List[str] = ["session_id"]
 
     def __init__(
         self,
@@ -495,7 +496,7 @@ class SuccessResponse(OCIResponse):
     and does not return any data.
     """
 
-    __slots__ = ["_frozen", "session_id"]
+    __slots__: List[str] = []
 
     @classmethod
     def _elements(cls) -> Tuple[ElementInfo, ...]:
@@ -511,14 +512,12 @@ class ErrorResponse(OCIResponse):
     `OCIErrorResponse` exception is raised in `post_xml_decode_`.
     """
 
-    __slots__ = [
+    __slots__: List[str] = [
         "error_code",
         "summary",
         "summary_english",
         "detail",
         "type",
-        "_frozen",
-        "session_id",
     ]
 
     @classmethod
