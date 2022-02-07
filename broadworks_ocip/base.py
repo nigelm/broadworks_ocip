@@ -222,7 +222,7 @@ class OCIType:
                 elem.text = value
 
     @classmethod
-    def column_header_snake_case_(cls, header:str)->str:
+    def column_header_snake_case_(cls, header: str) -> str:
         """
         Converts an XML name into a pythonic snake case name
 
@@ -234,7 +234,7 @@ class OCIType:
         """
         return re.sub("[ _]+", r"_", header).lower()
 
-    def snake_case_to_column_header(self, snake_str:str)->str:
+    def snake_case_to_column_header(self, snake_str: str) -> str:
         """
         Converts a pythonic snake case name into a column header name
 
@@ -250,7 +250,7 @@ class OCIType:
         return " ".join(x.title() for x in components)
 
     @classmethod
-    def decode_table_(cls, element: "etree._Element")->List[NamedTuple]:
+    def decode_table_(cls, element: "etree._Element") -> List[NamedTuple]:
         """
         Decode a table (used in a OCIResponse) into a list of named tuples
 
@@ -261,12 +261,12 @@ class OCIType:
             results: List of namedtuple elements, one for each table row
         """
         typename: str = element.tag
-        results = []
+        results: List[NamedTuple] = []
         columns = [
             cls.column_header_snake_case_(b.text)
             for b in element.iterfind("colHeading")
         ]
-        type = namedtuple(typename, columns)  # type: ignore
+        type: NamedTuple = namedtuple(typename, columns)  # type: ignore
         for row in element.iterfind("row"):
             rowdata = [b.text for b in row.iterfind("col")]
             rowobj = type(*rowdata)
@@ -278,7 +278,7 @@ class OCIType:
         cls,
         element: "etree._Element",
         initialiser: dict,
-    )->None:
+    ) -> None:
         """
         Handle any items outside the parameter set
 
