@@ -5,11 +5,15 @@ import pickle
 import re
 import sys
 from collections import Counter
+from collections import namedtuple
 from datetime import datetime
 from textwrap import TextWrapper
 
 import xmlschema
+from markdownTable import markdownTable
 from toposort import toposort_flatten
+
+AttributeInfo = namedtuple("AttributeInfo", ("name", "type", "description"))
 
 
 def camel_to_snake(name):
@@ -115,44 +119,36 @@ def process_class_elements(file, elements, thing):
     write_elements(file, elements)
 
 
-def process_attribute_documentation(file, elements):
-    if len(elements):
-        file.write("\n    Attributes:\n")
-        wrapper = TextWrapper(
-            width=90,
-            initial_indent=" " * 8,
-            subsequent_indent=" " * 12,
-            break_long_words=False,
-            drop_whitespace=True,
-            fix_sentence_endings=True,
-            expand_tabs=False,
-        )
-        for element in elements.values():
-            if element["is_table"]:
-                type = f"List({element['xmlname']})"
-                suffix = f" - *Table* array of {element['xmlname']} named tuples"
+def make_attribute_info(prefix, elements):
+    info = []
+    for element in elements.values():
+        if element["is_table"]:
+            type = f"List({element['xmlname']})"
+            suffix = f" - *Table* array of {element['xmlname']} named tuples"
+        else:
+            suffix = ""
+            if element["is_complex"]:
+                type = prefix + element["xmlname"]
             else:
-                suffix = ""
-                if element["is_complex"]:
-                    type = "OCT.OCIType." + element["xmlname"]
-                else:
-                    type = element["type"]
-                if element["is_array"]:
-                    type = f"List[{type}]"
-            if not element["is_required"]:
-                suffix += " *Optional*"
-            data = f"{element['name']} ({type}): {element['xmlname']}{suffix}"
-            file.write("\n".join(wrapper.wrap(data)) + "\n")
+                type = element["type"]
+            if element["is_array"]:
+                type = f"List[{type}]"
+        if not element["is_required"]:
+            suffix += " *Optional*"
+        info.append(
+            AttributeInfo(element["name"], type, f"{element['xmlname']}{suffix}"),
+        )
+    return info
 
 
-def process_documentation(file, xsd_component, elements):
-    anno = xsd_component.annotation
+def make_documentation_block(xsd_component):
     lines = []
+    anno = xsd_component.annotation
     if anno:
         wrapper = TextWrapper(
-            width=90,
-            initial_indent=" " * 4,
-            subsequent_indent=" " * 4,
+            width=86,
+            initial_indent="",
+            subsequent_indent="",
             break_long_words=False,
             drop_whitespace=True,
             fix_sentence_endings=True,
@@ -166,7 +162,7 @@ def process_documentation(file, xsd_component, elements):
             # mark up magic method markers
             text = re.sub(
                 r"\b([A-Z][A-Za-z0-9]*(?:Request|Response)(?:\d+(?:(?:mp|sp|V)\d+)?)?)\b",
-                r"``\1()``",
+                r"`\1()`",
                 text,
             )
             # Fix a standard oddity
@@ -192,34 +188,122 @@ def process_documentation(file, xsd_component, elements):
                 if len(lines) > 0:
                     lines.append("")
                 lines += wrapper.wrap(mystr)
-        if len(lines) > 0:
-            # output the documentation bits
-            file.write('    """\n' + "\n".join(lines) + "\n")
-            process_attribute_documentation(file, elements)
-            file.write('    """\n\n')
+    return lines
 
 
-def process_thing(file, xsd_component, thing, prefix=""):
+def process_markdown_documentation(
+    file,
+    class_name,
+    base_class,
+    doc_lines,
+    attribute_info,
+):
+    file.write("\n")
+    file.write(
+        f"## `{class_name}`([`{base_class}`](/broadworks_ocip/api/base/#broadworks_ocip.base.{base_class}))\n",
+    )
+    file.write("\n")
+    file.write('<div class="doc-contents" markdown="1">\n')
+    file.write("\n".join(doc_lines))
+    file.write("\n")
+    if len(attribute_info) > 0:
+        file.write("\n")
+        file.write("**Attributes:**\n\n")
+        file.write(
+            markdownTable(
+                [
+                    {
+                        "Name": attr.name,
+                        "Type": attr.type,
+                        "Description": attr.description,
+                    }
+                    for attr in attribute_info
+                ],
+            )
+            .setParams(
+                row_sep="markdown",
+                quote=False,
+                padding_width=1,
+                padding_weight="right",
+            )
+            .getMarkdown(),
+        )
+    file.write("\n")
+    file.write("</div>\n")
+    file.write("\n")
+
+
+def process_class_documentation(file, doc_lines, attribute_info):
+    if len(doc_lines) + len(attribute_info) == 0:
+        return
+
+    file.write('    """\n')
+    for line in doc_lines:
+        if len(line) > 0:
+            file.write(f"    {line}\n")
+        else:
+            file.write("\n")
+    if len(attribute_info) > 0:
+        file.write("\n")
+        file.write("    Attributes:\n")
+        wrapper = TextWrapper(
+            width=90,
+            initial_indent=" " * 8,
+            subsequent_indent=" " * 12,
+            break_long_words=False,
+            drop_whitespace=True,
+            fix_sentence_endings=True,
+            expand_tabs=False,
+        )
+        for attr in attribute_info:
+            file.write(
+                "\n".join(
+                    wrapper.wrap(f"{attr.name} ({attr.type}): {attr.description}"),
+                ),
+            )
+            file.write("\n")
+    file.write('    """\n\n')
+
+
+def process_thing(file, doc_file, xsd_component, thing, prefix=""):
     file.write(f"class {xsd_component.name}({thing}):\n")
     elements = build_element_hash(xsd_component, prefix)
-    process_documentation(file, xsd_component, elements)
+    attribute_info = make_attribute_info(prefix, elements)
+    doc_lines = make_documentation_block(xsd_component)
+    process_class_documentation(file, doc_lines, attribute_info)
     process_class_elements(file, elements, thing)
     file.write("\n\n")
+    process_markdown_documentation(
+        doc_file,
+        xsd_component.name,
+        thing,
+        doc_lines,
+        attribute_info,
+    )
 
 
-def process_request(file, xsd_component):
-    process_thing(file, xsd_component, "OCIRequest", "OCI.")
+def process_request(file, doc_file, xsd_component):
+    process_thing(file, doc_file, xsd_component, "OCIRequest", "OCI.")
 
 
-def process_response(file, xsd_component):
-    process_thing(file, xsd_component, "OCIResponse", "OCI.")
+def process_response(file, doc_file, xsd_component):
+    process_thing(file, doc_file, xsd_component, "OCIResponse", "OCI.")
 
 
-def process_type(file, xsd_component):
-    process_thing(file, xsd_component, "OCIType", "")
+def process_type(file, doc_file, xsd_component):
+    process_thing(file, doc_file, xsd_component, "OCIType", "")
 
 
-def process_schema(schema, class_list, types_file, requests_file, responses_file):
+def process_schema(
+    schema,
+    class_list,
+    types_file,
+    requests_file,
+    responses_file,
+    types_docfile,
+    requests_docfile,
+    responses_docfile,
+):
     for item in class_list:
         xsd_component = schema.types[item]
         if xsd_component.is_complex():
@@ -228,11 +312,11 @@ def process_schema(schema, class_list, types_file, requests_file, responses_file
                 xsd_component.name,
             )
             if match and match.group(1) == "Request":
-                process_request(requests_file, xsd_component)
+                process_request(requests_file, requests_docfile, xsd_component)
             elif match and match.group(1) == "Response":
-                process_response(responses_file, xsd_component)
+                process_response(responses_file, responses_docfile, xsd_component)
             else:
-                process_type(types_file, xsd_component)
+                process_type(types_file, types_docfile, xsd_component)
 
 
 def sort_schema(schema):
@@ -268,6 +352,17 @@ def open_output_files():
         out.write("from .base import ElementInfo as E\n")
         out.write(f"from .base import OCI{thing.title()}\n")
         out.write("\n\n")
+        results.append(out)
+    return results[0], results[1], results[2]
+
+
+def open_doc_files():
+    results = []
+    for thing in ("type", "request", "response"):
+        filename = os.path.join("docs/api", thing + "s.md")
+        out = open(filename, "w")
+        out.write(f"# {thing.title()}s\n")
+        out.write("\n")
         results.append(out)
     return results[0], results[1], results[2]
 
@@ -311,7 +406,17 @@ def main():
     class_list = sort_schema(schema)
     print("Sorted schema")
     types_file, requests_file, responses_file = open_output_files()
-    process_schema(schema, class_list, types_file, requests_file, responses_file)
+    types_docfile, requests_docfile, responses_docfile = open_doc_files()
+    process_schema(
+        schema,
+        class_list,
+        types_file,
+        requests_file,
+        responses_file,
+        types_docfile,
+        requests_docfile,
+        responses_docfile,
+    )
     close_output_files(types_file, requests_file, responses_file)
 
 
