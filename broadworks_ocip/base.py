@@ -463,8 +463,7 @@ class OCICommand(OCIType):
         suite at present.
         """
         elements = super().to_dict()  # pick up the base object data
-        elements["session_id"] = self.session_id
-        return elements
+        return {"session_id": self.session_id, **elements}
 
 
 class OCIRequest(OCICommand):
