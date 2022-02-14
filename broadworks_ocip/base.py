@@ -368,6 +368,16 @@ class OCIType:
             elements[elem.name] = value
         return elements
 
+    def __repr__(self) -> str:
+        """Convert object to string representation of itself."""
+        dict_form = self.to_dict()
+        bits = [f"{key}={repr(dict_form[key])}" for key in dict_form.keys()]
+        return f"{self.__class__.__name__}({', '.join(bits)})"
+
+    def __str__(self) -> str:
+        """Convert object to string representation of itself."""
+        return repr(self)
+
 
 class OCICommand(OCIType):
     """
