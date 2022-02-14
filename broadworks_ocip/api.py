@@ -10,6 +10,7 @@ import select
 import socket
 import sys
 import uuid
+from typing import Any
 from typing import Dict
 from typing import Type
 
@@ -272,15 +273,18 @@ class BroadworksAPI:
             Class instance object
         """
         root = etree.fromstring(xml)
+        extras: Dict[str, Any] = {}
         if root.tag != "{C}BroadsoftDocument":
             raise ValueError
         self.logger.debug("Decoding BroadsoftDocument")
         for element in root:
-            if element.tag == "command":
+            if element.tag == "sessionId":
+                extras["session_id"] = element.text
+            elif element.tag == "command":
                 command = element.get("{http://www.w3.org/2001/XMLSchema-instance}type")
                 self.logger.debug(f"Decoding command {command}")
                 cls = self._despatch_table[command]
-                result = cls.build_from_etree_(element)
+                result = cls.build_from_etree_(element, extras)
                 self.logger.info(f"<<< {result.type_}")
                 result.post_xml_decode_()
                 return result

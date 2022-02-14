@@ -315,7 +315,7 @@ class OCIType:
             return None
 
     @classmethod
-    def build_from_etree_(cls, element: etree._Element):
+    def build_from_etree_(cls, element: etree._Element, extras: Dict[str, Any] = {}):
         """
         Create an OciType based instance from an XML etree element
 
@@ -325,7 +325,7 @@ class OCIType:
         Returns:
             results: Object instance for this class
         """
-        initialiser = {}
+        initialiser = extras.copy()
         for elem in cls._elements():
             if elem.is_array:
                 result = []
