@@ -29,13 +29,13 @@ def process_element_type(element, phash, prefix):
     thistype = "str"
     if is_complex:
         if type.name is not None:
-            if element.type.name == "{C}OCITable":
+            if element.type.name.strip() == "{C}OCITable":
                 thistype = "list"
                 phash["is_table"] = True
-            elif element.type.name.startswith("{"):
+            elif element.type.name.strip().startswith("{"):
                 phash["unknown"] = True  # TODO more complex type handling
             else:
-                thistype = prefix + element.type.name
+                thistype = prefix + element.type.name.strip()
         else:
             phash["unknown"] = True  # TODO more complex type handling
     else:
@@ -49,7 +49,7 @@ def process_element_type(element, phash, prefix):
 def build_element_hash(xsd_component, prefix=""):
     element_hash = {}
     for elem in xsd_component.content.iter_elements():
-        name = camel_to_snake(elem.name)
+        name = camel_to_snake(elem.name.strip())
         is_required = True if elem.min_occurs > 0 else False
         if is_required and elem.parent.model == "choice":
             is_required = False
@@ -66,7 +66,7 @@ def build_element_hash(xsd_component, prefix=""):
             is_array = True
         phash = {
             "name": name,
-            "xmlname": elem.name,
+            "xmlname": elem.name.strip(),
             "is_required": is_required,
             "is_array": is_array,
             "is_table": False,
@@ -168,6 +168,8 @@ def make_documentation_block(xsd_component):
             )
             # Fix a standard oddity
             text = re.sub(r"^Replaced [Bb]y:", r"Replaced By", text)
+            # weird escaped sequence in docs that breaks python
+            text = re.sub(r"\\\s", r" ", text)
             # break off first sentence
             segments = text.split(".", 1)
             text = segments.pop().lstrip()
