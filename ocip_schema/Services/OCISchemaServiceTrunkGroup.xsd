@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ********************************************************************** -->
-<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
-<!-- ********************************************************************** -->
-<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
-<!--                                                                        -->
-<!-- T R U N K   G R O U P  S E R V I C E                                   -->
-<!--                                                                        -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
-<!-- Open Client Interface (OCI).                                           -->
-<!-- ********************************************************************** -->
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- T R U N K   G R O U P   S E R V I C E                                                -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
 
-<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
-           xmlns:core           = "C"
-           xmlns                = ""
-           attributeFormDefault = "qualified"
-           elementFormDefault   = "qualified">
-
-  <xs:import namespace      = "C"
-             schemaLocation = "../OCISchemaBASE.xsd"/>
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
+  <xs:include schemaLocation="../OCISchemaSortCriteria.xsd"/>
 
-  <!-- ********************************************************************************** -->
-  <!-- T R U N K   G R O U P    R E Q U E S T S  A N D  R E S P O N S E S                 -->
-  <!-- ********************************************************************************** -->
+  <!-- ************************************************************************************ -->
+  <!-- T R U N K   G R O U P   R E Q U E S T S   A N D   R E S P O N S E S                  -->
+  <!-- ************************************************************************************ -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
@@ -40,9 +35,11 @@
     EnterpriseEnterpriseTrunkGetAvailableTrunkGroupListRequest
     EnterpriseEnterpriseTrunkGetAvailableUserListRequest
     EnterpriseEnterpriseTrunkGetListRequest
-    EnterpriseEnterpriseTrunkGetRequest21
+    EnterpriseEnterpriseTrunkGetRequest22
     EnterpriseEnterpriseTrunkGetUserListRequest
     EnterpriseEnterpriseTrunkModifyRequest
+    EnterpriseLocalGatewayGetPagedSortedListRequest
+    EnterpriseLocalGatewayGetUsageRequest
     GroupEnterpriseTrunkAddRequest21
     GroupEnterpriseTrunkAddUserListRequest
     GroupEnterpriseTrunkDeleteRequest
@@ -51,16 +48,16 @@
     GroupEnterpriseTrunkGetAvailableTrunkGroupListRequest
     GroupEnterpriseTrunkGetAvailableUserListRequest
     GroupEnterpriseTrunkGetListRequest
-    GroupEnterpriseTrunkGetRequest21
+    GroupEnterpriseTrunkGetRequest22
     GroupEnterpriseTrunkGetUserListRequest
     GroupEnterpriseTrunkModifyRequest
-    GroupTrunkGroupAddInstanceRequest21
+    GroupTrunkGroupAddInstanceRequest22
     GroupTrunkGroupDeleteInstanceRequest14sp4
-    GroupTrunkGroupGetInstanceListRequest14sp4
-    GroupTrunkGroupGetInstanceRequest21
     GroupTrunkGroupGetAvailableHostedUserListRequest
+    GroupTrunkGroupGetInstanceListRequest14sp4
+    GroupTrunkGroupGetInstanceRequest23
     GroupTrunkGroupGetInstanceUserListRequest14sp4
-    GroupTrunkGroupGetRequest14sp9
+    GroupTrunkGroupGetRequest23
     GroupTrunkGroupModifyInstanceRequest20sp1
     GroupTrunkGroupModifyRequest14sp9
     GroupTrunkGroupOptionsMessageResponseStatusCodeAddListRequest
@@ -68,16 +65,17 @@
     GroupTrunkGroupUserCreationTaskDeleteRequest14sp4
     GroupTrunkGroupUserCreationTaskGetListRequest14sp4
     GroupTrunkGroupUserCreationTaskGetRequest14sp4
-    ServiceProviderTrunkGroupGetRequest14sp1
+    ServiceProviderTrunkGroupGetRequest23
     ServiceProviderTrunkGroupModifyRequest
-    SystemTrunkGroupUserCreationTaskGetListRequest14sp4
-    SystemTrunkGroupGetRequest21
+    SystemEnterpriseTrunkGetRequest
+    SystemEnterpriseTrunkModifyRequest
+    SystemTrunkGroupGetRequest24
     SystemTrunkGroupModifyRequest
     SystemTrunkGroupOptionsMessageResponseStatusCodeAddListRequest
     SystemTrunkGroupOptionsMessageResponseStatusCodeDeleteListRequest
     SystemTrunkGroupOptionsMessageResponseStatusCodeGetListRequest
-
-  -->
+    SystemTrunkGroupUserCreationTaskGetListRequest14sp4
+-->
 
   <xs:complexType name="EnterpriseEnterpriseTrunkAddRequest21">
     <xs:annotation>
@@ -118,6 +116,9 @@
           <xs:element name="maxActiveCalls" type="MaxActiveCalls" minOccurs="0"/>
           <xs:element name="capacityExceededTrapInitialCalls" type="TrapInitialThreshold" minOccurs="0"/>
           <xs:element name="capacityExceededTrapOffsetCalls" type="TrapOffsetThreshold" minOccurs="0"/>
+          <xs:element name="maximumActiveIncomingCallsAllowed" type="EnterpriseTrunkMaximumActiveIncomingCallsAllowed" minOccurs="0"/>
+          <xs:element name="maximumActiveOutgoingCallsAllowed" type="EnterpriseTrunkMaximumActiveOutgoingCallsAllowed" minOccurs="0"/>
+          <xs:element name="minimumActiveCallsReserved" type="EnterpriseTrunkReservedCapacity" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -218,7 +219,8 @@
   <xs:complexType name="EnterpriseEnterpriseTrunkGetAvailableTrunkGroupListResponse">
     <xs:annotation>
       <xs:documentation>
-        Response to EnterpriseEnterpriseTrunkGetAvailableTrunkGroupListRequest.                </xs:documentation>
+        Response to EnterpriseEnterpriseTrunkGetAvailableTrunkGroupListRequest.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
@@ -307,7 +309,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="EnterpriseEnterpriseTrunkGetRequest21">
+  <xs:complexType name="EnterpriseEnterpriseTrunkGetRequest22">
     <xs:annotation>
       <xs:documentation>
         Request to get an enterprise trunk
@@ -324,10 +326,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="EnterpriseEnterpriseTrunkGetResponse21">
+  <xs:complexType name="EnterpriseEnterpriseTrunkGetResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to EnterpriseEnterpriseTrunkGetRequest21.
+        Response to EnterpriseEnterpriseTrunkGetRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -360,6 +362,9 @@
           <xs:element name="maxActiveCalls" type="MaxActiveCalls" minOccurs="0"/>
           <xs:element name="capacityExceededTrapInitialCalls" type="TrapInitialThreshold" minOccurs="0"/>
           <xs:element name="capacityExceededTrapOffsetCalls" type="TrapOffsetThreshold" minOccurs="0"/>
+          <xs:element name="maximumActiveIncomingCallsAllowed" type="EnterpriseTrunkMaximumActiveIncomingCallsAllowed" minOccurs="0"/>
+          <xs:element name="maximumActiveOutgoingCallsAllowed" type="EnterpriseTrunkMaximumActiveOutgoingCallsAllowed" minOccurs="0"/>
+          <xs:element name="minimumActiveCallsReserved" type="EnterpriseTrunkReservedCapacity" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -452,6 +457,96 @@
           <xs:element name="maxActiveCalls" type="MaxActiveCalls" minOccurs="0" nillable="true"/>
           <xs:element name="capacityExceededTrapInitialCalls" type="TrapInitialThreshold" minOccurs="0" nillable="true"/>
           <xs:element name="capacityExceededTrapOffsetCalls" type="TrapOffsetThreshold" minOccurs="0" nillable="true"/>
+          <xs:element name="maximumActiveIncomingCallsAllowed" type="EnterpriseTrunkMaximumActiveIncomingCallsAllowed" minOccurs="0" nillable="true"/>
+          <xs:element name="maximumActiveOutgoingCallsAllowed" type="EnterpriseTrunkMaximumActiveOutgoingCallsAllowed" minOccurs="0" nillable="true"/>
+          <xs:element name="minimumActiveCallsReserved" type="EnterpriseTrunkReservedCapacity" minOccurs="0" nillable="true"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EnterpriseLocalGatewayGetPagedSortedListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get a list of local gateways defined within an enterprise. Only the local gateways having device associated are returned.
+
+        If the responsePagingControl element is not provided, the paging startIndex will be set to 1
+        by default, and the responsePageSize will be set to the maximum ResponsePageSize by default.
+        If no sortOrder is included the response is sorted by Trunk group name  ascending by default.
+        Multiple search criteria are logically ANDed together unless the searchCriteriaModeOr option is included.
+        Then the search criteria are logically ORed together.
+
+        The response is either a EnterpriseLocalGatewayGetPagedSortedListResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="responsePagingControl" type="ResponsePagingControl" minOccurs="0"/>
+          <xs:element name="sortByTrunkGroupName" type="SortByTrunkGroupName" minOccurs="0"/>
+          <xs:element name="searchCriteriaTrunkGroupName" type="SearchCriteriaTrunkGroupName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaModeOr" type="xs:boolean" fixed="true" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EnterpriseLocalGatewayGetPagedSortedListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to EnterpriseLocalGatewayGetPagedSortedListRequest.
+        Contains a table with column headings "Name", "Device Name", "Device Level", "Group Id", "Group Name"  and "Group External Id".
+        The "Device Level" column contains one of the AccessDeviceLevel enumerated constants.
+        The following columns are only populated in AS data mode
+        "Group External Id"
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="localGatewayTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EnterpriseLocalGatewayGetUsageRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get usage details of a local gateway under an enterprise.
+        The response is either EnterpriseLocalGatewayGetUsageResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="trunkGroupName" type="TrunkGroupName"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EnterpriseLocalGatewayGetUsageResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to EnterpriseLocalGatewayGetUsageRequest.
+        Returns the group ID and group name where the local gateway belongs to, a boolean value to indicate if the local gateway is
+        used in the enterprise call processing policy.
+        It also returns an OCITable containing the groups using the given local gateway.
+        Column headings are: "Group Id", "Group Name" and "Group External Id".
+        The following columns are only populated in AS data mode
+        "Group External Id"
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="gatewayGroupId" type="GroupId"/>
+          <xs:element name="gatewayGroupName" type="GroupName" minOccurs="0"/>
+          <xs:element name="usedByEnterprise" type="xs:boolean"/>
+          <xs:element name="groupTable" type="core:OCITable"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -497,6 +592,9 @@
           <xs:element name="maxActiveCalls" type="MaxActiveCalls" minOccurs="0"/>
           <xs:element name="capacityExceededTrapInitialCalls" type="TrapInitialThreshold" minOccurs="0"/>
           <xs:element name="capacityExceededTrapOffsetCalls" type="TrapOffsetThreshold" minOccurs="0"/>
+          <xs:element name="maximumActiveIncomingCallsAllowed" type="EnterpriseTrunkMaximumActiveIncomingCallsAllowed" minOccurs="0"/>
+          <xs:element name="maximumActiveOutgoingCallsAllowed" type="EnterpriseTrunkMaximumActiveOutgoingCallsAllowed" minOccurs="0"/>
+          <xs:element name="minimumActiveCallsReserved" type="EnterpriseTrunkReservedCapacity" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -693,11 +791,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupEnterpriseTrunkGetRequest21">
+  <xs:complexType name="GroupEnterpriseTrunkGetRequest22">
     <xs:annotation>
       <xs:documentation>
         Request to get an enterprise trunk
-        The response is either an GroupEnterpriseTrunkGetResponse21 or an ErrorResponse.
+        The response is either an GroupEnterpriseTrunkGetResponse22 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -711,10 +809,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupEnterpriseTrunkGetResponse21">
+  <xs:complexType name="GroupEnterpriseTrunkGetResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupEnterpriseTrunkGetRequest21.
+        Response to GroupEnterpriseTrunkGetRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -747,6 +845,9 @@
           <xs:element name="maxActiveCalls" type="MaxActiveCalls" minOccurs="0"/>
           <xs:element name="capacityExceededTrapInitialCalls" type="TrapInitialThreshold" minOccurs="0"/>
           <xs:element name="capacityExceededTrapOffsetCalls" type="TrapOffsetThreshold" minOccurs="0"/>
+          <xs:element name="maximumActiveIncomingCallsAllowed" type="EnterpriseTrunkMaximumActiveIncomingCallsAllowed" minOccurs="0"/>
+          <xs:element name="maximumActiveOutgoingCallsAllowed" type="EnterpriseTrunkMaximumActiveOutgoingCallsAllowed" minOccurs="0"/>
+          <xs:element name="minimumActiveCallsReserved" type="EnterpriseTrunkReservedCapacity" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -841,17 +942,16 @@
           <xs:element name="maxActiveCalls" type="MaxActiveCalls" minOccurs="0" nillable="true"/>
           <xs:element name="capacityExceededTrapInitialCalls" type="TrapInitialThreshold" minOccurs="0" nillable="true"/>
           <xs:element name="capacityExceededTrapOffsetCalls" type="TrapOffsetThreshold" minOccurs="0" nillable="true"/>
+          <xs:element name="maximumActiveIncomingCallsAllowed" type="EnterpriseTrunkMaximumActiveIncomingCallsAllowed" minOccurs="0" nillable="true"/>
+          <xs:element name="maximumActiveOutgoingCallsAllowed" type="EnterpriseTrunkMaximumActiveOutgoingCallsAllowed" minOccurs="0" nillable="true"/>
+          <xs:element name="minimumActiveCallsReserved" type="EnterpriseTrunkReservedCapacity" minOccurs="0" nillable="true"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupAddInstanceRequest21">
+  <xs:complexType name="GroupTrunkGroupAddInstanceRequest22">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Add a Trunk Group instance to a group.
         The command will fail if enableNetworkAddressIdentity is set to
@@ -870,7 +970,7 @@
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="groupId" type="GroupId"/>
           <xs:element name="name" type="TrunkGroupName"/>
-          <xs:element name="pilotUser" type="TrunkGroupMultipleContactPilotUser" minOccurs="0"/>
+          <xs:element name="pilotUser" type="TrunkGroupMultipleContactPilotUser22" minOccurs="0"/>
           <xs:element name="department" type="DepartmentKey" minOccurs="0"/>
           <xs:element name="accessDevice" type="AccessDevice" minOccurs="0"/>
           <xs:element name="maxActiveCalls" type="MaxActiveCalls"/>
@@ -957,6 +1057,46 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="GroupTrunkGroupGetAvailableHostedUserListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get a list of hosted users that can be assigned to a Trunk Group.
+        The response is either GroupTrunkGroupGetAvailableHostedUserListResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="trunkGroupKey" type="TrunkGroupKey"/>
+          <xs:element name="responseSizeLimit" type="ResponseSizeLimit" minOccurs="0"/>
+          <xs:element name="searchCriteriaUserLastName" type="SearchCriteriaUserLastName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaUserFirstName" type="SearchCriteriaUserFirstName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaExactUserDepartment" type="SearchCriteriaExactUserDepartment" minOccurs="0"/>
+          <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaDn" type="SearchCriteriaDn" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupTrunkGroupGetAvailableHostedUserListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupTrunkGroupGetAvailableHostedUserListRequest.
+        Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
+        "Phone Number", "Extension", "Department", "Email Address".
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="userTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="GroupTrunkGroupGetInstanceListRequest14sp4">
     <xs:annotation>
       <xs:documentation>
@@ -998,15 +1138,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupGetInstanceRequest21">
+  <xs:complexType name="GroupTrunkGroupGetInstanceRequest23">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get a Trunk Group Instance's profile.
-        The response is either a GroupTrunkGroupGetInstanceResponse21 or an ErrorResponse.
+        The response is either a GroupTrunkGroupGetInstanceResponse23 or an ErrorResponse.
         The response contains a hosted user table with column headings: "User Id", "Last Name",
         "First Name", "Hiragana Last Name", "Hiragana First Name", "Phone Number", "Extension",
         "Department", "Email Address".
@@ -1021,19 +1157,15 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupGetInstanceResponse21">
+  <xs:complexType name="GroupTrunkGroupGetInstanceResponse23">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
-        Response to GroupTrunkGroupGetInstanceRequest21.
+        Response to GroupTrunkGroupGetInstanceRequest23.
         Returns the profile information for the Trunk Group.
         Contains a hosted user table with column headings: "User Id", "Last Name",
         "First Name", "Hiragana Last Name", "Hiragana First Name", "Phone Number",
         "Extension", "Department", "Email Address".
-	      Following attributes are only used in IMS mode:
+        Following attributes are only used in IMS mode:
           implicitRegistrationSetSupportPolicy
           useSystemImplicitRegistrationSetSupportPolicy
           sipIdentityForPilotAndProxyTrunkModesPolicy
@@ -1117,46 +1249,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupGetAvailableHostedUserListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get a list of hosted users that can be assigned to a Trunk Group.
-        The response is either GroupTrunkGroupGetAvailableHostedUserListResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="trunkGroupKey" type="TrunkGroupKey"/>
-          <xs:element name="responseSizeLimit" type="ResponseSizeLimit" minOccurs="0"/>
-          <xs:element name="searchCriteriaUserLastName" type="SearchCriteriaUserLastName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaUserFirstName" type="SearchCriteriaUserFirstName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaExactUserDepartment" type="SearchCriteriaExactUserDepartment" minOccurs="0"/>
-          <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaDn" type="SearchCriteriaDn" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupTrunkGroupGetAvailableHostedUserListResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupTrunkGroupGetAvailableHostedUserListRequest.
-        Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
-        "Phone Number", "Extension", "Department", "Email Address".
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="userTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="GroupTrunkGroupGetInstanceUserListRequest14sp4">
     <xs:annotation>
       <xs:documentation>
@@ -1198,11 +1290,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupGetRequest14sp9">
+  <xs:complexType name="GroupTrunkGroupGetRequest23">
     <xs:annotation>
       <xs:documentation>
         Get the maximum and bursting maximum permissible active trunk group calls for the group.
-        The response is either a GroupTrunkGroupGetResponse14sp9 or an ErrorResponse.
+        The response is either a GroupTrunkGroupGetResponse23 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1215,10 +1307,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupGetResponse14sp9">
+  <xs:complexType name="GroupTrunkGroupGetResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupTrunkGroupGetRequest14sp9.
+        Response to the GroupTrunkGroupGetRequest23.
         The response contains the maximum and bursting maximum permissible active trunk group calls for the group.
       </xs:documentation>
     </xs:annotation>
@@ -1229,6 +1321,8 @@
           <xs:element name="maxAvailableActiveCalls" type="UnboundedNonNegativeInt"/>
           <xs:element name="burstingMaxActiveCalls" type="UnboundedNonNegativeInt"/>
           <xs:element name="burstingMaxAvailableActiveCalls" type="UnboundedNonNegativeInt"/>
+          <xs:element name="maxAvailableNumberOfBurstingBTLUs " type="UnboundedNonNegativeInt"/>
+          <xs:element name="numberOfBurstingBTLUs" type="xs:int" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1236,15 +1330,11 @@
 
   <xs:complexType name="GroupTrunkGroupModifyInstanceRequest20sp1">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
       Modify a Trunk Group Instance in a group.
       The access device cannot be modified or cleared if there are any users assigned to the Trunk Group.
-      	  The command will fail if enableNetworkAddressIdentity is set and
-      	  administrator is not System/Provisioning level administrator.
+          The command will fail if enableNetworkAddressIdentity is set and
+          administrator is not System/Provisioning level administrator.
       Following attributes are only used in IMS mode:
         implicitRegistrationSetSupportPolicy
         useSystemImplicitRegistrationSetSupportPolicy
@@ -1344,6 +1434,7 @@
           <xs:element name="groupId" type="GroupId"/>
           <xs:element name="maxActiveCalls" type="xs:int" minOccurs="0"/>
           <xs:element name="burstingMaxActiveCalls" type="UnboundedNonNegativeInt" minOccurs="0"/>
+          <xs:element name="numberOfBurstingBTLUs" type="xs:int" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1511,11 +1602,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderTrunkGroupGetRequest14sp1">
+  <xs:complexType name="ServiceProviderTrunkGroupGetRequest23">
     <xs:annotation>
       <xs:documentation>
         Get the maximum and bursting maximum permissible active Trunk Group calls for the service provider.
-        The response is either a ServiceProviderTrunkGroupGetResponse14sp1 or an ErrorResponse.
+        The response is either a ServiceProviderTrunkGroupGetResponse23 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1527,10 +1618,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderTrunkGroupGetResponse14sp1">
+  <xs:complexType name="ServiceProviderTrunkGroupGetResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to the ServiceProviderTrunkGroupGetRequest14sp1.
+        Response to the ServiceProviderTrunkGroupGetRequest23.
         The response contains the maximum and bursting maximum permissible active trunk group calls for the service provider.
       </xs:documentation>
     </xs:annotation>
@@ -1539,6 +1630,7 @@
         <xs:sequence>
           <xs:element name="maxActiveCalls" type="UnboundedNonNegativeInt"/>
           <xs:element name="burstingMaxActiveCalls" type="UnboundedNonNegativeInt"/>
+          <xs:element name="numberOfBurstingBTLUs" type="UnboundedNonNegativeInt"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1557,20 +1649,17 @@
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="maxActiveCalls" type="UnboundedNonNegativeInt" minOccurs="0"/>
           <xs:element name="burstingMaxActiveCalls" type="UnboundedNonNegativeInt" minOccurs="0"/>
+          <xs:element name="numberOfBurstingBTLUs" type="UnboundedNonNegativeInt" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemTrunkGroupUserCreationTaskGetListRequest14sp4">
+  <xs:complexType name="SystemEnterpriseTrunkGetRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
-        Get the list of user creation tasks in the system.
-        The response is either SystemTrunkGroupUserCreationTaskGetListResponse14sp4 or ErrorResponse.
+        Request the system level data associated with the Enterprise Trunk service.
+        The response is either SystemEnterpriseTrunkGetResponse or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1580,35 +1669,47 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemTrunkGroupUserCreationTaskGetListResponse14sp4">
+  <xs:complexType name="SystemEnterpriseTrunkGetResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
-        Response to SystemTrunkGroupUserCreationTaskGetListRequest14sp4.
-        Contains a table with a row for each user creation task and column headings :
-        "Trunk Group Name", "Group Id", "Organization Id", "Organization Type", "Name", "Status", "Users Created", "Total Users To Create", "Error Count".
-        The "Organization Id" column is populated with either a service provider Id or an enterprise Id.
-        The "Organization Type" column is populated with one of the enumerated strings defined in the
-        OrganizationType OCI data type.  Please see OCISchemaDataTypes.xsd for details on OrganizationType.
+        Response to SystemEnterpriseTrunkGetRequest.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
-          <xs:element name="taskTable" type="core:OCITable"/>
+          <xs:element name="enableHoldoverOfHighwaterCallCounts" type="xs:boolean"/>
+          <xs:element name="holdoverPeriod" type="EnterpriseTrunkHighwateCallCountHoldoverPeriodMinutes"/>
+          <xs:element name="timeZoneOffsetMinutes" type="EnterpriseTrunkTimeZoneOffsetMinutes"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemTrunkGroupGetRequest21">
+  <xs:complexType name="SystemEnterpriseTrunkModifyRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Modify the system level data associated with the Enterprise Trunk Service.
+
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="enableHoldoverOfHighwaterCallCounts" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="holdoverPeriod" type="EnterpriseTrunkHighwateCallCountHoldoverPeriodMinutes" minOccurs="0"/>
+          <xs:element name="timeZoneOffsetMinutes" type="EnterpriseTrunkTimeZoneOffsetMinutes" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemTrunkGroupGetRequest24">
     <xs:annotation>
       <xs:documentation>
         Request the system level data associated with the Trunk Group service.
-        The response is either SystemTrunkGroupGetResponse21 or ErrorResponse.
+        The response is either SystemTrunkGroupGetResponse24 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1618,13 +1719,14 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemTrunkGroupGetResponse21">
+  <xs:complexType name="SystemTrunkGroupGetResponse24">
     <xs:annotation>
       <xs:documentation>
-        Response to SystemTrunkGroupGetRequest21.
+        Response to SystemTrunkGroupGetRequest24.
         Following attributes are only used in IMS mode:
           implicitRegistrationSetSupportPolicy
           sipIdentityForPilotAndProxyTrunkModesPolicy
+          useMostRecentEntryOnDeflection
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1645,6 +1747,11 @@
           <xs:element name="implicitRegistrationSetSupportPolicy" type="TrunkGroupImplicitRegistrationSetSupportPolicy"/>
           <xs:element name="sipIdentityForPilotAndProxyTrunkModesPolicy" type="TrunkGroupSIPIdentityForPilotAndProxyTrunkModesPolicy"/>
           <xs:element name="supportConnectedIdentityPolicy" type="TrunkGroupSupportConnectedIdentityPolicy"/>
+          <xs:element name="useUnmappedSessionsForTrunkUsers" type="xs:boolean"/>
+          <xs:element name="allowPAILookupForOutOfDialogPBXRedirection" type="xs:boolean"/>
+          <xs:element name="outOfDialogPBXRedirectionOriginatorLookupPolicy" type="TrunkGroupOutOfDialogPBXRedirectionOriginatorLookupPolicy"/>
+          <xs:element name="allowTrunkIdentityForAllOriginations" type="xs:boolean"/>
+          <xs:element name="useMostRecentEntryOnDeflection" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1655,8 +1762,9 @@
       <xs:documentation>
         Modify the system level data associated with the Trunk Group Service.
         Following attributes are only used in IMS mode. The values are saved if specified not in IMS mode:
-	        implicitRegistrationSetSupportPolicy
-	        sipIdentityForPilotAndProxyTrunkModesPolicy
+          implicitRegistrationSetSupportPolicy
+          sipIdentityForPilotAndProxyTrunkModesPolicy
+          useMostRecentEntryOnDeflection
 
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
@@ -1679,6 +1787,11 @@
           <xs:element name="implicitRegistrationSetSupportPolicy" type="TrunkGroupImplicitRegistrationSetSupportPolicy" minOccurs="0"/>
           <xs:element name="sipIdentityForPilotAndProxyTrunkModesPolicy" type="TrunkGroupSIPIdentityForPilotAndProxyTrunkModesPolicy" minOccurs="0"/>
           <xs:element name="supportConnectedIdentityPolicy" type="TrunkGroupSupportConnectedIdentityPolicy" minOccurs="0"/>
+          <xs:element name="useUnmappedSessionsForTrunkUsers" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="allowPAILookupForOutOfDialogPBXRedirection" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="outOfDialogPBXRedirectionOriginatorLookupPolicy" type="TrunkGroupOutOfDialogPBXRedirectionOriginatorLookupPolicy" minOccurs="0"/>
+          <xs:element name="allowTrunkIdentityForAllOriginations" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="useMostRecentEntryOnDeflection" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1746,6 +1859,48 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemTrunkGroupUserCreationTaskGetListRequest14sp4">
+    <xs:annotation>
+      <xs:documentation>
+        Get the list of user creation tasks in the system.
+        The response is either SystemTrunkGroupUserCreationTaskGetListResponse14sp4 or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemTrunkGroupUserCreationTaskGetListResponse14sp4">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemTrunkGroupUserCreationTaskGetListRequest14sp4.
+        Contains a table with a row for each user creation task and column headings :
+        "Trunk Group Name", "Group Id", "Organization Id", "Organization Type", "Name", "Status", "Users Created", "Total Users To Create", "Error Count".
+        The "Organization Id" column is populated with either a service provider Id or an enterprise Id.
+        The "Organization Type" column is populated with one of the enumerated strings defined in the
+        OrganizationType OCI data type.  Please see OCISchemaDataTypes.xsd for details on OrganizationType.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="taskTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The Trunk Group specific non-primitive attributes are listed here in alphabetical order.
+  -->
+
+
   <xs:complexType name="EnterpriseEnterpriseTrunkPriorityWeightedTrunkGroup">
     <xs:annotation>
       <xs:documentation>
@@ -1758,32 +1913,6 @@
       <xs:element name="weight" type="EnterpriseTrunkTrunkGroupWeight"/>
     </xs:sequence>
   </xs:complexType>
-
-  <xs:simpleType name="EnterpriseTrunkMaximumRerouteAttempts">
-    <xs:annotation>
-      <xs:documentation>
-        Determines the maximum number of reroute attempts within an enterprise trunk.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="10"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="EnterpriseTrunkOrderingAlgorithm">
-    <xs:annotation>
-      <xs:documentation>
-        Enterprise Trunk Ordering Algorithm for an Enterprise Trunk
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Ordered Load Balancing"/>
-      <xs:enumeration value="Overflow"/>
-      <xs:enumeration value="Most Idle"/>
-      <xs:enumeration value="Least Idle"/>
-    </xs:restriction>
-  </xs:simpleType>
 
   <xs:complexType name="EnterpriseTrunkPriorityWeightedTrunkGroup">
     <xs:annotation>
@@ -1798,18 +1927,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="EnterpriseTrunkRouteExhaustionAction">
-    <xs:annotation>
-      <xs:documentation>
-        Enterprise Trunk Route Exhaustion Action
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="None"/>
-      <xs:enumeration value="Forward"/>
-    </xs:restriction>
-  </xs:simpleType>
-
   <xs:complexType name="EnterpriseTrunkTrunkGroupKey">
     <xs:annotation>
       <xs:documentation>
@@ -1821,32 +1938,6 @@
       <xs:element name="trunkGroupName" type="TrunkGroupName"/>
     </xs:sequence>
   </xs:complexType>
-
-  <xs:simpleType name="EnterpriseTrunkTrunkGroupPriority">
-    <xs:annotation>
-      <xs:documentation>
-        Trunk Group priority.
-        Identifies the priority of a set of trunkgroup in an Enterprise Trunk
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="10"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="EnterpriseTrunkTrunkGroupWeight">
-    <xs:annotation>
-      <xs:documentation>
-        Trunk Group weight.
-        Identifies the weight of each trunkgroup in an Enterprise Trunk
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="65536"/>
-    </xs:restriction>
-  </xs:simpleType>
 
   <xs:complexType name="GroupEnterpriseTrunkPriorityWeightedTrunkGroup">
     <xs:annotation>
@@ -1861,17 +1952,17 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="OtgDtgIdentity">
+  <xs:complexType name="ReplacementEnterpriseEnterpriseTrunkPriorityWeightedTrunkGroupList">
     <xs:annotation>
       <xs:documentation>
-        Otg Dtg Identity
+        A list of enterprise trunk priority weighted trunk groups that replaces a previously configured list.
+        By convention, an element of this type may be set nill to clear the list.
       </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="80"/>
-    </xs:restriction>
-  </xs:simpleType>
+    <xs:sequence>
+      <xs:element name="trunkGroup" type="EnterpriseEnterpriseTrunkPriorityWeightedTrunkGroup" minOccurs="1" maxOccurs="100"/>
+    </xs:sequence>
+  </xs:complexType>
 
   <xs:complexType name="ReplacementEnterpriseEnterpriseTrunkTrunkGroupKeyList">
     <xs:annotation>
@@ -1894,18 +1985,6 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="trunkGroupList" type="EnterpriseTrunkTrunkGroupKey" minOccurs="1" maxOccurs="10"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="ReplacementEnterpriseEnterpriseTrunkPriorityWeightedTrunkGroupList">
-    <xs:annotation>
-      <xs:documentation>
-        A list of enterprise trunk priority weighted trunk groups that replaces a previously configured list.
-        By convention, an element of this type may be set nill to clear the list.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="trunkGroup" type="EnterpriseEnterpriseTrunkPriorityWeightedTrunkGroup" minOccurs="1" maxOccurs="100"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -1945,6 +2024,126 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:simpleType name="EnterpriseTrunkHighwateCallCountHoldoverPeriodMinutes">
+    <xs:annotation>
+      <xs:documentation>
+        Enterprise Trunk Session Count Highwater mark Holdover period in minutes
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="10"/>
+      <xs:enumeration value="15"/>
+      <xs:enumeration value="20"/>
+      <xs:enumeration value="30"/>
+      <xs:enumeration value="60"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkMaximumActiveIncomingCallsAllowed">
+    <xs:annotation>
+      <xs:documentation>Maximum Active Incoming Calls Allowed</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkMaximumActiveOutgoingCallsAllowed">
+    <xs:annotation>
+      <xs:documentation>Maximum Active Outgoing Calls Alloweds</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkMaximumRerouteAttempts">
+    <xs:annotation>
+      <xs:documentation>
+        Determines the maximum number of reroute attempts within an enterprise trunk.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkOrderingAlgorithm">
+    <xs:annotation>
+      <xs:documentation>
+        Enterprise Trunk Ordering Algorithm for an Enterprise Trunk
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Ordered Load Balancing"/>
+      <xs:enumeration value="Overflow"/>
+      <xs:enumeration value="Most Idle"/>
+      <xs:enumeration value="Least Idle"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkReservedCapacity">
+    <xs:annotation>
+      <xs:documentation>Reserved Capacity</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkRouteExhaustionAction">
+    <xs:annotation>
+      <xs:documentation>
+        Enterprise Trunk Route Exhaustion Action
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Forward"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkTimeZoneOffsetMinutes">
+    <xs:annotation>
+      <xs:documentation>
+        Enterprise Trunk timezone offset minutes
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="0"/>
+      <xs:enumeration value="30"/>
+      <xs:enumeration value="45"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkTrunkGroupPriority">
+    <xs:annotation>
+      <xs:documentation>
+        Trunk Group priority.
+        Identifies the priority of a set of trunkgroup in an Enterprise Trunk
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnterpriseTrunkTrunkGroupWeight">
+    <xs:annotation>
+      <xs:documentation>
+        Trunk Group weight.
+        Identifies the weight of each trunkgroup in an Enterprise Trunk
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="65536"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="TrunkGroupCallForwardingAlwaysAction">
     <xs:annotation>
       <xs:documentation>
@@ -1957,15 +2156,19 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="TrunkGroupFailureThresholdWindowSeconds">
+  <xs:simpleType name="TrunkGroupCLIDSourceForScreenedCallsPolicy">
     <xs:annotation>
       <xs:documentation>
-       Failure threshold time window in seconds.
-      </xs:documentation>
+        Trunk Group CLID Source for Screened Trunk Calls Policy.
+        "Profile Name Profile Number" indicates CLID uses name and number from screened user profile.
+        "Received Name Profile Number" indicates CLID uses name in FROM header and number from screened user profile.
+        "Received Name Received Number" indicates CLID uses name and number in FROM header.
+     </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="30"/>
-      <xs:maxInclusive value="240"/>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Profile Name Profile Number"/>
+      <xs:enumeration value="Received Name Profile Number"/>
+      <xs:enumeration value="Received Name Received Number"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -1993,6 +2196,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="TrunkGroupFailureThresholdWindowSeconds">
+    <xs:annotation>
+      <xs:documentation>
+       Failure threshold time window in seconds.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="30"/>
+      <xs:maxInclusive value="240"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="TrunkGroupImplicitRegistrationSetSupportPolicy">
     <xs:annotation>
       <xs:documentation>
@@ -2005,141 +2220,16 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="TrunkGroupPrefix">
+  <xs:simpleType name="TrunkGroupOutOfDialogPBXRedirectionOriginatorLookupPolicy">
     <xs:annotation>
       <xs:documentation>
-         Numeric digit string prefix to be inserted to R-URI based on destination trunk group.
+        Trunk Group out-of-dialog PBX Redirection Originator Lookup policy.
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="15"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupState">
-    <xs:annotation>
-      <xs:documentation>
-       State of a trunk group.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Available"/>
-      <xs:enumeration value="Unavailable"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupSIPIdentityForPilotAndProxyTrunkModesPolicy">
-    <xs:annotation>
-      <xs:documentation>
-        Trunk Group SIP identity for pilot and proxy trunk modes policy.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Pilot User"/>
-      <xs:enumeration value="User"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupThresholdCounter">
-    <xs:annotation>
-      <xs:documentation>
-         Number of failure or success events to trigger a status change for trunk group.
-        </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="60"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupUnreachableDestinationAction">
-    <xs:annotation>
-      <xs:documentation>
-        Trunk Group unreachable destination action.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Forward"/>
-      <xs:enumeration value="Reroute"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupUserCreationTaskName">
-    <xs:annotation>
-      <xs:documentation>
-        The name of a Trunk Group User Creation Task.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="80"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupUserCreationSIPURIFormat">
-    <xs:annotation>
-      <xs:documentation>
-        SIP URI format for Trunk Group User Creation.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Extension"/>
-      <xs:enumeration value="National DN"/>
-      <xs:enumeration value="E164 Format No Plus"/>
-      <xs:enumeration value="E164 Format"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupUserCreationTaskStatus">
-    <xs:annotation>
-      <xs:documentation>
-        Trunk Group user creation task status.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Pending"/>
-      <xs:enumeration value="Processing"/>
-      <xs:enumeration value="Completed"/>
-      <xs:enumeration value="Failed"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupUserCreationMode">
-    <xs:annotation>
-      <xs:documentation>
-        Trunk Group user creation mode.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Extension"/>
-      <xs:enumeration value="Phone Number"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupUserCreationUserIdFormat">
-    <xs:annotation>
-      <xs:documentation>
-        User Id format for Trunk Group User Creation.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Extension"/>
-      <xs:enumeration value="National DN"/>
-      <xs:enumeration value="E164 Format No Plus"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="TrunkGroupPilotUserChargeNumberUsagePolicy">
-    <xs:annotation>
-      <xs:documentation>
-        Trunk Group Pilot User Charge Number policy
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="All Originating Calls"/>
-      <xs:enumeration value="Unscreened Originating Calls"/>
-      <xs:enumeration value="No Calls"/>
+      <xs:enumeration value="Asserted"/>
+      <xs:enumeration value="Presentation"/>
+      <xs:enumeration value="Asserted Or Presentation"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -2168,48 +2258,52 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="TrunkGroupUnscreenedRedirectionHandling">
+  <xs:simpleType name="TrunkGroupPilotUserChargeNumberUsagePolicy">
     <xs:annotation>
       <xs:documentation>
-        Options to handle the trunk group INVITEs with an unscreened redirecting identity.
+        Trunk Group Pilot User Charge Number policy
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="Reject"/>
-      <xs:enumeration value="Ignore"/>
-      <xs:enumeration value="Ignore If Unscreened Calls Disallowed"/>
-      <xs:enumeration value="Reject If Unscreened Calls Disallowed"/>
+      <xs:enumeration value="All Originating Calls"/>
+      <xs:enumeration value="Unscreened Originating Calls"/>
+      <xs:enumeration value="No Calls"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="TrunkGroupCLIDSourceForScreenedCallsPolicy">
+  <xs:simpleType name="TrunkGroupPrefix">
     <xs:annotation>
       <xs:documentation>
-        Trunk Group CLID Source for Screened Trunk Calls Policy.
-        "Profile Name Profile Number" indicates CLID uses name and number from screened user profile.
-        "Received Name Profile Number" indicates CLID uses name in FROM header and number from screened user profile.
-        "Received Name Received Number" indicates CLID uses name and number in FROM header.
-     </xs:documentation>
+         Numeric digit string prefix to be inserted to R-URI based on destination trunk group.
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="Profile Name Profile Number"/>
-      <xs:enumeration value="Received Name Profile Number"/>
-      <xs:enumeration value="Received Name Received Number"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="15"/>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="TrunkGroupUserLookupPolicy">
+  <xs:simpleType name="TrunkGroupSIPIdentityForPilotAndProxyTrunkModesPolicy">
     <xs:annotation>
       <xs:documentation>
-        Trunk Group User Lookup Policy in performing the trunk group user screening process for a trunk call.
-        "Basic" indicates the lookup is performed using FROM header only.
-        "Extended" indicates the lookup is performed in the precedence order of P-Preferred-Identity header,
-        P-Asserted-Identity header, Remote-Party-ID header, and FROM header.
-     </xs:documentation>
+        Trunk Group SIP identity for pilot and proxy trunk modes policy.
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="Basic"/>
-      <xs:enumeration value="Extended"/>
+      <xs:enumeration value="Pilot User"/>
+      <xs:enumeration value="User"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupState">
+    <xs:annotation>
+      <xs:documentation>
+       State of a trunk group.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Available"/>
+      <xs:enumeration value="Unavailable"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -2225,4 +2319,106 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="TrunkGroupThresholdCounter">
+    <xs:annotation>
+      <xs:documentation>
+         Number of failure or success events to trigger a status change for trunk group.
+        </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="60"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupUnreachableDestinationAction">
+    <xs:annotation>
+      <xs:documentation>
+        Trunk Group unreachable destination action.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Forward"/>
+      <xs:enumeration value="Reroute"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupUnscreenedRedirectionHandling">
+    <xs:annotation>
+      <xs:documentation>
+        Options to handle the trunk group INVITEs with an unscreened redirecting identity.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Reject"/>
+      <xs:enumeration value="Ignore"/>
+      <xs:enumeration value="Ignore If Unscreened Calls Disallowed"/>
+      <xs:enumeration value="Reject If Unscreened Calls Disallowed"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupUserCreationMode">
+    <xs:annotation>
+      <xs:documentation>
+        Trunk Group user creation mode.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Extension"/>
+      <xs:enumeration value="Phone Number"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupUserCreationSIPURIFormat">
+    <xs:annotation>
+      <xs:documentation>
+        SIP URI format for Trunk Group User Creation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Extension"/>
+      <xs:enumeration value="National DN"/>
+      <xs:enumeration value="E164 Format No Plus"/>
+      <xs:enumeration value="E164 Format"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupUserCreationTaskName">
+    <xs:annotation>
+      <xs:documentation>
+        The name of a Trunk Group User Creation Task.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupUserCreationTaskStatus">
+    <xs:annotation>
+      <xs:documentation>
+        Trunk Group user creation task status.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Pending"/>
+      <xs:enumeration value="Processing"/>
+      <xs:enumeration value="Completed"/>
+      <xs:enumeration value="Failed"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrunkGroupUserCreationUserIdFormat">
+    <xs:annotation>
+      <xs:documentation>
+        User Id format for Trunk Group User Creation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Extension"/>
+      <xs:enumeration value="National DN"/>
+      <xs:enumeration value="E164 Format No Plus"/>
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>

@@ -1,53 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ********************************************************************** -->
-<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
-<!-- ********************************************************************** -->
-<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
-<!--                                                                        -->
-<!-- C A L L I N G   N A M E   R E T R I E V A L  S E R V I C E             -->
-<!--                                                                        -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
-<!-- Open Client Interface (OCI).                                           -->
-<!-- ********************************************************************** -->
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- C A L L I N G   N A M E   R E T R I E V A L                                          -->
+<!-- S E R V I C E                                                                        -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
 
-<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
-           xmlns:core           = "C"
-           xmlns                = ""
-           attributeFormDefault = "qualified"
-           elementFormDefault   = "qualified">
-
-  <xs:import namespace      = "C"
-             schemaLocation = "../OCISchemaBASE.xsd"/>
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
 
-  <!-- ********************************************************************************** -->
-  <!-- C A L L I N G   N A M E   R E T R I E V A L                                        -->
-  <!-- R E Q U E S T S  A N D  R E S P O N S E S                                          -->
-  <!-- ********************************************************************************** -->
+  <!-- ************************************************************************************ -->
+  <!-- C A L L I N G   N A M E   R E T R I E V A L                                          -->
+  <!-- R E Q U E S T S   A N D   R E S P O N S E S                                          -->
+  <!-- ************************************************************************************ -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    SystemCallingNameRetrievalGetRequest20
+    SystemCallingNameRetrievalGetRequest24
     SystemCallingNameRetrievalModifyRequest20
     UserCallingNameRetrievalGetRequest
     UserCallingNameRetrievalModifyRequest
+-->
 
-  -->
-
-  <xs:complexType name="SystemCallingNameRetrievalGetRequest20">
+  <xs:complexType name="SystemCallingNameRetrievalGetRequest24">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request the system's calling name retrieval attributes.
-        The response is either a SystemCallingNameRetrievalGetResponse20 or an ErrorResponse.
+        The response is either a SystemCallingNameRetrievalGetResponse24 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -57,14 +47,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemCallingNameRetrievalGetResponse20">
+  <xs:complexType name="SystemCallingNameRetrievalGetResponse24">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
-        Response to SystemCallingNameRetrievalGetRequest20.
+        Response to SystemCallingNameRetrievalGetRequest24.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -76,7 +62,7 @@
           <xs:element name="queryTimeoutMilliseconds" type="CallingNameRetrievalQueryTimeoutMilliseconds"/>
           <xs:element name="sipExternalDatabaseNetAddress" type="NetAddress" minOccurs="0"/>
           <xs:element name="sipExternalDatabasePort" type="Port1025" minOccurs="0"/>
-          <xs:element name="sipExternalDatabaseTransport" type="TransportProtocol"/>
+          <xs:element name="sipExternalDatabaseTransport" type="ExtendedTransportProtocol"/>
           <xs:element name="soapExternalDatabaseNetAddress" type="NetAddress" minOccurs="0"/>
           <xs:element name="callingNameSource" type="CallingNameRetrievalSourceIdentity"/>
           <xs:element name="routeAdvanceTimer" type="CallingNameRetrievalRouteAdvanceTimerMilliseconds"/>
@@ -104,7 +90,7 @@
           <xs:element name="queryTimeoutMilliseconds" type="CallingNameRetrievalQueryTimeoutMilliseconds" minOccurs="0"/>
           <xs:element name="sipExternalDatabaseNetAddress" type="NetAddress" nillable="true" minOccurs="0"/>
           <xs:element name="sipExternalDatabasePort" type="Port1025" nillable="true" minOccurs="0"/>
-          <xs:element name="sipExternalDatabaseTransport" type="TransportProtocol" minOccurs="0"/>
+          <xs:element name="sipExternalDatabaseTransport" type="ExtendedTransportProtocol" minOccurs="0"/>
           <xs:element name="soapExternalDatabaseNetAddress" type="NetAddress" nillable="true" minOccurs="0"/>
           <xs:element name="callingNameSource" type="CallingNameRetrievalSourceIdentity" minOccurs="0"/>
           <xs:element name="routeAdvanceTimer" type="CallingNameRetrievalRouteAdvanceTimerMilliseconds" minOccurs="0"/>
@@ -164,65 +150,4 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-
-  <xs:simpleType name="CallingNameRetrievalQueryProtocol">
-    <xs:annotation>
-      <xs:documentation>
-        Query Protocol.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Sip"/>
-      <xs:enumeration value="Soap"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="CallingNameRetrievalQueryTimeoutMilliseconds">
-    <xs:annotation>
-      <xs:documentation>
-        Query time out milli-seconds.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="100"/>
-      <xs:maxInclusive value="10000"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="CallingNameRetrievalSourceIdentity">
-    <xs:annotation>
-      <xs:documentation>
-        Query Protocol.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Presentation Identity"/>
-      <xs:enumeration value="Asserted Identity"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="CallingNameRetrievalRetryFailedCNAMServerIntervalSeconds">
-    <xs:annotation>
-      <xs:documentation>
-        Seconds to wait before querying a failed CNAM server.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="0"/>
-      <xs:maxInclusive value="604800"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="CallingNameRetrievalRouteAdvanceTimerMilliseconds">
-    <xs:annotation>
-      <xs:documentation>
-        Route Advance Query time out milli-seconds.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="100"/>
-      <xs:maxInclusive value="2000"/>
-    </xs:restriction>
-  </xs:simpleType>
-
 </xs:schema>

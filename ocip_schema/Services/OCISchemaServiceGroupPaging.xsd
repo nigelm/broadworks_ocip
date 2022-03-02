@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ********************************************************************** -->
-<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
-<!-- ********************************************************************** -->
-<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
-<!--                                                                        -->
-<!-- G R O U P   P A G I N G  S E R V I C E                                 -->
-<!--                                                                        -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
-<!-- Open Client Interface (OCI).                                           -->
-<!-- ********************************************************************** -->
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- G R O U P   P A G I N G   S E R V I C E                                              -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
 
-<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
-           xmlns:core           = "C"
-           xmlns                = ""
-           attributeFormDefault = "qualified"
-           elementFormDefault   = "qualified">
-
-  <xs:import namespace      = "C"
-             schemaLocation = "../OCISchemaBASE.xsd"/>
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
   <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
 
-  <!-- ********************************************************************************** -->
-  <!-- G R O U P   P A G I N G    R E Q U E S T S  A N D  R E S P O N S E S               -->
-  <!-- ********************************************************************************** -->
+  <!-- ************************************************************************************ -->
+  <!-- G R O U P   P A G I N G   R E Q U E S T S   A N D   R E S P O N S E S                -->
+  <!-- ************************************************************************************ -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
@@ -48,24 +42,23 @@
     GroupGroupPagingModifyInstanceRequest
     GroupGroupPagingModifyOriginatorListRequest
     GroupGroupPagingModifyTargetListRequest
-    GroupGroupPagingTargetsCapacityGetRequest
-    GroupGroupPagingTargetsCapacityModifyRequest
-    ServiceProviderGroupPagingTargetsCapacityGetRequest
-    ServiceProviderGroupPagingTargetsCapacityModifyRequest
+    GroupGroupPagingTargetsCapacityGetRequest22
+    GroupGroupPagingTargetsCapacityModifyRequest22
+    ServiceProviderGroupPagingTargetsCapacityGetRequest22
+    ServiceProviderGroupPagingTargetsCapacityModifyRequest22
     UserGroupPagingGetListRequest
-
-  -->
+-->
 
   <xs:complexType name="GroupGroupPagingAddInstanceRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Add a Group Paging instance to a group.
         The domain is required in the serviceUserId.
         The response is either SuccessResponse or ErrorResponse.
+
+        The following element is only used in AS data mode and ignored in XS data mode:
+           networkClassOfService
+
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -86,10 +79,6 @@
 
   <xs:complexType name="GroupGroupPagingAddOriginatorListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Add originator(s) to a paging group.
         The response is either SuccessResponse or ErrorResponse.
@@ -107,10 +96,6 @@
 
   <xs:complexType name="GroupGroupPagingAddTargetListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Add target(s) to a paging group.
         The response is either SuccessResponse or ErrorResponse.
@@ -128,10 +113,6 @@
 
   <xs:complexType name="GroupGroupPagingDeleteInstanceRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Delete a Group Paging instance from a group.
         The response is either SuccessResponse or ErrorResponse.
@@ -148,10 +129,6 @@
 
   <xs:complexType name="GroupGroupPagingDeleteOriginatorListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Delete originator(s) from a paging group.
         The response is either SuccessResponse or ErrorResponse.
@@ -169,10 +146,6 @@
 
   <xs:complexType name="GroupGroupPagingDeleteTargetListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Delete target(s) from a paging group.
         The response is either SuccessResponse or ErrorResponse.
@@ -190,10 +163,6 @@
 
   <xs:complexType name="GroupGroupPagingGetAvailableOriginatorListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get a list of users that can be assigned as originators to a given paging group.
         Searching for users by group only makes sense when the paging group is part of an Enterprise.
@@ -220,10 +189,6 @@
 
   <xs:complexType name="GroupGroupPagingGetAvailableOriginatorListResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to the GroupGroupPagingGetAvailableOriginatorListRequest.
         Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name" and "Hiragana First Name",
@@ -241,10 +206,6 @@
 
   <xs:complexType name="GroupGroupPagingGetAvailableTargetListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get a list of users that can be assigned as targets to a given paging group.
         Searching for users by group only makes sense when the paging group is part of an Enterprise.
@@ -270,10 +231,6 @@
 
   <xs:complexType name="GroupGroupPagingGetAvailableTargetListResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to the GroupGroupPagingGetAvailableTargetListRequest.
         Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name" and "Hiragana First Name",
@@ -291,10 +248,6 @@
 
   <xs:complexType name="GroupGroupPagingGetInstanceListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get a list of Paging Groups instances within a group.
         The response is either GroupGroupPagingGetInstanceListResponse or ErrorResponse.
@@ -314,10 +267,6 @@
 
   <xs:complexType name="GroupGroupPagingGetInstanceListResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to the GroupGroupPagingGetInstanceListRequest.
         Contains a table with column headings:
@@ -336,10 +285,6 @@
 
   <xs:complexType name="GroupGroupPagingGetInstanceRequest19sp1">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request to get all the information of a Group Paging instance.
         The response is either GroupGroupPagingGetInstanceResponse19sp1 or ErrorResponse.
@@ -356,13 +301,13 @@
 
   <xs:complexType name="GroupGroupPagingGetInstanceResponse19sp1">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to GroupGroupPagingGetInstanceRequest19sp1.
         Contains the service profile information.
+
+        The following element is only used in AS data mode and not returned in XS data mode :
+           networkClassOfService
+
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -380,10 +325,6 @@
 
   <xs:complexType name="GroupGroupPagingGetOriginatorListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get a list of originators assigned to a paging group.
         The response is either a
@@ -401,10 +342,6 @@
 
   <xs:complexType name="GroupGroupPagingGetOriginatorListResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to the GroupGroupPagingGetOriginatorListRequest.
         Contains a table with column headings: "User Id", "Last Name",
@@ -423,10 +360,6 @@
 
   <xs:complexType name="GroupGroupPagingGetTargetListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get a list of targets assigned to a paging group.
         The response is either a
@@ -444,10 +377,6 @@
 
   <xs:complexType name="GroupGroupPagingGetTargetListResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to the GroupGroupPagingGetTargetListRequest.
         Contains a table with column headings: "User Id", "Last Name",
@@ -466,10 +395,6 @@
 
   <xs:complexType name="GroupGroupPagingModifyActiveInstanceListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request to set the active status of Group Paging instances.
         The response is either SuccessResponse or ErrorResponse.
@@ -486,13 +411,12 @@
 
   <xs:complexType name="GroupGroupPagingModifyInstanceRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request to modify a Group Paging instance.
         The response is either SuccessResponse or ErrorResponse.
+
+        The following element is only used in AS data mode and ignored in XS data mode:
+           networkClassOfService
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -511,10 +435,6 @@
 
   <xs:complexType name="GroupGroupPagingModifyOriginatorListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request to modify the originator list for a paging group.
         The response is either SuccessResponse or ErrorResponse.
@@ -532,10 +452,6 @@
 
   <xs:complexType name="GroupGroupPagingModifyTargetListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request to modify the target list for a paging group.
         The response is either SuccessResponse or ErrorResponse.
@@ -551,15 +467,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupGroupPagingTargetsCapacityGetRequest">
+  <xs:complexType name="GroupGroupPagingTargetsCapacityGetRequest22">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request the maximum number of target users per paging group configured for a group.
-        The response is either a GroupGroupPagingTargetsCapacityGetResponse
+        The response is either a GroupGroupPagingTargetsCapacityGetResponse22
         or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -573,32 +485,24 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupGroupPagingTargetsCapacityGetResponse">
+  <xs:complexType name="GroupGroupPagingTargetsCapacityGetResponse22">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
-        Response to GroupGroupPagingTargetsCapacityGetRequest.
+        Response to GroupGroupPagingTargetsCapacityGetRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
-          <xs:element name="maximumTargetUsersFromServiceProvider" type="GroupPagingMaxTargetCapacity"/>
-          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity"/>
+          <xs:element name="maximumTargetUsersFromServiceProvider" type="GroupPagingMaxTargetCapacity22"/>
+          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity22"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupGroupPagingTargetsCapacityModifyRequest">
+  <xs:complexType name="GroupGroupPagingTargetsCapacityModifyRequest22">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Modify the maximum number of target users per paging group configured for a group.
         The response is either a SuccessResponse or an ErrorResponse.
@@ -609,21 +513,17 @@
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity" minOccurs="0"/>
+          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity22" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderGroupPagingTargetsCapacityGetRequest">
+  <xs:complexType name="ServiceProviderGroupPagingTargetsCapacityGetRequest22">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request the maximum number of target users per paging group configured for a service provider.
-        The response is either a ServiceProviderGroupPagingTargetsCapacityGetResponse
+        The response is either a ServiceProviderGroupPagingTargetsCapacityGetResponse22
         or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -636,31 +536,23 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderGroupPagingTargetsCapacityGetResponse">
+  <xs:complexType name="ServiceProviderGroupPagingTargetsCapacityGetResponse22">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
-        Response to ServiceProviderGroupPagingTargetsCapacityGetRequest.
+        Response to ServiceProviderGroupPagingTargetsCapacityGetRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
-          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity"/>
+          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity22"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderGroupPagingTargetsCapacityModifyRequest">
+  <xs:complexType name="ServiceProviderGroupPagingTargetsCapacityModifyRequest22">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Modify the maximum number of target users per paging group configured for a service provider.
         The response is either a SuccessResponse or an ErrorResponse.
@@ -670,7 +562,7 @@
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity" minOccurs="0"/>
+          <xs:element name="maximumTargetUsers" type="GroupPagingMaxTargetCapacity22" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -678,10 +570,6 @@
 
   <xs:complexType name="UserGroupPagingGetListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get the list of all the Paging Groups a user was assigned as an originator.
         The response is either a UserGroupPagingGetListResponse or an ErrorResponse.
@@ -698,10 +586,6 @@
 
   <xs:complexType name="UserGroupPagingGetListResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to the UserGroupPagingGetListRequest.
         The groupPagingTable contains columns: "Name", "Phone Number", "Extension" and "Is Active"
@@ -717,6 +601,14 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The Group Paging specific non-primitive attributes are listed here in alphabetical order.
+  -->
+
+
   <xs:simpleType name="GroupPagingConfirmationToneTimeoutSeconds">
     <xs:annotation>
       <xs:documentation>
@@ -730,7 +622,7 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="GroupPagingMaxTargetCapacity">
+  <xs:simpleType name="GroupPagingMaxTargetCapacity22">
     <xs:annotation>
       <xs:documentation>
         Maximum number of targets per Paging Group
@@ -753,5 +645,4 @@
       <xs:maxLength value="30"/>
     </xs:restriction>
   </xs:simpleType>
-
 </xs:schema>
