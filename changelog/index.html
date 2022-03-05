@@ -421,11 +421,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v160-2022-03-05" class="md-nav__link">
-    v1.6.0 (2022-03-05)
+  <a href="#v200-2022-03-05" class="md-nav__link">
+    v2.0.0 (2022-03-05)
   </a>
   
-    <nav class="md-nav" aria-label="v1.6.0 (2022-03-05)">
+    <nav class="md-nav" aria-label="v2.0.0 (2022-03-05)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -438,6 +438,13 @@
           <li class="md-nav__item">
   <a href="#fix" class="md-nav__link">
     Fix
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking" class="md-nav__link">
+    Breaking
   </a>
   
 </li>
@@ -616,11 +623,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v160-2022-03-05" class="md-nav__link">
-    v1.6.0 (2022-03-05)
+  <a href="#v200-2022-03-05" class="md-nav__link">
+    v2.0.0 (2022-03-05)
   </a>
   
-    <nav class="md-nav" aria-label="v1.6.0 (2022-03-05)">
+    <nav class="md-nav" aria-label="v2.0.0 (2022-03-05)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -633,6 +640,13 @@
           <li class="md-nav__item">
   <a href="#fix" class="md-nav__link">
     Fix
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking" class="md-nav__link">
+    Breaking
   </a>
   
 </li>
@@ -785,7 +799,7 @@ This is now automatically updated by <code>python-semantic-release</code>.</p>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <!--next-version-placeholder-->
 
-<h2 id="v160-2022-03-05">v1.6.0 (2022-03-05)</h2>
+<h2 id="v200-2022-03-05">v2.0.0 (2022-03-05)</h2>
 <h3 id="feature">Feature</h3>
 <ul>
 <li>Broadworks R24 schemas and derived files (<a href="https://github.com/nigelm/broadworks_ocip/commit/c0c71c33234806329c48651272cb128b96fd3b27"><code>c0c71c3</code></a>)</li>
@@ -811,8 +825,13 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <li>Removed dead code (<a href="https://github.com/nigelm/broadworks_ocip/commit/7360a7f397ea2c68977f2f14fba6d6b3135beabe"><code>7360a7f</code></a>)</li>
 <li>Schema processor now outputs attrs based classes (<a href="https://github.com/nigelm/broadworks_ocip/commit/4e96e8200d0146c29f07955bd1797b2b8b931bfa"><code>4e96e82</code></a>)</li>
 </ul>
+<h3 id="breaking">Breaking</h3>
+<ul>
+<li>This release changes to a different underlying class system - which should not have any user visible issues other than there are now no longer the full set of basic methods on an object that the old ClassForge base gave.  Additionally the classes are generated from the Broadworks R24 schemas.  (<a href="https://github.com/nigelm/broadworks_ocip/commit/61c292dc01020d700653f4d30e5c65937a7ddddb"><code>61c292d</code></a>)</li>
+</ul>
 <h3 id="documentation">Documentation</h3>
 <ul>
+<li>More README updates (<a href="https://github.com/nigelm/broadworks_ocip/commit/61c292dc01020d700653f4d30e5c65937a7ddddb"><code>61c292d</code></a>)</li>
 <li>Update README info (<a href="https://github.com/nigelm/broadworks_ocip/commit/30e4a29ed2b12024dc62bc0c2f12618409c30ed1"><code>30e4a29</code></a>)</li>
 </ul>
 <h2 id="150-2022-01-13">[1.5.0] - 2022-01-13</h2>
