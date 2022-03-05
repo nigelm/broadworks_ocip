@@ -60,7 +60,8 @@ to a vanilla python slots based system - the thinking behind this is in the
 API internals documentation.  This will change the underlying requirements.
 
 Additionally at the same time I have converted to Broadworks R24 API schema
-files as the basis for generating these classes.
+files as the basis for generating these classes.  This will change the set of
+available commands and classes.
 
 
 ## Credits
