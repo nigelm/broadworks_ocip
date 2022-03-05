@@ -17,7 +17,7 @@
 - python objects to match all Broadworks schema objects
 - API framework to talk to a Broadworks server
 - additional magic to handle authentication and sessions
-- Based on Broadworks schema R21
+- Based on Broadworks schema R24
 
 ## Current Version
 
@@ -52,9 +52,22 @@ response = api.command("SystemSoftwareVersionGetRequest")
 print(response.version)
 ```
 
+## Version 2
+
+Despite the bump in version number there are no known major incompatibilities
+from previous versions.  However the underlying class base has been changed
+to a vanilla python slots based system - the thinking behind this is in the
+API internals documentation.  This will change the underlying requirements.
+
+Additionally at the same time I have converted to Broadworks R24 API schema
+files as the basis for generating these classes.
+
+
 ## Credits
 
-The class is built using Michael DeHaan's [`ClassForge`](https://classforge.io/) object system.
+The class used to be built using Michael DeHaan's [`ClassForge`]
+(https://classforge.io/) object system, however from version 2.0.0 it has
+been based on vanilla python slotted objects.
 
 Development on the python version was done by
 [Nigel Metheringham `<nigelm@cpan.org>`](https://github.com/nigelm/)

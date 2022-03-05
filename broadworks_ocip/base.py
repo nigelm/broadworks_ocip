@@ -6,13 +6,19 @@ other components like ElementInfo that are used by those.
 """
 import re
 from collections import namedtuple
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import NamedTuple
+from typing import Tuple
 
 import attr
-from classforge import Class
-from classforge import Field
 from lxml import etree
 
+from broadworks_ocip.exceptions import OCIErrorAPISetup
+from broadworks_ocip.exceptions import OCIErrorAttributeMissing
 from broadworks_ocip.exceptions import OCIErrorResponse
+from broadworks_ocip.exceptions import OCIErrorUnexpectedAttribute
 
 
 @attr.s(slots=True, frozen=True)
@@ -41,19 +47,88 @@ class ElementInfo:
     is_table: bool = attr.ib(default=False)
 
 
-class OCIType(Class):
+class OCIType:
     """
     OCIType - Base type for all the OCI-P component classes
+
+    There are no attributes of this base class (the `_frozen` attribute is
+    used as a flag to lock the instance).  The attributes are added in the
+    various subclasses.
     """
 
+    __slots__: List[str] = ["_frozen"]
+
+    def __init__(self, **kwargs):
+        cname = type(self).__name__  # needed for error messages
+        for elem in self._elements():
+            if elem.name in kwargs:
+                value = kwargs[elem.name]
+                if elem.is_required and value is None:
+                    raise OCIErrorAttributeMissing(
+                        message=f"{cname}: Required attribute {elem.name} is missing",
+                    )
+                if elem.is_array:
+                    if not isinstance(value, list):
+                        raise TypeError(
+                            f"{cname}: Expected {elem.name} to be a list but it is {type(value)}",
+                        )
+                    if len(value) > 0 and not isinstance(value[0], elem.type):
+                        raise TypeError(
+                            f"{cname}: Expected first element of {elem.name} to be type {elem.type} but it is {type(value[0])}",
+                        )
+                elif elem.is_table:
+                    if not isinstance(value, list):
+                        raise TypeError(
+                            f"{cname}: Expected {elem.name} to be a table/list but it is {type(value)}",
+                        )
+                elif not isinstance(value, elem.type):
+                    raise TypeError(
+                        f"{cname}: Expected {elem.name} to be type {elem.type} but it is {type(value)}",
+                    )
+                setattr(self, elem.name, value)
+                del kwargs[elem.name]
+            elif elem.is_required:
+                raise OCIErrorAttributeMissing(
+                    message=f"{cname}: Required attribute {elem.name} is missing",
+                )
+            else:
+                setattr(self, elem.name, None)
+        if kwargs:
+            raise OCIErrorUnexpectedAttribute(
+                message=f"{cname}: Unexpected attribute(s) {kwargs.keys()}",
+            )
+        self._frozen = True
+
+    def __delattr__(self, *args, **kwargs):
+        if hasattr(self, "_frozen"):
+            raise AttributeError("This object is frozen!")
+        object.__delattr__(self, *args, **kwargs)
+
+    def __setattr__(self, *args, **kwargs):
+        if hasattr(self, "_frozen"):
+            raise AttributeError("This object is frozen!")
+        object.__setattr__(self, *args, **kwargs)
+
     # Namespace maps used for various XML build tasks
-    DEFAULT_NSMAP = {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
-    DOCUMENT_NSMAP = {None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
-    ERROR_NSMAP = {
-        "c": "C",
-        None: "",
-        "xsi": "http://www.w3.org/2001/XMLSchema-instance",
-    }
+    @classmethod
+    def _default_nsmap(cls):
+        return {None: "", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
+
+    @classmethod
+    def _document_nsmap(cls):
+        return {None: "C", "xsi": "http://www.w3.org/2001/XMLSchema-instance"}
+
+    @classmethod
+    def _error_nsmap(cls):
+        return {
+            "c": "C",
+            None: "",
+            "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+        }
+
+    @classmethod
+    def _elements(cls) -> Tuple[ElementInfo, ...]:
+        raise OCIErrorAPISetup(message="_elements should be defined in the subclass.")
 
     @property
     def type_(self):
@@ -81,10 +156,10 @@ class OCIType(Class):
         """
         if name is None:
             name = self.type_
-        element = etree.Element(name, nsmap=self.DEFAULT_NSMAP)
+        element = etree.Element(name, nsmap=self._default_nsmap())
         return self.etree_sub_components_(element)
 
-    def etree_sub_components_(self, element: "etree._Element"):
+    def etree_sub_components_(self, element: etree._Element) -> etree._Element:
         """
         Build XML etree subelements for the components within this OCIType
 
@@ -94,7 +169,7 @@ class OCIType(Class):
         Returns:
             etree: etree.Element() for this class
         """
-        for sub_element in self._ELEMENTS:
+        for sub_element in self._elements():
             value = getattr(self, sub_element.name)
             if sub_element.is_array:
                 if value is not None:
@@ -106,12 +181,12 @@ class OCIType(Class):
 
     def etree_sub_element_(
         self,
-        element: "etree._Element",
-        sub_element: "ElementInfo",
+        element: etree._Element,
+        sub_element: ElementInfo,
         value,
-    ):
+    ) -> etree._Element:
         """
-        Build XML etree subelement for one elemnt within this OCIType
+        Build XML etree subelement for one element within this OCIType
 
         Arguments:
             element: The parent element that the components are to be attached to
@@ -127,7 +202,7 @@ class OCIType(Class):
                     element,
                     sub_element.xmlname,
                     {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
-                    nsmap=self.DEFAULT_NSMAP,
+                    nsmap=self._default_nsmap(),
                 )
         elif sub_element.is_table:
             # any table should be a list of namedtuple elements
@@ -135,7 +210,7 @@ class OCIType(Class):
                 elem = etree.SubElement(
                     element,
                     sub_element.xmlname,
-                    nsmap=self.DEFAULT_NSMAP,
+                    nsmap=self._default_nsmap(),
                 )
                 first = value[0]
                 for col in first._fields:
@@ -150,14 +225,14 @@ class OCIType(Class):
             elem = etree.SubElement(
                 element,
                 sub_element.xmlname,
-                nsmap=self.DEFAULT_NSMAP,
+                nsmap=self._default_nsmap(),
             )
             value.etree_sub_components_(elem)
         else:
             elem = etree.SubElement(
                 element,
                 sub_element.xmlname,
-                nsmap=self.DEFAULT_NSMAP,
+                nsmap=self._default_nsmap(),
             )
             if sub_element.type == bool:
                 elem.text = "true" if value else "false"
@@ -165,9 +240,10 @@ class OCIType(Class):
                 elem.text = str(value)
             else:
                 elem.text = value
+        return element
 
     @classmethod
-    def column_header_snake_case_(cls, header):
+    def column_header_snake_case_(cls, header: str) -> str:
         """
         Converts an XML name into a pythonic snake case name
 
@@ -179,15 +255,15 @@ class OCIType(Class):
         """
         return re.sub("[ _]+", r"_", header).lower()
 
-    def snake_case_to_column_header(self, snake_str):
+    def snake_case_to_column_header(self, snake_str: str) -> str:
         """
         Converts a pythonic snake case name into a column header name
 
         Arguments:
-            header: The header name in snake lower case
+            snake_str: The header name in snake lower case
 
         Returns:
-            snake: initial capital and space separated result name
+            column_header: initial capital and space separated result name
         """
         components = snake_str.split("_")
         # We capitalize the first letter of each component except the first one
@@ -195,7 +271,7 @@ class OCIType(Class):
         return " ".join(x.title() for x in components)
 
     @classmethod
-    def decode_table_(cls, element: "etree._Element"):
+    def decode_table_(cls, element: etree._Element) -> List[NamedTuple]:
         """
         Decode a table (used in a OCIResponse) into a list of named tuples
 
@@ -206,12 +282,12 @@ class OCIType(Class):
             results: List of namedtuple elements, one for each table row
         """
         typename: str = element.tag
-        results = []
+        results: List[NamedTuple] = []
         columns = [
             cls.column_header_snake_case_(b.text)
             for b in element.iterfind("colHeading")
         ]
-        type = namedtuple(typename, columns)  # type: ignore
+        type: NamedTuple = namedtuple(typename, columns)  # type: ignore
         for row in element.iterfind("row"):
             rowdata = [b.text for b in row.iterfind("col")]
             rowobj = type(*rowdata)
@@ -221,9 +297,9 @@ class OCIType(Class):
     @classmethod
     def build_from_etree_non_parameters_(
         cls,
-        element: "etree._Element",
+        element: etree._Element,
         initialiser: dict,
-    ):
+    ) -> None:
         """
         Handle any items outside the parameter set
 
@@ -233,7 +309,7 @@ class OCIType(Class):
         pass
 
     @classmethod
-    def build_from_node_(cls, elem: ElementInfo, node: "etree._Element"):
+    def build_from_node_(cls, elem: ElementInfo, node: etree._Element) -> Any:
         """
         Creates an OCI subelement from a single  XML etree node
 
@@ -259,18 +335,18 @@ class OCIType(Class):
             return None
 
     @classmethod
-    def build_from_etree_(cls, element: "etree._Element"):
+    def build_from_etree_(cls, element: etree._Element, extras: Dict[str, Any] = {}):
         """
         Create an OciType based instance from an XML etree element
 
         Arguments:
-            element: The OCITable XML element
+            element: The OCIType XML element
 
         Returns:
             results: Object instance for this class
         """
-        initialiser = {}
-        for elem in cls._ELEMENTS:
+        initialiser = extras.copy()
+        for elem in cls._elements():
             if elem.is_array:
                 result = []
                 nodes = element.findall(elem.xmlname)
@@ -289,39 +365,78 @@ class OCIType(Class):
         # use that to build a new object
         return cls(**initialiser)
 
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Convert object to dict representation of itself
+
+        This was provided as part of the Classforge system, which we have moved away
+        from, so this is a local re-implementation.  This is only used within the test
+        suite at present.
+        """
+        elements = {}
+        for elem in self._elements():
+            value = getattr(self, elem.name)
+            if elem.is_table:
+                pass
+            elif elem.is_complex:
+                if elem.is_array:
+                    value = [x.to_dict() for x in value]
+                else:
+                    value = value.to_dict()
+            elif elem.is_array:
+                value = [x for x in value]
+            elements[elem.name] = value
+        return elements
+
+    def __repr__(self) -> str:
+        """Convert object to string representation of itself."""
+        dict_form = self.to_dict()
+        bits = [f"{key}={repr(dict_form[key])}" for key in dict_form.keys()]
+        return f"{self.__class__.__name__}({', '.join(bits)})"
+
+    def __str__(self) -> str:
+        """Convert object to string representation of itself."""
+        return repr(self)
+
 
 class OCICommand(OCIType):
     """
     OCICommand - base class for all OCI Command (Request/Response) types
 
     Attributes:
-        session_id: The session ID used for the command exchange.  We use
-            UUIDs by default, although this is not required.  The default
-            is fixed on here (but normally passed in from the containing
-            API object) - do not use the default in production - its simply
-            there to give a known value for testing.
+        session_id (str): The session ID used for the command exchange.
+            We use UUIDs by default, although this is not required.  The
+            default is fixed on here (but normally passed in from the
+            containing API object) - do not use the default in production -
+            its simply there to give a known value for testing.
     """
 
-    session_id: str = Field(type=str, default="00000000-1111-2222-3333-444444444444")
+    __slots__: List[str] = ["session_id"]
 
-    def build_xml_(self):
+    def __init__(
+        self,
+        session_id: str = "00000000-1111-2222-3333-444444444444",
+        **kwargs,
+    ):
+        self.session_id = session_id
+        super().__init__(**kwargs)
+
+    def build_xml_(self) -> bytes:
         """
         Build an XML document of the current Command (Request/Response)
 
-        Parameters:
-
         Returns:
-            xml: string containing XML document
+            xml: byte string containing XML document
         """
         # document root element
         root = etree.Element(
             "{C}BroadsoftDocument",
             {"protocol": "OCI"},
-            nsmap=self.DOCUMENT_NSMAP,
+            nsmap=self._document_nsmap(),
         )
         #
         # add the session
-        session = etree.SubElement(root, "sessionId", nsmap=self.DEFAULT_NSMAP)
+        session = etree.SubElement(root, "sessionId", nsmap=self._default_nsmap())
         session.text = self.session_id
         #
         # and the command
@@ -338,25 +453,26 @@ class OCICommand(OCIType):
             # pretty_print=True,
         )
 
-    def build_xml_command_element_(self, root: "etree._Element"):
+    def build_xml_command_element_(self, root: etree._Element) -> etree._Element:
         """
         Build the XML etree of the main command element of the current Command
         Intended to be overridden in a subclass for the few elements that do things
         a little differently (for example errors).
 
-        :rtype: etree.Element()
+        Returns:
+            wrapped_element: The wrapped commane element tree
         """
         return etree.SubElement(
             root,
             "command",
             {"{http://www.w3.org/2001/XMLSchema-instance}type": self.type_},
-            nsmap=self.DEFAULT_NSMAP,
+            nsmap=self._default_nsmap(),
         )
 
     @classmethod
     def build_from_etree_non_parameters_(
         cls,
-        element: "etree._Element",
+        element: etree._Element,
         initialiser: dict,
     ):
         """
@@ -367,6 +483,17 @@ class OCICommand(OCIType):
         node = element.find("sessionId")
         if node is not None:
             initialiser["session_id"] = node.text
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Convert object to dict representation of itself
+
+        This was provided as part of the Classforge system, which we have moved away
+        from, so this is a local re-implementation.  This is only used within the test
+        suite at present.
+        """
+        elements = super().to_dict()  # pick up the base object data
+        return {"session_id": self.session_id, **elements}
 
 
 class OCIRequest(OCICommand):
@@ -382,18 +509,19 @@ class OCIResponse(OCICommand):
     OCIResponse - base class for all OCI Command Response types
     """
 
-    def build_xml_command_element_(self, root: "etree._Element"):
+    def build_xml_command_element_(self, root: etree._Element) -> etree._Element:
         """
         Build the XML etree of the main command element of the current Command
         Responses have an echo attribute in the element.
 
-        :rtype: etree.Element()
+        Returns:
+            etree: The XML etree of the main command element
         """
         return etree.SubElement(
             root,
             "command",
             {"echo": "", "{http://www.w3.org/2001/XMLSchema-instance}type": self.type_},
-            nsmap=self.DEFAULT_NSMAP,
+            nsmap=self._default_nsmap(),
         )
 
 
@@ -403,7 +531,11 @@ class SuccessResponse(OCIResponse):
     and does not return any data.
     """
 
-    _ELEMENTS = ()  # type: ignore # type: Tuple[Tuple]
+    __slots__: List[str] = []
+
+    @classmethod
+    def _elements(cls) -> Tuple[ElementInfo, ...]:
+        return ()
 
 
 class ErrorResponse(OCIResponse):
@@ -413,20 +545,33 @@ class ErrorResponse(OCIResponse):
 
     As this an error, when it is created from an incoming command response, a
     `OCIErrorResponse` exception is raised in `post_xml_decode_`.
+
+    Attributes:
+        error_code (int): The error code
+        summary (str): Summary of the error
+        summary_english (str): Summary of the error in english!
+        detail (str): Detail of the error
+        type (str): Type of the error
+
     """
 
-    _ELEMENTS = (
-        ElementInfo("error_code", "errorCode", int),
-        ElementInfo("summary", "summary", str, is_required=True),
-        ElementInfo("summary_english", "summaryEnglish", str, is_required=True),
-        ElementInfo("detail", "detail", str),
-        ElementInfo("type", "type", str),
-    )
-    error_code = Field(type=int, required=False)
-    summary = Field(type=str, required=True)
-    summary_english = Field(type=str, required=True)
-    detail = Field(type=str, required=False)
-    type = Field(type=str, required=False)
+    __slots__: List[str] = [
+        "error_code",
+        "summary",
+        "summary_english",
+        "detail",
+        "type",
+    ]
+
+    @classmethod
+    def _elements(cls) -> Tuple[ElementInfo, ...]:
+        return (
+            ElementInfo("error_code", "errorCode", int),
+            ElementInfo("summary", "summary", str, is_required=True),
+            ElementInfo("summary_english", "summaryEnglish", str, is_required=True),
+            ElementInfo("detail", "detail", str),
+            ElementInfo("type", "type", str),
+        )
 
     def post_xml_decode_(self):
         """Raise an exception as this is an error"""
@@ -444,7 +589,7 @@ class ErrorResponse(OCIResponse):
                 "echo": "",
                 "{http://www.w3.org/2001/XMLSchema-instance}type": "c:" + self.type_,
             },
-            nsmap=self.ERROR_NSMAP,
+            nsmap=self._error_nsmap(),
         )
 
 

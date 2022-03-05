@@ -7,16 +7,17 @@ To make this easier the `process_schema.py` program was produced to break
 down the Broadworks schema into its component parts, which are represented as
 python classes.
 
-The classes are broken down into `types`, `requests` (commands that are
-sent to the Broadworks system), and `responses` (the replies back from the
-Broadworks system).
+The classes are broken down into `types`, `requests` (commands that are sent
+to the Broadworks system), and `responses` (the replies back from the
+Broadworks system).  Unfortunately this means that each of those files is
+huge.
 
 The classes themselves are described by a tuple of `ElementInfo` instances -
 one per property in the schema class, and a class property for each schema
 property.  Naming of these is in the more pythonic snake case rather than the
 Java-esque CamelCase.
 
-The ElementInfo class is used mainly to guide the XML serialisation and
+The `ElementInfo` class is used mainly to guide the XML serialisation and
 deserialisation of each object.  They contain the python and XML names of each
 property and some flags about the propery - for example is this a required
 element `is_required`, an array like element `is_array`, a tabular set of
@@ -35,11 +36,31 @@ The `ElementInfo` class was originally a named tuple, but this was changed
 later to an [`attrs`](https://www.attrs.org/) based class for speed and to
 give some type checking.
 
-The generated classes are all based on Michael DeHaan's
-[`ClassForge`](https://classforge.io/) object system. Although it  appears
-that `attrs` can provide all the functionality these objects need, it became
-apparent in testing that using `attrs` based classes added a substantial
-startup cost to the library, which `ClassForge` does not.
+The generated classes were all based on Michael DeHaan's[`ClassForge`]
+(https://classforge.io/) object system.  However although this system fitted
+my reuirements very nicely and allowed the `mkdocstrings` auto documentation
+to work I was concerned that there were no other packages that used this
+system, there have been no updates or releases for well over a year and that
+the website had gone defunct.  Therefore I moved to another class base.
+
+[`Attrs`](https://www.attrs.org/) mostly worked well as a base for the
+classes, but added an approximately 5 second startup cost on a fairly fast
+machine.  The same occurred with using python's internal `dataclass` - and
+also forced a very recent version of python if support for immutable objects
+was required.
+
+Therefore the current version is based on a class python objects using a
+customised `__init__()` method to set up the attributes from an array of
+`ElementInfo` objects.  A hack is used to make these objects immutable.  The
+objects have `__slots__` defined to make them dict-less - although this might
+be overkill for the memory and speed benefits.  Unfortunately this broke the
+`mkdocstrings` documentation (or at least made it take an absolutely *vast*
+amount of time to run), so the documentation for the `types`, `requests` and
+`responses` is generated statically.
+
+Returned tables (only found in `response` objects), are defined as
+`NamedTuple`s with a class name taken from the XML table name, with the
+elements within them using names taken from the table definition.
 
 Due to the huge number of component classes, and that they need to have the
 session id associated with them on creation (since the objects themselves are

@@ -35,7 +35,6 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = ">=3.6.2,<4.0"
-classforge = "^0.92"
 lxml = "^4.7.1"
 attrs = "^21.4.0"
 
@@ -48,6 +47,7 @@ mkdocs-material = "^8.1.7"
 mkdocstrings = "^0.17.0"
 tiangolo-markdown-include = "^0.7.0"
 python-semantic-release = "^7.23.0"
+py-markdown-table = "^0.2.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

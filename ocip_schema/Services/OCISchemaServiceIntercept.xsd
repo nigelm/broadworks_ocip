@@ -1,54 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ********************************************************************** -->
-<!-- Copyright (c) 2000-2012 BroadSoft, Inc.  All rights reserved.          -->
-<!-- ********************************************************************** -->
-<!-- O C I   X M L   S C H E M A  :  S E R V I C E  P A R T                 -->
-<!--                                                                        -->
-<!-- I N T E R C E P T  S E R V I C E                                       -->
-<!--                                                                        -->
-<!-- This file defines the XML Schema for the BroadSoft Application Server  -->
-<!-- Open Client Interface (OCI).                                           -->
-<!-- ********************************************************************** -->
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- I N T E R C E P T   S E R V I C E                                                    -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
 
-<xs:schema xmlns:xs             = "http://www.w3.org/2001/XMLSchema"
-           xmlns:core           = "C"
-           xmlns                = ""
-           attributeFormDefault = "qualified"
-           elementFormDefault   = "qualified">
-
-  <xs:import namespace      = "C"
-             schemaLocation = "../OCISchemaBASE.xsd"/>
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
 
-  <!-- ********************************************************************************** -->
-  <!-- I N T E R C E P T    R E Q U E S T S  A N D  R E S P O N S E S                     -->
-  <!-- ********************************************************************************** -->
+  <!-- ************************************************************************************ -->
+  <!-- I N T E R C E P T   R E Q U E S T S   A N D   R E S P O N S E S                      -->
+  <!-- ************************************************************************************ -->
   <!--
   Requests and responses are listed here in alphabetical order.
   The non-primitive attributes inside the commands are defined in another
   section of the schema.
 
   Requests in this schema file:
-    GroupInterceptGroupGetRequest16sp1
-    GroupInterceptGroupModifyRequest16
+    GroupInterceptGroupGetRequest21sp1
+    GroupInterceptGroupModifyRequest21sp1
     SystemInterceptUserAddDnListRequest
     SystemInterceptUserDeleteDnListRequest
     SystemInterceptUserGetDnListRequest
     SystemInterceptUserGetRequest
     SystemInterceptUserModifyDnRequest
     SystemInterceptUserModifyRequest
-    UserInterceptUserGetRequest16sp1
-    UserInterceptUserModifyRequest16
+    UserInterceptUserGetRequest21sp1
+    UserInterceptUserModifyRequest21sp1
+-->
 
-  -->
-
-  <xs:complexType name="GroupInterceptGroupGetRequest16sp1">
+  <xs:complexType name="GroupInterceptGroupGetRequest21sp1">
     <xs:annotation>
       <xs:documentation>
         Get the group's intercept group service settings.
-        The response is either a GroupInterceptGroupGetResponse16sp1 or an ErrorResponse.
+        The response is either a GroupInterceptGroupGetResponse21sp1 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -61,10 +54,15 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupInterceptGroupGetResponse16sp1">
+  <xs:complexType name="GroupInterceptGroupGetResponse21sp1">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupInterceptGroupGetRequest16sp1.
+        Response to the GroupInterceptGroupGetRequest21sp1.
+
+        The following elements are only used in AS data mode:
+          exemptInboundMobilityCalls
+          exemptOutboundMobilityCalls
+          disableParallelRingingToNetworkLocations
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -76,26 +74,34 @@
           <xs:element name="audioMediaType" type="MediaFileType" minOccurs="0"/>
           <xs:element name="videoFileDescription" type="FileDescription" minOccurs="0"/>
           <xs:element name="videoMediaType" type="MediaFileType" minOccurs="0"/>
+          <xs:element name="inboundCallMode" type="InterceptInboundCall"/>
+          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean"/>
+          <xs:element name="exemptInboundMobilityCalls" type="xs:boolean"/>
+          <xs:element name="disableParallelRingingToNetworkLocations" type="xs:boolean"/>
+          <xs:element name="routeToVoiceMail" type="xs:boolean"/>
           <xs:element name="playNewPhoneNumber" type="xs:boolean"/>
           <xs:element name="newPhoneNumber" type="DN" minOccurs="0"/>
           <xs:element name="transferOnZeroToPhoneNumber" type="xs:boolean"/>
           <xs:element name="transferPhoneNumber" type="OutgoingDN" minOccurs="0"/>
+          <xs:element name="outboundCallMode" type="InterceptOutboundCall"/>
+          <xs:element name="exemptOutboundMobilityCalls" type="xs:boolean"/>
           <xs:element name="rerouteOutboundCalls" type="xs:boolean"/>
           <xs:element name="outboundReroutePhoneNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
-          <xs:element name="allowOutboundLocalCalls" type="xs:boolean"/>
-          <xs:element name="inboundCallMode" type="InterceptInboundCall"/>
-          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean"/>
-          <xs:element name="routeToVoiceMail" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupInterceptGroupModifyRequest16">
+  <xs:complexType name="GroupInterceptGroupModifyRequest21sp1">
     <xs:annotation>
       <xs:documentation>
         Modify the group's intercept group service settings.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements are only used in AS data mode and ignored in XS data mode:
+          exemptInboundMobilityCalls
+          exemptOutboundMobilityCalls
+          disableParallelRingingToNetworkLocations
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -107,16 +113,19 @@
           <xs:element name="announcementSelection" type="AnnouncementSelection" minOccurs="0"/>
           <xs:element name="audioFile" type="LabeledMediaFileResource" minOccurs="0"/>
           <xs:element name="videoFile" type="LabeledMediaFileResource" minOccurs="0"/>
+          <xs:element name="inboundCallMode" type="InterceptInboundCall" minOccurs="0"/>
+          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="exemptInboundMobilityCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="disableParallelRingingToNetworkLocations" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="routeToVoiceMail" type="xs:boolean" minOccurs="0"/>
           <xs:element name="playNewPhoneNumber" type="xs:boolean" minOccurs="0"/>
           <xs:element name="newPhoneNumber" type="DN" nillable="true" minOccurs="0"/>
           <xs:element name="transferOnZeroToPhoneNumber" type="xs:boolean" minOccurs="0"/>
           <xs:element name="transferPhoneNumber" type="OutgoingDN" nillable="true" minOccurs="0"/>
+          <xs:element name="outboundCallMode" type="InterceptOutboundCall" minOccurs="0"/>
+          <xs:element name="exemptOutboundMobilityCalls" type="xs:boolean" minOccurs="0"/>
           <xs:element name="rerouteOutboundCalls" type="xs:boolean" minOccurs="0"/>
           <xs:element name="outboundReroutePhoneNumber" type="OutgoingDNorSIPURI" nillable="true" minOccurs="0"/>
-          <xs:element name="allowOutboundLocalCalls" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="inboundCallMode" type="InterceptInboundCall" minOccurs="0"/>
-          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="routeToVoiceMail" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -124,10 +133,6 @@
 
   <xs:complexType name="SystemInterceptUserAddDnListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
           Request to add an Intercept User number(s) to the system.
           The response is either a SuccessResponse or an ErrorResponse.
@@ -144,10 +149,6 @@
 
   <xs:complexType name="SystemInterceptUserDeleteDnListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Request to delete an Intercept User number(s) from the system.
          The response is either a SuccessResponse or an ErrorResponse.
@@ -164,10 +165,6 @@
 
   <xs:complexType name="SystemInterceptUserGetDnListRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
           Request to get a list of Intercept User dns defined in the system.
           The response is either a SystemInterceptUserGetDnListResponse
@@ -183,10 +180,6 @@
 
   <xs:complexType name="SystemInterceptUserGetDnListResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
           Response to SystemInterceptUserGetDnListRequest.
           The Intercept User DN List.
@@ -203,10 +196,6 @@
 
   <xs:complexType name="SystemInterceptUserGetRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Get the system-level intercept user service settings.
         The response is either a SystemInterceptUserGetResponse or an ErrorResponse.
@@ -221,10 +210,6 @@
 
   <xs:complexType name="SystemInterceptUserGetResponse">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Response to the SystemInterceptUserGetRequest.
       </xs:documentation>
@@ -240,10 +225,6 @@
 
   <xs:complexType name="SystemInterceptUserModifyDnRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
           Request to modify a Intercept User number's description in the system.
           The response is either a SuccessResponse or an ErrorResponse.
@@ -261,10 +242,6 @@
 
   <xs:complexType name="SystemInterceptUserModifyRequest">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>false</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Modify the system-level intercept user service settings.
         The response is either a SuccessResponse or an ErrorResponse.
@@ -279,11 +256,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserInterceptUserGetRequest16sp1">
+  <xs:complexType name="UserInterceptUserGetRequest21sp1">
     <xs:annotation>
       <xs:documentation>
         Get the user's intercept user service settings.
-        The response is either a UserInterceptUserGetResponse16sp1 or an ErrorResponse.
+        The response is either a UserInterceptUserGetResponse21sp1 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -295,10 +272,15 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserInterceptUserGetResponse16sp1">
+  <xs:complexType name="UserInterceptUserGetResponse21sp1">
     <xs:annotation>
       <xs:documentation>
-        Response to the UserInterceptUserGetRequest16sp1.
+        Response to the UserInterceptUserGetRequest21sp1.
+
+        The following elements are only used in AS data mode:
+          exemptInboundMobilityCalls
+          exemptOutboundMobilityCalls
+          disableParallelRingingToNetworkLocations
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -310,30 +292,34 @@
           <xs:element name="audioMediaType" type="MediaFileType" minOccurs="0"/>
           <xs:element name="videoFileDescription" type="FileDescription" minOccurs="0"/>
           <xs:element name="videoMediaType" type="MediaFileType" minOccurs="0"/>
+          <xs:element name="inboundCallMode" type="InterceptInboundCall"/>
+          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean"/>
+          <xs:element name="exemptInboundMobilityCalls" type="xs:boolean"/>
+          <xs:element name="disableParallelRingingToNetworkLocations" type="xs:boolean"/>
+          <xs:element name="routeToVoiceMail" type="xs:boolean"/>
           <xs:element name="playNewPhoneNumber" type="xs:boolean"/>
           <xs:element name="newPhoneNumber" type="DN" minOccurs="0"/>
           <xs:element name="transferOnZeroToPhoneNumber" type="xs:boolean"/>
           <xs:element name="transferPhoneNumber" type="OutgoingDN" minOccurs="0"/>
+          <xs:element name="outboundCallMode" type="InterceptOutboundCall"/>
+          <xs:element name="exemptOutboundMobilityCalls" type="xs:boolean"/>
           <xs:element name="rerouteOutboundCalls" type="xs:boolean"/>
           <xs:element name="outboundReroutePhoneNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
-          <xs:element name="allowOutboundLocalCalls" type="xs:boolean"/>
-          <xs:element name="inboundCallMode" type="InterceptInboundCall"/>
-          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean"/>
-          <xs:element name="routeToVoiceMail" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserInterceptUserModifyRequest16">
+  <xs:complexType name="UserInterceptUserModifyRequest21sp1">
     <xs:annotation>
-      <xs:appinfo>
-        <asDataModeSupported>true</asDataModeSupported>
-        <hssDataModeSupported>true</hssDataModeSupported>
-      </xs:appinfo>
       <xs:documentation>
         Modify the user's intercept user service settings.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements are only used in AS data mode and ignored in XS data mode:
+          exemptInboundMobilityCalls
+          exemptOutboundMobilityCalls
+          disableParallelRingingToNetworkLocations
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -344,31 +330,55 @@
           <xs:element name="announcementSelection" type="AnnouncementSelection" minOccurs="0"/>
           <xs:element name="audioFile" type="LabeledMediaFileResource" minOccurs="0"/>
           <xs:element name="videoFile" type="LabeledMediaFileResource" minOccurs="0"/>
+          <xs:element name="inboundCallMode" type="InterceptInboundCall" minOccurs="0"/>
+          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="exemptInboundMobilityCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="disableParallelRingingToNetworkLocations" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="routeToVoiceMail" type="xs:boolean" minOccurs="0"/>
           <xs:element name="playNewPhoneNumber" type="xs:boolean" minOccurs="0"/>
           <xs:element name="newPhoneNumber" type="DN" nillable="true" minOccurs="0"/>
           <xs:element name="transferOnZeroToPhoneNumber" type="xs:boolean" minOccurs="0"/>
           <xs:element name="transferPhoneNumber" type="OutgoingDN" nillable="true" minOccurs="0"/>
+          <xs:element name="outboundCallMode" type="InterceptOutboundCall" minOccurs="0"/>
+          <xs:element name="exemptOutboundMobilityCalls" type="xs:boolean" minOccurs="0"/>
           <xs:element name="rerouteOutboundCalls" type="xs:boolean" minOccurs="0"/>
           <xs:element name="outboundReroutePhoneNumber" type="OutgoingDNorSIPURI" nillable="true" minOccurs="0"/>
-          <xs:element name="allowOutboundLocalCalls" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="inboundCallMode" type="InterceptInboundCall" minOccurs="0"/>
-          <xs:element name="alternateBlockingAnnouncement" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="routeToVoiceMail" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:simpleType name="InterceptInboundCall">
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The Intercept specific non-primitive attributes are listed here in alphabetical order.
+  -->
+
+
+  <xs:complexType name="InterceptDNListEntry">
     <xs:annotation>
       <xs:documentation>
-        The type of inbound calls to Intercept or allow.
+        Intercept User Entry containing the phone number and a Description.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="phoneNumber" type="DN"/>
+      <xs:element name="description" type="InterceptPhoneNumberDescription" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="InterceptOutboundCall">
+    <xs:annotation>
+      <xs:documentation>
+        The type of outbound calls to block or allow.
+
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="Intercept All"/>
-      <xs:enumeration value="Allow All"/>
-      <xs:enumeration value="Allow System Dns"/>
+      <xs:enumeration value="Block All"/>
+      <xs:enumeration value="Allow Outbound Local Calls"/>
+      <xs:enumeration value="Allow Outbound Enterprise And Group Calls"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -383,17 +393,4 @@
       <xs:maxLength value="80"/>
     </xs:restriction>
   </xs:simpleType>
-
-  <xs:complexType name="InterceptDNListEntry">
-    <xs:annotation>
-      <xs:documentation>
-        Intercept User Entry containing the phone number and a Description.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="phoneNumber" type="DN"/>
-      <xs:element name="description" type="InterceptPhoneNumberDescription" nillable="true" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-
 </xs:schema>

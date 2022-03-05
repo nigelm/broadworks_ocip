@@ -66,35 +66,31 @@ $ git checkout -b name-of-your-bugfix-or-feature
 ```
    Now you can make your changes locally.
 
-5. When you're done making changes, use pre-commit to do basic checks and ensure formatting
-   is consitant, and check that your changes pass the tests::
+5. If you use updated schemas, or modify `process_schema.py` you must regenerate
+   the generated python code:
 ```bash
-$ pre-commit run
-$ poetry run pytest
-$ poetry run make docs    # generate local docs for checking
+$ make code
+```
+
+6. When you're done making changes, use pre-commit to do basic checks and ensure formatting
+   is consistant, and check that your changes pass the tests::
+```bash
+$ git add .; pre-commit run
+$ make test
+$ make servdocs    # generate local docs for checking
 ```
    `pre-commit` may need to be installed onto your system.
 
-6. Commit your changes and push your branch to GitHub:
+7. Commit your changes and push your branch to GitHub:
 ```bash
 $ git add .
 $ git commit -m "Your detailed description of your changes."
 $ git push origin name-of-your-bugfix-or-feature
 ```
 
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 
 # Deploying
 
-A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed (including an entry in `CHANGELOG.md`).
-Then run:
-
-```bash
-$ bump2version patch # possible: major / minor / patch
-$ git push
-$ git push --tags
-```
-
-Travis will then deploy to PyPI if tests pass.
+This is now handled by github actions - there is a manual release action.
