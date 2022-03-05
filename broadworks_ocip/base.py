@@ -59,23 +59,43 @@ class OCIType:
     __slots__: List[str] = ["_frozen"]
 
     def __init__(self, **kwargs):
+        cname = type(self).__name__  # needed for error messages
         for elem in self._elements():
             if elem.name in kwargs:
-                setattr(self, elem.name, kwargs[elem.name])
-                if elem.is_required and kwargs[elem.name] is None:
+                value = kwargs[elem.name]
+                if elem.is_required and value is None:
                     raise OCIErrorAttributeMissing(
-                        message=f"Required attribute {elem.name} is missing",
+                        message=f"{cname}: Required attribute {elem.name} is missing",
                     )
+                if elem.is_array:
+                    if not isinstance(value, list):
+                        raise TypeError(
+                            f"{cname}: Expected {elem.name} to be a list but it is {type(value)}",
+                        )
+                    if len(value) > 0 and not isinstance(value[0], elem.type):
+                        raise TypeError(
+                            f"{cname}: Expected first element of {elem.name} to be type {elem.type} but it is {type(value[0])}",
+                        )
+                elif elem.is_table:
+                    if not isinstance(value, list):
+                        raise TypeError(
+                            f"{cname}: Expected {elem.name} to be a table/list but it is {type(value)}",
+                        )
+                elif not isinstance(value, elem.type):
+                    raise TypeError(
+                        f"{cname}: Expected {elem.name} to be type {elem.type} but it is {type(value)}",
+                    )
+                setattr(self, elem.name, value)
                 del kwargs[elem.name]
             elif elem.is_required:
                 raise OCIErrorAttributeMissing(
-                    message=f"Required attribute {elem.name} is missing",
+                    message=f"{cname}: Required attribute {elem.name} is missing",
                 )
             else:
                 setattr(self, elem.name, None)
         if kwargs:
             raise OCIErrorUnexpectedAttribute(
-                message=f"Unexpected attribute(s) {kwargs.keys()}",
+                message=f"{cname}: Unexpected attribute(s) {kwargs.keys()}",
             )
         self._frozen = True
 
