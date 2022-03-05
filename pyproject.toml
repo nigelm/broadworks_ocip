@@ -65,4 +65,4 @@ commit_version_number = true
 patch_without_tag = true
 build_command = "poetry build"
 upload_to_pypi = false
-check_build_status = true
+check_build_status = false
