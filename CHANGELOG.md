@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!--next-version-placeholder-->
 
+## v2.0.1 (2022-03-12)
+### Fix
+* Handle schema sequences within choices ([`16c2e75`](https://github.com/nigelm/broadworks_ocip/commit/16c2e7509336f59f6af13710ecff6edaa08aa897))
+
+### Documentation
+* Add note about command construction and checking ([`56cb717`](https://github.com/nigelm/broadworks_ocip/commit/56cb717cdcc0abc4bc626918985d7d92acf44782))
+
 ## v2.0.0 (2022-03-05)
 ### Feature
 * Broadworks R24 schemas and derived files ([`c0c71c3`](https://github.com/nigelm/broadworks_ocip/commit/c0c71c33234806329c48651272cb128b96fd3b27))
