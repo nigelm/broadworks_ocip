@@ -51,8 +51,13 @@ def build_element_hash(xsd_component, prefix=""):
     for elem in xsd_component.content.iter_elements():
         name = camel_to_snake(elem.name.strip())
         is_required = True if elem.min_occurs > 0 else False
-        if is_required and elem.parent.model == "choice":
-            is_required = False
+        if is_required:
+            if elem.parent.model == "choice":
+                is_required = False
+            elif elem.parent.model == "sequence":
+                gparent = elem.parent.parent
+                if hasattr(gparent, "model") and gparent.model == "choice":
+                    is_required = False
         if elem.min_occurs is None:
             if elem.max_occurs is None:
                 is_array = False
