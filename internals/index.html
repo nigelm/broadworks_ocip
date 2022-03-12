@@ -581,6 +581,16 @@ or have <code>unlimited</code> set true.</p>
 <p>Additionally in the example the surrounding <code>ServicePackAuthorization</code>
 element may have either <code>unauthorized=True</code> or <code>authorized_quantity</code> set
 to a <code>UnboundedPositiveInt</code>.</p>
+<p>Additionally in version <code>2.0.1</code> onwards, schema <code>sequence</code> sets, within schema
+<code>choice</code> elements are similarly handled - all the contained attributes are
+made optional.</p>
+<p>I can think of some ways to make the currently <code>xfail</code> flagged tests in
+<code>test_faulty_command.py</code> be handled correctly - at the cost of adding more
+complexity to the information stored about each command type and making the
+<code>__init__</code> function more complex.  However I am not fully convinced that this
+library should be performing that level of input checking - although the
+library will accept illegal combinations, the Broadworks server will quickly
+tell you that you are wrong!.</p>
 <p>The tables returned in many command responses have no type information in the
 schema as to how to treat them - the column information is also passed within
 the response itself.  This means that often there are boolean or numeric
