@@ -86,6 +86,18 @@ Additionally in the example the surrounding `ServicePackAuthorization`
 element may have either `unauthorized=True` or `authorized_quantity` set
 to a `UnboundedPositiveInt`.
 
+Additionally in version `2.0.1` onwards, schema `sequence` sets, within schema
+`choice` elements are similarly handled - all the contained attributes are
+made optional.
+
+I can think of some ways to make the currently `xfail` flagged tests in
+`test_faulty_command.py` be handled correctly - at the cost of adding more
+complexity to the information stored about each command type and making the
+`__init__` function more complex.  However I am not fully convinced that this
+library should be performing that level of input checking - although the
+library will accept illegal combinations, the Broadworks server will quickly
+tell you that you are wrong!.
+
 The tables returned in many command responses have no type information in the
 schema as to how to treat them - the column information is also passed within
 the response itself.  This means that often there are boolean or numeric
