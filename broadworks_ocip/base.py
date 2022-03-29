@@ -81,10 +81,10 @@ class OCIType:
                         raise TypeError(
                             f"{cname}: Expected {elem.name} to be a table/list but it is {type(value)}",
                         )
-                # elif not isinstance(value, elem.type):
-                #     raise TypeError(
-                #         f"{cname}: Expected {elem.name} to be type {elem.type} but it is {type(value)}",
-                #     )
+                elif not isinstance(value, elem.type):
+                    raise TypeError(
+                        f"{cname}: Expected {elem.name} to be type {elem.type} but it is {type(value)}",
+                    )
                 setattr(self, elem.name, value)
                 del kwargs[elem.name]
             elif elem.is_required:
