@@ -33,7 +33,7 @@ repos:
     -   id: sort-simple-yaml
 
 -   repo: https://github.com/ambv/black
-    rev: 21.12b0
+    rev: 22.3.0
     hooks:
     - id: black
       language_version: python3
@@ -50,13 +50,13 @@ repos:
     -   id: validate_manifest
 
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.7.1
+    rev: v3.0.1
     hooks:
     -   id: reorder-python-imports
         args: [--py3-plus]
 
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.0
+    rev: v2.31.1
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -68,13 +68,13 @@ repos:
         args: [--py36-plus]
 
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.931
+    rev: v0.942
     hooks:
     -   id: mypy
         additional_dependencies: [types-all, types-attrs]
 
 -   repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.5  # or specific git tag
+    rev: 2.1.6  # or specific git tag
     hooks:
         - id: shfmt
 
