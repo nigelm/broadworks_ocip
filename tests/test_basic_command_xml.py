@@ -354,4 +354,32 @@ def test_user_busy_lap_field_modify_request_xml():
     )
 
 
+def test_user_modify_department_key_xml():
+    cmd = api.get_command_object(
+        "UserModifyRequest16",
+        user_id="fred.flintstone@boulder.org",
+        department=api.get_type_object(
+            "EnterpriseDepartmentKey",
+            service_provider_id="mysp",
+            name="mydept",
+        ),
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xmlns="" xsi:type="UserModifyRequest16">'
+            b"<userId>fred.flintstone@boulder.org</userId>"
+            b"<enterpriseDepartmentKey>"
+            b"<serviceProviderId>mysp</serviceProviderId>"
+            b"<name>mydept</name>"
+            b"</enterpriseDepartmentKey>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
 # end
