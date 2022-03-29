@@ -1913,10 +1913,10 @@ various subclasses.</p>
                         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cname</span><span class="si">}</span><span class="s2">: Expected </span><span class="si">{</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> to be a table/list but it is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                         <span class="p">)</span>
-                <span class="c1"># elif not isinstance(value, elem.type):</span>
-                <span class="c1">#     raise TypeError(</span>
-                <span class="c1">#         f&quot;{cname}: Expected {elem.name} to be type {elem.type} but it is {type(value)}&quot;,</span>
-                <span class="c1">#     )</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cname</span><span class="si">}</span><span class="s2">: Expected </span><span class="si">{</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> to be type </span><span class="si">{</span><span class="n">elem</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> but it is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
                 <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">elem</span><span class="o">.</span><span class="n">is_required</span><span class="p">:</span>
