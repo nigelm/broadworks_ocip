@@ -274,7 +274,12 @@ def process_class_documentation(file, doc_lines, attribute_info):
 
 
 def process_thing(file, doc_file, xsd_component, thing, prefix=""):
-    file.write(f"class {xsd_component.name}({thing}):\n")
+    base = thing
+    if xsd_component.is_extension() and not xsd_component.base_type.name.startswith(
+        "{C}",
+    ):
+        base = prefix + xsd_component.base_type.name
+    file.write(f"class {xsd_component.name}({base}):\n")
     elements = build_element_hash(xsd_component, prefix)
     attribute_info = make_attribute_info(prefix, elements)
     doc_lines = make_documentation_block(xsd_component)
@@ -333,6 +338,11 @@ def sort_schema(schema):
         if xsd_component.is_complex():
             name = xsd_component.name
             dependancies = Counter()
+            # look for our base classes
+            if xsd_component.is_extension():
+                if not xsd_component.base_type.name.startswith("{C}"):
+                    dependancies[xsd_component.base_type.name] += 1
+            # find components that we use
             for elem in xsd_component.content.iter_elements():
                 type = elem.type
                 if type.is_complex() and type.name is not None:
