@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!--next-version-placeholder-->
 
+## v2.0.3 (2022-03-29)
+### Fix
+* Reinstated type checking now hierarchy in place ([`6f99654`](https://github.com/nigelm/broadworks_ocip/commit/6f99654a4a3991c527d9ad42035f84a5732f6da4))
+* Regenerate broadworks classes ([`faf3b1b`](https://github.com/nigelm/broadworks_ocip/commit/faf3b1b90cc19d902b9b9623946e92ca16f5401d))
+* Add class hierarchy information into generated classes ([`f9eb352`](https://github.com/nigelm/broadworks_ocip/commit/f9eb352abf899e62c9bcac870cbc553aae205d26))
+
 ## v2.0.2 (2022-03-29)
 ### Fix
 * Remove type checking as not handling OCI type heirarchy ([`8408717`](https://github.com/nigelm/broadworks_ocip/commit/84087174207a9592995807a47d48c5853cd9904b))
