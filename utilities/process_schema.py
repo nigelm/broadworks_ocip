@@ -22,20 +22,23 @@ def camel_to_snake(name):
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", name).lower()
 
 
-def process_element_type(element, phash, prefix):
+def process_element_type(element, phash, abstract_class_list, prefix):
     type = element.type
     is_complex = type.is_complex()
     phash["is_complex"] = is_complex
+    phash["is_abstract"] = False
     thistype = "str"
     if is_complex:
         if type.name is not None:
-            if element.type.name.strip() == "{C}OCITable":
+            name = element.type.name.strip()
+            phash["is_abstract"] = name in abstract_class_list
+            if name == "{C}OCITable":
                 thistype = "list"
                 phash["is_table"] = True
-            elif element.type.name.strip().startswith("{"):
+            elif name.startswith("{"):
                 phash["unknown"] = True  # TODO more complex type handling
             else:
-                thistype = prefix + element.type.name.strip()
+                thistype = prefix + name
         else:
             phash["unknown"] = True  # TODO more complex type handling
     else:
@@ -46,7 +49,7 @@ def process_element_type(element, phash, prefix):
     phash["type"] = thistype
 
 
-def build_element_hash(xsd_component, prefix=""):
+def build_element_hash(xsd_component, abstract_class_list, prefix=""):
     element_hash = {}
     for elem in xsd_component.content.iter_elements():
         name = camel_to_snake(elem.name.strip())
@@ -77,7 +80,7 @@ def build_element_hash(xsd_component, prefix=""):
             "is_table": False,
             "unknown": False,
         }
-        process_element_type(elem, phash, prefix)
+        process_element_type(elem, phash, abstract_class_list, prefix)
         element_hash[name] = phash
     return element_hash
 
@@ -95,7 +98,13 @@ def write_elements(file, elements):
                 ('"' + item["xmlname"] + '"'),
                 item["type"],
             ]
-            for query in ("is_complex", "is_required", "is_array", "is_table"):
+            for query in (
+                "is_complex",
+                "is_required",
+                "is_array",
+                "is_table",
+                "is_abstract",
+            ):
                 if item[query]:
                     ele.append(query + "=True")
             comment = "  # unknown" if item["unknown"] else ""
@@ -273,14 +282,14 @@ def process_class_documentation(file, doc_lines, attribute_info):
     file.write('    """\n\n')
 
 
-def process_thing(file, doc_file, xsd_component, thing, prefix=""):
+def process_thing(file, doc_file, xsd_component, abstract_class_list, thing, prefix=""):
     base = thing
     if xsd_component.is_extension() and not xsd_component.base_type.name.startswith(
         "{C}",
     ):
         base = prefix + xsd_component.base_type.name
     file.write(f"class {xsd_component.name}({base}):\n")
-    elements = build_element_hash(xsd_component, prefix)
+    elements = build_element_hash(xsd_component, abstract_class_list, prefix)
     attribute_info = make_attribute_info(prefix, elements)
     doc_lines = make_documentation_block(xsd_component)
     process_class_documentation(file, doc_lines, attribute_info)
@@ -295,21 +304,36 @@ def process_thing(file, doc_file, xsd_component, thing, prefix=""):
     )
 
 
-def process_request(file, doc_file, xsd_component):
-    process_thing(file, doc_file, xsd_component, "OCIRequest", "OCI.")
+def process_request(file, doc_file, xsd_component, abstract_class_list):
+    process_thing(
+        file,
+        doc_file,
+        xsd_component,
+        abstract_class_list,
+        "OCIRequest",
+        "OCI.",
+    )
 
 
-def process_response(file, doc_file, xsd_component):
-    process_thing(file, doc_file, xsd_component, "OCIResponse", "OCI.")
+def process_response(file, doc_file, xsd_component, abstract_class_list):
+    process_thing(
+        file,
+        doc_file,
+        xsd_component,
+        abstract_class_list,
+        "OCIResponse",
+        "OCI.",
+    )
 
 
-def process_type(file, doc_file, xsd_component):
-    process_thing(file, doc_file, xsd_component, "OCIType", "")
+def process_type(file, doc_file, xsd_component, abstract_class_list):
+    process_thing(file, doc_file, xsd_component, abstract_class_list, "OCIType", "")
 
 
 def process_schema(
     schema,
     class_list,
+    abstract_class_list,
     types_file,
     requests_file,
     responses_file,
@@ -325,11 +349,26 @@ def process_schema(
                 xsd_component.name,
             )
             if match and match.group(1) == "Request":
-                process_request(requests_file, requests_docfile, xsd_component)
+                process_request(
+                    requests_file,
+                    requests_docfile,
+                    xsd_component,
+                    abstract_class_list,
+                )
             elif match and match.group(1) == "Response":
-                process_response(responses_file, responses_docfile, xsd_component)
+                process_response(
+                    responses_file,
+                    responses_docfile,
+                    xsd_component,
+                    abstract_class_list,
+                )
             else:
-                process_type(types_file, types_docfile, xsd_component)
+                process_type(
+                    types_file,
+                    types_docfile,
+                    xsd_component,
+                    abstract_class_list,
+                )
 
 
 def sort_schema(schema):
@@ -350,6 +389,15 @@ def sort_schema(schema):
                         dependancies[type.name] += 1
             dependancy_map[name] = set(dependancies.keys())
     return toposort_flatten(dependancy_map, sort=True)
+
+
+def build_abstract_class_list(schema):
+    """Creates a list of all OCI classes that are marked as abstract"""
+    abstract_class_list = []
+    for xsd_component in schema.iter_globals():
+        if xsd_component.is_complex() and xsd_component.abstract:
+            abstract_class_list.append(xsd_component.name)
+    return abstract_class_list
 
 
 def open_output_files(prevent_reformat: bool):
@@ -440,11 +488,13 @@ def main():
             sys.exit("No schema")
     class_list = sort_schema(schema)
     print("Sorted schema")
+    abstract_class_list = build_abstract_class_list(schema)
     types_file, requests_file, responses_file = open_output_files(args.block_black)
     types_docfile, requests_docfile, responses_docfile = open_doc_files()
     process_schema(
         schema,
         class_list,
+        abstract_class_list,
         types_file,
         requests_file,
         responses_file,

@@ -45,6 +45,7 @@ class ElementInfo:
     is_required: bool = attr.ib(default=False)
     is_array: bool = attr.ib(default=False)
     is_table: bool = attr.ib(default=False)
+    is_abstract: bool = attr.ib(default=False)
 
 
 class OCIType:
@@ -135,6 +136,11 @@ class OCIType:
         """Return the typename of the class"""
         return self.__class__.__name__
 
+    @classmethod
+    def class_to_property_(self, name):
+        """Map a XML class name to the associated property"""
+        return name[0].lower() + name[1:]
+
     def post_xml_decode_(self):
         """
         Carry out any operations after the XML decode
@@ -222,11 +228,19 @@ class OCIType:
                         col_item = etree.SubElement(row_item, "col")
                         col_item.text = col
         elif sub_element.is_complex:
-            elem = etree.SubElement(
-                element,
-                sub_element.xmlname,
-                nsmap=self._default_nsmap(),
-            )
+            if sub_element.is_abstract:
+                elem_name = self.class_to_property_(value.type_)
+                elem = etree.SubElement(
+                    element,
+                    elem_name,
+                    nsmap=self._default_nsmap(),
+                )
+            else:
+                elem = etree.SubElement(
+                    element,
+                    sub_element.xmlname,
+                    nsmap=self._default_nsmap(),
+                )
             value.etree_sub_components_(elem)
         else:
             elem = etree.SubElement(
@@ -354,13 +368,26 @@ class OCIType:
                     result.append(cls.build_from_node_(elem=elem, node=node))
                 initialiser[elem.name] = result
             else:
-                node = element.find(elem.xmlname)
-                if node is not None:
-                    initialiser[elem.name] = cls.build_from_node_(elem=elem, node=node)
-                # else...
-                # I am inclined to thow an error here - at least after checking if
-                # the thing is require, but the class builder should do that so lets
-                # let it do its thing
+                if elem.is_abstract:
+                    for subclass in elem.type.__subclasses__():
+                        elem_name = cls.class_to_property_(subclass.__name__)
+                        node = element.find(elem_name)
+                        if node is not None:
+                            initialiser[elem.name] = subclass.build_from_node_(
+                                elem=elem,
+                                node=node,
+                            )
+                else:
+                    node = element.find(elem.xmlname)
+                    if node is not None:
+                        initialiser[elem.name] = cls.build_from_node_(
+                            elem=elem,
+                            node=node,
+                        )
+                    # else...
+                    # I am inclined to thow an error here - at least after checking if
+                    # the thing is require, but the class builder should do that so lets
+                    # let it do its thing
         # now have a dict with all the bits in it.
         # use that to build a new object
         return cls(**initialiser)
