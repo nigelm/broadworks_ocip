@@ -371,10 +371,8 @@ def test_user_modify_department_key_xml():
             b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
             b'<command xmlns="" xsi:type="UserModifyRequest16">'
             b"<userId>fred.flintstone@boulder.org</userId>"
-            b"<enterpriseDepartmentKey>"
             b"<serviceProviderId>mysp</serviceProviderId>"
             b"<name>mydept</name>"
-            b"</enterpriseDepartmentKey>"
             b"</command>"
             b"</BroadsoftDocument>"
         ),

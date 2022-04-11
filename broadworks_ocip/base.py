@@ -4,6 +4,7 @@ Broadworks OCI-P Interface Base Classes
 Base classes used by the types, requests and responses as well as
 other components like ElementInfo that are used by those.
 """
+import logging
 import re
 from collections import namedtuple
 from typing import Any
@@ -19,6 +20,9 @@ from broadworks_ocip.exceptions import OCIErrorAPISetup
 from broadworks_ocip.exceptions import OCIErrorAttributeMissing
 from broadworks_ocip.exceptions import OCIErrorResponse
 from broadworks_ocip.exceptions import OCIErrorUnexpectedAttribute
+
+
+logger = logging.getLogger(__name__)
 
 
 @attr.s(slots=True, frozen=True)
@@ -181,6 +185,13 @@ class OCIType:
                 if value is not None:
                     for subvalue in value:
                         self.etree_sub_element_(element, sub_element, subvalue)
+            elif sub_element.is_abstract:
+                if value is not None:
+                    # we pull the sub elements out of the abstract instance
+                    # we do not support multi level abstracts - ths is not the matrix
+                    for sub_sub_element in value._elements():
+                        sub_value = getattr(value, sub_sub_element.name)
+                        self.etree_sub_element_(element, sub_sub_element, sub_value)
             else:
                 self.etree_sub_element_(element, sub_element, value)
         return element
@@ -228,19 +239,11 @@ class OCIType:
                         col_item = etree.SubElement(row_item, "col")
                         col_item.text = col
         elif sub_element.is_complex:
-            if sub_element.is_abstract:
-                elem_name = self.class_to_property_(value.type_)
-                elem = etree.SubElement(
-                    element,
-                    elem_name,
-                    nsmap=self._default_nsmap(),
-                )
-            else:
-                elem = etree.SubElement(
-                    element,
-                    sub_element.xmlname,
-                    nsmap=self._default_nsmap(),
-                )
+            elem = etree.SubElement(
+                element,
+                sub_element.xmlname,
+                nsmap=self._default_nsmap(),
+            )
             value.etree_sub_components_(elem)
         else:
             elem = etree.SubElement(
@@ -369,14 +372,15 @@ class OCIType:
                 initialiser[elem.name] = result
             else:
                 if elem.is_abstract:
-                    for subclass in elem.type.__subclasses__():
-                        elem_name = cls.class_to_property_(subclass.__name__)
-                        node = element.find(elem_name)
-                        if node is not None:
-                            initialiser[elem.name] = subclass.build_from_node_(
-                                elem=elem,
-                                node=node,
-                            )
+                    logger.error("XML decode of abstract property not yet supported")
+                    # for subclass in elem.type.__subclasses__():
+                    #     elem_name = cls.class_to_property_(subclass.__name__)
+                    #     node = element.find(elem_name)
+                    #     if node is not None:
+                    #         initialiser[elem.name] = subclass.build_from_node_(
+                    #             elem=elem,
+                    #             node=node,
+                    #         )
                 else:
                     node = element.find(elem.xmlname)
                     if node is not None:
