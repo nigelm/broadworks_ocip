@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!--next-version-placeholder-->
 
+## v2.0.4 (2022-06-21)
+### Fix
+* Make abstract types work now I have an example ([`5bff15c`](https://github.com/nigelm/broadworks_ocip/commit/5bff15c332f705c079944ff89e3e4125278289f5))
+* Second attempt to handle abstract classes correctly ([`63f1454`](https://github.com/nigelm/broadworks_ocip/commit/63f1454ec448660145f2c012185a5ffc258fcfdb))
+* Handle abstract types ([`84abaa2`](https://github.com/nigelm/broadworks_ocip/commit/84abaa29ccf4b95f9db60c0e5dcfdfcfaccc4aff))
+
 ## v2.0.3 (2022-03-29)
 ### Fix
 * Reinstated type checking now hierarchy in place ([`6f99654`](https://github.com/nigelm/broadworks_ocip/commit/6f99654a4a3991c527d9ad42035f84a5732f6da4))
