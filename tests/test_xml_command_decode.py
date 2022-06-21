@@ -286,4 +286,37 @@ def test_user_assigned_services_get_list_response():
     )
 
 
+def test_group_department_add_xml():
+    xml = (
+        b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+        b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+        b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+        b'<command xmlns="" xsi:type="GroupDepartmentAddRequest">'
+        b"<serviceProviderId>mysp</serviceProviderId>"
+        b"<groupId>mygroup</groupId>"
+        b"<departmentName>mydept</departmentName>"
+        b'<parentDepartmentKey xsi:type="GroupDepartmentKey">'
+        b"<serviceProviderId>mysp</serviceProviderId>"
+        b"<groupId>mygroup</groupId>"
+        b"<name>test-name</name>"
+        b"</parentDepartmentKey>"
+        b"<callingLineIdName>clid_name</callingLineIdName>"
+        b"</command>"
+        b"</BroadsoftDocument>"
+    )
+    api = BroadworksAPI(**BASIC_API_PARAMS)
+    generated = api.decode_xml(xml)
+    assert generated.type_ == "GroupDepartmentAddRequest"
+
+    assert (
+        generated.parent_department_key.to_dict()
+        == api.get_type_object(  # noqa: W503
+            "GroupDepartmentKey",
+            service_provider_id="mysp",
+            group_id="mygroup",
+            name="test-name",
+        ).to_dict()
+    )
+
+
 # end

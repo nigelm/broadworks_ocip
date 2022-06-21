@@ -185,13 +185,6 @@ class OCIType:
                 if value is not None:
                     for subvalue in value:
                         self.etree_sub_element_(element, sub_element, subvalue)
-            elif sub_element.is_abstract:
-                if value is not None:
-                    # we pull the sub elements out of the abstract instance
-                    # we do not support multi level abstracts - ths is not the matrix
-                    for sub_sub_element in value._elements():
-                        sub_value = getattr(value, sub_sub_element.name)
-                        self.etree_sub_element_(element, sub_sub_element, sub_value)
             else:
                 self.etree_sub_element_(element, sub_element, value)
         return element
@@ -239,11 +232,19 @@ class OCIType:
                         col_item = etree.SubElement(row_item, "col")
                         col_item.text = col
         elif sub_element.is_complex:
-            elem = etree.SubElement(
-                element,
-                sub_element.xmlname,
-                nsmap=self._default_nsmap(),
-            )
+            if sub_element.is_abstract:
+                elem = etree.SubElement(
+                    element,
+                    sub_element.xmlname,
+                    {"{http://www.w3.org/2001/XMLSchema-instance}type": value.type_},
+                    nsmap=self._default_nsmap(),
+                )
+            else:
+                elem = etree.SubElement(
+                    element,
+                    sub_element.xmlname,
+                    nsmap=self._default_nsmap(),
+                )
             value.etree_sub_components_(elem)
         else:
             elem = etree.SubElement(
@@ -326,7 +327,12 @@ class OCIType:
         pass
 
     @classmethod
-    def build_from_node_(cls, elem: ElementInfo, node: etree._Element) -> Any:
+    def build_from_node_(
+        cls,
+        api: "BroadworksAPI",  # type: ignore # noqa
+        elem: ElementInfo,
+        node: etree._Element,
+    ) -> Any:
         """
         Creates an OCI subelement from a single  XML etree node
 
@@ -341,7 +347,19 @@ class OCIType:
             if elem.is_table:
                 return cls.decode_table_(node)
             elif elem.is_complex:
-                return elem.type.build_from_etree_(node)
+                if elem.is_abstract:
+                    if "{http://www.w3.org/2001/XMLSchema-instance}type" in node.attrib:
+                        thisclass = api.get_type_class(
+                            node.attrib[
+                                "{http://www.w3.org/2001/XMLSchema-instance}type"
+                            ],
+                        )
+                        logger.error(f"thisclass={thisclass}")
+                        return thisclass.build_from_etree_(api=api, element=node)
+                    else:
+                        return ValueError("Cannot decode abstract object")
+                else:
+                    return elem.type.build_from_etree_(api=api, element=node)
             elif elem.type == bool:
                 return elem.type(
                     True if node.text == "true" else False,
@@ -352,7 +370,12 @@ class OCIType:
             return None
 
     @classmethod
-    def build_from_etree_(cls, element: etree._Element, extras: Dict[str, Any] = {}):
+    def build_from_etree_(
+        cls,
+        api: "BroadworksAPI",  # type: ignore # noqa
+        element: etree._Element,
+        extras: Dict[str, Any] = {},
+    ):
         """
         Create an OciType based instance from an XML etree element
 
@@ -368,30 +391,20 @@ class OCIType:
                 result = []
                 nodes = element.findall(elem.xmlname)
                 for node in nodes:
-                    result.append(cls.build_from_node_(elem=elem, node=node))
+                    result.append(cls.build_from_node_(api=api, elem=elem, node=node))
                 initialiser[elem.name] = result
             else:
-                if elem.is_abstract:
-                    logger.error("XML decode of abstract property not yet supported")
-                    # for subclass in elem.type.__subclasses__():
-                    #     elem_name = cls.class_to_property_(subclass.__name__)
-                    #     node = element.find(elem_name)
-                    #     if node is not None:
-                    #         initialiser[elem.name] = subclass.build_from_node_(
-                    #             elem=elem,
-                    #             node=node,
-                    #         )
-                else:
-                    node = element.find(elem.xmlname)
-                    if node is not None:
-                        initialiser[elem.name] = cls.build_from_node_(
-                            elem=elem,
-                            node=node,
-                        )
-                    # else...
-                    # I am inclined to thow an error here - at least after checking if
-                    # the thing is require, but the class builder should do that so lets
-                    # let it do its thing
+                node = element.find(elem.xmlname)
+                if node is not None:
+                    initialiser[elem.name] = cls.build_from_node_(
+                        api=api,
+                        elem=elem,
+                        node=node,
+                    )
+                # else:
+                # I am inclined to thow an error here - at least after checking if
+                # the thing is require, but the class builder should do that so lets
+                # let it do its thing
         # now have a dict with all the bits in it.
         # use that to build a new object
         return cls(**initialiser)

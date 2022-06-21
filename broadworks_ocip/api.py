@@ -284,7 +284,7 @@ class BroadworksAPI:
                 command = element.get("{http://www.w3.org/2001/XMLSchema-instance}type")
                 self.logger.debug(f"Decoding command {command}")
                 cls = self._despatch_table[command]
-                result = cls.build_from_etree_(element, extras)
+                result = cls.build_from_etree_(api=self, element=element, extras=extras)
                 self.logger.info(f"<<< {result.type_}")
                 result.post_xml_decode_()
                 return result

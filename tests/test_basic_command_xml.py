@@ -371,8 +371,46 @@ def test_user_modify_department_key_xml():
             b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
             b'<command xmlns="" xsi:type="UserModifyRequest16">'
             b"<userId>fred.flintstone@boulder.org</userId>"
+            b'<department xsi:type="EnterpriseDepartmentKey">'
             b"<serviceProviderId>mysp</serviceProviderId>"
             b"<name>mydept</name>"
+            b"</department>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
+def test_group_department_add_xml():
+    cmd = api.get_command_object(
+        "GroupDepartmentAddRequest",
+        service_provider_id="mysp",
+        group_id="mygroup",
+        department_name="mydept",
+        parent_department_key=api.get_type_object(
+            "GroupDepartmentKey",
+            service_provider_id="mysp",
+            group_id="mygroup",
+            name="test-name",
+        ),
+        calling_line_id_name="clid_name",
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>\n'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xmlns="" xsi:type="GroupDepartmentAddRequest">'
+            b"<serviceProviderId>mysp</serviceProviderId>"
+            b"<groupId>mygroup</groupId>"
+            b"<departmentName>mydept</departmentName>"
+            b'<parentDepartmentKey xsi:type="GroupDepartmentKey">'
+            b"<serviceProviderId>mysp</serviceProviderId>"
+            b"<groupId>mygroup</groupId>"
+            b"<name>test-name</name>"
+            b"</parentDepartmentKey>"
+            b"<callingLineIdName>clid_name</callingLineIdName>"
             b"</command>"
             b"</BroadsoftDocument>"
         ),
