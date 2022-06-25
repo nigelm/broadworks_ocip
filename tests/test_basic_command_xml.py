@@ -418,4 +418,46 @@ def test_group_department_add_xml():
     )
 
 
+def test_nested_elements():
+    cmd = api.get_command_object(
+        "UserModifyRequest22",
+        user_id="user@example.com",
+        phone_number="123456789",
+        extension="1219",
+        # sip_alias_list=api.get_type_object("ReplacementSIPAliasList",sip_alias=[]),
+        endpoint=dict(
+            trunk_addressing=api.get_type_object(
+                "TrunkAddressingMultipleContactModify",
+                # trunk_group_device_endpoint=None,
+                enterprise_trunk_name="ET02",
+                # alternate_trunk_identity=None,
+                # physical_location=None,
+            ),
+        ),
+    )
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="UserModifyRequest22" xmlns="">'
+            b"<userId>user@example.com</userId>"
+            b"<phoneNumber>123456789</phoneNumber>"
+            b"<extension>1219</extension>"
+            # b'<sipAliasList xsi:nil="true"/>'
+            b"<endpoint>"
+            b"<trunkAddressing>"
+            # b'<trunkGroupDeviceEndpoint xsi:nil="true"/>'
+            b"<enterpriseTrunkName>ET02</enterpriseTrunkName>"
+            # b'<alternateTrunkIdentity xsi:nil="true"/>'
+            # b'<physicalLocation xsi:nil="true"/>'
+            b"</trunkAddressing>"
+            b"</endpoint>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
 # end

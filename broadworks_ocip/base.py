@@ -50,6 +50,7 @@ class ElementInfo:
     is_array: bool = attr.ib(default=False)
     is_table: bool = attr.ib(default=False)
     is_abstract: bool = attr.ib(default=False)
+    is_container: bool = attr.ib(default=False)
 
 
 class OCIType:
@@ -85,6 +86,11 @@ class OCIType:
                     if not isinstance(value, list):
                         raise TypeError(
                             f"{cname}: Expected {elem.name} to be a table/list but it is {type(value)}",
+                        )
+                elif elem.is_container:
+                    if not isinstance(value, dict):
+                        raise TypeError(
+                            f"{cname}: Expected {elem.name} to be a dict of elements but it is {type(value)}",
                         )
                 elif not isinstance(value, elem.type):
                     raise TypeError(
@@ -231,6 +237,15 @@ class OCIType:
                     for col in row:
                         col_item = etree.SubElement(row_item, "col")
                         col_item.text = col
+        elif sub_element.is_container:
+            elem = etree.SubElement(
+                element,
+                sub_element.xmlname,
+                nsmap=self._default_nsmap(),
+            )
+            for item in sub_element.type:
+                if item.name in value:
+                    self.etree_sub_element_(elem, item, value[item.name])
         elif sub_element.is_complex:
             if sub_element.is_abstract:
                 elem = etree.SubElement(

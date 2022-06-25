@@ -40,7 +40,12 @@ def process_element_type(element, phash, abstract_class_list, prefix):
             else:
                 thistype = prefix + name
         else:
-            phash["unknown"] = True  # TODO more complex type handling
+            phash["is_container"] = True
+            phash["contents"] = build_element_hash(
+                element.type,
+                abstract_class_list,
+                prefix,
+            )
     else:
         if type.primitive_type.id == "boolean":
             thistype = "bool"
@@ -78,6 +83,7 @@ def build_element_hash(xsd_component, abstract_class_list, prefix=""):
             "is_required": is_required,
             "is_array": is_array,
             "is_table": False,
+            "is_container": False,
             "unknown": False,
         }
         process_element_type(elem, phash, abstract_class_list, prefix)
@@ -92,34 +98,37 @@ def write_elements(file, elements):
     if len(elements):
         # We have elements - write them out - starting with the header
         file.write("        return (\n")
-        for item in elements.values():
-            ele = [
-                ('"' + item["name"] + '"'),
-                ('"' + item["xmlname"] + '"'),
-                item["type"],
-            ]
-            for query in (
-                "is_complex",
-                "is_required",
-                "is_array",
-                "is_table",
-                "is_abstract",
-            ):
-                if item[query]:
-                    ele.append(query + "=True")
-            comment = "  # unknown" if item["unknown"] else ""
-            outstr = " " * 12 + "E(" + ", ".join(ele) + ")," + comment
-            if len(outstr) >= 90:
-                file.write(" " * 12 + "E(\n")
-                for bit in ele:
-                    file.write(" " * 16 + bit + ",\n")
-                file.write(" " * 12 + ")," + comment + "\n")
-            else:
-                file.write(outstr + "\n")
+        for element in elements.values():
+            outstr = write_element(element)
+            file.write(f"            {outstr}\n")
         file.write("        )\n")
     else:
         # No elements - we write an empty set out
         file.write("        return ()\n")
+
+
+def write_element(element) -> str:
+    outstr = f'E("{element["name"]}", "{element["xmlname"]}", '
+    if element["is_container"]:
+        contents = []
+        for subelement in element["contents"].values():
+            contents.append(write_element(subelement))
+        outstr += f"[{' '.join(contents)}],"
+    else:
+        outstr += f'{element["type"]},'
+    for query in (
+        "is_complex",
+        "is_required",
+        "is_array",
+        "is_table",
+        "is_abstract",
+        "is_container",
+    ):
+        if element[query]:
+            outstr += f" {query}=True,"
+    comment = "  # unknown" if element["unknown"] else ""
+    outstr += f"),{comment}"
+    return outstr
 
 
 def write_slots(file, elements, thing):
