@@ -15,6 +15,7 @@ from typing import Tuple
 
 import attr
 from lxml import etree
+from null_object import Null
 
 from broadworks_ocip.exceptions import OCIErrorAPISetup
 from broadworks_ocip.exceptions import OCIErrorAttributeMissing
@@ -73,7 +74,10 @@ class OCIType:
                     raise OCIErrorAttributeMissing(
                         message=f"{cname}: Required attribute {elem.name} is missing",
                     )
-                if elem.is_array:
+                if value is Null:
+                    # always allowed
+                    pass
+                elif elem.is_array:
                     if not isinstance(value, list):
                         raise TypeError(
                             f"{cname}: Expected {elem.name} to be a list but it is {type(value)}",
@@ -212,14 +216,16 @@ class OCIType:
         Returns:
             etree: etree.Element() for this class
         """
-        if value is None:
-            if sub_element.is_required:
-                etree.SubElement(
-                    element,
-                    sub_element.xmlname,
-                    {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
-                    nsmap=self._default_nsmap(),
-                )
+        # if value is Null or (value is None and sub_element.is_required):
+        if value is Null or (value is None and sub_element.is_required):
+            etree.SubElement(
+                element,
+                sub_element.xmlname,
+                {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
+                nsmap=self._default_nsmap(),
+            )
+        elif value is None:
+            pass
         elif sub_element.is_table:
             # any table should be a list of namedtuple elements
             if type(value) is list and len(value) > 0:

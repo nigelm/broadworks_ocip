@@ -413,6 +413,14 @@ pymdown-extensions = ">=6.3"
 pytkdocs = ">=0.14.0"
 
 [[package]]
+name = "null-object"
+version = "0.1.0"
+description = "Null object"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
@@ -881,7 +889,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.2,<4.0"
-content-hash = "1e3191aacfb05615db62e106d13a1bda5d7849d223e7db28e0aa937f7b79155d"
+content-hash = "7ce7e41244eaa459dbf9cd599153f658cf88280ae34cbe9b9882a6ff151ff9e7"
 
 [metadata.files]
 astunparse = [
@@ -1179,6 +1187,9 @@ mkdocs-material-extensions = [
 mkdocstrings = [
     {file = "mkdocstrings-0.17.0-py3-none-any.whl", hash = "sha256:103fc1dd58cb23b7e0a6da5292435f01b29dc6fa0ba829132537f3f556f985de"},
     {file = "mkdocstrings-0.17.0.tar.gz", hash = "sha256:75b5cfa2039aeaf3a5f5cf0aa438507b0330ce76c8478da149d692daa7213a98"},
+]
+null-object = [
+    {file = "null-object-0.1.0.tar.gz", hash = "sha256:c5a0ed404c7fc48eb668a8da9e9cdf12253cb4ddc9c93a6f129b751b44d144fa"},
 ]
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},

@@ -4,6 +4,7 @@ from collections import namedtuple
 
 import pytest  # noqa: F401
 from lxml import etree
+from null_object import Null
 
 from broadworks_ocip import BroadworksAPI
 
@@ -425,13 +426,14 @@ def test_nested_elements():
         phone_number="123456789",
         extension="1219",
         # sip_alias_list=api.get_type_object("ReplacementSIPAliasList",sip_alias=[]),
+        sip_alias_list=Null,
         endpoint=dict(
             trunk_addressing=api.get_type_object(
                 "TrunkAddressingMultipleContactModify",
-                # trunk_group_device_endpoint=None,
+                trunk_group_device_endpoint=Null,
                 enterprise_trunk_name="ET02",
-                # alternate_trunk_identity=None,
-                # physical_location=None,
+                alternate_trunk_identity=Null,
+                physical_location=Null,
             ),
         ),
     )
@@ -444,13 +446,13 @@ def test_nested_elements():
             b"<userId>user@example.com</userId>"
             b"<phoneNumber>123456789</phoneNumber>"
             b"<extension>1219</extension>"
-            # b'<sipAliasList xsi:nil="true"/>'
+            b'<sipAliasList xsi:nil="true"/>'
             b"<endpoint>"
             b"<trunkAddressing>"
-            # b'<trunkGroupDeviceEndpoint xsi:nil="true"/>'
+            b'<trunkGroupDeviceEndpoint xsi:nil="true"/>'
             b"<enterpriseTrunkName>ET02</enterpriseTrunkName>"
-            # b'<alternateTrunkIdentity xsi:nil="true"/>'
-            # b'<physicalLocation xsi:nil="true"/>'
+            b'<alternateTrunkIdentity xsi:nil="true"/>'
+            b'<physicalLocation xsi:nil="true"/>'
             b"</trunkAddressing>"
             b"</endpoint>"
             b"</command>"
