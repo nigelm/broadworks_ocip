@@ -3,6 +3,7 @@
 from collections import namedtuple
 
 import pytest  # noqa: F401
+from null_object import Null
 
 from broadworks_ocip import BroadworksAPI
 
@@ -315,6 +316,47 @@ def test_group_department_add_xml():
             service_provider_id="mysp",
             group_id="mygroup",
             name="test-name",
+        ).to_dict()
+    )
+
+
+def test_nested_elements():
+    xml = (
+        b'<?xml version="1.0" encoding="ISO-8859-1"?>'
+        b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+        b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+        b'<command xsi:type="UserModifyRequest22" xmlns="">'
+        b"<userId>user@example.com</userId>"
+        b"<phoneNumber>123456789</phoneNumber>"
+        b"<extension>1219</extension>"
+        b'<sipAliasList xsi:nil="true"/>'
+        b"<endpoint>"
+        b"<trunkAddressing>"
+        b'<trunkGroupDeviceEndpoint xsi:nil="true"/>'
+        b"<enterpriseTrunkName>ET02</enterpriseTrunkName>"
+        b'<alternateTrunkIdentity xsi:nil="true"/>'
+        b"</trunkAddressing>"
+        b"</endpoint>"
+        b"</command>"
+        b"</BroadsoftDocument>"
+    )
+    api = BroadworksAPI(**BASIC_API_PARAMS)
+    generated = api.decode_xml(xml)
+    assert generated.type_ == "UserModifyRequest22"
+    assert generated.user_id == "user@example.com"
+    assert generated.phone_number == "123456789"
+    assert generated.sip_alias_list is Null
+
+    # assert generated.sip_alias_list is Null
+    print(generated.endpoint["trunk_addressing"])
+    assert (
+        generated.endpoint["trunk_addressing"].to_dict()
+        == api.get_type_object(  # noqa: W503
+            "TrunkAddressingMultipleContactModify",
+            trunk_group_device_endpoint=Null,
+            enterprise_trunk_name="ET02",
+            alternate_trunk_identity=Null,
+            # physical_location=None,
         ).to_dict()
     )
 

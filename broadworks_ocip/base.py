@@ -25,6 +25,11 @@ from broadworks_ocip.exceptions import OCIErrorUnexpectedAttribute
 
 logger = logging.getLogger(__name__)
 
+# constants
+XML_NIL = "{http://www.w3.org/2001/XMLSchema-instance}nil"
+XSD_INST = "http://www.w3.org/2001/XMLSchema-instance"
+XSD_TYPE = "{http://www.w3.org/2001/XMLSchema-instance}type"
+
 
 @attr.s(slots=True, frozen=True)
 class ElementInfo:
@@ -92,7 +97,7 @@ class OCIType:
                             f"{cname}: Expected {elem.name} to be a table/list but it is {type(value)}",
                         )
                 elif elem.is_container:
-                    if not isinstance(value, dict):
+                    if value is not None and not isinstance(value, dict):
                         raise TypeError(
                             f"{cname}: Expected {elem.name} to be a dict of elements but it is {type(value)}",
                         )
@@ -193,8 +198,11 @@ class OCIType:
             value = getattr(self, sub_element.name)
             if sub_element.is_array:
                 if value is not None:
-                    for subvalue in value:
-                        self.etree_sub_element_(element, sub_element, subvalue)
+                    if len(value) == 0:
+                        element.attrib[XML_NIL] = "true"
+                    else:
+                        for subvalue in value:
+                            self.etree_sub_element_(element, sub_element, subvalue)
             else:
                 self.etree_sub_element_(element, sub_element, value)
         return element
@@ -221,7 +229,7 @@ class OCIType:
             etree.SubElement(
                 element,
                 sub_element.xmlname,
-                {"{http://www.w3.org/2001/XMLSchema-instance}nil": "true"},
+                {XML_NIL: "true"},
                 nsmap=self._default_nsmap(),
             )
         elif value is None:
@@ -257,7 +265,7 @@ class OCIType:
                 elem = etree.SubElement(
                     element,
                     sub_element.xmlname,
-                    {"{http://www.w3.org/2001/XMLSchema-instance}type": value.type_},
+                    {XSD_TYPE: value.type_},
                     nsmap=self._default_nsmap(),
                 )
             else:
@@ -365,20 +373,26 @@ class OCIType:
             results: Object instance for this class
         """
         if node is not None:
-            if elem.is_table:
+            if XML_NIL in node.attrib and node.attrib[XML_NIL] == "true":
+                return Null
+            elif elem.is_table:
                 return cls.decode_table_(node)
             elif elem.is_complex:
                 if elem.is_abstract:
-                    if "{http://www.w3.org/2001/XMLSchema-instance}type" in node.attrib:
+                    if XSD_TYPE in node.attrib:
                         thisclass = api.get_type_class(
-                            node.attrib[
-                                "{http://www.w3.org/2001/XMLSchema-instance}type"
-                            ],
+                            node.attrib[XSD_TYPE],
                         )
                         logger.error(f"thisclass={thisclass}")
                         return thisclass.build_from_etree_(api=api, element=node)
                     else:
                         return ValueError("Cannot decode abstract object")
+                elif elem.is_container:
+                    return cls.build_initialiser_from_etree_(
+                        api=api,
+                        element=node,
+                        subelement_set=elem.type,
+                    )
                 else:
                     return elem.type.build_from_etree_(api=api, element=node)
             elif elem.type == bool:
@@ -391,23 +405,15 @@ class OCIType:
             return None
 
     @classmethod
-    def build_from_etree_(
+    def build_initialiser_from_etree_(
         cls,
         api: "BroadworksAPI",  # type: ignore # noqa
         element: etree._Element,
+        subelement_set: List[ElementInfo],
         extras: Dict[str, Any] = {},
     ):
-        """
-        Create an OciType based instance from an XML etree element
-
-        Arguments:
-            element: The OCIType XML element
-
-        Returns:
-            results: Object instance for this class
-        """
         initialiser = extras.copy()
-        for elem in cls._elements():
+        for elem in subelement_set:
             if elem.is_array:
                 result = []
                 nodes = element.findall(elem.xmlname)
@@ -426,6 +432,30 @@ class OCIType:
                 # I am inclined to thow an error here - at least after checking if
                 # the thing is require, but the class builder should do that so lets
                 # let it do its thing
+        return initialiser
+
+    @classmethod
+    def build_from_etree_(
+        cls,
+        api: "BroadworksAPI",  # type: ignore # noqa
+        element: etree._Element,
+        extras: Dict[str, Any] = {},
+    ):
+        """
+        Create an OciType based instance from an XML etree element
+
+        Arguments:
+            element: The OCIType XML element
+
+        Returns:
+            results: Object instance for this class
+        """
+        initialiser = cls.build_initialiser_from_etree_(
+            api=api,
+            element=element,
+            subelement_set=list(cls._elements()),
+            extras=extras,
+        )
         # now have a dict with all the bits in it.
         # use that to build a new object
         return cls(**initialiser)
@@ -446,7 +476,7 @@ class OCIType:
             elif elem.is_complex:
                 if elem.is_array:
                     value = [x.to_dict() for x in value]
-                else:
+                elif value is not None:
                     value = value.to_dict()
             elif elem.is_array:
                 value = [x for x in value]
@@ -530,7 +560,7 @@ class OCICommand(OCIType):
         return etree.SubElement(
             root,
             "command",
-            {"{http://www.w3.org/2001/XMLSchema-instance}type": self.type_},
+            {XSD_TYPE: self.type_},
             nsmap=self._default_nsmap(),
         )
 
@@ -585,7 +615,7 @@ class OCIResponse(OCICommand):
         return etree.SubElement(
             root,
             "command",
-            {"echo": "", "{http://www.w3.org/2001/XMLSchema-instance}type": self.type_},
+            {"echo": "", XSD_TYPE: self.type_},
             nsmap=self._default_nsmap(),
         )
 
@@ -652,7 +682,7 @@ class ErrorResponse(OCIResponse):
             {
                 "type": "Error",
                 "echo": "",
-                "{http://www.w3.org/2001/XMLSchema-instance}type": "c:" + self.type_,
+                XSD_TYPE: "c:" + self.type_,
             },
             nsmap=self._error_nsmap(),
         )
