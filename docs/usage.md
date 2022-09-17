@@ -1,5 +1,24 @@
 # Usage
 
+## Summary
+
+Initially set up an API object to talk to the Broadworks server:-
+
+```python
+    from broadworks_ocip import BroadworksAPI
+
+    # configure the API, connect and authenticate to the server
+    api = BroadworksAPI(
+        host=args.host, port=args.port, username=args.username, password=args.password,
+    )
+```
+
+The API object is used to construct commands to Broadworks.  The details of
+the API methods and attributes are detailed in the
+[`BroadworksAPI` Documentation](api/api), but the main method used is the
+`command()` method.  This
+
+
 ## Simple Usage
 
 To use Broadworks OCI-P Interface in a project:-
@@ -28,7 +47,7 @@ To use Broadworks OCI-P Interface in a project:-
 ## More Complex Usage
 
 Some commands are more complex and made up of additional type components.
-This could lead to commands such as this::
+This could lead to commands such as this:-
 
 ```python
     result = api.command(

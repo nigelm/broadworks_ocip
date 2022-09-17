@@ -320,6 +320,12 @@ class BroadworksAPI:
         """
         Authenticate the connection to the OCI-P server
 
+        This is typically not directly called by users, because the `command
+        ()` method checks, and if necessary, calls this method if the
+        connection is not already authenticated.   However if you are making
+        use of the API functions without using `command()` you may manually
+        authenticate yourself.
+
         Raises:
             OCIErrorResponse: An error was returned from the server
 
@@ -348,7 +354,18 @@ class BroadworksAPI:
 
     def command(self, command, **kwargs) -> broadworks_ocip.base.OCICommand:
         """
-        Send a command and parameters to the server, receive and decode a response
+        Send a command and parameters to the server, receive and decode a
+        response. The command parameter is the name of Broadworks command - a
+        single word name of a `OCIRequest()` or `OCIResponse()`.  The
+        following parameters are the various arguments for that command.
+
+        If the session is not already authenticated, an authentication is
+        performed before sending the command - this can obviously fail if the
+        authentication details are not accepted, in which case an `OCIError`
+        exception is raised.
+
+        The response to the sent command is received and decoded.  The
+        received command object (or exception) is returned.
 
         Arguments:
             command: A single word name of a `OCIRequest()`
