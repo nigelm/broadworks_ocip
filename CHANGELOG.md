@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!--next-version-placeholder-->
 
+## v2.1.0 (2022-09-17)
+### Feature
+* Add Null value which stands in for a forced XML nil value ([`4701ec5`](https://github.com/nigelm/broadworks_ocip/commit/4701ec529b3ce35f183d41e30c3c9ab7bb90f701))
+* Handle nested elements ([`2467b8f`](https://github.com/nigelm/broadworks_ocip/commit/2467b8fc5edd7c0550b68af94997b5225a1d4485))
+
+### Fix
+* Table decoder handles weird chars in column names ([`a8fe66b`](https://github.com/nigelm/broadworks_ocip/commit/a8fe66b791e90024e2d884c567985818ce2e96e3))
+* Fully handle NULL and empty lists ([`2f5f590`](https://github.com/nigelm/broadworks_ocip/commit/2f5f5904c1d0339443491652ef6df9bc27720ff3))
+
 ## v2.0.4 (2022-06-21)
 ### Fix
 * Make abstract types work now I have an example ([`5bff15c`](https://github.com/nigelm/broadworks_ocip/commit/5bff15c332f705c079944ff89e3e4125278289f5))
