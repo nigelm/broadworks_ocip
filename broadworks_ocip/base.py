@@ -300,7 +300,7 @@ class OCIType:
         Returns:
             snake: lower cased and underscore separated result name
         """
-        return re.sub("[ _]+", r"_", header).lower()
+        return re.sub("[^A-Za-z0-9]+", r"_", header).lower()
 
     def snake_case_to_column_header(self, snake_str: str) -> str:
         """

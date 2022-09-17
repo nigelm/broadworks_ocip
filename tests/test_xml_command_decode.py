@@ -24,6 +24,34 @@ class serviceProviderTable(
     pass
 
 
+class registrationTable(
+    namedtuple(
+        "registrationTable",
+        [
+            "device_level",
+            "device_name",
+            "order",
+            "uri",
+            "expiration",
+            "line_port",
+            "endpoint_type",
+            "public_net_address",
+            "public_port",
+            "private_net_address",
+            "private_port",
+            "user_agent",
+            "lockout_started",
+            "lockout_expires",
+            "lockout_count",
+            "access_info",
+            "path_header",
+            "registration_active",
+        ],
+    ),
+):
+    pass
+
+
 def make_command_from_xml(xml, command, serialised):
     """Create a Broadworks XML command framgment from the argumenta"""
     api = BroadworksAPI(**BASIC_API_PARAMS)
@@ -359,6 +387,83 @@ def test_nested_elements():
             # physical_location=None,
         ).to_dict()
     )
+
+
+def test_unexpected_table_column_name():
+    """We did not handle unexpected characters in table column names"""
+    xml = (
+        b'<?xml version="1.0" encoding="ISO-8859-1"?>'
+        b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+        b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+        b'<command echo="" xsi:type="UserGetRegistrationListResponse" xmlns="">'
+        b"<registrationTable>"
+        b"<colHeading>Device Level</colHeading>"
+        b"<colHeading>Device Name</colHeading>"
+        b"<colHeading>Order</colHeading>"
+        b"<colHeading>URI</colHeading>"
+        b"<colHeading>Expiration</colHeading>"
+        b"<colHeading>Line/Port</colHeading>"
+        b"<colHeading>Endpoint Type</colHeading>"
+        b"<colHeading>Public Net Address</colHeading>"
+        b"<colHeading>Public Port</colHeading>"
+        b"<colHeading>Private Net Address</colHeading>"
+        b"<colHeading>Private Port</colHeading>"
+        b"<colHeading>User Agent</colHeading>"
+        b"<colHeading>Lockout Started</colHeading>"
+        b"<colHeading>Lockout Expires</colHeading>"
+        b"<colHeading>Lockout Count</colHeading>"
+        b"<colHeading>Access Info</colHeading>"
+        b"<colHeading>Path Header</colHeading>"
+        b"<colHeading>Registration Active</colHeading>"
+        b"<row>"
+        b"<col>Group</col>"
+        b"<col>812345678</col>"
+        b"<col>1</col>"
+        b"<col>sip:812345678@1.2.3.4:5060;dtg=UC1_BVE_INT_9999_TG;reg-info=39400</col>"
+        b"<col>Fri Jul 08 00:01:02 BST 2022</col>"
+        b"<col>812345678@voip.hawaiiantel.xxx</col>"
+        b"<col>Primary</col>"
+        b"<col/>"
+        b"<col/>"
+        b"<col/>"
+        b"<col/>"
+        b"<col>PolyEdge-Edge_E220-UA/8.0.0.13670_48256712b942</col>"
+        b"<col/>"
+        b"<col/>"
+        b"<col>0</col>"
+        b"<col/>"
+        b"<col/>"
+        b"<col/>"
+        b"</row>"
+        b"</registrationTable>"
+        b"</command>"
+        b"</BroadsoftDocument>"
+    )
+    api = BroadworksAPI(**BASIC_API_PARAMS)
+    generated = api.decode_xml(xml)
+    assert generated.type_ == "UserGetRegistrationListResponse"
+    assert generated.registration_table == [
+        registrationTable(
+            device_level="Group",
+            device_name="812345678",
+            order="1",
+            uri="sip:812345678@1.2.3.4:5060;dtg=UC1_BVE_INT_9999_TG;reg-info=39400",
+            expiration="Fri Jul 08 00:01:02 BST 2022",
+            line_port="812345678@voip.hawaiiantel.xxx",
+            endpoint_type="Primary",
+            public_net_address=None,
+            public_port=None,
+            private_net_address=None,
+            private_port=None,
+            user_agent="PolyEdge-Edge_E220-UA/8.0.0.13670_48256712b942",
+            lockout_started=None,
+            lockout_expires=None,
+            lockout_count="0",
+            access_info=None,
+            path_header=None,
+            registration_active=None,
+        ),
+    ]
 
 
 # end
