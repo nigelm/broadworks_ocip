@@ -18,6 +18,7 @@ nav:
   - Contributing: contributing.md
   - Changelog: changelog.md
   - License: license.md
+  - To Do: todo.md
 
 theme:
   name: material
