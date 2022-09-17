@@ -501,4 +501,39 @@ def test_nested_elements2():
     )
 
 
+def test_user_get_list_in_system():
+    cmd = api.get_command_object(
+        "UserGetListInSystemRequest",
+        response_size_limit=10,
+        search_criteria_dn=[
+            api.get_type_object(
+                "SearchCriteriaDn",
+                mode="Contains",
+                value="12345678",
+                is_case_insensitive=True,
+            ),
+        ],
+    )
+    assert cmd is not None
+    assert "UserGetListInSystemRequest" in str(type(cmd))
+
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="UserGetListInSystemRequest" xmlns="">'
+            b"<responseSizeLimit>10</responseSizeLimit>"
+            b"<searchCriteriaDn>"
+            b"<mode>Contains</mode>"
+            b"<value>12345678</value>"
+            b"<isCaseInsensitive>true</isCaseInsensitive>"
+            b"</searchCriteriaDn>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
 # end
