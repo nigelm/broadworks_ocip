@@ -389,6 +389,42 @@ def test_nested_elements():
     )
 
 
+def test_vpn_policy_decode():
+    xml = (
+        b'<?xml version="1.0" encoding="ISO-8859-1"?>'
+        b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+        b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+        b'<command echo="" xsi:type="EnterpriseVoiceVPNGetPolicyResponse" xmlns="">'
+        b"<minExtensionLength>0</minExtensionLength>"
+        b"<maxExtensionLength>0</maxExtensionLength>"
+        b"<policySelection>Public</policySelection>"
+        b'<digitManipulation xsi:type="EnterpriseVoiceVPNDigitManipulationOptionalValue">'
+        b"<operation>Prepend</operation>"
+        b"<value>253</value>"
+        b"</digitManipulation>"
+        b"</command>"
+        b"</BroadsoftDocument>"
+    )
+    api = BroadworksAPI(**BASIC_API_PARAMS)
+    generated = api.decode_xml(xml)
+    assert generated.type_ == "EnterpriseVoiceVPNGetPolicyResponse"
+    assert generated.min_extension_length == 0
+    assert generated.max_extension_length == 0
+    assert generated.description is None
+    assert generated.route_group_id is None
+    assert generated.policy_selection == "Public"
+    assert len(generated.digit_manipulation) == 1
+    assert (
+        generated.digit_manipulation[0].to_dict()
+        == api.get_type_object(  # noqa: W503
+            "EnterpriseVoiceVPNDigitManipulationOptionalValue",
+            operation="Prepend",
+            value="253",
+        ).to_dict()
+    )
+    assert generated.treatment_id is None
+
+
 def test_unexpected_table_column_name():
     """We did not handle unexpected characters in table column names"""
     xml = (
