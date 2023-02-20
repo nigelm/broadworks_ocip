@@ -34,7 +34,7 @@ exclude = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<4.0"
+python = ">=3.6.2"
 lxml = "^4.7.1"
 attrs = "^21.4.0"
 null-object = "^0.1.0"
@@ -45,7 +45,7 @@ toposort = "^1.7"
 xmlschema = "^1.9.2"
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.7"
-mkdocstrings = "^0.17.0"
+mkdocstrings = { version = "^0.17.0", python = ">=3.6.2,<4.0" }
 tiangolo-markdown-include = "^0.7.0"
 python-semantic-release = "^7.23.0"
 py-markdown-table = "^0.2.2"
