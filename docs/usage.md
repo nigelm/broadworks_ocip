@@ -13,11 +13,10 @@ Initially set up an API object to talk to the Broadworks server:-
     )
 ```
 
-The API object is used to construct commands to Broadworks.  The details of
+The API object is used to construct commands to Broadworks. The details of
 the API methods and attributes are detailed in the
 [`BroadworksAPI` Documentation](api/api), but the main method used is the
-`command()` method.  This
-
+`command()` method. This
 
 ## Simple Usage
 
@@ -42,7 +41,6 @@ To use Broadworks OCI-P Interface in a project:-
     for provider in response.service_provider_table:
         print(provider.service_provider_id)
 ```
-
 
 ## More Complex Usage
 
@@ -83,11 +81,11 @@ This could lead to commands such as this:-
 ## Return Values, Failures and Exceptions
 
 Most of the query type commands return a ...Response object, which can be
-dealt with appropriately.   Some of the action commands will return either a
+dealt with appropriately. Some of the action commands will return either a
 `SuccessResponse` - which is close to an empty object - or alteratively an
 `ErrorResponse` which will cause an exception to be raised.
 
-A failed command typically returns an `ErrorResponse`.  When decoded the
+A failed command typically returns an `ErrorResponse`. When decoded the
 `ErrorResponse` will raise a `OCIErrorResponse` exception.
 
 Additionally a command may raise other exceptions, related to the TCP
@@ -109,8 +107,8 @@ try/except structure:-
 
 ## Server
 
-Due to the way these objects have been built it *should* be fairly simple to
+Due to the way these objects have been built it _should_ be fairly simple to
 make a Broadworks OCI-P server which accepts and decodes requests and replies
 with appropriate responses; and this was done in a very simplified form to
-make the `fakeserver.py` which is used in testing.  However this is not likely
+make the `fakeserver.py` which is used in testing. However this is not likely
 to be very useful in practice.

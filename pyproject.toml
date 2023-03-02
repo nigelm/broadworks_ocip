@@ -67,3 +67,10 @@ patch_without_tag = true
 build_command = "poetry build"
 upload_to_pypi = false
 check_build_status = false
+
+# ruff is a replacement for flake8
+[tool.ruff]
+line-length = 150
+ignore = ["F821"]
+
+# end

@@ -6,33 +6,33 @@
 
 `broadworks_ocip` interfaces to the OCI-P provisioning interface of a Broadworks softswitch
 
+-   Free software: BSD license
+-   Documentation: https://nigelm.github.io/broadworks_ocip/
 
-- Free software: BSD license
-- Documentation: https://nigelm.github.io/broadworks_ocip/
-
-----
+---
 
 ## Features
 
-- python objects to match all Broadworks schema objects
-- API framework to talk to a Broadworks server
-- additional magic to handle authentication and sessions
-- Based on Broadworks schema R24
+-   python objects to match all Broadworks schema objects
+-   API framework to talk to a Broadworks server
+-   additional magic to handle authentication and sessions
+-   Based on Broadworks schema R24
 
 ## Current Version
 
 Version: `2.1.0`
 
-----
+---
 
 ## Installation
 
 With `pip`:
+
 ```bash
 python3 -m pip install broadworks-ocip
 ```
 
-----
+---
 
 ## Usage
 
@@ -55,14 +55,13 @@ print(response.version)
 ## Version 2
 
 Despite the bump in version number there are no known major incompatibilities
-from previous versions.  However the underlying class base has been changed
+from previous versions. However the underlying class base has been changed
 to a vanilla python slots based system - the thinking behind this is in the
-API internals documentation.  This will change the underlying requirements.
+API internals documentation. This will change the underlying requirements.
 
 Additionally at the same time I have converted to Broadworks R24 API schema
-files as the basis for generating these classes.  This will change the set of
+files as the basis for generating these classes. This will change the set of
 available commands and classes.
-
 
 ## Credits
 
@@ -75,6 +74,6 @@ Development on the python version was done by
 
 Karol Skibiński has been using the package, and has a talent for both finding
 bugs within it and providing a good bug report that allows a test case and fix
-to be made.  The package has been immensely improved by this work.
+to be made. The package has been immensely improved by this work.
 
-----
+---

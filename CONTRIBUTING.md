@@ -11,9 +11,9 @@ Report bugs at https://github.com/nigelm/broadworks_ocip/issues.
 
 If you are reporting a bug, please include:
 
-- Your operating system name and version.
-- Any details about your local setup that might be helpful in troubleshooting.
-- Detailed steps to reproduce the bug.
+-   Your operating system name and version.
+-   Any details about your local setup that might be helpful in troubleshooting.
+-   Detailed steps to reproduce the bug.
 
 ## Fix Bugs
 
@@ -37,10 +37,10 @@ The best way to send feedback is to file an issue at https://github.com/nigelm/b
 
 If you are proposing a feature:
 
-- Explain in detail how it would work.
-- Keep the scope as narrow as possible, to make it easier to implement.
-- Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
+-   Explain in detail how it would work.
+-   Keep the scope as narrow as possible, to make it easier to implement.
+-   Remember that this is a volunteer-driven project, and that contributions
+    are welcome :)
 
 ## Get Started!
 
@@ -49,39 +49,47 @@ Ready to contribute? Here's how to set up `broadworks_ocip` for local developmen
 1. Fork the `broadworks_ocip` repo on GitHub.
 
 2. Clone your fork locally:
+
 ```bash
 $ git clone git@github.com:your_name_here/broadworks_ocip.git
 ```
 
 3. We use [`poetry`](https://python-poetry.org/) for development, this is how you set up your
    fork for local development
+
 ```bash
 $ cd broadworks_ocip/
 $ poetry install
 ```
 
 4. Create a branch for local development:
+
 ```bash
 $ git checkout -b name-of-your-bugfix-or-feature
 ```
-   Now you can make your changes locally.
+
+Now you can make your changes locally.
 
 5. If you use updated schemas, or modify `process_schema.py` you must regenerate
    the generated python code:
+
 ```bash
 $ make code
 ```
 
 6. When you're done making changes, use pre-commit to do basic checks and ensure formatting
    is consistant, and check that your changes pass the tests::
+
 ```bash
 $ git add .; pre-commit run
 $ make test
 $ make servdocs    # generate local docs for checking
 ```
-   `pre-commit` may need to be installed onto your system.
+
+`pre-commit` may need to be installed onto your system.
 
 7. Commit your changes and push your branch to GitHub:
+
 ```bash
 $ git add .
 $ git commit -m "Your detailed description of your changes."
@@ -89,7 +97,6 @@ $ git push origin name-of-your-bugfix-or-feature
 ```
 
 8. Submit a pull request through the GitHub website.
-
 
 # Deploying
 

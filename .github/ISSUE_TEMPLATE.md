@@ -1,6 +1,6 @@
-* Broadworks OCI-P Interface version:
-* Python version:
-* Operating System:
+-   Broadworks OCI-P Interface version:
+-   Python version:
+-   Operating System:
 
 ### Description
 
