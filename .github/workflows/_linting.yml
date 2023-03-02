@@ -9,16 +9,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Check out repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Set up python
-              uses: actions/setup-python@v2
+              uses: actions/setup-python@v4
               with:
                   python-version: 3.10.10
 
             - name: Load cached pre-commit installation
               id: cached-pre-comit-install
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: |
                       ~/venv
