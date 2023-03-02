@@ -4,7 +4,8 @@ import tempfile
 import nox
 
 
-@nox.session(python=["3.6", "3.7", "3.8", "3.9", "3.10"])
+# need to work out whats wrong with python 3.11 for this
+@nox.session(python=["3.8", "3.9", "3.10"])
 def tests(session):
     session.install("poetry")
     session.run("poetry", "install", external=True)
