@@ -616,7 +616,7 @@ such.</p>
 <li>Explain in detail how it would work.</li>
 <li>Keep the scope as narrow as possible, to make it easier to implement.</li>
 <li>Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)</li>
+    are welcome :)</li>
 </ul>
 <h2 id="get-started">Get Started!</h2>
 <p>Ready to contribute? Here's how to set up <code>broadworks_ocip</code> for local development.</p>
@@ -625,48 +625,48 @@ such.</p>
 <p>Fork the <code>broadworks_ocip</code> repo on GitHub.</p>
 </li>
 <li>
-<p>Clone your fork locally:
-<div class="highlight"><pre><span></span><code>$ git clone git@github.com:your_name_here/broadworks_ocip.git
-</code></pre></div></p>
+<p>Clone your fork locally:</p>
 </li>
-<li>
-<p>We use <a href="https://python-poetry.org/"><code>poetry</code></a> for development, this is how you set up your
-   fork for local development
+</ol>
+<div class="highlight"><pre><span></span><code>$ git clone git@github.com:your_name_here/broadworks_ocip.git
+</code></pre></div>
+<ol>
+<li>We use <a href="https://python-poetry.org/"><code>poetry</code></a> for development, this is how you set up your
+   fork for local development</li>
+</ol>
 <div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> broadworks_ocip/
 $ poetry install
-</code></pre></div></p>
-</li>
-<li>
-<p>Create a branch for local development:
+</code></pre></div>
+<ol>
+<li>Create a branch for local development:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>$ git checkout -b name-of-your-bugfix-or-feature
 </code></pre></div>
-   Now you can make your changes locally.</p>
-</li>
-<li>
-<p>If you use updated schemas, or modify <code>process_schema.py</code> you must regenerate
-   the generated python code:
+<p>Now you can make your changes locally.</p>
+<ol>
+<li>If you use updated schemas, or modify <code>process_schema.py</code> you must regenerate
+   the generated python code:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>$ make code
-</code></pre></div></p>
-</li>
-<li>
-<p>When you're done making changes, use pre-commit to do basic checks and ensure formatting
-   is consistant, and check that your changes pass the tests::
+</code></pre></div>
+<ol>
+<li>When you're done making changes, use pre-commit to do basic checks and ensure formatting
+   is consistant, and check that your changes pass the tests::</li>
+</ol>
 <div class="highlight"><pre><span></span><code>$ git add .<span class="p">;</span> pre-commit run
 $ make <span class="nb">test</span>
 $ make servdocs    <span class="c1"># generate local docs for checking</span>
 </code></pre></div>
-   <code>pre-commit</code> may need to be installed onto your system.</p>
-</li>
-<li>
-<p>Commit your changes and push your branch to GitHub:
+<p><code>pre-commit</code> may need to be installed onto your system.</p>
+<ol>
+<li>Commit your changes and push your branch to GitHub:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>$ git add .
 $ git commit -m <span class="s2">&quot;Your detailed description of your changes.&quot;</span>
 $ git push origin name-of-your-bugfix-or-feature
-</code></pre></div></p>
-</li>
-<li>
-<p>Submit a pull request through the GitHub website.</p>
-</li>
+</code></pre></div>
+<ol>
+<li>Submit a pull request through the GitHub website.</li>
 </ol>
 <h1 id="deploying">Deploying</h1>
 <p>This is now handled by github actions - there is a manual release action.</p>

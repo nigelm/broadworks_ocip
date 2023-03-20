@@ -583,10 +583,10 @@
         <span class="n">host</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div>
-<p>The API object is used to construct commands to Broadworks.  The details of
+<p>The API object is used to construct commands to Broadworks. The details of
 the API methods and attributes are detailed in the
 <a href="api/api"><code>BroadworksAPI</code> Documentation</a>, but the main method used is the
-<code>command()</code> method.  This</p>
+<code>command()</code> method. This</p>
 <h2 id="simple-usage">Simple Usage</h2>
 <p>To use Broadworks OCI-P Interface in a project:-</p>
 <div class="highlight"><pre><span></span><code>    <span class="kn">from</span> <span class="nn">broadworks_ocip</span> <span class="kn">import</span> <span class="n">BroadworksAPI</span>
@@ -641,10 +641,10 @@ This could lead to commands such as this:-</p>
 </code></pre></div>
 <h2 id="return-values-failures-and-exceptions">Return Values, Failures and Exceptions</h2>
 <p>Most of the query type commands return a ...Response object, which can be
-dealt with appropriately.   Some of the action commands will return either a
+dealt with appropriately. Some of the action commands will return either a
 <code>SuccessResponse</code> - which is close to an empty object - or alteratively an
 <code>ErrorResponse</code> which will cause an exception to be raised.</p>
-<p>A failed command typically returns an <code>ErrorResponse</code>.  When decoded the
+<p>A failed command typically returns an <code>ErrorResponse</code>. When decoded the
 <code>ErrorResponse</code> will raise a <code>OCIErrorResponse</code> exception.</p>
 <p>Additionally a command may raise other exceptions, related to the TCP
 communications layers, or a <code>OCIErrorTimeOut</code> if no response is received in
@@ -663,7 +663,7 @@ try/except structure:-</p>
 <p>Due to the way these objects have been built it <em>should</em> be fairly simple to
 make a Broadworks OCI-P server which accepts and decodes requests and replies
 with appropriate responses; and this was done in a very simplified form to
-make the <code>fakeserver.py</code> which is used in testing.  However this is not likely
+make the <code>fakeserver.py</code> which is used in testing. However this is not likely
 to be very useful in practice.</p>
 
               

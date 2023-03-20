@@ -422,6 +422,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v212-2023-03-20" class="md-nav__link">
+    v2.1.2 (2023-03-20)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v211-2023-03-20" class="md-nav__link">
+    v2.1.1 (2023-03-20)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v210-2022-09-17" class="md-nav__link">
     v2.1.0 (2022-09-17)
   </a>
@@ -753,6 +767,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v212-2023-03-20" class="md-nav__link">
+    v2.1.2 (2023-03-20)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v211-2023-03-20" class="md-nav__link">
+    v2.1.1 (2023-03-20)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v210-2022-09-17" class="md-nav__link">
     v2.1.0 (2022-09-17)
   </a>
@@ -1044,6 +1072,8 @@ This is now automatically updated by <code>python-semantic-release</code>.</p>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <!--next-version-placeholder-->
 
+<h2 id="v212-2023-03-20">v2.1.2 (2023-03-20)</h2>
+<h2 id="v211-2023-03-20">v2.1.1 (2023-03-20)</h2>
 <h2 id="v210-2022-09-17">v2.1.0 (2022-09-17)</h2>
 <h3 id="feature">Feature</h3>
 <ul>
@@ -1111,7 +1141,7 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 </ul>
 <h3 id="breaking">Breaking</h3>
 <ul>
-<li>This release changes to a different underlying class system - which should not have any user visible issues other than there are now no longer the full set of basic methods on an object that the old ClassForge base gave.  Additionally the classes are generated from the Broadworks R24 schemas.  (<a href="https://github.com/nigelm/broadworks_ocip/commit/61c292dc01020d700653f4d30e5c65937a7ddddb"><code>61c292d</code></a>)</li>
+<li>This release changes to a different underlying class system - which should not have any user visible issues other than there are now no longer the full set of basic methods on an object that the old ClassForge base gave. Additionally the classes are generated from the Broadworks R24 schemas. (<a href="https://github.com/nigelm/broadworks_ocip/commit/61c292dc01020d700653f4d30e5c65937a7ddddb"><code>61c292d</code></a>)</li>
 </ul>
 <h3 id="documentation_1">Documentation</h3>
 <ul>
@@ -1121,9 +1151,9 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <h2 id="150-2022-01-13">[1.5.0] - 2022-01-13</h2>
 <ul>
 <li>Change schema processor to pick up many more places where array values are
-  appropriate. This is going to break the API signature for a lot of
-  functions - although not likely to be ones people were using considering
-  this has been broken for a while.</li>
+    appropriate. This is going to break the API signature for a lot of
+    functions - although not likely to be ones people were using considering
+    this has been broken for a while.</li>
 <li>chore: update dependencies</li>
 <li>ci: update pre-commit rules</li>
 <li>test: added test for UserVoiceMessagingUserModifyVoiceManagementRequest</li>
@@ -1182,7 +1212,7 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <h2 id="053-2020-10-07">[0.5.3] - 2020-10-07</h2>
 <ul>
 <li>Occaisionally you can get an exception thrown on socket close as the
-  api object is deleted.  Added try/except around this to catch.</li>
+    api object is deleted. Added try/except around this to catch.</li>
 <li>More log modifications - less opinionated</li>
 <li>Split traffic logging to a VERBOSE_DEBUG setting - log level 9</li>
 </ul>
@@ -1197,14 +1227,14 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <h2 id="050-2020-10-06">[0.5.0] - 2020-10-06</h2>
 <ul>
 <li>Reversed the stupid mistake of trying to special case complex types
-  such as <code>UnboundedPositiveInt</code> - these now need to be treated as
-  the complex types they are.</li>
+    such as <code>UnboundedPositiveInt</code> - these now need to be treated as
+    the complex types they are.</li>
 </ul>
 <h2 id="040-2020-10-06">[0.4.0] - 2020-10-06</h2>
 <ul>
 <li>Split out handling in API of Types and Commands.</li>
 <li>This changes <code>get_command_class()</code> to <code>get_type_class()</code> and adds
-  <code>get_type_object()</code></li>
+    <code>get_type_object()</code></li>
 </ul>
 <h2 id="031-2020-10-05">[0.3.1] - 2020-10-05</h2>
 <ul>
