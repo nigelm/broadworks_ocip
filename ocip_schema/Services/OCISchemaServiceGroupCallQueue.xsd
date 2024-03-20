@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
+<!--                                                                                      -->
+<!-- G R O U P   C A L L   Q U E U E   S E R V I C E                                      -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+
+  <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
+
+  <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
+  <xs:include schemaLocation="../OCISchemaSearchCriteria.xsd"/>
+  <xs:include schemaLocation="../OCISchemaSortCriteria.xsd"/>
+
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The Group Call Queue specific non-primitive attributes are listed here in alphabetical order.
+  -->
+
+
+  <xs:complexType name="GroupCallQueueAnnouncementDescriptionList">
+    <xs:annotation>
+      <xs:documentation>
+        Contains a list of file descriptions for audio files.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fileDescription1" type="FileDescription" minOccurs="0"/>
+      <xs:element name="fileDescription2" type="FileDescription" minOccurs="0"/>
+      <xs:element name="fileDescription3" type="FileDescription" minOccurs="0"/>
+      <xs:element name="fileDescription4" type="FileDescription" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GroupCallQueueAnnouncementFileListModify">
+    <xs:annotation>
+      <xs:documentation>
+        Contains a list of audio files to modify.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="file1" type="LabeledMediaFileResource" nillable="true" minOccurs="0"/>
+      <xs:element name="file2" type="LabeledMediaFileResource" nillable="true" minOccurs="0"/>
+      <xs:element name="file3" type="LabeledMediaFileResource" nillable="true" minOccurs="0"/>
+      <xs:element name="file4" type="LabeledMediaFileResource" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GroupCallQueueAnnouncementMediaFileTypeList">
+    <xs:annotation>
+      <xs:documentation>
+        Contains a list of file media types for audio files.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="mediaType1" type="MediaFileType" minOccurs="0"/>
+      <xs:element name="mediaType2" type="MediaFileType" minOccurs="0"/>
+      <xs:element name="mediaType3" type="MediaFileType" minOccurs="0"/>
+      <xs:element name="mediaType4" type="MediaFileType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GroupCallQueueMusicOnHoldSourceModify">
+    <xs:annotation>
+      <xs:documentation>
+        Contains the Group Call Queue music on hold source configuration.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="audioMessageSourceSelection" type="GroupCallQueueMusicOnHoldMessageSelection" minOccurs="0"/>
+      <xs:element name="audioFile" type="LabeledMediaFileResource" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GroupCallQueueMusicOnHoldSourceRead">
+    <xs:annotation>
+      <xs:documentation>
+        Contains the Group Call Queue music on hold source configuration.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="audioMessageSourceSelection" type="GroupCallQueueMusicOnHoldMessageSelection"/>
+      <xs:element name="audioFileDescription" type="FileDescription" minOccurs="0"/>
+      <xs:element name="audioMediaType" type="MediaFileType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="GroupCallQueueAnnouncementTimerSeconds">
+    <xs:annotation>
+      <xs:documentation>
+        Group Call Queue - The timer determines the timespan between the list of configured announcements for a waiting call.
+        When set to 0, the announcements are played in loop indefinitely.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="300"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GroupCallQueueDepth">
+    <xs:annotation>
+      <xs:documentation>
+        Group Call Queue - the depth (maximum waiting calls) of a queue.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GroupCallQueueMaxAssignmentCount">
+    <xs:annotation>
+      <xs:documentation>
+        Group Call Queue - maximum number of queues a user can be assigned to.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="25"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GroupCallQueueMusicOnHoldMessageSelection">
+    <xs:annotation>
+      <xs:documentation>
+        Group Call Queue music on hold message selection.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Default"/>
+      <xs:enumeration value="Custom"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GroupCallQueueQueueCode">
+    <xs:annotation>
+      <xs:documentation>
+        Group Call Queue - a 1 to 5-digit code representing the queue.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GroupCallQueueRecallAction">
+    <xs:annotation>
+      <xs:documentation>
+        Group Call Queue - Possible Group Call Queue recall actions.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Call Center"/>
+      <xs:enumeration value="Directory Number"/>
+      <xs:enumeration value="Hunt Group"/>
+      <xs:enumeration value="Queueing User"/>
+      <xs:enumeration value="Queueing User Voicemail"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GroupCallQueueRecallTimerSeconds">
+    <xs:annotation>
+      <xs:documentation>
+        Group Call Queue - The timer determines how long a call can be queued before the recall target is recalled.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="30"/>
+      <xs:maxInclusive value="600"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

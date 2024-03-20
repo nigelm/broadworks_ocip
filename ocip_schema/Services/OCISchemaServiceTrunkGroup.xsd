@@ -1321,7 +1321,7 @@
           <xs:element name="maxAvailableActiveCalls" type="UnboundedNonNegativeInt"/>
           <xs:element name="burstingMaxActiveCalls" type="UnboundedNonNegativeInt"/>
           <xs:element name="burstingMaxAvailableActiveCalls" type="UnboundedNonNegativeInt"/>
-          <xs:element name="maxAvailableNumberOfBurstingBTLUs " type="UnboundedNonNegativeInt"/>
+          <xs:element name="maxAvailableNumberOfBurstingBTLUs" type="UnboundedNonNegativeInt"/>
           <xs:element name="numberOfBurstingBTLUs" type="xs:int" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
