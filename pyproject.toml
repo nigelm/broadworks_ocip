@@ -71,6 +71,9 @@ check_build_status = false
 # ruff is a replacement for flake8
 [tool.ruff]
 line-length = 150
-ignore = ["F821"]
+lint.ignore = ["F821"]
+lint.isort.case-sensitive = true
+lint.isort.force-single-line = true
+lint.isort.force-sort-within-sections = true
 
 # end
