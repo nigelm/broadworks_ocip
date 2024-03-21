@@ -42,6 +42,36 @@ To use Broadworks OCI-P Interface in a project:-
         print(provider.service_provider_id)
 ```
 
+## Unsetting Items
+
+Broadworks OCI-P often has nilable attributes - where the attribute can be
+unset using an XML nil. This is difficult to directly replicate in python due
+to the existing `None` object effectively getting two separate uses(value not
+there, and value forced reset). The way I have handled this is to use an
+explicit `Null` object using the [`null-object`](https://pypi.org/project/null-object/)
+([Github](https://github.com/pikhovkin/null_object)) package.
+
+So to unset a user's calling line id number:-
+
+```python
+    from broadworks_ocip import BroadworksAPI
+    from null_object import Null
+
+    # configure the API, connect and authenticate to the server
+    api = BroadworksAPI(
+        host=args.host, port=args.port, username=args.username, password=args.password,
+    )
+
+    # reset Fred Flintstone's calling line id
+    response = api.command(
+        "UserModifyRequest17sp4",
+        user_id="fred.flintstone@example.com",
+        calling_line_id_phone_number=Null,
+    )
+    print(response)
+
+```
+
 ## More Complex Usage
 
 Some commands are more complex and made up of additional type components.
