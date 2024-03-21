@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Tests for `broadworks_ocip` package."""
+
 from collections import namedtuple
 
 import pytest  # noqa: F401
@@ -529,6 +530,52 @@ def test_user_get_list_in_system():
             b"<value>12345678</value>"
             b"<isCaseInsensitive>true</isCaseInsensitive>"
             b"</searchCriteriaDn>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
+def test_user_modify_request_calling_line_id_valid():
+    cmd = api.get_command_object(
+        "UserModifyRequest17sp4",
+        user_id="fred.flintstone@example.com",
+        calling_line_id_phone_number="1555363636",
+    )
+    assert cmd is not None
+    assert "UserModifyRequest17sp4" in str(type(cmd))
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="UserModifyRequest17sp4" xmlns="">'
+            b"<userId>fred.flintstone@example.com</userId>"
+            b"<callingLineIdPhoneNumber>1555363636</callingLineIdPhoneNumber>"
+            b"</command>"
+            b"</BroadsoftDocument>"
+        ),
+        cmd,
+    )
+
+
+def test_user_modify_request_calling_line_id_none():
+    cmd = api.get_command_object(
+        "UserModifyRequest17sp4",
+        user_id="fred.flintstone@example.com",
+        calling_line_id_phone_number=Null,
+    )
+    assert cmd is not None
+    assert "UserModifyRequest17sp4" in str(type(cmd))
+    check_command_xml(
+        (
+            b'<?xml version="1.0" encoding="ISO-8859-1"?>'
+            b'<BroadsoftDocument protocol="OCI" xmlns="C" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            b'<sessionId xmlns="">00000000-1111-2222-3333-444444444444</sessionId>'
+            b'<command xsi:type="UserModifyRequest17sp4" xmlns="">'
+            b"<userId>fred.flintstone@example.com</userId>"
+            b'<callingLineIdPhoneNumber xsi:nil="true"/>'
             b"</command>"
             b"</BroadsoftDocument>"
         ),
