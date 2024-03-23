@@ -3,6 +3,7 @@ Broadworks OCI-P Interface API Class and code
 
 Main API interface - this is basically the only consumer visible part
 """
+
 import hashlib
 import inspect
 import logging

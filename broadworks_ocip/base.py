@@ -4,6 +4,7 @@ Broadworks OCI-P Interface Base Classes
 Base classes used by the types, requests and responses as well as
 other components like ElementInfo that are used by those.
 """
+
 import logging
 import re
 from collections import namedtuple
@@ -236,7 +237,7 @@ class OCIType:
             pass
         elif sub_element.is_table:
             # any table should be a list of namedtuple elements
-            if type(value) is list and len(value) > 0:
+            if isinstance(value, list) and len(value) > 0:
                 elem = etree.SubElement(
                     element,
                     sub_element.xmlname,
@@ -330,10 +331,7 @@ class OCIType:
         """
         typename: str = element.tag
         results: List[NamedTuple] = []
-        columns = [
-            cls.column_header_snake_case_(b.text)
-            for b in element.iterfind("colHeading")
-        ]
+        columns = [cls.column_header_snake_case_(b.text) for b in element.iterfind("colHeading")]
         type: NamedTuple = namedtuple(typename, columns)  # type: ignore
         for row in element.iterfind("row"):
             rowdata = [b.text for b in row.iterfind("col")]

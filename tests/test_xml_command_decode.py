@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Tests for `broadworks_ocip` package."""
+
 from collections import namedtuple
 
 import pytest  # noqa: F401
