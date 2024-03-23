@@ -40,11 +40,11 @@
     ServiceProviderVoiceMessagingGroupModifyRequest
     ServiceProviderVoiceMessagingGroupModifyVoicePortalBrandingRequest16
     ServiceProviderVoiceMessagingGroupModifyVoicePortalRequest
-    SystemVoiceMessageSummaryUpdateGetRequest
+    SystemVoiceMessageSummaryUpdateGetRequest25
     SystemVoiceMessageSummaryUpdateModifyRequest
-    SystemVoiceMessagingGroupGetRequest22V2
+    SystemVoiceMessagingGroupGetRequestRI
     SystemVoiceMessagingGroupGetVoicePortalMenusRequest21
-    SystemVoiceMessagingGroupModifyRequest16
+    SystemVoiceMessagingGroupModifyRequestRI
     SystemVoiceMessagingGroupModifyVoicePortalMenusRequest19
     UserVoiceMessagingUserAddAliasListRequest
     UserVoiceMessagingUserDeleteAliasListRequest
@@ -53,14 +53,14 @@
     UserVoiceMessagingUserGetDistributionListRequest
     UserVoiceMessagingUserGetGreetingRequest20
     UserVoiceMessagingUserGetOutgoingSMDIMWIRequest
-    UserVoiceMessagingUserGetVoiceManagementRequest17
+    UserVoiceMessagingUserGetVoiceManagementRequest23
     UserVoiceMessagingUserGetVoicePortalRequest20
     UserVoiceMessagingUserModifyAdvancedVoiceManagementRequest
     UserVoiceMessagingUserModifyDistributionListRequest
     UserVoiceMessagingUserModifyGreetingRequest20
     UserVoiceMessagingUserModifyOutgoingSMDIMWIRequest
-    UserVoiceMessagingUserModifyRequest23
-    UserVoiceMessagingUserModifyVoiceManagementRequest
+    UserVoiceMessagingUserModifyRequest23V2
+    UserVoiceMessagingUserModifyVoiceManagementRequest23
     UserVoiceMessagingUserModifyVoicePortalRequest20
 -->
 
@@ -524,11 +524,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemVoiceMessageSummaryUpdateGetRequest">
+  <xs:complexType name="SystemVoiceMessageSummaryUpdateGetRequest25">
     <xs:annotation>
       <xs:documentation>
         Requests system voice mail message summary update parameter settings.
-        The response is either SystemVoiceMessageSummaryUpdateGetResponse or ErrorResponse.
+        The response is either SystemVoiceMessageSummaryUpdateGetResponse25 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -538,10 +538,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemVoiceMessageSummaryUpdateGetResponse">
+  <xs:complexType name="SystemVoiceMessageSummaryUpdateGetResponse25">
     <xs:annotation>
       <xs:documentation>
-        Response to SystemVoiceMessageSummaryUpdateGetRequest.
+        Response to SystemVoiceMessageSummaryUpdateGetRequest25.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -550,6 +550,7 @@
           <xs:element name="sendSavedAndUrgentMWIOnNotification" type="xs:boolean"/>
           <xs:element name="sendMessageSummaryUpdateOnRegister" type="xs:boolean"/>
           <xs:element name="minTimeBetweenMWIOnRegister" type="VoiceMessageSummaryUpdateSeconds"/>
+          <xs:element name="allowMultipleUsersPerAccount" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -568,16 +569,17 @@
           <xs:element name="sendSavedAndUrgentMWIOnNotification" type="xs:boolean" minOccurs="0"/>
           <xs:element name="sendMessageSummaryUpdateOnRegister" type="xs:boolean" minOccurs="0"/>
           <xs:element name="minTimeBetweenMWIOnRegister" type="VoiceMessageSummaryUpdateSeconds" minOccurs="0"/>
+          <xs:element name="allowMultipleUsersPerAccount" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemVoiceMessagingGroupGetRequest22V2">
+  <xs:complexType name="SystemVoiceMessagingGroupGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Request the system level data associated with Voice Messaging.
-        The response is either a SystemVoiceMessagingGroupGetResponse22V2 or an ErrorResponse.
+        The response is either a SystemVoiceMessagingGroupGetResponseRI or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -587,12 +589,12 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemVoiceMessagingGroupGetResponse22V2">
+  <xs:complexType name="SystemVoiceMessagingGroupGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to SystemVoiceMessagingGroupGetRequest22V2.
+        Response to SystemVoiceMessagingGroupGetRequestRI.
 
-        The following elements are only used in AS/Amplify data mode:
+        The following elements are only used in AS data mode:
            realDeleteForImap
            useDnInMailBody
            useShortSubjectLine
@@ -611,16 +613,12 @@
            networkWideMessaging
            useExternalRouting
            defaultExternalRoutingAddress
-           vmOnlySystem, value "false" is returned in Amplify data mode
+           vmOnlySystem
            clientInitiatedMailServerSessionTimeoutMinutes
            recordingAudioFileFormat
            allowVoicePortalAccessFromVMDepositMenu
-
-           The following elements are only used in AS mode and not returned in XS data mode:
-           vmBucketName
-
-           The following elements are only used in AS data mode:
-           storageSelection, value "Mail Server" is returned in XS data mode
+           allowVoicePortalAutoLoginForMobileDevicesOnly
+           selectMwiTemplatePerCaller
 
       </xs:documentation>
     </xs:annotation>
@@ -650,8 +648,8 @@
           <xs:element name="clientInitiatedMailServerSessionTimeoutMinutes" type="VoiceMessagingClientInitiatedMailServerSessionTimeoutMinutes"/>
           <xs:element name="recordingAudioFileFormat" type="VoiceMessagingRecordingAudioFileFormat"/>
           <xs:element name="allowVoicePortalAccessFromVMDepositMenu" type="xs:boolean"/>
-          <xs:element name="storageSelection" type="VoiceMessagingStorageMode"/>
-          <xs:element name="vmBucketName" type="BucketName" minOccurs="0"/>
+          <xs:element name="allowVoicePortalAutoLoginForMobileDevicesOnly" type="xs:boolean"/>
+          <xs:element name="selectMwiTemplatePerCaller" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1125,13 +1123,13 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemVoiceMessagingGroupModifyRequest16">
+  <xs:complexType name="SystemVoiceMessagingGroupModifyRequestRI">
     <xs:annotation>
       <xs:documentation>
         Modify the system level data associated with Voice Messaging.
         The response is either a SuccessResponse or an ErrorResponse.
 
-        The following elements are only used in AS/Amplify data mode:
+        The following elements are only used in AS data mode:
            realDeleteForImap
            useDnInMailBody
            useShortSubjectLine
@@ -1150,13 +1148,12 @@
            networkWideMessaging
            useExternalRouting
            defaultExternalRoutingAddress
-           vmOnlySystem, element is ignored in Amplify data mode.
+           vmOnlySystem
            clientInitiatedMailServerSessionTimeoutMinutes
            recordingAudioFileFormat
            allowVoicePortalAccessFromVMDepositMenu
-        The following elements are only used in AS data mode and ignored in XS data mode:
-           storageSelection
-           vmBucketName
+           allowVoicePortalAutoLoginForMobileDevicesOnly
+           selectMwiTemplatePerCaller
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1184,8 +1181,8 @@
           <xs:element name="clientInitiatedMailServerSessionTimeoutMinutes" type="VoiceMessagingClientInitiatedMailServerSessionTimeoutMinutes" minOccurs="0"/>
           <xs:element name="recordingAudioFileFormat" type="VoiceMessagingRecordingAudioFileFormat" minOccurs="0"/>
           <xs:element name="allowVoicePortalAccessFromVMDepositMenu" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="storageSelection" type="VoiceMessagingStorageMode" minOccurs="0"/>
-          <xs:element name="vmBucketName" type="BucketName" nillable="true" minOccurs="0"/>
+          <xs:element name="allowVoicePortalAutoLoginForMobileDevicesOnly" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="selectMwiTemplatePerCaller" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1876,11 +1873,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserVoiceMessagingUserGetVoiceManagementRequest17">
+  <xs:complexType name="UserVoiceMessagingUserGetVoiceManagementRequest23">
     <xs:annotation>
       <xs:documentation>
         Get the user's voice messaging voice management service settings.
-        The response is either a UserVoiceMessagingUserGetVoiceManagementResponse17 or an ErrorResponse.
+        The response is either a UserVoiceMessagingUserGetVoiceManagementResponse23 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1892,10 +1889,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserVoiceMessagingUserGetVoiceManagementResponse17">
+  <xs:complexType name="UserVoiceMessagingUserGetVoiceManagementResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to the UserVoiceMessagingUserGetVoiceManagementRequest17.
+        Response to the UserVoiceMessagingUserGetVoiceManagementRequest23.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1903,7 +1900,7 @@
         <xs:sequence>
           <xs:element name="isActive" type="xs:boolean"/>
           <xs:element name="processing" type="VoiceMessagingMessageProcessing"/>
-          <xs:element name="voiceMessageDeliveryEmailAddress" type="EmailAddress" minOccurs="0"/>
+          <xs:element name="voiceMessageDeliveryEmailAddress" type="EmailAddressList" minOccurs="0"/>
           <xs:element name="usePhoneMessageWaitingIndicator" type="xs:boolean"/>
           <xs:element name="sendVoiceMessageNotifyEmail" type="xs:boolean"/>
           <xs:element name="voiceMessageNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
@@ -2058,7 +2055,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserVoiceMessagingUserModifyRequest23">
+  <xs:complexType name="UserVoiceMessagingUserModifyRequest23V2">
     <xs:annotation>
       <xs:documentation>
         Modify the user's voice messaging advanced voice management service setting.
@@ -2109,7 +2106,7 @@
           <xs:element name="outgoingSMDIMWIPhoneNumberList" type="ReplacementOutgoingDNList" nillable="true" minOccurs="0"/>
           <xs:element name="voiceManagementisActive" type="xs:boolean" minOccurs="0"/>
           <xs:element name="processing" type="VoiceMessagingMessageProcessing" minOccurs="0"/>
-          <xs:element name="voiceMessageDeliveryEmailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
+          <xs:element name="voiceMessageDeliveryEmailAddress" type="EmailAddressList" nillable="true" minOccurs="0"/>
           <xs:element name="usePhoneMessageWaitingIndicator" type="xs:boolean" minOccurs="0"/>
           <xs:element name="sendVoiceMessageNotifyEmail" type="xs:boolean" minOccurs="0"/>
           <xs:element name="voiceMessageNotifyEmailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
@@ -2130,7 +2127,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserVoiceMessagingUserModifyVoiceManagementRequest">
+  <xs:complexType name="UserVoiceMessagingUserModifyVoiceManagementRequest23">
     <xs:annotation>
       <xs:documentation>
         Modify the user's voice messaging voice management service setting.
@@ -2143,7 +2140,7 @@
           <xs:element name="userId" type="UserId"/>
           <xs:element name="isActive" type="xs:boolean" minOccurs="0"/>
           <xs:element name="processing" type="VoiceMessagingMessageProcessing" minOccurs="0"/>
-          <xs:element name="voiceMessageDeliveryEmailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
+          <xs:element name="voiceMessageDeliveryEmailAddress" type="EmailAddressList" nillable="true" minOccurs="0"/>
           <xs:element name="usePhoneMessageWaitingIndicator" type="xs:boolean" minOccurs="0"/>
           <xs:element name="sendVoiceMessageNotifyEmail" type="xs:boolean" minOccurs="0"/>
           <xs:element name="voiceMessageNotifyEmailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
@@ -3390,32 +3387,6 @@
     <xs:restriction base="xs:token">
       <xs:minLength value="1"/>
       <xs:maxLength value="80"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="VoiceMessagingMessageProcessing">
-    <xs:annotation>
-      <xs:documentation>
-        Choices to handle a voice message.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="Unified Voice and Email Messaging"/>
-      <xs:enumeration value="Deliver To Email Address Only"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="VoiceMessagingRecordingAudioFileFormat">
-    <xs:annotation>
-      <xs:documentation>
-        The media type of a voice message.
-        WAV - A WAV file
-        MP3 - an MP3 file
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="WAV"/>
-      <xs:enumeration value="MP3"/>
     </xs:restriction>
   </xs:simpleType>
 

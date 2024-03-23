@@ -29,15 +29,20 @@
     SystemPersonalAssistantGetRequest
     SystemPersonalAssistantModifyRequest
     UserCallToNumberGetAvailableListRequest
+    UserPersonalAssistantAddCriteriaRequest
     UserPersonalAssistantCallToNumberGetListRequest
     UserPersonalAssistantCallToNumberModifyListRequest
+    UserPersonalAssistantDeleteCriteriaRequest
     UserPersonalAssistantExclusionNumberAddRequest
     UserPersonalAssistantExclusionNumberDeleteListRequest
     UserPersonalAssistantExclusionNumberGetListRequest
     UserPersonalAssistantExclusionNumberGetRequest
     UserPersonalAssistantExclusionNumberModifyRequest
-    UserPersonalAssistantGetRequest22
+    UserPersonalAssistantGetCriteriaRequest
+    UserPersonalAssistantGetRequest24
+    UserPersonalAssistantModifyCriteriaRequest
     UserPersonalAssistantModifyRequest
+    UserPersonalAssistantReorderCriteriaRequest
 -->
 
   <xs:complexType name="SystemPersonalAssistantGetRequest">
@@ -117,6 +122,37 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="UserPersonalAssistantAddCriteriaRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Adds a User Personal Assistant Schedule Selective Criteria Entry.
+        The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements will take the defined default value if they are not set:
+          enableTransferToAttendant will be set to false.
+          enableRingSplash will be set to false.
+          alertMeFirst will be set to false.
+          alertMeFirstNumberOfRings will be set to the user Personal Assistant Number of rings setting.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="criteriaName" type="CriteriaName"/>
+          <xs:element name="timeSchedule" type="TimeSchedule" minOccurs="0"/>
+          <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0"/>
+          <xs:element name="presence" type="PersonalAssistantPresence" minOccurs="0"/>
+          <xs:element name="enableTransferToAttendant" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="attendantNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
+          <xs:element name="enableRingSplash" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="alertMeFirst" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="alertMeFirstNumberOfRings" type="PersonalAssistantAlertMeFirstNumberOfRings" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="UserPersonalAssistantCallToNumberGetListRequest">
     <xs:annotation>
       <xs:documentation>
@@ -162,6 +198,23 @@
         <xs:sequence>
           <xs:element name="userId" type="UserId"/>
           <xs:element name="callToNumberList" type="ReplacementCallToNumberList" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPersonalAssistantDeleteCriteriaRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Deletes a User Personal Assistant Schedule Selective Criteria Entry.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="criteriaName" type="CriteriaName"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -288,11 +341,50 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserPersonalAssistantGetRequest22">
+  <xs:complexType name="UserPersonalAssistantGetCriteriaRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Gets a User Personal Assistant Schedule Selective Criteria Entry.
+        The response is either UserPersonalAssistantGetCriteriaResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="criteriaName" type="CriteriaName"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPersonalAssistantGetCriteriaResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the UserPersonalAssistantGetCriteriaRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="timeSchedule" type="TimeSchedule" minOccurs="0"/>
+          <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0"/>
+          <xs:element name="presence" type="PersonalAssistantPresence"/>
+          <xs:element name="enableTransferToAttendant" type="xs:boolean"/>
+          <xs:element name="attendantNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
+          <xs:element name="enableRingSplash" type="xs:boolean"/>
+          <xs:element name="alertMeFirst" type="xs:boolean"/>
+          <xs:element name="alertMeFirstNumberOfRings" type="PersonalAssistantAlertMeFirstNumberOfRings"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPersonalAssistantGetRequest24">
     <xs:annotation>
       <xs:documentation>
         Request to get the User Personal Assistant information.
-        The response is either a UserPersonalAssistantGetResponse22 or an ErrorResponse.
+        The response is either a UserPersonalAssistantGetResponse24 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -304,11 +396,13 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserPersonalAssistantGetResponse22">
+  <xs:complexType name="UserPersonalAssistantGetResponse24">
     <xs:annotation>
       <xs:documentation>
-        Response to the UserPersonalAssistantGetRequest22.
-        The response contains the user Personal Assistant information".
+        Response to the UserPersonalAssistantGetRequest24.
+        The response contains the user Personal Assistant information and a table of Schedule Selective Criteria entries.
+        The schedule table's column headings are: "Is Active", "Criteria Name", "Time Schedule", "Holiday Schedule",
+        "Presence", "Transfer to Attendant", "Attendant Number", "Play Ring Splash", "Alert Me First", "Number of Rings".
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -322,6 +416,33 @@
           <xs:element name="expirationTime" type="xs:dateTime" minOccurs="0"/>
           <xs:element name="alertMeFirst" type="xs:boolean"/>
           <xs:element name="alertMeFirstNumberOfRings" type="PersonalAssistantAlertMeFirstNumberOfRings"/>
+          <xs:element name="scheduleTable" type="core:OCITable" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPersonalAssistantModifyCriteriaRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Modifies a User Personal Assistant Schedule Selective Criteria Entry.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="criteriaName" type="CriteriaName"/>
+          <xs:element name="newCriteriaName" type="CriteriaName" minOccurs="0"/>
+          <xs:element name="timeSchedule" type="TimeSchedule" minOccurs="0" nillable="true"/>
+          <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0" nillable="true"/>
+          <xs:element name="presence" type="PersonalAssistantPresence" minOccurs="0"/>
+          <xs:element name="enableTransferToAttendant" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="attendantNumber" type="OutgoingDNorSIPURI" minOccurs="0" nillable="true"/>
+          <xs:element name="enableRingSplash" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="alertMeFirst" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="alertMeFirstNumberOfRings" type="PersonalAssistantAlertMeFirstNumberOfRings" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -346,6 +467,26 @@
           <xs:element name="expirationTime" type="xs:dateTime" minOccurs="0" nillable="true"/>
           <xs:element name="alertMeFirst" type="xs:boolean" minOccurs="0"/>
           <xs:element name="alertMeFirstNumberOfRings" type="PersonalAssistantAlertMeFirstNumberOfRings" minOccurs="0"/>
+          <xs:element name="criteriaActivation" type="CriteriaActivation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPersonalAssistantReorderCriteriaRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Reorders only the Schedule Selective Criteria entries.
+        Criteria entries received in the orderedCriteriaList element are set at the top of the ordered criteria list.
+        Existing criteria not received in orderedCriteriaList are moved down to a lower priority.
+        The response is either SuccessResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="orderedCriteriaList" type="OrderedCriteriaList"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -359,33 +500,14 @@
   -->
 
 
-  <xs:simpleType name="PersonalAssistantAlertMeFirstNumberOfRings">
+  <xs:complexType name="OrderedCriteriaList">
     <xs:annotation>
       <xs:documentation>
-        Maximum number of rings before invoking the Personal Assistant.
+        A list of criteria names that defines the order priority.
       </xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:enumeration value="0"/>
-      <xs:enumeration value="2"/>
-      <xs:enumeration value="3"/>
-      <xs:enumeration value="4"/>
-      <xs:enumeration value="5"/>
-      <xs:enumeration value="6"/>
-      <xs:enumeration value="7"/>
-      <xs:enumeration value="8"/>
-      <xs:enumeration value="9"/>
-      <xs:enumeration value="10"/>
-      <xs:enumeration value="11"/>
-      <xs:enumeration value="12"/>
-      <xs:enumeration value="13"/>
-      <xs:enumeration value="14"/>
-      <xs:enumeration value="15"/>
-      <xs:enumeration value="16"/>
-      <xs:enumeration value="17"/>
-      <xs:enumeration value="18"/>
-      <xs:enumeration value="19"/>
-      <xs:enumeration value="20"/>
-    </xs:restriction>
-  </xs:simpleType>
+    <xs:sequence>
+      <xs:element name="criteriaName" type="CriteriaName" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>

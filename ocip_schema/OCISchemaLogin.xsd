@@ -25,7 +25,7 @@
   Requests in this schema file:
     AuthenticationVerifyRequest22V4
     AvailabilityTestRequest
-    DeviceManagementFileAuthLocationGetRequest22V3
+    DeviceManagementFileAuthLocationGetRequest22V4
     DeviceManagementPutFileRequest
     ExternalAuthenticationAuthorizeTokenRequest22
     ExternalAuthenticationCreateLoginTokenRequest
@@ -34,11 +34,10 @@
     LongLivedTokenRevokeRequest
     PasswordGenerateRequest
     PasswordModifyRequest
-    PrimaryInfoGetRequest
     PublicClusterGetFullyQualifiedDomainNameRequest
     TutorialFlagGetRequest
     TutorialFlagModifyRequest
-    UserGetLoginInfoRequest22V4
+    UserGetLoginInfoRequestRI
     UserSingleSignOnCreateDeviceTokenRequest
     VerifySessionIsValidRequest
 -->
@@ -134,12 +133,12 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="DeviceManagementFileAuthLocationGetRequest22V3">
+  <xs:complexType name="DeviceManagementFileAuthLocationGetRequest22V4">
     <xs:annotation>
       <xs:documentation>
         Get the address and credentials of the File Repository hosting the requested access device file.
         Also get the file name and path on the File Repository.
-        The response is either DeviceManagementFileAuthLocationGetResponse22V3 or ErrorResponse.
+        The response is either DeviceManagementFileAuthLocationGetResponse22V4 or ErrorResponse.
         The following elements are only used in AS data mode and will fail in XS data mode:
           deviceToken
         The following elements are only used in XS data mode and will be ignored in AS data mode:
@@ -168,10 +167,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="DeviceManagementFileAuthLocationGetResponse22V3">
+  <xs:complexType name="DeviceManagementFileAuthLocationGetResponse22V4">
     <xs:annotation>
       <xs:documentation>
-        This is a response to DeviceManagementFileAuthLocationGetRequest22V3.
+        This is a response to DeviceManagementFileAuthLocationGetRequest22V4.
         Return the address and credentials of the File Repository hosting the requested access device file.
         Also return the file name and path on the File Repository.
         Also returns the status of the file authentication.
@@ -181,8 +180,13 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="status" type="DeviceManagementFileAuthenticationStatus" minOccurs="0"/>
-          <xs:element name="fileRepositoryUserName" type="FileRepositoryUserName"/>
-          <xs:element name="fileRepositoryPassword" type="FileRepositoryUserPassword"/>
+          <xs:choice>
+            <xs:sequence>
+              <xs:element name="fileRepositoryUserName" type="FileRepositoryUserName"/>
+              <xs:element name="fileRepositoryPassword" type="FileRepositoryUserPassword"/>
+            </xs:sequence>
+            <xs:element name="fileReposAccessToken" type="FileRepositoryToken"/>
+          </xs:choice>
           <xs:element name="netAddress" type="NetAddress"/>
           <xs:element name="remoteFileFormat" type="DeviceManagementFileFormat"/>
           <xs:element name="portNumber" type="Port" minOccurs="0"/>
@@ -281,7 +285,7 @@
         password is not required for external authentication login from a trusted host (ACL).
 
         The following data element is only used in XS data mode and will be ignored in AS data mode:
-          signedPassword
+          signedPassword, ignored in AS data mode unless the password element is not present then an error is returned.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -426,73 +430,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="PrimaryInfoGetRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Requests information about the primary server for high-availability support.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="isPrivate" type="xs:boolean">
-            <xs:annotation>
-              <xs:documentation>
-                Dual homed side is private?
-              </xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="isAddressInfoRequested" type="xs:boolean">
-            <xs:annotation>
-              <xs:documentation>
-                For optimization, we only get the hostname and addresses for primary if
-                they are explicitly requested or if the current server is not the primary.
-                So you might get back the list of server addresses even if you did not
-                ask for the list if the request is not serviced by the primary server.
-              </xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="PrimaryInfoGetResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Information about the primary server in the high-availablity cluster.
-        For optimization, we only get the hostname and addresses for primary if they are
-        explicitly requested or if the current server is not the primary.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="isPrimary" type="xs:boolean">
-            <xs:annotation>
-              <xs:documentation>Is the server that processed this request the primary in the cluster?</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="hostnameForPrimary" type="NetAddress" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Primary server's hostname.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="addressForPrimary" type="NetAddress" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>List of addresses for primary server in cluster.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="privateAddressForPrimary" type="NetAddress" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>List of private addresses for primary server in cluster.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="PublicClusterGetFullyQualifiedDomainNameRequest">
     <xs:annotation>
       <xs:documentation>
@@ -571,17 +508,17 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserGetLoginInfoRequest22V4">
+  <xs:complexType name="UserGetLoginInfoRequestRI">
     <xs:annotation>
       <xs:documentation>
-        UserGetLoginInfoRequest22V4 is used to access login information for a user
+        UserGetLoginInfoRequestRI is used to access login information for a user
         either by a userId, dn or lineport.
         The phone number may be any DN associated with a user.
         The lineport may be any lineport associated with a user.
 
-        The response is a UserGetLoginInfoResponse22V4 or an ErrorResponse.
+        The response is a UserGetLoginInfoResponseRI or an ErrorResponse.
 
-        The following elements are only used in AS data mode and ignored in XS and Amplify data mode.
+        The following elements are only used in AS data mode and ignored in XS data mode.
           loginRole
       </xs:documentation>
     </xs:annotation>
@@ -601,19 +538,22 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserGetLoginInfoResponse22V4">
+  <xs:complexType name="UserGetLoginInfoResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to UserGetLoginInfoRequest22V4
+        Response to UserGetLoginInfoRequestRI
 
         The following data elements are only used in AS data mode:
           resellerId
+          lockoutPeriodExpiry
 
         If a phoneNumber is returned, it will be the primary DN of the user
         The parameter
          tokenRevocationTime is represented in the number of milliseconds
         since January 1, 1970, 00:00:00 GMT, and it is set to the more current time between
         the system level token revocation time and user level token revocation time.
+
+        The parameter lockoutPeriodExpiry represents the time remaining (in minutes) to re-enable the locked user.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -632,6 +572,7 @@
           <xs:element name="phoneNumber" type="DN" minOccurs="0"/>
           <xs:element name="resellerId" type="ResellerId22" minOccurs="0"/>
           <xs:element name="tokenRevocationTime" type="xs:long" minOccurs="0"/>
+          <xs:element name="lockoutPeriodExpiry" type="xs:int" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

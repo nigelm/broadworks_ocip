@@ -29,7 +29,7 @@
     GroupVoiceXmlAddInstanceRequest
     GroupVoiceXmlDeleteInstanceRequest
     GroupVoiceXmlGetInstanceListRequest
-    GroupVoiceXmlGetInstanceRequest22
+    GroupVoiceXmlGetInstanceRequest23
     GroupVoiceXmlModifyActiveInstanceListRequest
     GroupVoiceXmlModifyInstanceRequest
 -->
@@ -40,6 +40,10 @@
         Add a VoiceXML instance to a group.
         The domain is required in the serviceUserId.  For a valid voiceXml instance to work properly,
         a device with Static Registration is expected with a valid contact.
+        If not set, The webexMeetingCallback element will be set to "false".
+        The following elements are only used in AS data mode and ignored in XS data mode:
+          webexMeetingCallback
+
         The response is either SuccessResponse or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -52,6 +56,7 @@
           <xs:element name="serviceInstanceProfile" type="ServiceInstanceAddProfile"/>
           <xs:element name="networkClassOfService" type="NetworkClassOfServiceName" minOccurs="0"/>
           <xs:element name="accessDeviceEndpoint" type="AccessDeviceEndpointAdd" minOccurs="0"/>
+          <xs:element name="webexMeetingCallback" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -97,7 +102,8 @@
       <xs:documentation>
         Response to the GroupVoiceXmlGetInstanceListRequest.
         Contains a table with column headings:
-        "Service User Id", "Name", "Phone Number", "Extension", "Department", "Is Active".
+        "Service User Id", "Name", "Phone Number", "Extension", "Department", "Is Active"
+        and "Is Webex Meeting Callback".
         The column values for "Is Active" can either be true, or false.
       </xs:documentation>
     </xs:annotation>
@@ -110,11 +116,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupVoiceXmlGetInstanceRequest22">
+  <xs:complexType name="GroupVoiceXmlGetInstanceRequest23">
     <xs:annotation>
       <xs:documentation>
         Request to get all the information of a VoiceXML instance.
-        The response is either GroupVoiceXmlGetInstanceResponse22 or ErrorResponse.
+        The response is either GroupVoiceXmlGetInstanceResponse23 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -126,10 +132,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupVoiceXmlGetInstanceResponse22">
+  <xs:complexType name="GroupVoiceXmlGetInstanceResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupVoiceXmlGetInstanceRequest22.
+        Response to GroupVoiceXmlGetInstanceRequest23.
         Contains the service profile information and possibly access device information.
       </xs:documentation>
     </xs:annotation>
@@ -139,6 +145,7 @@
           <xs:element name="serviceInstanceProfile" type="ServiceInstanceReadProfile19sp1"/>
           <xs:element name="networkClassOfService" type="NetworkClassOfServiceName" minOccurs="0"/>
           <xs:element name="accessDeviceEndpoint" type="AccessDeviceEndpointWithPortNumberRead22" minOccurs="0"/>
+          <xs:element name="webexMeetingCallback" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -165,6 +172,8 @@
       <xs:documentation>
         Request to modify a VoiceXML instance. For a valid voiceXml instance to work properly,
         a device with Static Registration is expected with a valid contact.
+        The following elements are only used in AS data mode and ignored in XS data mode:
+          webexMeetingCallback
         The response is either SuccessResponse or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -175,6 +184,7 @@
           <xs:element name="serviceInstanceProfile" type="ServiceInstanceModifyProfile" minOccurs="0"/>
           <xs:element name="networkClassOfService" type="NetworkClassOfServiceName" minOccurs="0"/>
           <xs:element name="accessDeviceEndpoint" type="AccessDeviceEndpointModify" nillable="true" minOccurs="0"/>
+          <xs:element name="webexMeetingCallback" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

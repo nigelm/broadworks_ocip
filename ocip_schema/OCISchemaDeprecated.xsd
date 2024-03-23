@@ -40,6 +40,7 @@
     DeviceManagementFileAuthLocationGetRequest21sp1
     DeviceManagementFileAuthLocationGetRequest22
     DeviceManagementFileAuthLocationGetRequest22V2
+    DeviceManagementFileAuthLocationGetRequest22V3
     EnterpriseBroadWorksMobilityMobileSubscriberDirectoryNumberGetAssignmentPagedSortedListRequest
     EnterpriseBroadWorksMobilityMobileSubscriberDirectoryNumberGetAvailableListRequest
     EnterpriseBroadWorksMobilityMobileSubscriberDirectoryNumberGetAvailablePagedSortedListRequest
@@ -66,6 +67,7 @@
     GroupAccessDeviceFileGetRequest16sp1
     GroupAccessDeviceFileModifyRequest
     GroupAccessDeviceGetAvailableDetailListRequest14
+    GroupAccessDeviceGetLinkedLeafDeviceListRequest
     GroupAccessDeviceGetPagedSortedListRequest
     GroupAccessDeviceGetRequest14
     GroupAccessDeviceGetRequest14sp3
@@ -227,6 +229,7 @@
     GroupFlexibleSeatingHostAddInstanceRequest
     GroupFlexibleSeatingHostGetInstanceRequest
     GroupFlexibleSeatingHostModifyInstanceRequest
+    GroupGetAvailableLeafDeviceListRequest
     GroupGetRequest
     GroupGetRequest14sp7
     GroupGroupPagingGetInstanceRequest
@@ -248,6 +251,9 @@
     GroupHuntGroupGetInstanceRequest19sp1
     GroupInstantGroupCallGetInstanceRequest14
     GroupInstantGroupCallGetInstanceRequest17
+    GroupIntegratedIMPGetRequest
+    GroupIntegratedIMPGetRequest21sp1
+    GroupIntegratedIMPGetRequest22
     GroupInterceptGroupGetRequest
     GroupInterceptGroupGetRequest16
     GroupInterceptGroupModifyRequest
@@ -269,6 +275,11 @@
     GroupMusicOnHoldModifyInstanceRequest14
     GroupMusicOnHoldModifyInstanceRequest14sp6
     GroupMusicOnHoldModifyInstanceRequest16
+    GroupMWIDeliveryToMobileEndpointCustomTemplateAddRequest
+    GroupMWIDeliveryToMobileEndpointCustomTemplateDeleteRequest
+    GroupMWIDeliveryToMobileEndpointCustomTemplateGetRequest
+    GroupMWIDeliveryToMobileEndpointCustomTemplateModifyRequest
+    GroupMWIDeliveryToMobileEndpointModifyRequest
     GroupPasswordRulesGetRequest
     GroupPhoneDirectoryGetListRequest
     GroupPhoneDirectoryGetListRequest17
@@ -277,6 +288,8 @@
     GroupPolicyGetRequest
     GroupPolicyGetRequest14sp1
     GroupPolicyGetRequest14sp4
+    GroupPolicyGetRequest17
+    GroupPolicyModifyRequest
     GroupPortalPasscodeRulesGetRequest
     GroupRoutePointForcedForwardingGetRequest
     GroupRoutePointForcedForwardingModifyRequest
@@ -306,6 +319,9 @@
     GroupSessionAdmissionControlGroupGetRequest19sp1
     GroupSessionAdmissionControlGroupGetRequest21sp1
     GroupSpeedDial100GetRequest
+    GroupStirShakenGetRequest
+    GroupStirShakenGetRequest23
+    GroupThirdPartyEmergencyCallingGetRequest
     GroupTimeScheduleAddRequest
     GroupTimeScheduleDeleteRequest
     GroupTimeScheduleGetListRequest
@@ -355,6 +371,8 @@
     GroupTrunkGroupModifyInstanceRequest15
     GroupTrunkGroupModifyInstanceRequest19sp1
     GroupTrunkGroupModifyRequest
+    GroupTrunkGroupStirShakenGetRequest
+    GroupTrunkGroupStirShakenGetRequest23
     GroupTrunkGroupUserCreationTaskAddRequest
     GroupTrunkGroupUserCreationTaskDeleteRequest
     GroupTrunkGroupUserCreationTaskGetListRequest
@@ -371,11 +389,15 @@
     LoginRequest22V4
     ResellerGetRequest
     ResellerGetRequest22
+    ResellerIntegratedIMPGetRequest
+    ResellerStirShakenGetRequest
+    ResellerStirShakenGetRequest23
     ServiceProviderAccessDeviceFileGetListRequest
     ServiceProviderAccessDeviceFileGetRequest
     ServiceProviderAccessDeviceFileGetRequest14sp8
     ServiceProviderAccessDeviceFileGetRequest16sp1
     ServiceProviderAccessDeviceFileModifyRequest
+    ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest
     ServiceProviderAccessDeviceGetRequest14
     ServiceProviderAccessDeviceGetRequest14sp3
     ServiceProviderAccessDeviceGetRequest14sp6
@@ -386,6 +408,7 @@
     ServiceProviderAdminGetPolicyRequest17
     ServiceProviderAdminGetPolicyRequest17sp1
     ServiceProviderAdminGetPolicyRequest17sp3
+    ServiceProviderAdministratorPasswordRulesGetRequest
     ServiceProviderAnswerConfirmationGetRequest
     ServiceProviderAnswerConfirmationModifyRequest
     ServiceProviderBroadWorksMobilityGetRequest
@@ -413,19 +436,30 @@
     ServiceProviderCommunicationBarringProfileAddRequest
     ServiceProviderCommunicationBarringProfileGetRequest
     ServiceProviderDeviceManagementEventGetListRequest
+    ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequest
     ServiceProviderDialPlanPolicyGetRequest
     ServiceProviderEnhancedCallLogsGetRequest
     ServiceProviderFeatureAccessCodeGetListRequest20
     ServiceProviderFeatureAccessCodeModifyListRequest20
+    ServiceProviderGetAvailableLeafDeviceListRequest
     ServiceProviderGetRequest13mp2
     ServiceProviderGetRequest17sp1
     ServiceProviderGetRequest22
     ServiceProviderInCallServiceActivationGetRequest
     ServiceProviderInCallServiceActivationModifyRequest
+    ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateAddRequest
+    ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateDeleteRequest
+    ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateGetRequest
+    ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateModifyRequest
+    ServiceProviderMWIDeliveryToMobileEndpointModifyRequest
     ServiceProviderPasswordRulesGetRequest13mp2
     ServiceProviderPasswordRulesModifyRequest
     ServiceProviderPortalPasscodeRulesGetRequest
     ServiceProviderServicePackMigrationTaskGetRequest
+    ServiceProviderSIPAuthenticationPasswordRulesGetRequest
+    ServiceProviderStirShakenGetRequest
+    ServiceProviderStirShakenGetRequest23
+    ServiceProviderThirdPartyEmergencyCallingGetRequest
     ServiceProviderTrunkGroupGetRequest
     ServiceProviderTrunkGroupGetRequest14sp1
     ServiceProviderVoiceMessagingGroupGetPasscodeRulesRequest
@@ -437,11 +471,13 @@
     SystemAccessDeviceFileGetRequest14sp8
     SystemAccessDeviceFileGetRequest16sp1
     SystemAccessDeviceFileModifyRequest
+    SystemAccessDeviceGetLinkedLeafDeviceListRequest
     SystemAccessDeviceGetRequest
     SystemAccessDeviceGetRequest14sp3
     SystemAccessDeviceGetRequest14sp6
     SystemAccessDeviceGetRequest16
     SystemAdviceOfChargeGetRequest
+    SystemAdviceOfChargeGetRequest19sp1
     SystemAdviceOfChargeModifyRequest
     SystemASRParametersGetRequest
     SystemASRParametersGetRequest14sp5
@@ -473,6 +509,7 @@
     SystemBwDiameterBaseDataGetRequest17sp3
     SystemBwDiameterPeerAddRequest
     SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest
+    SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest22
     SystemCallCenterGetRequest
     SystemCallCenterGetRequest14sp9
     SystemCallCenterGetRequest16
@@ -538,17 +575,6 @@
     SystemCallProcessingPolicyProfileVoicePortalProfileGetRequest22
     SystemCallProcessingPolicyProfileVoiceXMLProfileGetRequest
     SystemCallProcessingPolicyProfileVoiceXMLProfileGetRequest22
-    SystemCallRecordingAddPlatformRequest
-    SystemCallRecordingAddPlatformRequest19
-    SystemCallRecordingAddPlatformRequest20
-    SystemCallRecordingGetPlatformListRequest
-    SystemCallRecordingGetPlatformListRequest20sp1
-    SystemCallRecordingGetPlatformListRequest22
-    SystemCallRecordingGetPlatformUsageRequest
-    SystemCallRecordingGetRequest
-    SystemCallRecordingGetRequest22
-    SystemCallRecordingModifyPlatformRequest
-    SystemCallRecordingModifyRequest
     SystemCollaborateGetRequest
     SystemCollaborateGetRequest20sp1
     SystemCollaborateModifyRequest
@@ -574,6 +600,7 @@
     SystemDeviceManagementEventGetListRequest
     SystemDeviceManagementTagAddRequest
     SystemDeviceManagementTagAddRequest21sp2
+    SystemDeviceProfileAuthenticationPasswordRulesGetRequest
     SystemDeviceTypeGetAvailableListRequest
     SystemDeviceTypeGetAvailableListRequest14sp1
     SystemDeviceTypeGetAvailableListRequest14sp3
@@ -594,6 +621,7 @@
     SystemEnhancedCallLogsGetRequest20sp1
     SystemEnhancedCallLogsGetRequest22
     SystemEnhancedCallLogsModifyRequest
+    SystemExecutiveGetRequest
     SystemExpensiveCallTypeGetListRequest
     SystemExternalAuthenticationAddACLEntryRequest
     SystemExternalAuthenticationDeleteACLEntryRequest
@@ -607,7 +635,9 @@
     SystemFileRepositoryDeviceGetRequest20
     SystemFileRepositoryDeviceModifyRequest
     SystemGeographicRedundancyUnreachableFromPrimaryGetUserListRequest
+    SystemGetAvailableLeafDeviceListRequest
     SystemGetRegistrationContactListRequest
+    SystemGETSGetRequest
     SystemHolidayScheduleAddRequest
     SystemHolidayScheduleDeleteRequest
     SystemHolidayScheduleGetListRequest
@@ -622,6 +652,7 @@
     SystemLicensingGetRequest
     SystemLicensingGetRequest14sp3
     SystemLocationBasedCallingRestrictionsGetRequest
+    SystemLocationBasedCallingRestrictionsGetRequest17sp3
     SystemMailParametersGetRequest
     SystemMaliciousCallTraceGetUserListRequest
     SystemMediaAddRequest
@@ -645,6 +676,7 @@
     SystemOutgoingCallingPlanGetRequest
     SystemPasswordRulesGetRequest13mp2
     SystemPasswordRulesModifyRequest
+    SystemPasswordRulesModifyRequest14sp3
     SystemPerformanceMeasurementReportingAddFileServerRequest
     SystemPerformanceMeasurementReportingDeleteFileServerRequest
     SystemPerformanceMeasurementReportingGetFileServerListRequest
@@ -659,6 +691,8 @@
     SystemPolicyGetDefaultRequest17
     SystemPolicyGetDefaultRequest17sp1
     SystemPolicyGetDefaultRequest17sp3
+    SystemPolicyGetDefaultRequest18
+    SystemPolicyModifyDefaultRequest14
     SystemPortalPasscodeRulesGetRequest
     SystemProvisioningValidationGetRequest
     SystemRedundancyParametersGetRequest
@@ -668,12 +702,15 @@
     SystemSessionAdmissionControlGetRequest
     SystemSessionAdmissionControlGetRequest21sp1
     SystemSessionAdmissionControlGetRequest22
+    SystemSessionAdmissionControlGetRequest22V2
+    SystemSessionAdmissionControlGetRequest22V3
     SystemSessionAuditGetRequest
     SystemSessionAuditGetRequest14sp3
     SystemSessionAuditModifyRequest
     SystemShInterfaceParametersGetRequest
     SystemShInterfaceParametersModifyRequest
     SystemSIPAddACLEntryRequest14
+    SystemSIPAuthenticationPasswordRulesGetRequest
     SystemSIPDeleteACLEntryRequest
     SystemSIPDeviceTypeAddRequest
     SystemSIPDeviceTypeAddRequest14sp1
@@ -763,6 +800,8 @@
     SystemSMDIModifyACLEntryRequest
     SystemSMPPGetRequest
     SystemSpeedDial100GetRequest
+    SystemStirShakenGetRequest
+    SystemStirShakenGetRequest23
     SystemSubscriberGetCallProcessingParametersRequest
     SystemSubscriberGetCallProcessingParametersRequest14sp3
     SystemSubscriberGetCallProcessingParametersRequest14sp7
@@ -772,6 +811,8 @@
     SystemSubscriberGetCallProcessingParametersRequest17sp3
     SystemSubscriberGetCallProcessingParametersRequest17sp4
     SystemSubscriberGetProvisioningParametersRequest
+    SystemSubscriberGetProvisioningParametersRequest23
+    SystemSubscriberGetProvisioningParametersRequest24
     SystemSubscriberModifyCallProcessingParametersRequest
     SystemSystemVoicePortalAddRequest
     SystemSystemVoicePortalGetRequest
@@ -791,6 +832,7 @@
     SystemTrunkGroupGetRequest22
     SystemTrunkGroupGetRequest23
     SystemTrunkGroupUserCreationTaskGetListRequest
+    SystemVoiceMessageSummaryUpdateGetRequest
     SystemVoiceMessagingGroupGetPasscodeRulesRequest14
     SystemVoiceMessagingGroupGetRequest14
     SystemVoiceMessagingGroupGetRequest16
@@ -862,8 +904,6 @@
     UserCallProcessingGetPolicyRequest19sp1
     UserCallProcessingGetPolicyRequest21sp1
     UserCallProcessingModifyPolicyRequest14
-    UserCallRecordingGetRequest
-    UserCallRecordingGetRequest20
     UserCallTransferGetRequest
     UserCallWaitingGetRequest
     UserChargeNumberGetRequest
@@ -939,10 +979,16 @@
     UserMusicOnHoldUserGetRequest
     UserMusicOnHoldUserModifyRequest
     UserPersonalAssistantGetRequest
+    UserPersonalAssistantGetRequest22
     UserPriorityAlertAddCriteriaRequest
     UserPriorityAlertGetCriteriaRequest
     UserPrivacyGetRequest
     UserPushNotificationGetRequest
+    UserPushNotificationRegistrationGetListRequest
+    UserPushNotificationRegistrationGetListRequest21sp1
+    UserPushNotificationRegistrationGetListRequest22
+    UserRouteListGetRequest
+    UserRouteListGetRequest22
     UserScheduleGetListRequest
     UserSecurityClassificationGetRequest
     UserSelectiveCallAcceptanceAddCriteriaRequest
@@ -1628,6 +1674,40 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="DeviceManagementFileAuthLocationGetRequest22V3">
+    <xs:annotation>
+      <xs:documentation>
+        Get the address and credentials of the File Repository hosting the requested access device file.
+        Also get the file name and path on the File Repository.
+        The response is either DeviceManagementFileAuthLocationGetResponse22V3 or ErrorResponse.
+        The following elements are only used in AS data mode and will fail in XS data mode:
+          deviceToken
+        The following elements are only used in XS data mode and will be ignored in AS data mode:
+          fileNameLookup
+          fileNameOnDisk
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="deviceAccessProtocol" type="DeviceAccessProtocol22"/>
+          <xs:element name="deviceAccessMethod" type="FileRepositoryAccessType"/>
+          <xs:element name="deviceAccessURI" type="DeviceManagementAccessURI"/>
+          <xs:element name="accessDeviceUserName" type="UserId" minOccurs="0"/>
+          <xs:element name="accessDeviceUserPassword" type="Password" minOccurs="0"/>
+          <xs:element name="deviceToken" type="LoginToken" minOccurs="0"/>
+          <xs:element name="signedPassword" type="SignedPassword" minOccurs="0"/>
+          <xs:element name="macAddress" type="AccessDeviceMACAddress" minOccurs="0"/>
+          <xs:element name="realmName" type="RealmName" minOccurs="0"/>
+          <xs:element name="digestHa1Complement" type="DigestHa1Complement" minOccurs="0"/>
+          <xs:element name="digestResponse" type="Md5Hash" minOccurs="0"/>
+          <xs:element name="fileNameLookup" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="fileNameOnDisk" type="CPESystemFileName" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="DeviceManagementFileAuthLocationGetResponse">
     <xs:annotation>
       <xs:documentation>
@@ -1895,6 +1975,42 @@
           <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean" minOccurs="0"/>
           <xs:element name="completionNotification" type="xs:boolean" minOccurs="0"/>
           <xs:element name="fileCategory" type="DeviceManagementFileCategory" minOccurs="0"/>
+          <xs:element name="enableCaching" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="notifyFileUpload" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="DeviceManagementFileAuthLocationGetResponse22V3">
+    <xs:annotation>
+      <xs:documentation>
+        This is a response to DeviceManagementFileAuthLocationGetRequest22V3.
+        Return the address and credentials of the File Repository hosting the requested access device file.
+        Also return the file name and path on the File Repository.
+        Also returns the status of the file authentication.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="status" type="DeviceManagementFileAuthenticationStatus" minOccurs="0"/>
+          <xs:element name="fileRepositoryUserName" type="FileRepositoryUserName"/>
+          <xs:element name="fileRepositoryPassword" type="FileRepositoryUserPassword"/>
+          <xs:element name="netAddress" type="NetAddress"/>
+          <xs:element name="remoteFileFormat" type="DeviceManagementFileFormat"/>
+          <xs:element name="portNumber" type="Port" minOccurs="0"/>
+          <xs:element name="rootDirectory" type="CPEFileDirectory" minOccurs="0"/>
+          <xs:element name="cpeFileDirectory" type="CPEFileDirectory" minOccurs="0"/>
+          <xs:element name="secure" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="macInNonRequestURI" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="macInCert" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+          <xs:element name="useHttpDigestAuthentication" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="macBasedFileAuthentication" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="completionNotification" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="fileCategory" type="DeviceManagementFileCategory22" minOccurs="0"/>
           <xs:element name="enableCaching" type="xs:boolean" minOccurs="0"/>
           <xs:element name="notifyFileUpload" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
@@ -3024,6 +3140,49 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupAccessDeviceGetLinkedLeafDeviceListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the list of linked leaf devices for the group level tree device passed in the request.
+        A tree device is a device associated with a device type that has the option
+        supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
+        A leaf device is a device associated with a device type that has the option
+        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        The list includes devices created at the system, service provider, and group levels.
+        The response is either GroupAccessDeviceGetLinkedLeafDeviceListResponse or
+        ErrorResponse.
+
+        Replaced by: GroupAccessDeviceGetLinkedLeafDeviceListRequest22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="deviceName" type="AccessDeviceName"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupAccessDeviceGetLinkedLeafDeviceListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to GroupAccessDeviceGetLinkedLeafDeviceListRequest.
+        Replaced by: GroupAccessDeviceGetLinkedLeafDeviceListResponse22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="treeDeviceLinkId" type="xs:string"/>
+          <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -9945,6 +10104,45 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="GroupGetAvailableLeafDeviceListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the list of available leaf devices that can be linked to a tree device within a specific group.
+        A leaf device is a device associated with a device type that has the option
+        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        The list returned includes devices created at the system, service provider, and group levels.
+        The response is either GroupGetAvailableLeafDeviceListResponse or
+        ErrorResponse.
+
+        Replaced by: GroupGetAvailableLeafDeviceListRequest22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupGetAvailableLeafDeviceListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to GroupGetAvailableLeafDeviceListRequest.
+        Replaced by: GroupGetAvailableLeafDeviceListResponse22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="GroupGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -10786,6 +10984,134 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="GroupIntegratedIMPGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get the Integrated IMP service attributes for the group.
+        The response is either GroupIntegratedIMPGetResponse or ErrorResponse.
+
+        Replaced by: GroupIntegratedIMPGetRequest21sp1 in AS data mode
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupIntegratedIMPGetRequest21sp1">
+    <xs:annotation>
+      <xs:documentation>
+        Get the Integrated IMP service attributes for the group.
+        The response is either GroupIntegratedIMPGetResponse21sp1 or ErrorResponse.
+
+        Replaced by GroupIntegratedIMPGetRequest22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupIntegratedIMPGetRequest22">
+    <xs:annotation>
+      <xs:documentation>
+        Get the Integrated IMP service attributes for the group.
+        The response is either GroupIntegratedIMPGetResponse22 or ErrorResponse.
+
+        Replaced by GroupIntegratedIMPGetRequest23
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupIntegratedIMPGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupIntegratedIMPGetRequest.
+        The response contains the group Integrated IMP service attributes.
+
+        Replaced by: GroupIntegratedIMPGetResponse21sp1 in AS data mode
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useServiceProviderSetting" type="xs:boolean"/>
+          <xs:element name="serviceDomain" type="DomainName" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupIntegratedIMPGetResponse21sp1">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupIntegratedIMPGetRequest21sp1.
+        The response contains the group Integrated IMP service attributes.
+
+        Replaced by GroupIntegratedIMPGetResponse22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useServiceProviderSetting" type="xs:boolean"/>
+          <xs:element name="serviceDomain" type="DomainName" minOccurs="0"/>
+          <xs:element name="effectiveServiceDomain" type="DomainName" minOccurs="0"/>
+          <xs:element name="addServiceProviderInIMPUserId" type="xs:boolean"/>
+          <xs:element name="defaultImpIdType" type="IntegratedIMPUserIDType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupIntegratedIMPGetResponse22">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupIntegratedIMPGetRequest22.
+        The response contains the group Integrated IMP service attributes.
+
+        The following elements are only returned to a reseller administrator or above:
+          useServiceProviderMessagingServer
+          provisioningUrl
+          provisioningUserId
+
+        Replaced by GroupIntegratedIMPGetResponse23
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useServiceProviderSetting" type="xs:boolean"/>
+          <xs:element name="serviceDomain" type="DomainName" minOccurs="0"/>
+          <xs:element name="effectiveServiceDomain" type="DomainName" minOccurs="0"/>
+          <xs:element name="addServiceProviderInIMPUserId" type="xs:boolean"/>
+          <xs:element name="defaultImpIdType" type="IntegratedIMPUserIDType"/>
+          <xs:element name="useServiceProviderMessagingServer" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="provisioningUrl" type="URL" minOccurs="0"/>
+          <xs:element name="provisioningUserId" type="ProvisioningBroadCloudAuthenticationUserName" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="GroupInterceptGroupGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -11499,6 +11825,124 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="GroupMWIDeliveryToMobileEndpointCustomTemplateAddRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Create a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+          <xs:element name="isEnabled" type="xs:boolean"/>
+          <xs:element name="templateBody" type="MWIDeliveryToMobileEndpointTemplateBody"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupMWIDeliveryToMobileEndpointCustomTemplateDeleteRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Delete a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupMWIDeliveryToMobileEndpointCustomTemplateGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a GroupMWIDeliveryToMobileEndpointCustomTemplateGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupMWIDeliveryToMobileEndpointCustomTemplateGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupMWIDeliveryToMobileEndpointCustomTemplateGetRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="isEnabled" type="xs:boolean"/>
+          <xs:element name="templateBody" type="MWIDeliveryToMobileEndpointTemplateBody"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupMWIDeliveryToMobileEndpointCustomTemplateModifyRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Modify a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+          <xs:element name="isEnabled" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="templateBody" type="MWIDeliveryToMobileEndpointTemplateBody" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupMWIDeliveryToMobileEndpointModifyRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Modify the group level MWI custom notifications settings.
+        The response is either a SuccessResponse or an ErrorResponse.
+
+        If the request is executed by a group administrator and modifies the useSettingLevel, the request is rejected.
+
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="useSettingLevel" type="MWIDeliveryToMobileEndpointGroupSettingLevel" minOccurs="0"/>
+          <xs:element name="templateActivation" type="MWIDeliveryToMobileEndpointTemplateActivation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="GroupPasswordRulesGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -11876,6 +12320,26 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="GroupPolicyGetRequest17">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the Group's policy settings.
+        The response is either GroupPolicyGetResponse17 or ErrorResponse.
+
+        Replaced by: GroupPolicyGetRequest20 in AS data mode
+        Replaced by: GroupPolicyGetRequest22 in XS data mode
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="GroupPolicyGetResponse">
     <xs:annotation>
       <xs:documentation>
@@ -11943,6 +12407,71 @@
           <xs:element name="userGroupDirectoryAccess" type="GroupUserGroupDirectoryAccess"/>
           <xs:element name="userProfileAccess" type="GroupUserProfileAccess"/>
           <xs:element name="userEnhancedCallLogAccess" type="GroupUserCallLogAccess"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupPolicyGetResponse17">
+    <xs:annotation>
+      <xs:documentation>
+          Response to GroupPolicyGetRequest17.
+          Contains the policy settings for the group.
+
+          Replaced by: GroupPolicyGetResponse20 in AS data mode
+          Replaced by: GroupPolicyGetResponse22 in XS data mode
+        </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="callingPlanAccess" type="GroupCallingPlanAccess"/>
+          <xs:element name="extensionAccess" type="GroupExtensionAccess"/>
+          <xs:element name="ldapIntegrationAccess" type="GroupLDAPIntegrationAccess"/>
+          <xs:element name="voiceMessagingAccess" type="GroupVoiceMessagingAccess"/>
+          <xs:element name="departmentAdminUserAccess" type="GroupDepartmentAdminUserAccess"/>
+          <xs:element name="departmentAdminTrunkGroupAccess" type="GroupDepartmentAdminTrunkGroupAccess"/>
+          <xs:element name="departmentAdminPhoneNumberExtensionAccess" type="GroupDepartmentAdminPhoneNumberExtensionAccess"/>
+          <xs:element name="departmentAdminCallingLineIdNumberAccess" type="GroupDepartmentAdminCallingLineIdNumberAccess"/>
+          <xs:element name="userAuthenticationAccess" type="GroupUserAuthenticationAccess"/>
+          <xs:element name="userGroupDirectoryAccess" type="GroupUserGroupDirectoryAccess"/>
+          <xs:element name="userProfileAccess" type="GroupUserProfileAccess"/>
+          <xs:element name="userEnhancedCallLogAccess" type="GroupUserCallLogAccess"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupPolicyModifyRequest">
+    <xs:annotation>
+      <xs:documentation>
+          Request to modify the policies for a Group.
+          The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements are only used in AS data mode:
+          userAutoAttendantNameDialingAccess
+
+          Replaced by: GroupPolicyModifyRequest22 in AS and XS data mode
+        </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="callingPlanAccess" type="GroupCallingPlanAccess" minOccurs="0"/>
+          <xs:element name="extensionAccess" type="GroupExtensionAccess" minOccurs="0"/>
+          <xs:element name="ldapIntegrationAccess" type="GroupLDAPIntegrationAccess" minOccurs="0"/>
+          <xs:element name="voiceMessagingAccess" type="GroupVoiceMessagingAccess" minOccurs="0"/>
+          <xs:element name="departmentAdminUserAccess" type="GroupDepartmentAdminUserAccess" minOccurs="0"/>
+          <xs:element name="departmentAdminTrunkGroupAccess" type="GroupDepartmentAdminTrunkGroupAccess" minOccurs="0"/>
+          <xs:element name="departmentAdminPhoneNumberExtensionAccess" type="GroupDepartmentAdminPhoneNumberExtensionAccess" minOccurs="0"/>
+          <xs:element name="departmentAdminCallingLineIdNumberAccess" type="GroupDepartmentAdminCallingLineIdNumberAccess" minOccurs="0"/>
+          <xs:element name="userAuthenticationAccess" type="GroupUserAuthenticationAccess" minOccurs="0"/>
+          <xs:element name="userGroupDirectoryAccess" type="GroupUserGroupDirectoryAccess" minOccurs="0"/>
+          <xs:element name="userProfileAccess" type="GroupUserProfileAccess" minOccurs="0"/>
+          <xs:element name="userEnhancedCallLogAccess" type="GroupUserCallLogAccess" minOccurs="0"/>
+          <xs:element name="userAutoAttendantNameDialingAccess" type="GroupUserAutoAttendantNameDialingAccess" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -12974,6 +13503,144 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="prefix" type="SpeedDialPrefix"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupStirShakenGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get Group Stir Shaken service settings.
+        The response is either GroupStirShakenGetResponse or ErrorResponse.
+        Replaced by: GroupStirShakenGetRequest23.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupStirShakenGetRequest23">
+    <xs:annotation>
+      <xs:documentation>
+        Get Group Stir Shaken service settings.
+        The response is either GroupStirShakenGetResponse23 or ErrorResponse.
+        Replaced by GroupStirShakenGetRequest23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupStirShakenGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupStirShakenGetRequest.
+        Replaced by: GroupStirShakenGetResponset25.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupStirShakenGetResponse23">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupStirShakenGetRequest23.
+        Replaced by GroupStirShakenGetResponse23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupThirdPartyEmergencyCallingGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get the third-party emergency call service settings for the Group.
+        The response is either a GroupThirdPartyEmergencyCallingGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupThirdPartyEmergencyCallingGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupThirdPartyEmergencyCallingGetRequest.
+        The response contains the third-party emergency call service settings for the Group.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="enableDeviceManagement" type="xs:boolean"/>
+          <xs:element name="enableRouting" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -15973,6 +16640,94 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="GroupTrunkGroupStirShakenGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get Group Trunk Group Stir Shaken service settings.
+        The response is either GroupTrunkGroupStirShakenGetResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="trunkGroupKey" type="TrunkGroupKey"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupTrunkGroupStirShakenGetRequest23">
+    <xs:annotation>
+      <xs:documentation>
+        Get Group Trunk Group Stir Shaken service settings.
+        The response is either GroupTrunkGroupStirShakenGetResponse23 or ErrorResponse.
+        Replaced by GroupTrunkGroupStirShakenGetRequest23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="trunkGroupKey" type="TrunkGroupKey"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupTrunkGroupStirShakenGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupTrunkGroupStirShakenGetRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupTrunkGroupStirShakenGetResponse23">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the GroupTrunkGroupStirShakenGetRequest23.
+        Replaced by GroupTrunkGroupStirShakenGetResponse23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="GroupTrunkGroupUserCreationTaskAddRequest">
     <xs:annotation>
       <xs:documentation>
@@ -16419,7 +17174,7 @@
         password is not required for external authentication login from a trusted host (ACL).
 
         The following data element is only used in XS data mode and will be ignored in AS data mode:
-          signedPassword
+          signedPassword, ignored in AS data mode unless the password element is not present then an error is returned.
 
         Replaced by: LoginRequest22V5.
       </xs:documentation>
@@ -16572,6 +17327,156 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="resellerName" type="ResellerName22" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResellerIntegratedIMPGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get the Integrated IMP service attributes for the reseller.
+        The response is either ResellerIntegratedIMPGetResponse or ErrorResponse.
+
+        Replaced by: ResellerIntegratedIMPGetRequest22 in AS data mode
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="resellerId" type="ResellerId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResellerIntegratedIMPGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the ResellerIntegratedIMPGetRequest.
+        The response contains the reseller Integrated IMP service attributes.
+
+        Replaced by: ResellerIntegratedIMPGetResponse22 in AS data mode
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useSystemServiceDomain" type="xs:boolean"/>
+          <xs:element name="serviceDomain" type="DomainName" minOccurs="0"/>
+          <xs:element name="servicePort" type="Port" minOccurs="0"/>
+          <xs:element name="useSystemMessagingServer" type="xs:boolean"/>
+          <xs:element name="provisioningUrl" type="URL" minOccurs="0"/>
+          <xs:element name="provisioningUserId" type="ProvisioningBroadCloudAuthenticationUserName" minOccurs="0"/>
+          <xs:element name="boshURL" type="URL" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResellerStirShakenGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get Reseller Stir Shaken service settings.
+        The response is either ResellerStirShakenGetResponse or ErrorResponse.
+        Replaced by ResellerStirShakenGetRequest23
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="resellerId" type="ResellerId22"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResellerStirShakenGetRequest23">
+    <xs:annotation>
+      <xs:documentation>
+        Get Reseller Stir Shaken service settings.
+        The response is either ResellerStirShakenGetResponse23 or ErrorResponse.
+        Replaced by ResellerStirShakenGetRequest23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="resellerId" type="ResellerId22"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResellerStirShakenGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the ResellerStirShakenGetRequest.
+        Replaced by ResellerStirShakenGetResponse23
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="tagEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="verifyGETSCalls" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ResellerStirShakenGetResponse23">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the ResellerStirShakenGetRequest23.
+        Replaced by ResellerStirShakenGetResponse23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="tagEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="verifyGETSCalls" type="xs:boolean"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -16742,6 +17647,48 @@
           <xs:element name="fileType" type="DeviceManagementFileType"/>
           <xs:element name="fileSource" type="AccessDeviceEnhancedConfigurationMode" minOccurs="0"/>
           <xs:element name="uploadFile" type="FileResource" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the list of linked leaf devices for the service provider level tree device passed in the request.
+        A tree device is a device associated with a device type that has the option
+        supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
+        A leaf device is a device associated with a device type that has the option
+        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        The list includes devices created at the system, service provider, and group levels.
+        The response is either ServiceProviderAccessDeviceGetLinkedLeafDeviceListResponse or
+        ErrorResponse.
+
+        Replaced by: ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="deviceName" type="AccessDeviceName"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderAccessDeviceGetLinkedLeafDeviceListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest.
+        Replaced by: ServiceProviderAccessDeviceGetLinkedLeafDeviceListResponse22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="treeDeviceLinkId" type="xs:string"/>
+          <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -17228,6 +18175,63 @@
           <xs:element name="communicationBarringAccess" type="ServiceProviderAdminCommunicationBarringAccess"/>
           <xs:element name="networkPolicyAccess" type="EnterpriseAdminNetworkPolicyAccess" minOccurs="0"/>
           <xs:element name="dialableCallerIDAccess" type="ServiceProviderAdminDialableCallerIDAccess"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderAdministratorPasswordRulesGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the effective password rules setting for a service provider administrator
+        The response is either ServiceProviderAdministratorPasswordRulesGetResponse or
+        ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderAdministratorPasswordRulesGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to ServiceProviderAdministratorPasswordRulesGetRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:choice>
+            <xs:sequence>
+              <xs:element name="useExternalAuthentication" type="xs:boolean" fixed="true"/>
+              <xs:element name="allowWebAddExternalAuthenticationUsers" type="xs:boolean"/>
+            </xs:sequence>
+            <xs:sequence>
+              <xs:element name="disallowUserId" type="xs:boolean"/>
+              <xs:element name="disallowOldPassword" type="xs:boolean"/>
+              <xs:element name="disallowReversedOldPassword" type="xs:boolean"/>
+              <xs:element name="restrictMinDigits" type="xs:boolean"/>
+              <xs:element name="minDigits" type="PasswordMinDigits"/>
+              <xs:element name="restrictMinUpperCaseLetters" type="xs:boolean"/>
+              <xs:element name="minUpperCaseLetters" type="PasswordMinUpperCaseLetters"/>
+              <xs:element name="restrictMinLowerCaseLetters" type="xs:boolean"/>
+              <xs:element name="minLowerCaseLetters" type="PasswordMinLowerCaseLetters"/>
+              <xs:element name="restrictMinNonAlphanumericCharacters" type="xs:boolean"/>
+              <xs:element name="minNonAlphanumericCharacters" type="PasswordMinNonAlphanumericCharacters"/>
+              <xs:element name="minLength" type="PasswordMinLength"/>
+              <xs:element name="maxFailedLoginAttempts" type="MaxFailedLoginAttempts"/>
+              <xs:element name="passwordExpiresDays" type="PasswordExpiresDays"/>
+              <xs:element name="sendLoginDisabledNotifyEmail" type="xs:boolean"/>
+              <xs:element name="loginDisabledNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
+              <xs:element name="disallowPreviousPasswords" type="xs:boolean"/>
+              <xs:element name="numberOfPreviousPasswords" type="PasswordHistoryCount"/>
+            </xs:sequence>
+          </xs:choice>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -18659,6 +19663,57 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the service provider level device profile authentication password rule settings.
+        The response is either a ServiceProviderDeviceProfileAuthenticationPasswordRulesGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderDeviceProfileAuthenticationPasswordRulesGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequest.
+        Contains the device profile authentication password rules for the service provider.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useServiceProviderSettings" type="xs:boolean"/>
+          <xs:element name="disallowAuthenticationName" type="xs:boolean"/>
+          <xs:element name="disallowOldPassword" type="xs:boolean"/>
+          <xs:element name="disallowReversedOldPassword" type="xs:boolean"/>
+          <xs:element name="restrictMinDigits" type="xs:boolean"/>
+          <xs:element name="minDigits" type="PasswordMinDigits"/>
+          <xs:element name="restrictMinUpperCaseLetters" type="xs:boolean"/>
+          <xs:element name="minUpperCaseLetters" type="PasswordMinUpperCaseLetters"/>
+          <xs:element name="restrictMinLowerCaseLetters" type="xs:boolean"/>
+          <xs:element name="minLowerCaseLetters" type="PasswordMinLowerCaseLetters"/>
+          <xs:element name="restrictMinNonAlphanumericCharacters" type="xs:boolean"/>
+          <xs:element name="minNonAlphanumericCharacters" type="PasswordMinNonAlphanumericCharacters"/>
+          <xs:element name="minLength" type="PasswordMinLength"/>
+          <xs:element name="sendPermanentLockoutNotification" type="xs:boolean"/>
+          <xs:element name="permanentLockoutNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
+          <xs:element name="deviceProfileAuthenticationLockoutType" type="AuthenticationLockoutType"/>
+          <xs:element name="deviceProfileTemporaryLockoutThreshold" type="AuthenticationTemporaryLockoutThreshold"/>
+          <xs:element name="deviceProfileWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
+          <xs:element name="deviceProfileLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
+          <xs:element name="deviceProfilePermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="ServiceProviderDialPlanPolicyGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -18788,6 +19843,44 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="ServiceProviderGetAvailableLeafDeviceListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the list of available leaf devices that can be linked to a tree device within a specific service provider.
+        A leaf device is a device associated with a device type that has the option
+        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        The list returned includes devices created at the system, service provider, and group levels.
+        The response is either ServiceProviderGetAvailableLeafDeviceListResponse or
+        ErrorResponse.
+
+        Replaced by: ServiceProviderGetAvailableLeafDeviceListRequest22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderGetAvailableLeafDeviceListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to ServiceProviderGetAvailableLeafDeviceListRequest.
+        Replaced by: ServiceProviderGetAvailableLeafDeviceListResponse22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="ServiceProviderGetRequest13mp2">
     <xs:annotation>
       <xs:documentation>
@@ -18900,8 +19993,7 @@
       <xs:documentation>
         Response to the ServiceProviderGetRequest22.
         The response contains the service provider or enterprise's profile information.
-        The following element is only used in Amplify data mode and not returned
-        in AS and XS data mode:
+        The following elements are not returned in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
         provisioningSliceId,
@@ -18979,6 +20071,115 @@
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="activationDigits" type="InCallServiceActivationDigits" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateAddRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Create a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+          <xs:element name="isEnabled" type="xs:boolean"/>
+          <xs:element name="templateBody" type="MWIDeliveryToMobileEndpointTemplateBody"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateDeleteRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Delete a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateGetRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="isEnabled" type="xs:boolean"/>
+          <xs:element name="templateBody" type="MWIDeliveryToMobileEndpointTemplateBody"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderMWIDeliveryToMobileEndpointCustomTemplateModifyRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Modify a MWI Delivery to Mobile Endpoint Custom Template.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="language" type="Language"/>
+          <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+          <xs:element name="isEnabled" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="templateBody" type="MWIDeliveryToMobileEndpointTemplateBody" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderMWIDeliveryToMobileEndpointModifyRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Modify the service provider level MWI custom notifications settings.
+        The response is either a SuccessResponse or an ErrorResponse.
+    </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="templateActivation" type="MWIDeliveryToMobileEndpointTemplateActivation" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -19174,6 +20375,198 @@
           <xs:element name="removeServiceName" type="UserService" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="assignServicePackName" type="ServicePackName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="assignServiceName" type="UserService" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderSIPAuthenticationPasswordRulesGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the service provider level SIP authentication password rule settings.
+        The response is either a ServiceProviderSIPAuthenticationPasswordRulesGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderSIPAuthenticationPasswordRulesGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to ServiceProviderSIPAuthenticationPasswordRulesGetRequest.
+        Contains the SIP authentication password rules for the service provider.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useServiceProviderSettings" type="xs:boolean"/>
+          <xs:element name="disallowAuthenticationName" type="xs:boolean"/>
+          <xs:element name="disallowOldPassword" type="xs:boolean"/>
+          <xs:element name="disallowReversedOldPassword" type="xs:boolean"/>
+          <xs:element name="restrictMinDigits" type="xs:boolean"/>
+          <xs:element name="minDigits" type="PasswordMinDigits"/>
+          <xs:element name="restrictMinUpperCaseLetters" type="xs:boolean"/>
+          <xs:element name="minUpperCaseLetters" type="PasswordMinUpperCaseLetters"/>
+          <xs:element name="restrictMinLowerCaseLetters" type="xs:boolean"/>
+          <xs:element name="minLowerCaseLetters" type="PasswordMinLowerCaseLetters"/>
+          <xs:element name="restrictMinNonAlphanumericCharacters" type="xs:boolean"/>
+          <xs:element name="minNonAlphanumericCharacters" type="PasswordMinNonAlphanumericCharacters"/>
+          <xs:element name="minLength" type="PasswordMinLength"/>
+          <xs:element name="sendPermanentLockoutNotification" type="xs:boolean"/>
+          <xs:element name="permanentLockoutNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
+          <xs:element name="endpointAuthenticationLockoutType" type="AuthenticationLockoutType"/>
+          <xs:element name="endpointTemporaryLockoutThreshold" type="AuthenticationTemporaryLockoutThreshold"/>
+          <xs:element name="endpointWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
+          <xs:element name="endpointLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
+          <xs:element name="endpointPermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
+          <xs:element name="trunkGroupTemporaryLockoutThreshold" type="AuthenticationTemporaryLockoutThreshold"/>
+          <xs:element name="trunkGroupAuthenticationLockoutType" type="AuthenticationLockoutType"/>
+          <xs:element name="trunkGroupWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
+          <xs:element name="trunkGroupLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
+          <xs:element name="trunkGroupPermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderStirShakenGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get service provider Stir Shaken service settings.
+        The response is either ServiceProviderStirShakenGetResponse or ErrorResponse.
+        Replaced by the ServiceProviderStirShakenGetRequest23.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderStirShakenGetRequest23">
+    <xs:annotation>
+      <xs:documentation>
+        Get service provider Stir Shaken service settings.
+        The response is either ServiceProviderStirShakenGetResponse23 or ErrorResponse.
+        Replaced by ServiceProviderStirShakenGetRequest23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderStirShakenGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the ServiceProviderStirShakenGetRequest.
+        Replaced by the ServiceProviderStirShakenGetResponse23.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderStirShakenGetResponse23">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the ServiceProviderStirShakenGetRequest23.
+        Replaced by ServiceProviderStirShakenGetResponse23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="useParentLevelSettings" type="xs:boolean"/>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderThirdPartyEmergencyCallingGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get the third-party emergency call service settings for the service provider.
+        The response is either a ServiceProviderThirdPartyEmergencyCallingGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderThirdPartyEmergencyCallingGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the ServiceProviderThirdPartyEmergencyCallingGetRequest.
+        The response contains the third-party emergency call service settings for the service provider.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="allowActivation" type="xs:boolean"/>
+          <xs:element name="customerId" type="CustomerId" minOccurs="0"/>
+          <xs:element name="hasGroupEnabled" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -19544,6 +20937,47 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemAccessDeviceGetLinkedLeafDeviceListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the list of linked leaf devices for the system level tree device passed in the request.
+        A tree device is a device associated with a device type that has the option
+        supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
+        A leaf device is a device associated with a device type that has the option
+        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        The list includes devices created at the system, service provider, and group levels.
+        The response is either SystemAccessDeviceGetLinkedLeafDeviceListResponse or
+        ErrorResponse.
+
+        Replaced by: SystemAccessDeviceGetLinkedLeafDeviceListRequest22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="deviceName" type="AccessDeviceName"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemAccessDeviceGetLinkedLeafDeviceListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemAccessDeviceGetLinkedLeafDeviceListRequest.
+        Replaced by: SystemAccessDeviceGetLinkedLeafDeviceListResponse22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="treeDeviceLinkId" type="xs:string"/>
+          <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemAccessDeviceGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -19760,6 +21194,21 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemAdviceOfChargeGetRequest19sp1">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the list of Advice of Charge system parameters.
+        The response is either SystemAdviceOfChargeGetResponse19sp1 or ErrorResponse.
+        Replaced by: SystemAdviceOfChargeGetRequest25.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemAdviceOfChargeGetResponse">
     <xs:annotation>
       <xs:documentation>
@@ -19775,6 +21224,26 @@
           <xs:element name="delayBetweenNotificationSeconds" type="AdviceOfChargeDelayBetweenNotificationSeconds"/>
           <xs:element name="incomingAocHandling" type="AdviceOfChargeIncomingAocHandling"/>
           <xs:element name="costInformationSource" type="NetAddress" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemAdviceOfChargeGetResponse19sp1">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemAdviceOfChargeGetRequest.
+        Contains a list of system Advice of Charge parameters.
+        Replaced by: SystemAdviceOfChargeGetResponse25.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="delayBetweenNotificationSeconds" type="AdviceOfChargeDelayBetweenNotificationSeconds"/>
+          <xs:element name="incomingAocHandling" type="AdviceOfChargeIncomingAocHandling"/>
+          <xs:element name="useOCSEnquiry" type="xs:boolean"/>
+          <xs:element name="OCSEnquiryType" type="AdviceOfChargeOCSEnquiryType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -20721,6 +22190,21 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest22">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the system settings for the call center enhanced reporting scheduling tasks.
+        The response is either a SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse22 or an ErrorResponse.
+        Replaced by: SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest25.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse">
     <xs:annotation>
       <xs:documentation>
@@ -20735,6 +22219,26 @@
           <xs:element name="scheduledReportSearchIntervalMinutes" type="CallCenterScheduledReportSearchIntervalMinutes"/>
           <xs:element name="maximumScheduledReportsPerInterval" type="CallCenterMaximumScheduledReportsPerInterval"/>
           <xs:element name="deleteScheduledReportDaysAfterCompletion" type="CallCenterDaysAfterScheduledReportCompletion"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse22">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest22.
+
+        Replaced by: SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse25.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="scheduledReportSearchIntervalMinutes" type="CallCenterScheduledReportSearchIntervalMinutes"/>
+          <xs:element name="maximumScheduledReportsPerInterval" type="CallCenterMaximumScheduledReportsPerInterval"/>
+          <xs:element name="deleteScheduledReportDaysAfterCompletion" type="CallCenterDaysAfterScheduledReportCompletion"/>
+          <xs:element name="callCenterEventMode" type="CallCenterEventRecordingCallCenterEventMode"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -24449,374 +25953,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemCallRecordingAddPlatformRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Add a Call Recording platform.
-        The response is either a SuccessResponse or an ErrorResponse.
-
-        Replaced by: SystemCallRecordingAddPlatformRequest19
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="name" type="CallRecordingPlatformName"/>
-          <xs:element name="netAddress" type="NetAddress"/>
-          <xs:element name="port" type="Port"/>
-          <xs:element name="mediaStream" type="MediaStream"/>
-          <xs:element name="transportType" type="TransportProtocol"/>
-          <xs:element name="description" type="CallRecordingPlatformDescription" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingAddPlatformRequest19">
-    <xs:annotation>
-      <xs:documentation>
-        Add a Call Recording platform.
-        The response is either a SuccessResponse or an ErrorResponse.
-
-        Replaced by: SystemCallRecordingAddPlatformRequest20
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="name" type="CallRecordingPlatformName"/>
-          <xs:element name="netAddress" type="NetAddress"/>
-          <xs:element name="port" type="Port"/>
-          <xs:element name="mediaStream" type="MediaStream"/>
-          <xs:element name="transportType" type="TransportProtocol"/>
-          <xs:element name="description" type="CallRecordingPlatformDescription" minOccurs="0"/>
-          <xs:element name="schemaVersion" type="CallRecordingPlatformSchemaVersion"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingAddPlatformRequest20">
-    <xs:annotation>
-      <xs:documentation>
-        Add a Call Recording platform.
-        The first system level call recording platform added is made the system default
-        call recording platform.  The first reseller level call recording platform added
-        for a reseller is made the reseller default call recording platform.
-        The response is either a SuccessResponse or an ErrorResponse.
-
-        Replaced by: SystemCallRecordingAddPlatformRequest22
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="name" type="CallRecordingPlatformName"/>
-          <xs:element name="netAddress" type="NetAddress"/>
-          <xs:element name="port" type="Port" minOccurs="0"/>
-          <xs:element name="mediaStream" type="MediaStream"/>
-          <xs:element name="transportType" type="TransportProtocol"/>
-          <xs:element name="description" type="CallRecordingPlatformDescription" minOccurs="0"/>
-          <xs:element name="schemaVersion" type="CallRecordingPlatformSchemaVersion"/>
-          <xs:element name="supportVideoRecording" type="xs:boolean"/>
-          <xs:element name="resellerId" type="ResellerId" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get list of Call Recording platforms.
-        The response is either SystemCallRecordingGetPlatformListResponse or ErrorResponse.
-
-        The possible values for "Support Video Rec" can be either true or false.
-        Schema version values include: 1.0, 2.0, 3.0
-
-        Replaced by: SystemCallRecordingGetPlatformListRequest20sp1 in AS data mode
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest"/>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformListRequest20sp1">
-    <xs:annotation>
-      <xs:documentation>
-        Get list of Call Recording platforms.
-        The response is either SystemCallRecordingGetPlatformListResponse20sp1 or ErrorResponse.
-
-        The possible values for "Support Video Rec" can be either true or false.
-        Schema version values include: 1.0, 2.0, 3.0
-
-		Replaced by SystemCallRecordingGetPlatformListRequest22 in AS data mode.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest"/>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformListRequest22">
-    <xs:annotation>
-      <xs:documentation>
-        Requests the list of all system-level call recording platforms and all reseller level call recording platforms.
-		If an excludeReseller is specified, returns all the system-level call recording platforms only.
-        If a resellerId is specified, returns all the system-level call recording platforms and the given reseller's call recording platforms.
-        If a reseller administrator sends the request and resellerId is not specified, the administrator's resellerId is used.
-        The response is either SystemCallRecordingGetPlatformListResponse22 or ErrorResponse.
-
-        Replaced by: SystemCallRecordingGetPlatformListRequest22V2
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:choice>
-          <xs:element name="excludeReseller" type="xs:boolean" fixed="true" minOccurs="0"/>
-          <xs:element name="resellerId" type="ResellerId" minOccurs="0"/>
-        </xs:choice>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformListResponse">
-    <xs:annotation>
-      <xs:documentation>
-         Response to SystemCallRecordingGetPlatformListRequest.
-         Contains the default system Call Recording platform and a table with columns headings "Name", "Net Address", "Port",
-         "Transport Type", "Media Stream", "Description", "Schema Version", "Support Video Rec".
-         The system default recording platform also appears in the table with the other platforms.
-
-         The possible values for "Support Video Rec" can be either true or false.
-         Schema version values include: 1.0, 2.0, 3.0
-
-         Replaced by: SystemCallRecordingGetPlatformListResponse20sp1 in AS data mode
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="systemDefault" type="CallRecordingPlatformName" minOccurs="0"/>
-          <xs:element name="callRecordingPlatformTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformListResponse20sp1">
-    <xs:annotation>
-      <xs:documentation>
-         Response to SystemCallRecordingGetPlatformListRequest20sp1.
-         Contains the default system Call Recording platform and a table with columns headings "Name", "Net Address", "Port",
-         "Transport Type", "Media Stream", "Description", "Schema Version", "Support Video Rec".
-         The system default recording platform also appears in the table with the other platforms.
-
-         The port can be empty if it is not defined in the recording platform.
-         The possible values for "Support Video Rec" can be either true or false.
-         Schema version values include: 1.0, 2.0, 3.0
-
-		 Replaced by SystemCallRecordingGetPlatformListResponse22 in AS data mode.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="systemDefault" type="CallRecordingPlatformName" minOccurs="0"/>
-          <xs:element name="callRecordingPlatformTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformListResponse22">
-    <xs:annotation>
-      <xs:documentation>
-         Response to SystemCallRecordingGetPlatformListRequest22.
-         Contains the default system Call Recording platform, default reseller Call Recording Platform (when applicable) and a table with columns headings
-         "Name", "Net Address", "Port", "Transport Type", "Media Stream", "Description", "Schema Version", "Support Video Rec", "Reseller Id".
-         The system default recording platform also appears in the table with the other platforms.
-
-         The port can be empty if it is not defined in the recording platform.
-         The possible values for "Support Video Rec" can be either true or false.
-         Schema version values include: 1.0, 2.0, 3.0
-
-         Replaced by: SystemCallRecordingGetPlatformListResponse22V2
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="systemDefault" type="CallRecordingPlatformName" minOccurs="0"/>
-          <xs:element name="resellerDefault" type="CallRecordingPlatformName" minOccurs="0"/>
-          <xs:element name="callRecordingPlatformTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformUsageRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get the list of groups currently associated to the specified Call Recording platform.
-        The response is either SystemCallRecordingGetPlatformUsageResponse or ErrorResponse.
-
-		Replaced by SystemCallRecordingGetPlatformUsageRequest22 in AS data mode.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="name" type="CallRecordingPlatformName"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetPlatformUsageResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to SystemCallRecordingGetPlatformUsageRequest.
-        The response contains a table with columns headings "Service Provider Id", "Group Id".
-
-		Replaced by SystemCallRecordingGetPlatformUsageResponse22 in AS data mode.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="groupTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Request the system level data associated with Call Recording.
-        The response is either a SystemCallRecordingGetResponse or an
-        ErrorResponse.
-
-        Replaced by: SystemCallRecordingGetRequest22
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetRequest22">
-    <xs:annotation>
-      <xs:documentation>
-        Request the system level data associated with Call Recording.
-        The response is either a SystemCallRecordingGetResponse22 or an
-        ErrorResponse.
-
-        Replaced by: SystemCallRecordingGetRequest23
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to SystemCallRecordingGetRequest.
-
-        Replaced By: SystemCallRecordingGetResponse22
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="continueCallAfterRecordingFailure" type="xs:boolean"/>
-          <xs:element name="refreshPeriodSeconds" type="RecordingRefreshPeriodSeconds"/>
-          <xs:element name="maxConsecutiveFailures" type="RecordingMaxConsecutiveFailures"/>
-          <xs:element name="maxResponseWaitTimeMilliseconds" type="RecordingMaxResponseWaitTimeMilliseconds"/>
-          <xs:element name="continueCallAfterVideoRecordingFailure" type="xs:boolean"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingGetResponse22">
-    <xs:annotation>
-      <xs:documentation>
-        Response to SystemCallRecordingGetRequest22.
-
-        Replaced by: SystemCallRecordingGetResponse23
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="continueCallAfterRecordingFailure" type="xs:boolean"/>
-          <xs:element name="maxResponseWaitTimeMilliseconds" type="RecordingMaxResponseWaitTimeMilliseconds"/>
-          <xs:element name="continueCallAfterVideoRecordingFailure" type="xs:boolean"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingModifyPlatformRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Modify the specified Call Recording platform.
-        The response is either a SuccessResponse or an ErrorResponse.
-
-        Replaced by: SystemCallRecordingModifyPlatformRequest22
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="name" type="CallRecordingPlatformName"/>
-          <xs:element name="netAddress" type="NetAddress" minOccurs="0"/>
-          <xs:element name="port" type="Port" minOccurs="0" nillable="true"/>
-          <xs:element name="mediaStream" type="MediaStream" minOccurs="0"/>
-          <xs:choice>
-            <xs:element name="becomeSystemDefault" type="xs:boolean" fixed="true" minOccurs="0"/>
-            <xs:element name="becomeResellerDefault" type="ResellerId" minOccurs="0"/>
-          </xs:choice>
-          <xs:element name="transportType" type="TransportProtocol" minOccurs="0"/>
-          <xs:element name="description" type="CallRecordingPlatformDescription" minOccurs="0" nillable="true"/>
-          <xs:element name="schemaVersion" type="CallRecordingPlatformSchemaVersion" minOccurs="0"/>
-          <xs:element name="supportVideoRecording" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SystemCallRecordingModifyRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Modify the system level data associated with Call Recording.
-        The response is either a SuccessResponse or an ErrorResponse.
-
-        Replaced By: SystemCallRecordingModifyRequest22
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="continueCallAfterRecordingFailure" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="refreshPeriodSeconds" type="RecordingRefreshPeriodSeconds" minOccurs="0"/>
-          <xs:element name="maxConsecutiveFailures" type="RecordingMaxConsecutiveFailures" minOccurs="0"/>
-          <xs:element name="maxResponseWaitTimeMilliseconds" type="RecordingMaxResponseWaitTimeMilliseconds" minOccurs="0"/>
-          <xs:element name="continueCallAfterVideoRecordingFailure" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="SystemCollaborateGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -25800,6 +26936,54 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemDeviceProfileAuthenticationPasswordRulesGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the system level device profile authentication password rule settings.
+        The response is either a SystemDeviceProfileAuthenticationPasswordRulesGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemDeviceProfileAuthenticationPasswordRulesGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemDeviceProfileAuthenticationPasswordRulesGetRequest.
+        Contains the device profile authentication password rules for the system.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="disallowAuthenticationName" type="xs:boolean"/>
+          <xs:element name="disallowOldPassword" type="xs:boolean"/>
+          <xs:element name="disallowReversedOldPassword" type="xs:boolean"/>
+          <xs:element name="restrictMinDigits" type="xs:boolean"/>
+          <xs:element name="minDigits" type="PasswordMinDigits"/>
+          <xs:element name="restrictMinUpperCaseLetters" type="xs:boolean"/>
+          <xs:element name="minUpperCaseLetters" type="PasswordMinUpperCaseLetters"/>
+          <xs:element name="restrictMinLowerCaseLetters" type="xs:boolean"/>
+          <xs:element name="minLowerCaseLetters" type="PasswordMinLowerCaseLetters"/>
+          <xs:element name="restrictMinNonAlphanumericCharacters" type="xs:boolean"/>
+          <xs:element name="minNonAlphanumericCharacters" type="PasswordMinNonAlphanumericCharacters"/>
+          <xs:element name="minLength" type="PasswordMinLength"/>
+          <xs:element name="sendPermanentLockoutNotification" type="xs:boolean"/>
+          <xs:element name="permanentLockoutNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
+          <xs:element name="deviceProfileAuthenticationLockoutType" type="AuthenticationLockoutType"/>
+          <xs:element name="deviceProfileTemporaryLockoutThreshold" type="AuthenticationTemporaryLockoutThreshold"/>
+          <xs:element name="deviceProfileWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
+          <xs:element name="deviceProfileLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
+          <xs:element name="deviceProfilePermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemDeviceTypeGetAvailableListRequest">
     <xs:annotation>
       <xs:documentation>
@@ -26449,8 +27633,6 @@
       <xs:documentation>
         Contains a table of all matching system-level domain names and all matching reseller level domains.
         The column headings are: "Domain Name" and "Reseller Id".
-        The following elements are only used in AS and XS data mode and not returned in Amplify data mode:
-          systemDefaultDomain
 
         Replaced by SystemDomainGetListResponse22V2 in AS data mode.
       </xs:documentation>
@@ -26694,6 +27876,35 @@
           <xs:element name="maxNonPagedResponseSize" type="EnhancedCallLogsNonPagedResponseSize" minOccurs="0"/>
           <xs:element name="eclQueryApplicationURL" type="URL" nillable="true" minOccurs="0"/>
           <xs:element name="eclQueryDataRepositoryURL" type="URL" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemExecutiveGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+         Request to get the Executive system parameters.
+         The response is either SystemExecutiveGetResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemExecutiveGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemExecutiveGetRequest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="treatVirtualOnNetCallsAsInternal" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -27053,6 +28264,41 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemGetAvailableLeafDeviceListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the list of available leaf devices that can be linked to a tree device for the entire system.
+        A leaf device is a device associated with a device type that has the option
+        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        The list returned includes devices created at the system, service provider, and group levels.
+        The response is either SystemGetAvailableLeafDeviceListResponse or
+        ErrorResponse.
+        Replaced by: SystemGetAvailableLeafDeviceListRequest22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemGetAvailableLeafDeviceListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemGetAvailableLeafDeviceListRequest.
+        Replaced by: SystemGetAvailableLeafDeviceListResponse22.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemGetRegistrationContactListRequest">
     <xs:annotation>
       <xs:documentation>
@@ -27113,6 +28359,42 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="registrationTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemGETSGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get the GETS system settings.
+        The response is either SystemGETSGetResponse or ErrorResponse.
+        Replaced By: SystemGETSGetRequest22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemGETSGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemGETSGetRequest.
+        Replaced By: SystemGETSGetResponse22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="enabled" type="xs:boolean"/>
+          <xs:element name="enableRequireResourcePriority" type="xs:boolean"/>
+          <xs:element name="sendAccessResourcePriority" type="xs:boolean"/>
+          <xs:element name="callIdentifierMode" type="GETSCallIdentifierMode"/>
+          <xs:element name="defaultPriorityAVP" type="GETSPriorityAVP"/>
+          <xs:element name="signalingDSCP" type="GETSSignalingDSCP"/>
+          <xs:element name="defaultRValue" type="GETSPriorityValue"/>
+          <xs:element name="bypassRoRelease" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -27539,6 +28821,22 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemLocationBasedCallingRestrictionsGetRequest17sp3">
+    <xs:annotation>
+      <xs:documentation>
+        Gets system level the Location Based Calling Restrictions attributes.
+        The response is either a SystemLocationBasedCallingRestrictionsGetResponse17sp3 or an ErrorResponse.
+
+        Replaced by: SystemLocationBasedCallingRestrictionsGetRequest24
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemLocationBasedCallingRestrictionsGetResponse">
     <xs:annotation>
       <xs:documentation>
@@ -27553,6 +28851,26 @@
           <xs:element name="physicalLocationIndicator" type="PhysicalLocationIndicator"/>
           <xs:element name="enforceMscValidation" type="xs:boolean"/>
           <xs:element name="enableOfficeZoneAnnouncement" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemLocationBasedCallingRestrictionsGetResponse17sp3">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemLocationBasedCallingRestrictionsGetRequest17sp3.
+
+        Replaced by: SystemLocationBasedCallingRestrictionsGetResponse24
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="physicalLocationIndicator" type="PhysicalLocationIndicator"/>
+          <xs:element name="enforceMscValidation" type="xs:boolean"/>
+          <xs:element name="enableOfficeZoneAnnouncement" type="xs:boolean"/>
+          <xs:element name="enhanceOfficeZone" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -28282,6 +29600,50 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemPasswordRulesModifyRequest14sp3">
+    <xs:annotation>
+      <xs:documentation>
+        Request to modify the system providers password rule
+        setting applicable to System Adminstrator, Provisioning Administrator,
+        and/or Service Provider Administrator, Group Administrator, Department Administrator, User.
+
+        The following elements are only used in AS data mode and ignored in XS data mode:
+        forcePasswordChangeAfterReset
+
+        The response is either SuccessResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="rulesApplyTo" type="SystemPasswordRulesApplyTo" minOccurs="0"/>
+          <xs:element name="allowWebAddExternalAuthenticationUsers" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="disallowUserId" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="disallowOldPassword" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="disallowReversedOldPassword" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="restrictMinDigits" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="minDigits" type="PasswordMinDigits" minOccurs="0"/>
+          <xs:element name="restrictMinUpperCaseLetters" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="minUpperCaseLetters" type="PasswordMinUpperCaseLetters" minOccurs="0"/>
+          <xs:element name="restrictMinLowerCaseLetters" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="minLowerCaseLetters" type="PasswordMinLowerCaseLetters" minOccurs="0"/>
+          <xs:element name="restrictMinNonAlphanumericCharacters" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="minNonAlphanumericCharacters" type="PasswordMinNonAlphanumericCharacters" minOccurs="0"/>
+          <xs:element name="minLength" type="PasswordMinLength" minOccurs="0"/>
+          <xs:element name="maxFailedLoginAttempts" type="MaxFailedLoginAttempts" minOccurs="0"/>
+          <xs:element name="passwordExpiresDays" type="PasswordExpiresDays" minOccurs="0"/>
+          <xs:element name="sendLoginDisabledNotifyEmail" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="loginDisabledNotifyEmailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
+          <xs:element name="disallowPreviousPasswords" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="numberOfPreviousPasswords" type="PasswordHistoryCount" minOccurs="0"/>
+          <xs:element name="forcePasswordChangeAfterReset" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enforceExternalAuthForRoutePoint" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemPerformanceMeasurementReportingAddFileServerRequest">
     <xs:annotation>
       <xs:documentation>
@@ -28544,6 +29906,23 @@
       <xs:documentation>
         Requests the system's default policy settings.
         The response is either SystemPolicyGetDefaultResponse17sp3 or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemPolicyGetDefaultRequest18">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the system's default policy settings.
+        The response is either SystemPolicyGetDefaultResponse18 or ErrorResponse.
+
+        Replaced by: SystemPolicyGetDefaultRequest20 in AS data mode
+        Replaced by: SystemPolicyGetDefaultRequest22 in XS data mode
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -28960,6 +30339,147 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemPolicyGetDefaultResponse18">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemPolicyGetDefaultRequest18.
+        Contains the default policy settings for the system.
+        The following elements are only used in AS data mode:
+            GroupAdminDialableCallerIDAccess
+            ServiceProviderAdminDialableCallerIDAccess
+        The following elements are only used in XS data mode:
+            serviceProviderAdminCommunicationBarringAccess
+
+        Replaced by: SystemPolicyGetDefaultResponse20 in AS data mode
+        Replaced by: SystemPolicyGetDefaultResponse22 in XS data mode
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="groupCallingPlanAccess" type="GroupCallingPlanAccess"/>
+          <xs:element name="groupExtensionAccess" type="GroupExtensionAccess"/>
+          <xs:element name="groupLDAPIntegrationAccess" type="GroupLDAPIntegrationAccess"/>
+          <xs:element name="groupVoiceMessagingAccess" type="GroupVoiceMessagingAccess"/>
+          <xs:element name="groupDepartmentAdminUserAccess" type="GroupDepartmentAdminUserAccess"/>
+          <xs:element name="groupDepartmentAdminTrunkGroupAccess" type="GroupDepartmentAdminTrunkGroupAccess"/>
+          <xs:element name="groupDepartmentAdminPhoneNumberExtensionAccess" type="GroupDepartmentAdminPhoneNumberExtensionAccess"/>
+          <xs:element name="groupDepartmentAdminCallingLineIdNumberAccess" type="GroupDepartmentAdminCallingLineIdNumberAccess"/>
+          <xs:element name="groupUserAuthenticationAccess" type="GroupUserAuthenticationAccess"/>
+          <xs:element name="groupUserGroupDirectoryAccess" type="GroupUserGroupDirectoryAccess"/>
+          <xs:element name="groupUserProfileAccess" type="GroupUserProfileAccess"/>
+          <xs:element name="groupUserEnhancedCallLogsAccess" type="GroupUserCallLogAccess"/>
+          <xs:element name="groupAdminProfileAccess" type="GroupAdminProfileAccess"/>
+          <xs:element name="groupAdminUserAccess" type="GroupAdminUserAccess"/>
+          <xs:element name="groupAdminAdminAccess" type="GroupAdminAdminAccess"/>
+          <xs:element name="groupAdminDepartmentAccess" type="GroupAdminDepartmentAccess"/>
+          <xs:element name="groupAdminAccessDeviceAccess" type="GroupAdminAccessDeviceAccess"/>
+          <xs:element name="groupAdminEnhancedServiceInstanceAccess" type="GroupAdminEnhancedServiceInstanceAccess"/>
+          <xs:element name="groupAdminFeatureAccessCodeAccess" type="GroupAdminFeatureAccessCodeAccess"/>
+          <xs:element name="groupAdminPhoneNumberExtensionAccess" type="GroupAdminPhoneNumberExtensionAccess"/>
+          <xs:element name="groupAdminCallingLineIdNumberAccess" type="GroupAdminCallingLineIdNumberAccess"/>
+          <xs:element name="groupAdminServiceAccess" type="GroupAdminServiceAccess"/>
+          <xs:element name="groupAdminTrunkGroupAccess" type="GroupAdminTrunkGroupAccess"/>
+          <xs:element name="groupAdminSessionAdmissionControlAccess" type="GroupAdminSessionAdmissionControlAccess"/>
+          <xs:element name="groupAdminOfficeZoneAccess" type="GroupAdminOfficeZoneAccess"/>
+          <xs:element name="groupAdminNumberActivationAccess" type="GroupAdminNumberActivationAccess"/>
+          <xs:element name="groupAdminDialableCallerIDAccess" type="GroupAdminDialableCallerIDAccess"/>
+          <xs:element name="serviceProviderAdminProfileAccess" type="ServiceProviderAdminProfileAccess"/>
+          <xs:element name="serviceProviderAdminGroupAccess" type="ServiceProviderAdminGroupAccess"/>
+          <xs:element name="serviceProviderAdminUserAccess" type="ServiceProviderAdminUserAccess"/>
+          <xs:element name="serviceProviderAdminAdminAccess" type="ServiceProviderAdminAdminAccess"/>
+          <xs:element name="serviceProviderAdminDepartmentAccess" type="ServiceProviderAdminDepartmentAccess"/>
+          <xs:element name="serviceProviderAdminAccessDeviceAccess" type="ServiceProviderAdminAccessDeviceAccess"/>
+          <xs:element name="serviceProviderAdminPhoneNumberExtensionAccess" type="ServiceProviderAdminPhoneNumberExtensionAccess"/>
+          <xs:element name="serviceProviderAdminCallingLineIdNumberAccess" type="ServiceProviderAdminCallingLineIdNumberAccess"/>
+          <xs:element name="serviceProviderAdminServiceAccess" type="ServiceProviderAdminServiceAccess"/>
+          <xs:element name="serviceProviderAdminServicePackAccess" type="ServiceProviderAdminServicePackAccess"/>
+          <xs:element name="serviceProviderAdminSessionAdmissionControlAccess" type="ServiceProviderAdminSessionAdmissionControlAccess"/>
+          <xs:element name="serviceProviderAdminWebBrandingAccess" type="ServiceProviderAdminWebBrandingAccess"/>
+          <xs:element name="serviceProviderAdminOfficeZoneAccess" type="ServiceProviderAdminOfficeZoneAccess"/>
+          <xs:element name="serviceProviderAdminCommunicationBarringAccess" type="ServiceProviderAdminCommunicationBarringAccess"/>
+          <xs:element name="enterpriseAdminNetworkPolicyAccess" type="EnterpriseAdminNetworkPolicyAccess"/>
+          <xs:element name="enterpriseAdminNumberActivationAccess" type="EnterpriseAdminNumberActivationAccess"/>
+          <xs:element name="serviceProviderAdminDialableCallerIDAccess" type="ServiceProviderAdminDialableCallerIDAccess"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemPolicyModifyDefaultRequest14">
+    <xs:annotation>
+      <xs:documentation>
+        Request to modify the system's default policy settings.
+        The response is either SuccessResponse or ErrorResponse.
+        The following elements are only used in AS data mode:
+            GroupAdminDialableCallerIDAccess
+            ServiceProviderAdminDialableCallerIDAccess
+            GroupAdminCommunicationBarringUserProfileAccess (This element is only used for groups in an Enterprise)
+            GroupAdminVerifyTranslationAndRoutingAccess
+            ServiceProviderVerifyTranslationAndRoutingAccess
+            groupUserAutoAttendantNameDialingAccess
+        The following elements are only used in XS data mode:
+            serviceProviderAdminCommunicationBarringAccess
+
+        Replaced by: SystemPolicyModifyDefaultRequest22 in AS and XS mode
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="groupCallingPlanAccess" type="GroupCallingPlanAccess" minOccurs="0"/>
+          <xs:element name="groupExtensionAccess" type="GroupExtensionAccess" minOccurs="0"/>
+          <xs:element name="groupLDAPIntegrationAccess" type="GroupLDAPIntegrationAccess" minOccurs="0"/>
+          <xs:element name="groupVoiceMessagingAccess" type="GroupVoiceMessagingAccess" minOccurs="0"/>
+          <xs:element name="groupDepartmentAdminUserAccess" type="GroupDepartmentAdminUserAccess" minOccurs="0"/>
+          <xs:element name="groupDepartmentAdminTrunkGroupAccess" type="GroupDepartmentAdminTrunkGroupAccess" minOccurs="0"/>
+          <xs:element name="groupDepartmentAdminPhoneNumberExtensionAccess" type="GroupDepartmentAdminPhoneNumberExtensionAccess" minOccurs="0"/>
+          <xs:element name="groupDepartmentAdminCallingLineIdNumberAccess" type="GroupDepartmentAdminCallingLineIdNumberAccess" minOccurs="0"/>
+          <xs:element name="groupUserAuthenticationAccess" type="GroupUserAuthenticationAccess" minOccurs="0"/>
+          <xs:element name="groupUserGroupDirectoryAccess" type="GroupUserGroupDirectoryAccess" minOccurs="0"/>
+          <xs:element name="groupUserProfileAccess" type="GroupUserProfileAccess" minOccurs="0"/>
+          <xs:element name="groupUserEnhancedCallLogsAccess" type="GroupUserCallLogAccess" minOccurs="0"/>
+          <xs:element name="groupUserAutoAttendantNameDialingAccess" type="GroupUserAutoAttendantNameDialingAccess" minOccurs="0"/>
+          <xs:element name="groupAdminProfileAccess" type="GroupAdminProfileAccess" minOccurs="0"/>
+          <xs:element name="groupAdminUserAccess" type="GroupAdminUserAccess" minOccurs="0"/>
+          <xs:element name="groupAdminAdminAccess" type="GroupAdminAdminAccess" minOccurs="0"/>
+          <xs:element name="groupAdminDepartmentAccess" type="GroupAdminDepartmentAccess" minOccurs="0"/>
+          <xs:element name="groupAdminAccessDeviceAccess" type="GroupAdminAccessDeviceAccess" minOccurs="0"/>
+          <xs:element name="groupAdminEnhancedServiceInstanceAccess" type="GroupAdminEnhancedServiceInstanceAccess" minOccurs="0"/>
+          <xs:element name="groupAdminFeatureAccessCodeAccess" type="GroupAdminFeatureAccessCodeAccess" minOccurs="0"/>
+          <xs:element name="groupAdminPhoneNumberExtensionAccess" type="GroupAdminPhoneNumberExtensionAccess" minOccurs="0"/>
+          <xs:element name="groupAdminCallingLineIdNumberAccess" type="GroupAdminCallingLineIdNumberAccess" minOccurs="0"/>
+          <xs:element name="groupAdminServiceAccess" type="GroupAdminServiceAccess" minOccurs="0"/>
+          <xs:element name="groupAdminTrunkGroupAccess" type="GroupAdminTrunkGroupAccess" minOccurs="0"/>
+          <xs:element name="groupAdminVerifyTranslationAndRoutingAccess" type="GroupAdminVerifyTranslationAndRoutingAccess" minOccurs="0"/>
+          <xs:element name="groupAdminSessionAdmissionControlAccess" type="GroupAdminSessionAdmissionControlAccess" minOccurs="0"/>
+          <xs:element name="groupAdminDialableCallerIDAccess" type="GroupAdminDialableCallerIDAccess" minOccurs="0"/>
+          <xs:element name="groupAdminOfficeZoneAccess" type="GroupAdminOfficeZoneAccess" minOccurs="0"/>
+          <xs:element name="groupAdminNumberActivationAccess" type="GroupAdminNumberActivationAccess" minOccurs="0"/>
+          <xs:element name="groupAdminCommunicationBarringUserProfileAccess" type="GroupAdminCommunicationBarringUserProfileAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminProfileAccess" type="ServiceProviderAdminProfileAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminGroupAccess" type="ServiceProviderAdminGroupAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminUserAccess" type="ServiceProviderAdminUserAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminAdminAccess" type="ServiceProviderAdminAdminAccess" minOccurs="0"/>
+          <xs:element name="ServiceProviderAdminDepartmentAccess" type="ServiceProviderAdminDepartmentAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminAccessDeviceAccess" type="ServiceProviderAdminAccessDeviceAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminPhoneNumberExtensionAccess" type="ServiceProviderAdminPhoneNumberExtensionAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminCallingLineIdNumberAccess" type="ServiceProviderAdminCallingLineIdNumberAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminServiceAccess" type="ServiceProviderAdminServiceAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminServicePackAccess" type="ServiceProviderAdminServicePackAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminSessionAdmissionControlAccess" type="ServiceProviderAdminSessionAdmissionControlAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminVerifyTranslationAndRoutingAccess" type="ServiceProviderAdminVerifyTranslationAndRoutingAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminWebBrandingAccess" type="ServiceProviderAdminWebBrandingAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminOfficeZoneAccess" type="ServiceProviderAdminOfficeZoneAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminCommunicationBarringAccess" type="ServiceProviderAdminCommunicationBarringAccess" minOccurs="0"/>
+          <xs:element name="enterpriseAdminNetworkPolicyAccess" type="EnterpriseAdminNetworkPolicyAccess" minOccurs="0"/>
+          <xs:element name="serviceProviderAdminDialableCallerIDAccess" type="ServiceProviderAdminDialableCallerIDAccess" minOccurs="0"/>
+          <xs:element name="enterpriseAdminNumberActivationAccess" type="EnterpriseAdminNumberActivationAccess" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemPortalPasscodeRulesGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -29208,6 +30728,36 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemSessionAdmissionControlGetRequest22V2">
+    <xs:annotation>
+      <xs:documentation>
+        Get the session admission control settings for the system.
+        The response is either a SystemSessionAdmissionControlGetResponse22V2 or an ErrorResponse.
+
+        Replaced by: SystemSessionAdmissionControlGetRequest22V3
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSessionAdmissionControlGetRequest22V3">
+    <xs:annotation>
+      <xs:documentation>
+        Get the session admission control settings for the system.
+        The response is either a SystemSessionAdmissionControlGetResponse22V3 or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemSessionAdmissionControlGetResponse">
     <xs:annotation>
       <xs:documentation>
@@ -29267,6 +30817,61 @@
           <xs:element name="countBWAnywhereForSACSubscriber" type="xs:boolean"/>
           <xs:element name="countROForSACSubscriber" type="xs:boolean"/>
           <xs:element name="excludeBWMobilityForSACSubscriber" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSessionAdmissionControlGetResponse22V2">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the SystemSessionAdmissionControlGetRequest22V2.
+        The response contains the session admission control settings for the system.
+
+        Replaced by: SystemSessionAdmissionControlGetResponse22V3
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="countLongConnectionsToMediaServer" type="xs:boolean"/>
+          <xs:element name="sacHandlingForMoH" type="SessionAdmissionControlForMusicOnHoldType"/>
+          <xs:element name="blockVMDepositDueToSACLimits" type="xs:boolean"/>
+          <xs:element name="sacCodecSelectionPolicy" type="SessionAdmissionControlCodecSelectionPolicyType"/>
+          <xs:element name="countCallToMobileNumberForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="countBWAnywhereForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="countROForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="excludeBWMobilityForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="enableHoldoverOfHighwaterSessionCounts" type="xs:boolean"/>
+          <xs:element name="holdoverPeriodMinutes" type="SessionAdmissionControlHighwaterSessionCountHoldoverPeriodMinutes"/>
+          <xs:element name="timeZoneOffsetMinutes" type="SessionAdmissionControlTimeZoneOffsetMinutes"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSessionAdmissionControlGetResponse22V3">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the SystemSessionAdmissionControlGetRequest22V3.
+        The response contains the session admission control settings for the system.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="countLongConnectionsToMediaServer" type="xs:boolean"/>
+          <xs:element name="sacHandlingForMoH" type="SessionAdmissionControlForMusicOnHoldType"/>
+          <xs:element name="blockVMDepositDueToSACLimits" type="xs:boolean"/>
+          <xs:element name="sacCodecSelectionPolicy" type="SessionAdmissionControlCodecSelectionPolicyType"/>
+          <xs:element name="countCallToMobileNumberForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="countBWAnywhereForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="countROForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="excludeBWMobilityForSACSubscriber" type="xs:boolean"/>
+          <xs:element name="enableHoldoverOfHighwaterSessionCounts" type="xs:boolean"/>
+          <xs:element name="holdoverPeriodMinutes" type="SessionAdmissionControlHighwaterSessionCountHoldoverPeriodMinutes"/>
+          <xs:element name="timeZoneOffsetMinutes" type="SessionAdmissionControlTimeZoneOffsetMinutes"/>
+          <xs:element name="countCallsRedirectedToExternalDestination" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -29435,6 +31040,59 @@
           <xs:element name="netAddress" type="NetAddress"/>
           <xs:element name="transportProtocol" type="SIPACLTransportProtocol"/>
           <xs:element name="description" type="NetworkACLEntryDescription" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSIPAuthenticationPasswordRulesGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the system level SIP authentication password rule settings.
+        The response is either a SystemSIPAuthenticationPasswordRulesGetResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSIPAuthenticationPasswordRulesGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemSIPAuthenticationPasswordRulesGetRequest.
+        Contains the SIP authentication password rules for the system.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="disallowAuthenticationName" type="xs:boolean"/>
+          <xs:element name="disallowOldPassword" type="xs:boolean"/>
+          <xs:element name="disallowReversedOldPassword" type="xs:boolean"/>
+          <xs:element name="restrictMinDigits" type="xs:boolean"/>
+          <xs:element name="minDigits" type="PasswordMinDigits"/>
+          <xs:element name="restrictMinUpperCaseLetters" type="xs:boolean"/>
+          <xs:element name="minUpperCaseLetters" type="PasswordMinUpperCaseLetters"/>
+          <xs:element name="restrictMinLowerCaseLetters" type="xs:boolean"/>
+          <xs:element name="minLowerCaseLetters" type="PasswordMinLowerCaseLetters"/>
+          <xs:element name="restrictMinNonAlphanumericCharacters" type="xs:boolean"/>
+          <xs:element name="minNonAlphanumericCharacters" type="PasswordMinNonAlphanumericCharacters"/>
+          <xs:element name="minLength" type="PasswordMinLength"/>
+          <xs:element name="sendPermanentLockoutNotification" type="xs:boolean"/>
+          <xs:element name="permanentLockoutNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
+          <xs:element name="endpointAuthenticationLockoutType" type="AuthenticationLockoutType"/>
+          <xs:element name="endpointTemporaryLockoutThreshold" type="AuthenticationTemporaryLockoutThreshold"/>
+          <xs:element name="endpointWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
+          <xs:element name="endpointLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
+          <xs:element name="endpointPermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
+          <xs:element name="trunkGroupAuthenticationLockoutType" type="AuthenticationLockoutType"/>
+          <xs:element name="trunkGroupTemporaryLockoutThreshold" type="AuthenticationTemporaryLockoutThreshold"/>
+          <xs:element name="trunkGroupWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
+          <xs:element name="trunkGroupLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
+          <xs:element name="trunkGroupPermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -34996,6 +36654,109 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemStirShakenGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get system Stir Shaken service settings.
+        The response is either SystemStirShakenGetResponse or ErrorResponse.
+        Replaced by SystemStirShakenGetRequest23.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemStirShakenGetRequest23">
+    <xs:annotation>
+      <xs:documentation>
+        Get system Stir Shaken service settings.
+        The response is either SystemStirShakenGetResponse or ErrorResponse.
+        Replaced by SystemStirShakenGetRequest23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemStirShakenGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the SystemStirShakenGetRequest.
+        Replaced by SystemStirShakenGetResponse23.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="tagEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="useTS24229Headers" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="verifyGETSCalls" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemStirShakenGetResponse23">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the SystemStirShakenGetRequest23.
+        Replaced by SystemStirShakenGetResponse23V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="signingPolicy" type="StirShakenSigningPolicy"/>
+          <xs:element name="taggingPolicy" type="StirShakenTaggingPolicy"/>
+          <xs:element name="signEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="tagEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="signingServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="tagFromOrPAI" type="StirShakenTagFromOrPAI"/>
+          <xs:element name="verstatTag" type="StirShakenVerstatTag"/>
+          <xs:element name="useOSValueForOrigId" type="xs:boolean"/>
+          <xs:element name="origUUID" type="StirShakenOrigUUID" minOccurs="0"/>
+          <xs:element name="attestationLevel" type="StirShakenAttestationLevel"/>
+          <xs:element name="enableVerification" type="xs:boolean"/>
+          <xs:element name="verificationServiceURL" type="URL" minOccurs="0"/>
+          <xs:element name="verificationErrorHandling" type="StirShakenVerificationErrorHandling"/>
+          <xs:element name="proxyVerstatToCNAMSubscribe" type="xs:boolean"/>
+          <xs:element name="useUnknownHeadersFromCNAMNotify" type="xs:boolean"/>
+          <xs:element name="useTS24229Headers" type="xs:boolean"/>
+          <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
+          <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="verifyGETSCalls" type="xs:boolean"/>
+          <xs:element name="allowPartialIngressTagging" type="xs:boolean"/>
+          <xs:element name="includeVerstatToMobileNetworkLocations" type="xs:boolean"/>
+          <xs:element name="allowVerstatInSIPURIWithPhoneCorrection" type="xs:boolean"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemSubscriberGetCallProcessingParametersRequest">
     <xs:annotation>
       <xs:documentation>
@@ -35293,6 +37054,40 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SystemSubscriberGetProvisioningParametersRequest23">
+    <xs:annotation>
+      <xs:documentation>
+        Get the system provisioning configuration for all subscribers
+        The response is either a SystemSubscriberGetProvisioningParametersResponse23
+        or an ErrorResponse.
+
+        Replaced by: SystemSubscriberGetProvisioningParametersRequest24V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSubscriberGetProvisioningParametersRequest24">
+    <xs:annotation>
+      <xs:documentation>
+        Get the system provisioning configuration for all subscribers
+        The response is either a SystemSubscriberGetProvisioningParametersResponse24
+        or an ErrorResponse.
+
+        Replaced by: SystemSubscriberGetProvisioningParametersRequest24V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SystemSubscriberGetProvisioningParametersResponse">
     <xs:annotation>
       <xs:documentation>
@@ -35305,6 +37100,42 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="configurableCLIDNormalization" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSubscriberGetProvisioningParametersResponse23">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the SystemSubscriberGetProvisioningParametersRequest23.
+
+        Replaced by: SystemSubscriberGetProvisioningParametersResponse24V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="configurableCLIDNormalization" type="xs:boolean"/>
+          <xs:element name="minAuthLevelToProvisionAltUserID" type="AuthorizationLevelToProvisionAlternateUserID"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemSubscriberGetProvisioningParametersResponse24">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the SystemSubscriberGetProvisioningParametersRequest24.
+
+        Replaced by: SystemSubscriberGetProvisioningParametersResponse24V2.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="configurableCLIDNormalization" type="xs:boolean"/>
+          <xs:element name="includeDefaultDomain" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -36049,6 +37880,41 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="taskTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemVoiceMessageSummaryUpdateGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests system voice mail message summary update parameter settings.
+        The response is either SystemVoiceMessageSummaryUpdateGetResponse or ErrorResponse.
+
+        Replaced By: SystemVoiceMessageSummaryUpdateGetRequest25
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemVoiceMessageSummaryUpdateGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemVoiceMessageSummaryUpdateGetRequest.
+
+        Replaced By: SystemVoiceMessageSummaryUpdateGetResponse25
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="sendSavedAndUrgentMWIOnNotification" type="xs:boolean"/>
+          <xs:element name="sendMessageSummaryUpdateOnRegister" type="xs:boolean"/>
+          <xs:element name="minTimeBetweenMWIOnRegister" type="VoiceMessageSummaryUpdateSeconds"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -41643,100 +43509,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserCallRecordingGetRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get the Call Recording attributes for a user.
-        The response is either a UserCallRecordingGetResponse or an ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="userId" type="UserId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserCallRecordingGetRequest20">
-    <xs:annotation>
-      <xs:documentation>
-        Get the Call Recording attributes for a user.
-        The response is either a UserCallRecordingGetResponse20 or an ErrorResponse.
-
-        The following parameters are not returned for service instance:
-          - pauseResumeNotification
-          - enableCallRecordingAnnouncement
-          - enableRecordCallRepeatWarningTone
-          - recordCallRepeatWarningToneTimerSeconds
-
-          Replaced by: UserCallRecordingGetRequest23.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="userId" type="UserId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserCallRecordingGetResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the UserCallRecordingGetRequest.
-        The response contains the user's Call Recording option information.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="recordingOption" type="RecordingOption"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="UserCallRecordingGetResponse20">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the UserCallRecordingGetRequest20.
-        The response contains the user's Call Recording option information.
-
-        The following parameters are not returned for service instance:
-          - pauseResumeNotification
-          - enableCallRecordingAnnouncement
-          - enableRecordCallRepeatWarningTone
-          - recordCallRepeatWarningToneTimerSeconds
-
-        The enableVoiceMailRecording parameter is only returned if the Voice
-        Messaging User service is assigned to the user.  This applies to both
-        users and service instances.
-
-        The recordingOption and enableCallRecordingAnnouncement which elements can
-        only be modified by a System or a Provisioning administrator when
-        restrictCallRecordingProvisioningAccess system param is set to true. Both the element
-        values will be ignored when group admin or lower runs this.
-
-         Replaced by: UserCallRecordingGetResponse23.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="recordingOption" type="RecordingOption20"/>
-          <xs:element name="pauseResumeNotification" type="RecordingPauseResumeNotificationType" minOccurs="0"/>
-          <xs:element name="enableCallRecordingAnnouncement" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="enableRecordCallRepeatWarningTone" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="recordCallRepeatWarningToneTimerSeconds" type="CallRecordingRecordCallRepeatWarningToneTimerSeconds" minOccurs="0"/>
-          <xs:element name="enableVoiceMailRecording" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="UserCallTransferGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -43145,7 +44917,7 @@
 
         The response is a UserGetLoginInfoResponse22V3 or an ErrorResponse.
 
-        The following elements are only used in AS data mode and ignored in XS and Amplify data mode.
+        The following elements are only used in AS data mode and ignored in XS data mode.
           loginRole
       </xs:documentation>
     </xs:annotation>
@@ -45593,6 +47365,22 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="UserPersonalAssistantGetRequest22">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the User Personal Assistant information.
+        The response is either a UserPersonalAssistantGetResponse22 or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="UserPersonalAssistantGetResponse">
     <xs:annotation>
       <xs:documentation>
@@ -45611,6 +47399,29 @@
           <xs:element name="enableRingSplash" type="xs:boolean"/>
           <xs:element name="enableExpirationTime" type="xs:boolean"/>
           <xs:element name="expirationTime" type="xs:dateTime" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPersonalAssistantGetResponse22">
+    <xs:annotation>
+      <xs:documentation>
+        Response to the UserPersonalAssistantGetRequest22.
+        The response contains the user Personal Assistant information".
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="presence" type="PersonalAssistantPresence"/>
+          <xs:element name="enableTransferToAttendant" type="xs:boolean"/>
+          <xs:element name="attendantNumber" type="OutgoingDNorSIPURI" minOccurs="0"/>
+          <xs:element name="enableRingSplash" type="xs:boolean"/>
+          <xs:element name="enableExpirationTime" type="xs:boolean"/>
+          <xs:element name="expirationTime" type="xs:dateTime" minOccurs="0"/>
+          <xs:element name="alertMeFirst" type="xs:boolean"/>
+          <xs:element name="alertMeFirstNumberOfRings" type="PersonalAssistantAlertMeFirstNumberOfRings"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -45730,6 +47541,230 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="sendPushNotificationForClickToDial" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPushNotificationRegistrationGetListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request a table containing all of the push notification registrations for a user by
+        either registration id or user id.
+        The response is either UserPushNotificationRegistrationGetListResponse or ErrorResponse.
+
+        Replaced by: UserPushNotificationRegistrationGetListRequest21sp1
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:choice>
+            <xs:element name="registrationId" type="PushNotificationRegistrationId"/>
+            <xs:element name="userId" type="UserId"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPushNotificationRegistrationGetListRequest21sp1">
+    <xs:annotation>
+      <xs:documentation>
+        Request a list of all of the push notification registrations for a user by
+        either registration id or user id.
+        The response is either UserPushNotificationRegistrationGetListResponse21sp1 or ErrorResponse.
+
+        Replaced by: UserPushNotificationRegistrationGetListRequest22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:choice>
+            <xs:element name="registrationId" type="PushNotificationRegistrationId"/>
+            <xs:element name="userId" type="UserId"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPushNotificationRegistrationGetListRequest22">
+    <xs:annotation>
+      <xs:documentation>
+        Request a list of all of the push notification registrations for a user by
+        either registration id or user id.
+        The response is either UserPushNotificationRegistrationGetListResponse22 or ErrorResponse.
+
+        Replaced by: UserPushNotificationRegistrationGetListRequest23
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:choice>
+            <xs:element name="registrationId" type="PushNotificationRegistrationId"/>
+            <xs:element name="userId" type="UserId"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPushNotificationRegistrationGetListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to UserPushNotificationRegistrationGetListRequest.
+
+        A registration has more than one row in the response when the registration includes more than one token.
+
+        Registration Date uses the format "yyyy-MM-dd'T'HH:mm:ss.SSSZ" in the time zone of the requested user.
+        Example: 2010-10-01T09:30:00:000-0400.
+
+        Contains a table with a row for each registration and token with column headings :
+        "User Id",  "Registration Id",  "Application Id",  "Application Version",  "Device Os Type",
+        "Device Os Version",  "Registration Date",  "Token",  "Events"
+
+        Replaced by: UserPushNotificationRegistrationGetListResponse21sp1
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="registrationsTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPushNotificationRegistrationGetListResponse21sp1">
+    <xs:annotation>
+      <xs:documentation>
+        Response to UserPushNotificationRegistrationGetListRequest21sp1.
+
+        A registration has more than one row in the response when the registration includes more than one token
+        and/or one or more event.  There can be one more tokens per registration ID and there can be one or more
+        events per token.
+
+        Registration Date uses the format "yyyy-MM-dd'T'HH:mm:ss.SSSZ" in the time zone of the requested user.
+        Example: 2010-10-01T09:30:00:000-0400.
+
+        Replaced by: UserPushNotificationRegistrationGetListResponse22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="pushNotificationRegistrationData" type="PushNotificationRegistrationData" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPushNotificationRegistrationGetListResponse22">
+    <xs:annotation>
+      <xs:documentation>
+        Response to UserPushNotificationRegistrationGetListRequest22.
+
+        A registration has more than one row in the response when the registration includes more than one token
+        and/or one or more event.  There can be one more tokens per registration ID and there can be one or more
+        events per token.
+
+        Registration Date uses the format "yyyy-MM-dd'T'HH:mm:ss.SSSZ" in the time zone of the requested user.
+        Example: 2010-10-01T09:30:00:000-0400.
+
+        Replaced by: UserPushNotificationRegistrationGetListResponse23
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="pushNotificationRegistrationData" type="PushNotificationRegistrationData22" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserRouteListGetRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get the route list setting and the list of number ranges assigned to a user.
+        The response is either UserRouteListGetResponse or ErrorResponse.
+
+        Replaced by: UserRouteListGetRequest22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserRouteListGetRequest22">
+    <xs:annotation>
+      <xs:documentation>
+        Get the route list setting and the list of number ranges assigned to a user.
+        The response is either UserRouteListGetResponse22 or ErrorResponse.
+
+        Replaced by: UserRouteListGetRequest24
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserRouteListGetResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to UserRouteListGetRequest.
+        Contains the route list setting and a list of assigned number ranges and number prefixes.
+        The column headings for assignedNumberRangeTable are "Number Range Start", "Number Range End" and "Is Active".
+
+        Replaced by: UserRouteListGetResponse22
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="treatOriginationsAndPBXRedirectionsAsScreened" type="xs:boolean"/>
+          <xs:element name="useRouteListIdentityForNonEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="useRouteListIdentityForEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="assignedNumberRangeTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserRouteListGetResponse22">
+    <xs:annotation>
+      <xs:documentation>
+        Response to UserRouteListGetRequest22.
+        Contains the route list setting and a list of assigned number ranges and number prefixes.
+        The column headings for assignedNumberRangeTable are "Number Range Start", "Number Range End", "Is Active" and "Extension Length".
+        The column headings for assignedNumberPrefixTable are "Number Prefix" ","Is Active", "Extension Range Start" and "Extension Range End"".
+
+        Replaced by: UserRouteListGetResponse24
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="treatOriginationsAndPBXRedirectionsAsScreened" type="xs:boolean"/>
+          <xs:element name="useRouteListIdentityForNonEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="useRouteListIdentityForEmergencyCalls" type="xs:boolean"/>
+          <xs:element name="assignedNumberRangeTable" type="core:OCITable"/>
+          <xs:element name="assignedNumberPrefixTable" type="core:OCITable"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -49313,6 +51348,74 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="PushNotificationEventData">
+    <xs:annotation>
+      <xs:documentation>
+        The common push notification event elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="eventName" type="PushNotificationEventName"/>
+      <xs:element name="silent" type="xs:boolean"/>
+      <xs:element name="mutableContent" type="xs:boolean"/>
+      <xs:element name="pushNotificationEventParameters" type="PushNotificationEventParameters" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PushNotificationRegistrationData">
+    <xs:annotation>
+      <xs:documentation>
+        The common push notification registration elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="registrationId" type="PushNotificationRegistrationId"/>
+      <xs:element name="applicationId" type="PushNotificationApplicationId"/>
+      <xs:element name="applicationVersion" type="PushNotificationApplicationVersion"/>
+      <xs:element name="deviceOsType" type="PushNotificationDeviceOSType"/>
+      <xs:element name="deviceVersion" type="PushNotificationDeviceVersion"/>
+      <xs:element name="timestamp" type="xs:dateTime"/>
+      <xs:element name="pushNotificationClientVersion" type="PushNotificationClientVersion"/>
+      <xs:element name="pushNotificationTokenData" type="PushNotificationTokenData" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PushNotificationRegistrationData22">
+    <xs:annotation>
+      <xs:documentation>
+        The common push notification registration elements which supports encryption, if required.
+        Elements encryptionKeyIdentifier, encryptionAlgorithm and channel are provided only when registration supports encryption.
+        Their absence indicates that encryption is not supported.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="registrationId" type="PushNotificationRegistrationId"/>
+      <xs:element name="applicationId" type="PushNotificationApplicationId"/>
+      <xs:element name="applicationVersion" type="PushNotificationApplicationVersion"/>
+      <xs:element name="deviceOsType" type="PushNotificationDeviceOSType"/>
+      <xs:element name="deviceVersion" type="PushNotificationDeviceVersion"/>
+      <xs:element name="timestamp" type="xs:dateTime"/>
+      <xs:element name="pushNotificationClientVersion" type="PushNotificationClientVersion"/>
+      <xs:element name="pushNotificationTokenData" type="PushNotificationTokenData" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="encryptionKeyIdentifier" type="PushNotificationEncryptionKeyIdentifier" minOccurs="0"/>
+      <xs:element name="encryptionAlgorithm" type="PushNotificationEncryptionAlgorithm" minOccurs="0"/>
+      <xs:element name="channel" type="PushNotificationChannel" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PushNotificationTokenData">
+    <xs:annotation>
+      <xs:documentation>
+        The common push notification token elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="pushNotificationToken" type="PushNotificationToken"/>
+      <xs:element name="pushNotificationType" type="PushNotificationType"/>
+      <xs:element name="pushNotificationEventData" type="PushNotificationEventData" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="ReplacementCallProcessingPolicyProfileSubscriberTypeList">
     <xs:annotation>
       <xs:documentation>
@@ -49699,18 +51802,6 @@
       <xs:enumeration value="Route Point"/>
       <xs:enumeration value="Voice Portal"/>
       <xs:enumeration value="VoiceXML"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="CAPServerCallCenterMaxClientConnections">
-    <xs:annotation>
-      <xs:documentation>
-        CAPServerCallCenter to number of client connections.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="0"/>
-      <xs:maxInclusive value="10"/>
     </xs:restriction>
   </xs:simpleType>
 

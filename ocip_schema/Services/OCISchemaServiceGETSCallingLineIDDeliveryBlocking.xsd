@@ -5,7 +5,8 @@
 <!-- ************************************************************************************ -->
 <!-- O C I   X M L   S C H E M A   S E R V I C E   P A R T                                -->
 <!--                                                                                      -->
-<!-- D U A L   M O D E   V C C   S E R V I C E                                            -->
+<!-- G E T S   C A L L I N G   L I N E   I D   D E L I V E R Y   B L O C K I N G          -->
+<!-- S E R V I C E                                                                        -->
 <!--                                                                                      -->
 <!-- This file defines the XML Schema for the BroadSoft Application Server                -->
 <!-- Open Client Interface (OCI).                                                         -->
@@ -15,24 +16,4 @@
   <xs:import namespace="C" schemaLocation="../OCISchemaBASE.xsd"/>
 
   <xs:include schemaLocation="../OCISchemaDataTypes.xsd"/>
-
-  <!-- ******************************************************************** -->
-  <!-- M E S S A G E   P A R A M E T E R S                                  -->
-  <!-- ******************************************************************** -->
-  <!--
-  The Dual Mode VCC specific non-primitive attributes are listed here in alphabetical order.
-  -->
-
-
-  <xs:simpleType name="DualModeVCCSubscriberUserName">
-    <xs:annotation>
-      <xs:documentation>
-        Dual Mode VCC Service subscriber user name
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="80"/>
-    </xs:restriction>
-  </xs:simpleType>
 </xs:schema>

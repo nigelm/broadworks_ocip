@@ -481,6 +481,40 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SearchCriteriaDeviceManagementEventRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Criteria for searching for a particular OCI request name.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="SearchCriteria">
+        <xs:sequence>
+          <xs:element name="mode" type="SearchMode"/>
+          <xs:element name="value" type="xs:string"/>
+          <xs:element name="isCaseInsensitive" type="xs:boolean" default="true"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SearchCriteriaDeviceManagementEventRequestTrackingId">
+    <xs:annotation>
+      <xs:documentation>
+        Criteria for searching for a particular OCI tracking id.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="SearchCriteria">
+        <xs:sequence>
+          <xs:element name="mode" type="SearchMode"/>
+          <xs:element name="value" type="NonEmptyToken"/>
+          <xs:element name="isCaseInsensitive" type="xs:boolean" default="true"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SearchCriteriaDeviceName">
     <xs:annotation>
       <xs:documentation>
@@ -1258,6 +1292,21 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="SearchCriteriaExactSubscriberType">
+    <xs:annotation>
+      <xs:documentation>
+        Criteria for searching for a particular Subscriber Type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="SearchCriteria">
+        <xs:sequence>
+          <xs:element name="subscriberType" type="SubscriberType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="SearchCriteriaExactUserDepartment">
     <xs:annotation>
       <xs:documentation>
@@ -1314,6 +1363,21 @@
       <xs:extension base="SearchCriteria">
         <xs:sequence>
           <xs:element name="networkClassOfService" type="NetworkClassOfServiceName"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SearchCriteriaExactUserPersonId">
+    <xs:annotation>
+      <xs:documentation>
+        Criteria for searching for a particular user's personId.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="SearchCriteria">
+        <xs:sequence>
+          <xs:element name="userPersonId" type="PersonId"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1876,40 +1940,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SearchCriteriaProfileServiceCode">
-    <xs:annotation>
-      <xs:documentation>
-        Criteria for searching for a Service Code.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="SearchCriteria">
-        <xs:sequence>
-          <xs:element name="mode" type="SearchMode"/>
-          <xs:element name="value" type="ServiceCode"/>
-          <xs:element name="isCaseInsensitive" type="xs:boolean" default="true"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="SearchCriteriaProfileServiceCodeDescription">
-    <xs:annotation>
-      <xs:documentation>
-        Criteria for searching for a Service Code description.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="SearchCriteria">
-        <xs:sequence>
-          <xs:element name="mode" type="SearchMode"/>
-          <xs:element name="value" type="ServiceCodeDescription"/>
-          <xs:element name="isCaseInsensitive" type="xs:boolean" default="true"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="SearchCriteriaReceptionistNote">
     <xs:annotation>
       <xs:documentation>
@@ -2389,7 +2419,7 @@
   <xs:complexType name="SearchCriteriaUserPlaceType">
     <xs:annotation>
       <xs:documentation>
-        Criteria for searching based on a user type – “User” or “Place”.
+        Criteria for searching based on a user type – "User" or "Place".
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

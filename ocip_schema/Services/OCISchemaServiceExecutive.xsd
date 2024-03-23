@@ -26,7 +26,7 @@
   section of the schema.
 
   Requests in this schema file:
-    SystemExecutiveGetRequest
+    SystemExecutiveGetRequest24
     SystemExecutiveModifyRequest
     UserExecutiveAddFilteringSelectiveCriteriaRequest
     UserExecutiveDeleteFilteringSelectiveCriteriaRequest
@@ -41,11 +41,11 @@
     UserExecutiveModifyScreeningAlertingRequest
 -->
 
-  <xs:complexType name="SystemExecutiveGetRequest">
+  <xs:complexType name="SystemExecutiveGetRequest24">
     <xs:annotation>
       <xs:documentation>
          Request to get the Executive system parameters.
-         The response is either SystemExecutiveGetResponse or ErrorResponse.
+         The response is either SystemExecutiveGetResponse24 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -55,7 +55,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemExecutiveGetResponse">
+  <xs:complexType name="SystemExecutiveGetResponse24">
     <xs:annotation>
       <xs:documentation>
         Response to SystemExecutiveGetRequest.
@@ -65,6 +65,7 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="treatVirtualOnNetCallsAsInternal" type="xs:boolean"/>
+          <xs:element name="considerExecutiveOnHookForAssistantCalls" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -81,6 +82,7 @@
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
           <xs:element name="treatVirtualOnNetCallsAsInternal" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="considerExecutiveOnHookForAssistantCalls" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -150,8 +152,10 @@
         Response to the UserExecutiveGetAssistantsRequest.
         Contains the assistant setting and a table of assigned assistants.
         The table has column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name",
-        "Hiragana First Name", "Phone Number", "Extension", "Department", "Email Address" and "Opt-in".
+        "Hiragana First Name", "Phone Number", "Extension", "Department", "Email Address", "Opt-in",
+        "User External Id" and "User Place Type".
         The possible values for "Opt-in" column are "true" and "false".
+        The possible values for "User Place Type" are: User, Place.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -194,7 +198,9 @@
       <xs:documentation>
         Response to the UserExecutiveGetAvailableAssistantListResponse.
         Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name",
-        "Hiragana First Name", "Phone Number", "Extension", "Department" and "Email Address".
+        "Hiragana First Name", "Phone Number", "Extension", "Department", "Email Address",
+        "User External Id" and "User Place Type".
+        The possible values for "User Place Type" are: User, Place.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

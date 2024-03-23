@@ -34,7 +34,7 @@
     GroupAutoAttendantDeleteInstanceRequest
     GroupAutoAttendantGetInstanceListRequest
     GroupAutoAttendantGetInstancePagedSortedListRequest
-    GroupAutoAttendantGetInstanceRequest20
+    GroupAutoAttendantGetInstanceRequest24
     GroupAutoAttendantModifyActiveInstanceListRequest
     GroupAutoAttendantModifyInstanceRequest20
     GroupAutoAttendantSubmenuAddRequest20
@@ -182,6 +182,9 @@
           <xs:element name="addPhoneNumberToGroup" type="xs:boolean" minOccurs="0" fixed="true"/>
           <xs:element name="serviceInstanceProfile" type="ServiceInstanceModifyProfile" minOccurs="0"/>
           <xs:element name="firstDigitTimeoutSeconds" type="FirstDigitTimoutSeconds" minOccurs="0"/>
+          <xs:element name="transferToOperatorAnnouncementSelection" type="AnnouncementSelection" minOccurs="0"/>
+          <xs:element name="transferToOperatorAudioFile" type="AnnouncementFileLevelKey" minOccurs="0" nillable="true"/>
+          <xs:element name="transferToOperatorVideoFile" type="AnnouncementFileLevelKey" minOccurs="0" nillable="true"/>
           <xs:element name="enableVideo" type="xs:boolean" minOccurs="0"/>
           <xs:element name="businessHours" type="TimeSchedule" nillable="true" minOccurs="0"/>
           <xs:element name="holidaySchedule" type="HolidaySchedule" nillable="true" minOccurs="0"/>
@@ -324,11 +327,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAutoAttendantGetInstanceRequest20">
+  <xs:complexType name="GroupAutoAttendantGetInstanceRequest24">
     <xs:annotation>
       <xs:documentation>
-        Request to get all the information of a Auto Attendant instance.
-        The response is either GroupAutoAttendantGetInstanceResponse20 or ErrorResponse.
+        Request to get all the information of an Auto Attendant instance.
+        The response is either GroupAutoAttendantGetInstanceResponse24 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -340,16 +343,23 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAutoAttendantGetInstanceResponse20">
+  <xs:complexType name="GroupAutoAttendantGetInstanceResponse24">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupAutoAttendantGetInstanceRequest20.
+        Response to GroupAutoAttendantGetInstanceRequest24.
         Contains the service profile information.
 
+        The following elements are only used in AS data mode and not returned in XS
+        datamode:
+        transferToOperatorAudioFile,
+        transferToOperatorVideoFile,
+        type (use AutoAttendantType.BASIC in XS mode),
+        holidayMenu.
 
-        The following elements are only used in AS data mode:
-          type, use AutoAttendantType.BASIC in XS mode.
-          holidayMenu.
+        The following element is only used in AS data mode:
+        transferToOperatorAnnouncementSelection, value "Default" is returned in XS data
+        mode.
+
         The following elements are only valid for Standard Auto
         Attendants:
           holidayMenu
@@ -361,6 +371,9 @@
           <xs:element name="serviceInstanceProfile" type="ServiceInstanceReadProfile19sp1"/>
           <xs:element name="type" type="AutoAttendantType"/>
           <xs:element name="firstDigitTimeoutSeconds" type="FirstDigitTimoutSeconds"/>
+          <xs:element name="transferToOperatorAnnouncementSelection" type="AnnouncementSelection"/>
+          <xs:element name="transferToOperatorAudioFile" type="AnnouncementFileLevelKey" minOccurs="0"/>
+          <xs:element name="transferToOperatorVideoFile" type="AnnouncementFileLevelKey" minOccurs="0"/>
           <xs:element name="enableVideo" type="xs:boolean"/>
           <xs:element name="businessHours" type="TimeSchedule" minOccurs="0"/>
           <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0"/>
@@ -399,8 +412,16 @@
         Only Group and Enterprise level schedules are accepted.
         The response is either SuccessResponse or ErrorResponse.
 
-        The following elements are only used in AS data mode:
-          holidayMenu.
+        The following elements are only used in AS data mode and not returned in XS
+        datamode:
+         transferToOperatorAudioFile,
+         transferToOperatorVideoFile,
+         holidayMenu
+
+       The following element is only used in AS data mode:
+         transferToOperatorAnnouncementSelection, value "Default" is returned in XS data
+	   mode.
+
         The following elements are only valid for Standard Auto
         Attendants:
           holidayMenu
@@ -412,6 +433,9 @@
           <xs:element name="serviceUserId" type="UserId"/>
           <xs:element name="serviceInstanceProfile" type="ServiceInstanceModifyProfile" minOccurs="0"/>
           <xs:element name="firstDigitTimeoutSeconds" type="FirstDigitTimoutSeconds" minOccurs="0"/>
+          <xs:element name="transferToOperatorAnnouncementSelection" type="AnnouncementSelection" minOccurs="0"/>
+          <xs:element name="transferToOperatorAudioFile" type="AnnouncementFileLevelKey" minOccurs="0" nillable="true"/>
+          <xs:element name="transferToOperatorVideoFile" type="AnnouncementFileLevelKey" minOccurs="0" nillable="true"/>
           <xs:element name="enableVideo" type="xs:boolean" minOccurs="0"/>
           <xs:element name="businessHours" type="TimeSchedule" nillable="true" minOccurs="0"/>
           <xs:element name="holidaySchedule" type="HolidaySchedule" nillable="true" minOccurs="0"/>

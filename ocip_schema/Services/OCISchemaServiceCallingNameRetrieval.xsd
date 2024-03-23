@@ -79,6 +79,24 @@
       <xs:documentation>
         Modifies the system's calling name retrieval attributes.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following attributes are only used in AS data mode and ignored in XS data mode:
+          - triggerCNAMQueriesForAllNetworkCalls
+          - triggerCNAMQueriesForGroupAndEnterpriseCalls
+          - queryProtocol
+          - queryTimeoutMilliseconds
+          - sipExternalDatabaseNetAddress
+          - sipExternalDatabasePort
+          - sipExternalDatabaseTransport
+          - soapExternalDatabaseNetAddress
+          - callingNameSource
+          - routeAdvanceTimer
+          - retryFailedCNAMServerInterval
+          - ignoreRestrictedPresentationIndicator
+          - supportsDNSSRV
+
+        The following attributes are only used in XS data mode and ignored in AS data mode:
+          - callFilteringProvisioningEnabled
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -97,6 +115,7 @@
           <xs:element name="retryFailedCNAMServerInterval" type="CallingNameRetrievalRetryFailedCNAMServerIntervalSeconds" minOccurs="0"/>
           <xs:element name="ignoreRestrictedPresentationIndicator" type="xs:boolean" minOccurs="0"/>
           <xs:element name="supportsDNSSRV" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="callFilteringProvisioningEnabled" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -146,6 +165,8 @@
         <xs:sequence>
           <xs:element name="userId" type="UserId"/>
           <xs:element name="isActive" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="bypassFiltering" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="dnWhiteList" type="CallingNameRetrievalWhiteListReplacementList" minOccurs="0" nillable="true"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
