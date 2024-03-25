@@ -160,7 +160,7 @@
       <xs:documentation>
         Response to the GroupCallParkGetAvailableAlternateRecallUserPagedSortedListResponse.
         Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
-        “Phone Number”, “Extension”, “Department”, “Email Address”. The Email Address will never be populated, since Hunt Groups don't
+        "Phone Number", "Extension", "Department", "Email Address". The Email Address will never be populated, since Hunt Groups don't
         have Email Addresses.
       </xs:documentation>
     </xs:annotation>
@@ -553,7 +553,11 @@
         Response to the UserCallParkGetRequest.
         Identifies which Call Park group the user belongs to and the list of users in the group.
         Contains a table with column headings: "User Id", "Last Name", "First Name", "Hiragana Last Name",
-        "Hiragana First Name".  The users are in the table in the order they will try to be parked on.
+        "Hiragana First Name", "User External Id", and "User Place Type".
+        The following columns are supported in AS data mode only:
+          "User External Id", "User Place Type"
+        The possible values for "User Place Type" are: User, Place.
+        The users are in the table in the order they will try to be parked on.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

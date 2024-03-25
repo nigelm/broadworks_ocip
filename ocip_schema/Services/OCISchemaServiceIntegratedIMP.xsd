@@ -25,24 +25,24 @@
   section of the schema.
 
   Requests in this schema file:
-    GroupIntegratedIMPGetRequest21sp1
+    GroupIntegratedIMPGetRequest23
     GroupIntegratedIMPModifyRequest
     ResellerIntegratedIMPGetRequest22
     ResellerIntegratedIMPModifyRequest
     ServiceProviderIntegratedIMPGetRequest22
     ServiceProviderIntegratedIMPModifyRequest
-    SystemIntegratedIMPGetRequest21
+    SystemIntegratedIMPGetRequest25
     SystemIntegratedIMPModifyRequest
     UserIntegratedIMPGeneratePasswordRequest
     UserIntegratedIMPGetRequest21sp1
     UserIntegratedIMPModifyRequest
 -->
 
-  <xs:complexType name="GroupIntegratedIMPGetRequest21sp1">
+  <xs:complexType name="GroupIntegratedIMPGetRequest23">
     <xs:annotation>
       <xs:documentation>
         Get the Integrated IMP service attributes for the group.
-        The response is either GroupIntegratedIMPGetResponse21sp1 or ErrorResponse.
+        The response is either GroupIntegratedIMPGetResponse23 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -55,11 +55,16 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupIntegratedIMPGetResponse21sp1">
+  <xs:complexType name="GroupIntegratedIMPGetResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupIntegratedIMPGetRequest21sp1.
+        Response to the GroupIntegratedIMPGetRequest23.
         The response contains the group Integrated IMP service attributes.
+
+        The following elements are only returned to a reseller administrator or above:
+          useServiceProviderMessagingServer
+          provisioningUrl
+          provisioningUserId
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -70,6 +75,9 @@
           <xs:element name="effectiveServiceDomain" type="DomainName" minOccurs="0"/>
           <xs:element name="addServiceProviderInIMPUserId" type="xs:boolean"/>
           <xs:element name="defaultImpIdType" type="IntegratedIMPUserIDType"/>
+          <xs:element name="useServiceProviderMessagingServer" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="provisioningUrl" type="URL" minOccurs="0"/>
+          <xs:element name="provisioningUserId" type="ProvisioningBroadCloudAuthenticationUserName" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -80,6 +88,12 @@
       <xs:documentation>
         Modify the Integrated IMP service attributes for the group.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements can only be used by a reseller administrator or above:
+          useServiceProviderMessagingServer
+          provisioningUrl
+          provisioningUserId
+          provisioningPassword
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -89,6 +103,10 @@
           <xs:element name="groupId" type="GroupId"/>
           <xs:element name="useServiceProviderSetting" type="xs:boolean" minOccurs="0"/>
           <xs:element name="serviceDomain" type="DomainName" minOccurs="0" nillable="true"/>
+          <xs:element name="useServiceProviderMessagingServer" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="provisioningUrl" type="URL" minOccurs="0" nillable="true"/>
+          <xs:element name="provisioningUserId" type="ProvisioningBroadCloudAuthenticationUserName" minOccurs="0" nillable="true"/>
+          <xs:element name="provisioningPassword" type="ProvisioningBroadCloudAuthenticationPassword" minOccurs="0" nillable="true"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -245,11 +263,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemIntegratedIMPGetRequest21">
+  <xs:complexType name="SystemIntegratedIMPGetRequest25">
     <xs:annotation>
       <xs:documentation>
         Get the system Integrated IMP service attributes.
-        The response is either SystemIntegratedIMPGetResponse19 or ErrorResponse.
+        The response is either SystemIntegratedIMPGetResponse25 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -257,14 +275,15 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemIntegratedIMPGetResponse21">
+  <xs:complexType name="SystemIntegratedIMPGetResponse25">
     <xs:annotation>
       <xs:documentation>
-        Response to the SystemIntegratedIMPGetRequest21.
+        Response to the SystemIntegratedIMPGetRequest25.
         The response contains the system Integrated IMP service attributes.
 
         The following elements are only used in AS data mode:
           boshURL
+          propagateImpErrorDetails
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -275,6 +294,7 @@
           <xs:element name="addServiceProviderInIMPUserId" type="xs:boolean"/>
           <xs:element name="boshURL" type="URL" minOccurs="0"/>
           <xs:element name="allowImpPasswordRetrieval" type="xs:boolean"/>
+          <xs:element name="propagateImpErrorDetails" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -289,6 +309,7 @@
         The following elements are only used in AS data mode:
           boshURL
           allowImpPasswordRetrieval
+          propagateImpErrorDetails
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -299,6 +320,7 @@
           <xs:element name="addServiceProviderInIMPUserId" type="xs:boolean" minOccurs="0"/>
           <xs:element name="boshURL" type="URL" minOccurs="0" nillable="true"/>
           <xs:element name="allowImpPasswordRetrieval" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="propagateImpErrorDetails" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

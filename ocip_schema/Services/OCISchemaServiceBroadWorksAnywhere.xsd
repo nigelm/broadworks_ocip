@@ -224,6 +224,7 @@
     <xs:annotation>
       <xs:documentation>
         The response to a SystemBroadWorksAnywhereGetRequest.
+
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -240,12 +241,19 @@
       <xs:documentation>
         Modify the BroadWorks Anywhere system parameters.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements are only used in AS data mode:
+          enableTransferNotification
+
+        The following elements are only used in XS data mode:
+          blockProvisioningOfDNAsBALocationEnabled
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
           <xs:element name="enableTransferNotification" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="blockProvisioningOfDNAsBALocation" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -255,6 +263,9 @@
     <xs:annotation>
       <xs:documentation>
         Add a broadworks Anywhere phone number.
+
+        In XS data mode, the request will fail if the phoneNumber element represents the user's directory number or one of the user's alternate numbers.
+
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -537,6 +548,9 @@
     <xs:annotation>
       <xs:documentation>
           Modify a BroadWorks Anywhere phone number
+
+          In XS data mode, the request will fail if the phoneNumber element represents the user's directory number or one of the user's alternate numbers.
+
           The response is either a SuccessResponse or an ErrorResponse.
        </xs:documentation>
     </xs:annotation>

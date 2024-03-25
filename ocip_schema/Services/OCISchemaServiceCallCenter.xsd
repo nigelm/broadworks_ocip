@@ -212,7 +212,7 @@
     SystemCallCenterEnhancedReportingScheduledReportGetCompletedListRequest
     SystemCallCenterEnhancedReportingScheduledReportGetListRequest
     SystemCallCenterEnhancedReportingScheduledReportGetReportTemplateUsageListRequest
-    SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest22
+    SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest25
     SystemCallCenterEnhancedReportingScheduledTaskParametersModifyRequest
     SystemCallCenterEventRecordingFileParametersGetRequest
     SystemCallCenterEventRecordingFileParametersModifyRequest
@@ -6408,11 +6408,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest22">
+  <xs:complexType name="SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest25">
     <xs:annotation>
       <xs:documentation>
         Request to get the system settings for the call center enhanced reporting scheduling tasks.
-        The response is either a SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse22 or an ErrorResponse.
+        The response is either a SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse25 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6422,13 +6422,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse22">
+  <xs:complexType name="SystemCallCenterEnhancedReportingScheduledTaskParametersGetResponse25">
     <xs:annotation>
       <xs:documentation>
-        Response to SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest22
+        Response to SystemCallCenterEnhancedReportingScheduledTaskParametersGetRequest25.
 
-        The following elements are only used in AS data mode:
-          callCenterEventMode, value “Legacy ECCR" is returned in Amplify data mode
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6438,6 +6436,7 @@
           <xs:element name="maximumScheduledReportsPerInterval" type="CallCenterMaximumScheduledReportsPerInterval"/>
           <xs:element name="deleteScheduledReportDaysAfterCompletion" type="CallCenterDaysAfterScheduledReportCompletion"/>
           <xs:element name="callCenterEventMode" type="CallCenterEventRecordingCallCenterEventMode"/>
+          <xs:element name="useDialedAddressForRemoteNumber" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6449,8 +6448,6 @@
         Modify the system settings for the call center enhanced reporting scheduling tasks.
         The response is either a SuccessResponse or an ErrorResponse.
 
-        The following elements are only used in AS data mode:
-          callCenterEventMode, value “Legacy ECCR" is returned in Amplify data mode
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6460,6 +6457,7 @@
           <xs:element name="maximumScheduledReportsPerInterval" type="CallCenterMaximumScheduledReportsPerInterval" minOccurs="0"/>
           <xs:element name="deleteScheduledReportDaysAfterCompletion" type="CallCenterDaysAfterScheduledReportCompletion" minOccurs="0"/>
           <xs:element name="callCenterEventMode" type="CallCenterEventRecordingCallCenterEventMode" minOccurs="0"/>
+          <xs:element name="useDialedAddressForRemoteNumber" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6540,10 +6538,6 @@
       <xs:documentation>
         Response to SystemCallCenterGetRequest21.
 
-         The following elements are only used in AS data mode:
-          callHandlingSamplingPeriodMinutes, value "15" is returned in Amplify data mode
-          callHandlingMinimumSamplingSize, value "5" is returned in Amplify data mode
-          thresholdCrossingNotificationEmailGuardTimerSeconds, value "5" is returned in Amplify mode
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6577,10 +6571,6 @@
         Modify the system level data associated with Call Center.
         The response is either a SuccessResponse or an ErrorResponse.
 
-        The following elements are only used in AS data mode and ignored in Amplify data mode:
-          callHandlingSamplingPeriodMinutes
-          callHandlingMinimumSamplingSize
-          thresholdCrossingNotificationEmailGuardTimerSeconds
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

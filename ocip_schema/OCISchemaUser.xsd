@@ -49,7 +49,7 @@
     UserCallLogsClearRequest14sp4
     UserCallPoliciesGetRequest19sp1
     UserCallPoliciesModifyRequest
-    UserCallProcessingGetPolicyRequest22V2
+    UserCallProcessingGetPolicyRequest23
     UserCallProcessingModifyPolicyRequest14sp7
     UserCommunicationBarringAuthorizationCodeAddListRequest
     UserCommunicationBarringAuthorizationCodeDeleteListRequest
@@ -72,7 +72,7 @@
     UserGetListInServiceProviderRequest
     UserGetListInSystemRequest
     UserGetRegistrationListRequest
-    UserGetRequest22V8
+    UserGetRequest23V2
     UserGetServiceInstanceListInServiceProviderRequest
     UserGetServiceInstanceListInSystemRequest
     UserGroupCommonPhoneListGetPagedSortedListRequest
@@ -84,7 +84,7 @@
     UserNetworkConferencingGetRequest
     UserOCICallControlApplicationGetListRequest
     UserOCICallControlApplicationModifyRequest
-    UserPasswordInfoGetRequest
+    UserPasswordInfoGetRequest22
     UserPBXIntegrationGetRequest
     UserPBXIntegrationModifyRequest
     UserPersonalPhoneListAddListRequest
@@ -99,12 +99,14 @@
     UserPortalPasscodeGetInfoRequest
     UserPortalPasscodeModifyRequest
     UserPortalPasscodeRulesGetRequest
+    UserPreferredAnswerEndpointGetListRequest
+    UserPreferredAnswerEndpointModifyRequest
     UserPrimaryEndpointAdvancedSettingGetRequest
     UserPrimaryEndpointAdvancedSettingModifyRequest
     UserPushNotificationGetRequest24
     UserPushNotificationModifyRequest
     UserPushNotificationRegistrationDeleteRequest
-    UserPushNotificationRegistrationGetListRequest21sp1
+    UserPushNotificationRegistrationGetListRequest23
     UserScheduleAddEventRequest
     UserScheduleAddRequest
     UserScheduleDeleteEventListRequest
@@ -340,6 +342,7 @@
         The following elements are only used in AS data mode and ignored in XS data mode:
           nameDialingName
           alternateUserId
+          isPlace
 
         The following elements are only used in XS data mode and ignored in AS data mode:
           allowVideo
@@ -348,10 +351,6 @@
 
         The following elements can only be used by a system administrator:.
           allowVideo
-          alternateUserId
-
-        The following elements can only be used by a provisioning administrator:.
-          alternateUserId
 
         The response is either SuccessResponse or ErrorResponse.
       </xs:documentation>
@@ -390,6 +389,7 @@
           <xs:element name="address" type="StreetAddress" minOccurs="0"/>
           <xs:element name="networkClassOfService" type="NetworkClassOfServiceName" minOccurs="0"/>
           <xs:element name="alternateUserId" type="AlternateUserIdEntry" minOccurs="0" maxOccurs="4"/>
+          <xs:element name="isPlace" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -934,11 +934,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserCallProcessingGetPolicyRequest22V2">
+  <xs:complexType name="UserCallProcessingGetPolicyRequest23">
     <xs:annotation>
       <xs:documentation>
         Request the user level data associated with Call Processing Policy.
-        The response is either a UserCallProcessingGetPolicyResponse22V2 or an
+        The response is either a UserCallProcessingGetPolicyResponse23 or an
         ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -951,10 +951,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserCallProcessingGetPolicyResponse22V2">
+  <xs:complexType name="UserCallProcessingGetPolicyResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to UserCallProcessingGetPolicyRequest22V2.
+        Response to UserCallProcessingGetPolicyRequest23.
      The useUserCLIDSetting attribute controls the CLID settings
      (clidPolicy, emergencyClidPolicy, allowAlternateNumbersForRedirectingIdentity, useGroupName, allowConfigurableCLIDForRedirectingIdentity, allowDepartmentCLIDNameOverride)
 
@@ -986,6 +986,8 @@
          maxConcurrentTerminatingAlertingRequests, value "10" is returned in XS data mode.
          includeRedirectionsInMaximumNumberOfConcurrentCalls, value "false" is returned in XS data mode.
          allowMobileDNForRedirectingIdentity,value "false" is returned in XS data mode.
+         allowUserSelectionOfExternalCLIDPolicy,value "false" is returned in XS data mode.
+         allowUserConfigurableCLIDModification,value "false" is returned in XS data mode.
 
         The following elements are only used in XS data mode and ignored in AS data mode:
            routeOverrideDomain
@@ -1037,6 +1039,8 @@
           <xs:element name="routeOverrideDomain" type="NetAddress" minOccurs="0"/>
           <xs:element name="routeOverridePrefix" type="RouteOverridePrefix" minOccurs="0"/>
           <xs:element name="allowMobileDNForRedirectingIdentity" type="xs:boolean"/>
+          <xs:element name="allowUserSelectionOfExternalCLIDPolicy" type="xs:boolean"/>
+          <xs:element name="allowUserConfigurableCLIDModification" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1080,6 +1084,8 @@
            maxConcurrentTerminatingAlertingRequests
            includeRedirectionsInMaximumNumberOfConcurrentCalls
            allowMobileDNForRedirectingIdentity
+           allowUserSelectionOfExternalCLIDPolicy
+           allowUserConfigurableCLIDModification
 
 
           The following elements are only used in XS data mode and ignored in AS data mode:
@@ -1132,6 +1138,8 @@
           <xs:element name="routeOverrideDomain" type="NetAddress" nillable="true" minOccurs="0"/>
           <xs:element name="routeOverridePrefix" type="RouteOverridePrefix" nillable="true" minOccurs="0"/>
           <xs:element name="allowMobileDNForRedirectingIdentity" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="allowUserSelectionOfExternalCLIDPolicy" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="allowUserConfigurableCLIDModification" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1263,7 +1271,7 @@
       <xs:documentation>
          The response is either SuccessResponse or ErrorResponse.
 
-         In AS and Amplify  Data Mode:
+         In AS Data Mode:
            The group user limit will be increased by one if needed.
 
            The group will be added if it does not exist and if the command is executed by a Service
@@ -1327,6 +1335,7 @@
            thirdPartyVoiceMailServerMailboxIdType
            thirdPartyVoiceMailMailboxURL
            sipAuthenticationData
+           isPlace
 
       </xs:documentation>
     </xs:annotation>
@@ -1343,6 +1352,7 @@
           <xs:element name="groupProperties" type="ConsolidatedGroupProperties" minOccurs="0"/>
           <xs:element name="userId" type="UserId"/>
           <xs:element name="userExternalId" type="ExternalId" minOccurs="0"/>
+          <xs:element name="userPersonId" type="PersonId" minOccurs="0"/>
           <xs:element name="addPhoneNumberToGroup" type="xs:boolean" minOccurs="0" fixed="true"/>
           <xs:element name="lastName" type="LastName"/>
           <xs:element name="firstName" type="FirstName"/>
@@ -1381,6 +1391,7 @@
           <xs:element name="thirdPartyVoiceMailServerMailboxIdType" type="ThirdPartyVoiceMailSupportMailboxIdType" minOccurs="0"/>
           <xs:element name="thirdPartyVoiceMailMailboxURL" type="SIPURI" minOccurs="0" nillable="true"/>
           <xs:element name="sipAuthenticationData" type="SIPAuthenticationUserNamePassword" minOccurs="0"/>
+          <xs:element name="isPlace" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1592,18 +1603,18 @@
           Response to UserDevicePoliciesGetRequest21. enableDeviceFeatureSynchronization and
           enableCallDecline are ignored by the application server in Multiple User Shared mode.
         The following element is only used in AS data mode:
-          lineMode, value “Single User Private and Shared” is returned in XS data mode
+          lineMode, value "Single User Private and Shared" is returned in XS data mode
         The following elements are only used in AS data mode:
-          enableDeviceFeatureSynchronization, value “false” is returned in XS data mode
-          enableDnd, value “false” is returned in XS data mode
-          enableCallForwardingAlways, value “false” is returned in XS data mode
-          enableCallForwardingBusy, value “false” is returned in XS data mode
-          enableCallForwardingNoAnswer, value “false” is returned in XS data mode
-          enableAcd, value “false” is returned in XS data mode
-          enableExecutive, value “false” is returned in XS data mode
-          enableExecutiveAssistant, value “false” is returned in XS data mode
-          enableSecurityClassification, value “false” is returned in XS data mode
-          enableCallRecording, value “false” is returned in XS data mode
+          enableDeviceFeatureSynchronization, value "false" is returned in XS data mode
+          enableDnd, value "false" is returned in XS data mode
+          enableCallForwardingAlways, value "false" is returned in XS data mode
+          enableCallForwardingBusy, value "false" is returned in XS data mode
+          enableCallForwardingNoAnswer, value "false" is returned in XS data mode
+          enableAcd, value "false" is returned in XS data mode
+          enableExecutive, value "false" is returned in XS data mode
+          enableExecutiveAssistant, value "false" is returned in XS data mode
+          enableSecurityClassification, value "false" is returned in XS data mode
+          enableCallRecording, value "false" is returned in XS data mode
         </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1860,6 +1871,8 @@
           <xs:element name="searchCriteriaDepartmentName" type="SearchCriteriaDepartmentName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaExactUserInTrunkGroup" type="SearchCriteriaExactUserInTrunkGroup" minOccurs="0"/>
           <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaUserExternalId" type="SearchCriteriaUserExternalId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaExactUserPersonId" type="SearchCriteriaExactUserPersonId" minOccurs="0"/>
           <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaExactDnActivation" type="SearchCriteriaExactDnActivation" minOccurs="0"/>
           <xs:element name="searchCriteriaModeOr" type="xs:boolean" fixed="true" minOccurs="0"/>
@@ -1918,6 +1931,8 @@
           <xs:element name="searchCriteriaExactUserDepartment" type="SearchCriteriaExactUserDepartment" minOccurs="0" maxOccurs="1"/>
           <xs:element name="searchCriteriaExactUserInTrunkGroup" type="SearchCriteriaExactUserInTrunkGroup" minOccurs="0"/>
           <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaUserExternalId" type="SearchCriteriaUserExternalId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaExactUserPersonId" type="SearchCriteriaExactUserPersonId" minOccurs="0"/>
           <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -1972,6 +1987,8 @@
           <xs:element name="searchCriteriaEmailAddress" type="SearchCriteriaEmailAddress" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaExactUserInTrunkGroup" type="SearchCriteriaExactUserInTrunkGroup" minOccurs="0"/>
           <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaUserExternalId" type="SearchCriteriaUserExternalId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaExactUserPersonId" type="SearchCriteriaExactUserPersonId" minOccurs="0"/>
           <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaExactUserDepartment" type="SearchCriteriaExactUserDepartment" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
@@ -2028,6 +2045,8 @@
           <xs:element name="searchCriteriaExactUserInTrunkGroup" type="SearchCriteriaExactUserInTrunkGroup" minOccurs="0"/>
           <xs:element name="searchCriteriaExactUserNetworkClassOfService" type="SearchCriteriaExactUserNetworkClassOfService" minOccurs="0"/>
           <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaUserExternalId" type="SearchCriteriaUserExternalId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaExactUserPersonId" type="SearchCriteriaExactUserPersonId" minOccurs="0"/>
           <xs:element name="searchCriteriaExtension" type="SearchCriteriaExtension" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaResellerId" type="SearchCriteriaResellerId" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -2080,9 +2099,9 @@
 
         The registrationTable table column headings are:
           "Device Level", "Device Name", "Order", "URI", "Expiration", "Line/Port", "Endpoint Type", "Public Net Address", "Public Port", "Private Net Address", "Private Port", "User Agent", "Lockout Started", "Lockout Expires", "Lockout Count", "Access Info",
-          "Private Identity", "SIP Instance ID", "Supports Only CS Media", "Feature Parameters", "Supports Voice Over PS", "Path Header", "Registration Active"
-        The following columns are only used in AS and Amplify data modes:
-          "Order", "Public Net Address", "Public Port", "Private Net Address", "Private Port", "Lockout Started", "Lockout Expires", "Lockout Count", "Path Header".
+          "Private Identity", "SIP Instance ID", "Supports Only CS Media", "Feature Parameters", "Supports Voice Over PS", "Path Header", "Registration Active", "P-Access-Network-Info"
+        The following columns are only used in AS data mode:
+          "Order", "Public Net Address", "Public Port", "Private Net Address", "Private Port", "Lockout Started", "Lockout Expires", "Lockout Count", "Path Header", "P-Access-Network-Info".
         The following columns are only used in XS data mode:
           "Private Identity", "SIP Instance ID", "Supports Only CS Media", "Feature Parameters", "Supports Voice Over PS".
         The following columns are only used in AS data mode:
@@ -2104,11 +2123,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserGetRequest22V8">
+  <xs:complexType name="UserGetRequest23V2">
     <xs:annotation>
       <xs:documentation>
         Request to get the user information.  The response is either
-        UserGetResponse22V8 or ErrorResponse.
+        UserGetResponse23V2 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -2120,10 +2139,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserGetResponse22V8">
+  <xs:complexType name="UserGetResponse23V2">
     <xs:annotation>
       <xs:documentation>
-        Response to UserGetRequest22V8.
+        Response to UserGetRequest23V2.
         It is possible that the TrunkAddressingRead element is present with nothing populated in it which means the user is a trunk user.
 
         The following data elements are only used in AS data mode and not returned in XS data mode:
@@ -2135,6 +2154,9 @@
           serviceProviderExternalId
           groupExternalId
           userExternalId
+          userPersonId
+          isPlace
+          locationDialingCode
 
         The following data elements are only used in XS data mode:
           alternateTrunkIdentityDomain
@@ -2204,6 +2226,9 @@
           <xs:element name="serviceProviderExternalId" type="ExternalId" minOccurs="0"/>
           <xs:element name="groupExternalId" type="ExternalId" minOccurs="0"/>
           <xs:element name="userExternalId" type="ExternalId" minOccurs="0"/>
+          <xs:element name="userPersonId" type="PersonId" minOccurs="0"/>
+          <xs:element name="isPlace" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="locationDialingCode" type="LocationDialingCode" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -2466,7 +2491,7 @@
           Response to UserLinePortGetListRequest.
           Contains a table of line ports configured for a user
           The column headings are: "Line Port", "Line Port Type", "In Trunk Group",
-          "Contact", "Contact2", "Contact3", "Contact4", "Contact5", " Authentication Mode ",
+          "Contact", "Contact2", "Contact3", "Contact4", "Contact5", "Authentication Mode",
           and "Auto-Config Soft Client".
         </xs:documentation>
     </xs:annotation>
@@ -2582,7 +2607,8 @@
           <xs:element name="impPassword" type="Password" nillable="true" minOccurs="0"/>
           <xs:element name="alternateUserIdList" type="ReplacementAlternateUserIdEntryList" nillable="true" minOccurs="0"/>
           <xs:element name="allowVideo" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="newUserExternalId" type="ExternalId" minOccurs="0"/>
+          <xs:element name="newUserExternalId" type="ExternalId" nillable="true" minOccurs="0"/>
+          <xs:element name="newUserPersonId" type="PersonId" nillable="true" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -2685,11 +2711,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserPasswordInfoGetRequest">
+  <xs:complexType name="UserPasswordInfoGetRequest22">
     <xs:annotation>
       <xs:documentation>
         Request the user's Web password information.
-        The response is either a UserPasswordInfoGetResponse or an ErrorResponse.
+        The response is either a UserPasswordInfoGetResponse22 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -2701,10 +2727,13 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserPasswordInfoGetResponse">
+  <xs:complexType name="UserPasswordInfoGetResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to UserPasswordInfoGetRequest.
+        Response to UserPasswordInfoGetRequest22.
+
+        The following elements are only used in AS data mode and ignored in XS data mode.
+        hasPassword
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -2715,6 +2744,7 @@
             <xs:element name="expirationDays" type="xs:int"/>
             <xs:element fixed="true" name="doesNotExpire" type="xs:boolean"/>
           </xs:choice>
+          <xs:element name="hasPassword" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -3151,7 +3181,8 @@
   "Email Address", "Yahoo Id", "Department", "Group Id", "Location",
   "Address Line 1", "Address Line 2", "City", "State", "Zip",
   "Country", "IMP Id", "Location Code", "My Room Room Id",
-  "My Room Bridge Id", "Service Name", and "Receptionist Note".
+  "My Room Bridge Id", "Service Name", "Receptionist Note",
+  "User External Id", and "User Place Type".
   The Service Name represents the localized service name for service instances.
   The localized values are taken from the BroadworksLabel.properties file.
   Service Name is currently supporting:
@@ -3165,7 +3196,7 @@
   the request is the owner of the Receptionist Note and a Note exists.
 
   The following columns are returned in AS data mode only:
-    "Service Name", "Receptionist Notes"
+    "Service Name", "Receptionist Notes", "User External Id", "User Place Type".
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -3342,6 +3373,64 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="UserPreferredAnswerEndpointGetListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Requests the list of device endpoints of a user that can be configured
+        as Preferred Answer Endpoint for Auto-Answer and Forced Answer.
+        If onlyDisplayPreferredAnswerEndpoint is specified, only the
+        Preferred Answer Endpoint of user is returned in the response.
+
+        The response is either UserPreferredAnswerEndpointGetListResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="onlyDisplayPreferredAnswerEndpoint" type="xs:boolean" fixed="true" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPreferredAnswerEndpointGetListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to UserPreferredAnswerEndpointGetListRequest.
+        Contains a table of devices associated to a user that can be configured
+        as Preferred Answer Endpoint.
+        The column headings are: "Line Port", "Endpoint Type", "Is Preferred Answer Endpoint", "Device Name", "Device Level", "Device Type".
+        The value of the "Endpoint Type" column is either Primary, Shared Call Appearance or Flexible Seating Guest.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="accessDeviceTable" type="core:OCITable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserPreferredAnswerEndpointModifyRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to configure a user's Preferred Answer Endpoint for Auto-Answer and Forced Answer.
+        Setting preferredAnswerEndpoint to nil will clear the user's configured Preferred Answer Endpoint.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="preferredAnswerEndpoint" type="AccessDeviceEndpointKey" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="UserPrimaryEndpointAdvancedSettingGetRequest">
     <xs:annotation>
       <xs:documentation>
@@ -3461,12 +3550,12 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserPushNotificationRegistrationGetListRequest21sp1">
+  <xs:complexType name="UserPushNotificationRegistrationGetListRequest23">
     <xs:annotation>
       <xs:documentation>
         Request a list of all of the push notification registrations for a user by
         either registration id or user id.
-        The response is either UserPushNotificationRegistrationGetListResponse21sp1 or ErrorResponse.
+        The response is either UserPushNotificationRegistrationGetListResponse23 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -3481,10 +3570,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserPushNotificationRegistrationGetListResponse21sp1">
+  <xs:complexType name="UserPushNotificationRegistrationGetListResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to UserPushNotificationRegistrationGetListRequest21sp1.
+        Response to UserPushNotificationRegistrationGetListRequest23.
 
         A registration has more than one row in the response when the registration includes more than one token
         and/or one or more event.  There can be one more tokens per registration ID and there can be one or more
@@ -3498,7 +3587,7 @@
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="userId" type="UserId"/>
-          <xs:element name="pushNotificationRegistrationData" type="PushNotificationRegistrationData" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="pushNotificationRegistrationData" type="PushNotificationRegistrationData23" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -3833,6 +3922,9 @@
       <xs:documentation>
         Request to assign the user services and service packs for a user.
         The response is either a SuccessResponse or an ErrorResponse.
+        In AS data mode, a Warning ErrorResponse is sent when the transaction is partially successful
+        while an Error ErrorResponse is sent when the transaction fails for all the services.
+        In XS data mode, a Warning ErrorResponse is always sent when there is at least one error.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

@@ -354,7 +354,8 @@ def process_schema(
         xsd_component = schema.types[item]
         if xsd_component.is_complex():
             match = re.search(
-                r"(Request|Response)(\d+((mp|sp|V)\d+)?)?$",
+                # Look for Requests/Responses but exclude SearchCriteria
+                r"^(?!SearchCriteria).+(Request|Response)(\d+((mp|sp|V)\d+)?)?$",
                 xsd_component.name,
             )
             if match and match.group(1) == "Request":

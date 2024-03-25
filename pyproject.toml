@@ -35,9 +35,10 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = ">=3.6.2"
-lxml = "^4.7.1"
+lxml = "4.9.4"
 attrs = "^21.4.0"
 null-object = "^0.1.0"
+pyyaml = "6.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

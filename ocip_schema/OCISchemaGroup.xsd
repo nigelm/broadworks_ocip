@@ -43,12 +43,12 @@
     GroupAccessDeviceGetAvailableDetailListRequest19
     GroupAccessDeviceGetEnhancedConfigurationTypeListRequest
     GroupAccessDeviceGetEnhancedConfigurationTypeRequest14
-    GroupAccessDeviceGetLinkedLeafDeviceListRequest
+    GroupAccessDeviceGetLinkedLeafDeviceListRequest22
     GroupAccessDeviceGetLinkedTreeDeviceRequest
     GroupAccessDeviceGetListRequest
     GroupAccessDeviceGetNativeTagsWithLogicListRequest
     GroupAccessDeviceGetPagedSortedListRequest22
-    GroupAccessDeviceGetRequest24
+    GroupAccessDeviceGetRequest24V3
     GroupAccessDeviceGetUserListRequest21sp1
     GroupAccessDeviceLinkDeviceListRequest
     GroupAccessDeviceModifyRequest22
@@ -66,10 +66,11 @@
     GroupAdminGetListRequest
     GroupAdminGetPagedSortedListRequest
     GroupAdminGetPolicyRequest20
-    GroupAdminGetRequest22
+    GroupAdminGetRequest22V3
     GroupAdministratorPasswordRulesGetRequest
     GroupAdminModifyPolicyRequest
     GroupAdminModifyRequest
+    GroupAlternateUserIdGetListRequest
     GroupAnnouncementFileAddRequest
     GroupAnnouncementFileDeleteListRequest
     GroupAnnouncementFileGetListRequest
@@ -79,19 +80,6 @@
     GroupAnnouncementRepositoryGetSettingsRequest
     GroupApplicationServerSetGetRequest
     GroupApplicationServerSetModifyRequest
-    GroupBroadWorksMobileManagerActivationRequest
-    GroupBroadWorksMobileManagerAddHomeZoneRequest
-    GroupBroadWorksMobileManagerAddRequest
-    GroupBroadWorksMobileManagerDeleteHomeZoneListRequest
-    GroupBroadWorksMobileManagerDeleteHomeZoneRequest
-    GroupBroadWorksMobileManagerDeleteRequest
-    GroupBroadWorksMobileManagerGetDomainListRequest
-    GroupBroadWorksMobileManagerGetHomeZoneListRequest
-    GroupBroadWorksMobileManagerGetHomeZoneRequest
-    GroupBroadWorksMobileManagerGetRequest
-    GroupBroadWorksMobileManagerModifyHomeZoneRequest
-    GroupBroadWorksMobileManagerModifyRequest
-    GroupBroadWorksMobileManagerSendCarrierFilesRequest
     GroupCallProcessingGetPolicyRequest22V3
     GroupCallProcessingModifyPolicyRequest15sp2
     GroupCommonPhoneListAddListRequest
@@ -127,7 +115,7 @@
     GroupDepartmentAdminAddRequest
     GroupDepartmentAdminDeleteRequest
     GroupDepartmentAdminGetListRequest
-    GroupDepartmentAdminGetRequest
+    GroupDepartmentAdminGetRequest22V2
     GroupDepartmentAdminModifyRequest
     GroupDepartmentDeleteRequest
     GroupDepartmentGetAvailableParentListRequest
@@ -196,7 +184,7 @@
     GroupFileRepositoryDeviceUserDeleteRequest
     GroupFileRepositoryDeviceUserGetListRequest
     GroupFileRepositoryDeviceUserModifyRequest
-    GroupGetAvailableLeafDeviceListRequest
+    GroupGetAvailableLeafDeviceListRequest22
     GroupGetAvailableTreeDeviceListRequest
     GroupGetDefaultRequest
     GroupGetListInServiceProviderPagedSortedListRequest
@@ -220,12 +208,12 @@
     GroupOfficeZoneGetAssignedListRequest
     GroupOfficeZoneGetAssignedUserListRequest
     GroupOfficeZoneUnassignListRequest
-    GroupPasswordRulesGetRequest22
+    GroupPasswordRulesGetRequestRI
     GroupPasswordRulesModifyRequest
     GroupPhoneDirectoryGetPagedSortedListRequest
     GroupPolicyGetRequest22
     GroupPolicyModifyRequest22
-    GroupPortalPasscodeRulesGetRequest19
+    GroupPortalPasscodeRulesGetRequestRI
     GroupPortalPasscodeRulesModifyRequest
     GroupRoutePointExternalSystemAssignListRequest
     GroupRoutePointExternalSystemGetAssignedListRequest
@@ -265,13 +253,13 @@
     GroupSessionAdmissionControlGroupModifyRequest
     GroupSessionAdmissionControlModifyRequest
     GroupShInterfaceGetUserListRequest21sp1
-    GroupStirShakenGetRequest
+    GroupStirShakenGetRequest23V2
     GroupStirShakenModifyRequest
     GroupTemplateOnlyDeviceFileGetListRequest
-    GroupThirdPartyEmergencyCallingGetRequest
+    GroupThirdPartyEmergencyCallingGetRequest22
     GroupThirdPartyEmergencyCallingModifyRequest
     GroupTrunkGroupGetAvailableDetailListRequest
-    GroupTrunkGroupStirShakenGetRequest
+    GroupTrunkGroupStirShakenGetRequest23V2
     GroupTrunkGroupStirShakenModifyRequest
     GroupUserCallForwardingSettingsGetListRequest
     GroupUserCallingPlanSettingsGetListRequest
@@ -295,6 +283,7 @@
         The following elements are only used in AS data mode and ignored in XS data mode:
           groupExternalId
           deviceExternalId
+          deviceIPEI
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -324,6 +313,7 @@
           <xs:element name="transportProtocol" type="ExtendedTransportProtocol" minOccurs="0"/>
           <xs:element name="useCustomUserNamePassword" type="xs:boolean" minOccurs="0"/>
           <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0"/>
+          <xs:element name="deviceIPEI" type="AccessDeviceIPEI" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -746,6 +736,10 @@
       <xs:documentation>
         Requests the list of available access devices for assignment to a user
         within a group. The list includes devices created at the system, service provider, and group levels.
+
+        The following elements are used in AS mode and ignored in XS data mode:
+          onlyIntelligentDevice
+
         The response is either GroupAccessDeviceGetAvailableDetailListResponse19 or
         ErrorResponse.
       </xs:documentation>
@@ -757,6 +751,7 @@
           <xs:element name="groupId" type="GroupId"/>
           <xs:element name="isMusicOnHold" type="xs:boolean"/>
           <xs:element name="onlyVideoCapable" type="xs:boolean"/>
+          <xs:element name="onlyIntelligentDevice" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -858,17 +853,20 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAccessDeviceGetLinkedLeafDeviceListRequest">
+  <xs:complexType name="GroupAccessDeviceGetLinkedLeafDeviceListRequest22">
     <xs:annotation>
       <xs:documentation>
         Requests the list of linked leaf devices for the group level tree device passed in the request.
         A tree device is a device associated with a device type that has the option
         supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The list includes devices created at the system, service provider, and group levels.
+        If the leafDeviceCategory is not set in the request, then linked leaf devices of all categories are requested, otherwise only the linked leaf devices of the specified category are requested.
+        The category values are: "Handset", "Base Station", "All".
 
-        The response is either GroupAccessDeviceGetLinkedLeafDeviceListResponse or
+        The response is either GroupAccessDeviceGetLinkedLeafDeviceListResponse22 or
         ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -878,15 +876,16 @@
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="groupId" type="GroupId"/>
           <xs:element name="deviceName" type="AccessDeviceName"/>
+          <xs:element name="leafDeviceCategory" type="LeafDeviceCategory" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAccessDeviceGetLinkedLeafDeviceListResponse">
+  <xs:complexType name="GroupAccessDeviceGetLinkedLeafDeviceListResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupAccessDeviceGetLinkedLeafDeviceListRequest.
+        Response to GroupAccessDeviceGetLinkedLeafDeviceListRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -894,6 +893,7 @@
         <xs:sequence>
           <xs:element name="treeDeviceLinkId" type="xs:string"/>
           <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="supportLinks" type="SupportLinks22V2" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -906,7 +906,8 @@
         A tree device is a device associated with a device type that has the option
         supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
 
         The response is either GroupAccessDeviceGetLinkedTreeDeviceResponse or
         ErrorResponse.
@@ -1084,11 +1085,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAccessDeviceGetRequest24">
+  <xs:complexType name="GroupAccessDeviceGetRequest24V3">
     <xs:annotation>
       <xs:documentation>
         Requests the configuration of a specified group access device.
-        The response is either GroupAccessDeviceGetResponse24 or ErrorResponse.
+        The response is either GroupAccessDeviceGetResponse24V3 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1105,16 +1106,21 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAccessDeviceGetResponse24">
+  <xs:complexType name="GroupAccessDeviceGetResponse24V3">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupAccessDeviceGetRequest24.
+        Response to GroupAccessDeviceGetRequest24V3.
 
         The following elements are only used in AS data mode:
            serviceProviderId
            groupId
            deviceName
            deviceExternalId
+           deviceCode
+           deviceIPEI
+           deviceIndex
+           useDeviceCode
+           authBearerSubject
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1143,6 +1149,11 @@
           <xs:element name="groupId" type="GroupId"/>
           <xs:element name="deviceName" type="AccessDeviceName"/>
           <xs:element name="deviceExternalId" type="ExternalId" minOccurs="0"/>
+          <xs:element name="deviceCode" type="AccessDeviceCode" minOccurs="0"/>
+          <xs:element name="deviceIPEI" type="AccessDeviceIPEI" minOccurs="0"/>
+          <xs:element name="deviceIndex" type="xs:int" minOccurs="0"/>
+          <xs:element name="useDeviceCode" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="authBearerSubject" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1212,7 +1223,8 @@
         A tree device is a device associated with a device type that has the option
         supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -1236,6 +1248,9 @@
 
         The following elements are only used in AS data mode and ignored in XS data mode:
           deviceExternalId
+          deviceIPEI
+          useDeviceCode
+          deviceCode
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1263,6 +1278,9 @@
           <xs:element name="transportProtocol" type="ExtendedTransportProtocol" minOccurs="0"/>
           <xs:element name="useCustomUserNamePassword" type="xs:boolean" minOccurs="0"/>
           <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0" nillable="true"/>
+          <xs:element name="deviceIPEI" type="AccessDeviceIPEI" nillable="true" minOccurs="0"/>
+          <xs:element name="useDeviceCode" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="deviceCode" type="AccessDeviceCode" nillable="true" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1367,7 +1385,8 @@
       <xs:documentation>
         Request to unlink one or more leaf access devices from a tree device.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -1650,11 +1669,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAdminGetRequest22">
+  <xs:complexType name="GroupAdminGetRequest22V3">
     <xs:annotation>
       <xs:documentation>
         Get a group administrators profile.
-        The response is either a GroupAdminGetResponse22 or an ErrorResponse.
+        The response is either a GroupAdminGetResponse22V3 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1666,11 +1685,16 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupAdminGetResponse22">
+  <xs:complexType name="GroupAdminGetResponse22V3">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupAdminGetRequest22.
+        Response to the GroupAdminGetRequest22V3.
         The response contains the group administrators  profile information.
+
+        The following elements are only used in AS data mode and ignored in XS data mode.
+        accountDisabled
+        lastAuthenticatedDate
+        hasPassword
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1683,6 +1707,9 @@
           <xs:element name="language" type="Language"/>
           <xs:element name="locale" type="OCILocale22"/>
           <xs:element name="encoding" type="Encoding"/>
+          <xs:element name="accountDisabled" type="xs:boolean"/>
+          <xs:element name="lastAuthenticatedDate" type="xs:dateTime"/>
+          <xs:element name="hasPassword" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1790,6 +1817,9 @@
         Since old password is not specified here, any password rule related to old password
         does not apply.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements are only used in AS data mode and ignored in XS data mode.
+        accountDisabled
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1800,6 +1830,45 @@
           <xs:element name="lastName" type="LastName" nillable="true" minOccurs="0"/>
           <xs:element name="password" type="Password" nillable="true" minOccurs="0"/>
           <xs:element name="language" type="Language" minOccurs="0"/>
+          <xs:element name="accountDisabled" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupAlternateUserIdGetListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the list of alternate user ids in the group.
+        The response is either GroupAlternateUserIdGetListResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="responseSizeLimit" type="ResponseSizeLimit" minOccurs="0"/>
+          <xs:element name="searchCriteriaAlternateUserId" type="SearchCriteriaAlternateUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupAlternateUserIdGetListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to GroupAlternateUserIdGetListRequest.
+        The "User Type" column contains the corresponding enumerated UserType value.
+        Contains a table of alternate user ids, the column headings are:
+          "User Id", "Alternate User Id" and "User Type".
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="alternateUserIdTable" type="core:OCITable"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -2176,343 +2245,6 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupBroadWorksMobileManagerActivationRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Activates or Deactivates the BroadWorks Mobile Manager.
-        The deactivationReason is required when isActive is set to false.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="isActive" type="xs:boolean"/>
-          <xs:element name="deactivationReason" type="BroadWorksMobileManagerDeactivationReason" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerAddHomeZoneRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Add a home zone to the BroadWorks Mobile Manager.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="homeZoneDomainName" type="BroadWorksMobileManagerDomainName"/>
-          <xs:element name="mobileCountryCode" type="BroadWorksMobileManagerHomeZoneMobileCountryCode"/>
-          <xs:element name="mobileNetworkCode" type="BroadWorksMobileManagerHomeZoneNetworkCountryCode"/>
-          <xs:element name="locationAreaCode" type="BroadWorksMobileManagerHomeZoneLocationAreaCode"/>
-          <xs:element name="cellIdentity" type="BroadWorksMobileManagerHomeZoneCellId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerAddRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Add the BroadWorks Mobile Manager.
-        Only one BroadWorks Mobile Manager can be added per group.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="informationFile" type="BroadWorksMobileManagerInformationFile"/>
-          <xs:element name="certificateFile" type="BroadWorksMobileManagerCertificateFile"/>
-          <xs:element name="isActive" type="xs:boolean"/>
-          <xs:element name="localToCarrier" type="xs:boolean"/>
-          <xs:element name="maxTxPerSecondEnabled" type="xs:boolean"/>
-          <xs:element name="maxTxPerSecond" type="BroadWorksMobileManagerMaxTxPerSecond" minOccurs="0"/>
-          <xs:element name="tldnEnabled" type="xs:boolean"/>
-          <xs:element name="genericNumberEnabled" type="xs:boolean"/>
-          <xs:element name="mobileStateCheckEnabled" type="xs:boolean"/>
-          <xs:element name="locationBasedServicesEnabled" type="xs:boolean"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerDeleteHomeZoneListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Delete a list of home zones from the BroadWorks Mobile Manager.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="homeZoneId" type="xs:string" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerDeleteHomeZoneRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Delete a home zone from the BroadWorks Mobile Manager.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="homeZoneId" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerDeleteRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Delete the BroadWorks Mobile Manager.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetDomainListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get the list of domains of the BroadWorks Mobile Manager.
-        The response is either GroupBroadWorksMobileManagerGetDomainListResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetDomainListResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupBroadWorksMobileManagerGetDomainListRequest.
-        Contains the list of domains.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="domainName" type="BroadWorksMobileManagerDomainName" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetHomeZoneListRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get the list of home zones of the BroadWorks Mobile Manager.
-        The response is either GroupBroadWorksMobileManagerGetHomeZoneListResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetHomeZoneListResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupBroadWorksMobileManagerGetHomeZoneListRequest.
-        Contains a table with column headings:
-        "Home Zone Id", "Domain Name", "Mobile Country Code",
-        "Mobile Network Code", "Local Area Code" and "Cell Identity".
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="homeZonesTable" type="core:OCITable"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetHomeZoneRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get a home zone from the BroadWorks Mobile Manager.
-        The response is either GroupBroadWorksMobileManagerGetHomeZoneResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="homeZoneId" type="xs:string"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetHomeZoneResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupBroadWorksMobileManagerGetHomeZoneRequest
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="homeZoneDomainName" type="BroadWorksMobileManagerDomainName"/>
-          <xs:element name="mobileCountryCode" type="BroadWorksMobileManagerHomeZoneMobileCountryCode"/>
-          <xs:element name="mobileNetworkCode" type="BroadWorksMobileManagerHomeZoneNetworkCountryCode"/>
-          <xs:element name="locationAreaCode" type="BroadWorksMobileManagerHomeZoneLocationAreaCode"/>
-          <xs:element name="cellIdentity" type="BroadWorksMobileManagerHomeZoneCellId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Get the BroadWorks Mobile Manager.
-        The response is either GroupBroadWorksMobileManagerGetResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerGetResponse">
-    <xs:annotation>
-      <xs:documentation>
-        Response to the GroupBroadWorksMobileManagerGetRequest
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIDataResponse">
-        <xs:sequence>
-          <xs:element name="mobileManagerId" type="BroadWorksMobileManagerDomainName"/>
-          <xs:element name="name" type="BroadWorksMobileManagerName"/>
-          <xs:element name="isActive" type="xs:boolean"/>
-          <xs:element name="localToCarrier" type="xs:boolean"/>
-          <xs:element name="deactivationReason" type="BroadWorksMobileManagerDeactivationReason" minOccurs="0"/>
-          <xs:element name="maxTxPerSecondEnabled" type="xs:boolean"/>
-          <xs:element name="maxTxPerSecond" type="BroadWorksMobileManagerMaxTxPerSecond" minOccurs="0"/>
-          <xs:element name="tldnEnabled" type="xs:boolean"/>
-          <xs:element name="genericNumberEnabled" type="xs:boolean"/>
-          <xs:element name="mobileStateCheckEnabled" type="xs:boolean"/>
-          <xs:element name="locationBasedServicesEnabled" type="xs:boolean"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerModifyHomeZoneRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Modify an existing home zone in the BroadWorks Mobile Manager.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="homeZoneId" type="xs:string"/>
-          <xs:element name="homeZoneDomainName" type="BroadWorksMobileManagerDomainName" minOccurs="0"/>
-          <xs:element name="mobileCountryCode" type="BroadWorksMobileManagerHomeZoneMobileCountryCode" minOccurs="0"/>
-          <xs:element name="mobileNetworkCode" type="BroadWorksMobileManagerHomeZoneNetworkCountryCode" minOccurs="0"/>
-          <xs:element name="locationAreaCode" type="BroadWorksMobileManagerHomeZoneLocationAreaCode" minOccurs="0"/>
-          <xs:element name="cellIdentity" type="BroadWorksMobileManagerHomeZoneCellId" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerModifyRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Modify the BroadWorks Mobile Manager settings.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="informationFile" type="BroadWorksMobileManagerInformationFile" minOccurs="0"/>
-          <xs:element name="certificateFile" type="BroadWorksMobileManagerCertificateFile" minOccurs="0"/>
-          <xs:element name="localToCarrier" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="maxTxPerSecondEnabled" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="maxTxPerSecond" type="BroadWorksMobileManagerMaxTxPerSecond" minOccurs="0"/>
-          <xs:element name="tldnEnabled" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="genericNumberEnabled" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="mobileStateCheckEnabled" type="xs:boolean" minOccurs="0"/>
-          <xs:element name="locationBasedServicesEnabled" type="xs:boolean" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="GroupBroadWorksMobileManagerSendCarrierFilesRequest">
-    <xs:annotation>
-      <xs:documentation>
-        Sends an email with the carrier information and certificate files.
-        The response is either SuccessResponse or ErrorResponse.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="core:OCIRequest">
-        <xs:sequence>
-          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
-          <xs:element name="groupId" type="GroupId"/>
-          <xs:element name="emailTo" type="EmailAddress"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
   <xs:complexType name="GroupCallProcessingGetPolicyRequest22V3">
     <xs:annotation>
       <xs:documentation>
@@ -2686,9 +2418,6 @@
            enableDialableCallerID
            allowConfigurableCLIDForRedirectingIdentity
            allowDepartmentCLIDNameOverride
-           allowConfigurableCLIDForRedirectingIdentity
-           enterpriseCallsCLIDPolicy
-           groupCallsCLIDPolicy
 
         The following elements are only used in AS data mode and ignored in XS data mode:
            useGroupPhoneListLookupSetting
@@ -3118,21 +2847,17 @@
           serviceProviderExternalId
           groupExternalId
 
-        The following elements are only used in Amplify data mode and ignored in AS and XS data mode:
+        The following elements are ignored in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
         provisioningSliceId,
         subscriberPartition.
-        When the callProcessingSliceId or provisioningSliceId is not specified in the AmplifyDataMode,
-        the default slice Id is assigned to the Group.
-        Only Provisioning admin and above can change the callProcessingSliceId,
-        provisioningSliceId, and subscriberPartition.
 
-        The following elements are only used in Amplify and XS data mode and ignored in AS mode:
+        The following elements are only used in XS data mode and ignored in AS mode:
         preferredDataCenter.
         Only Provisioning admin and above can change the preferredDataCenter.
 
-        The following elements are only used in XS data mode and ignored in Amplify and AS data mode:
+        The following elements are only used in XS data mode and ignored in AS data mode:
         defaultUserCallingLineIdPhoneNumber.
 
         The following elements are optional for the group. If the elements are included,
@@ -3159,7 +2884,7 @@
         When a group or user service is included that is not activated, is not licensed,
         or not authorized to the service provider, the response will be an ErrorResponse.
 
-		If the group service authorized quantity is not included it will default to Unlimited.
+        If the group service authorized quantity is not included it will default to Unlimited.
 
         If activatablePhoneNumber and activatableDNRange elements are included, when
         activate element is present, this value overrides the system group default
@@ -3217,21 +2942,17 @@
           serviceProviderExternalId
           groupExternalId
 
-        The following elements are only used in Amplify data mode and ignored in AS and XS data mode:
+        The following elements are ignored in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
         provisioningSliceId,
         subscriberPartition.
-        When the callProcessingSliceId or provisioningSliceId is not specified in the AmplifyDataMode,
-        the default slice Id is assigned to the Group.
-        Only Provisioning admin and above can change the callProcessingSliceId,
-        provisioningSliceId, and subscriberPartition.
 
-        The following elements are only used in Amplify and XS data mode and ignored in AS mode:
+        The following elements are only used in XS data mode and ignored in AS mode:
         preferredDataCenter.
         Only Provisioning admin and above can change the preferredDataCenter.
 
-        The following elements are only used in XS data mode and ignored in Amplify and AS data mode:
+        The following elements are only used in XS data mode and ignored in AS data mode:
         defaultUserCallingLineIdPhoneNumber.
 
         The following elements are optional for the group. If the elements are included,
@@ -3256,7 +2977,7 @@
         When a group or user service is included that is not activated, is not licensed,
         or not authorized to the service provider, the response will be an ErrorResponse.
 
-		If the group service authorized quantity is not included it will default to Unlimited.
+        If the group service authorized quantity is not included it will default to Unlimited.
 
         If activatablePhoneNumber and activatableDNRange elements are included, when
         activate element is present, this value overrides the system group default
@@ -3809,11 +3530,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupDepartmentAdminGetRequest">
+  <xs:complexType name="GroupDepartmentAdminGetRequest22V2">
     <xs:annotation>
       <xs:documentation>
         Get a group department administrators profile.
-        The response is either a GroupDepartmentAdminGetResponse or an ErrorResponse.
+        The response is either a GroupDepartmentAdminGetResponse22V2 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -3825,11 +3546,16 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupDepartmentAdminGetResponse">
+  <xs:complexType name="GroupDepartmentAdminGetResponse22V2">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupDepartmentAdminGetRequest.
+        Response to the GroupDepartmentAdminGetRequest22V2.
         The response contains the group department administrators profile information.
+
+        The following elements are only used in AS data mode and ignored in XS data mode.
+        accountDisabled
+        lastAuthenticatedDate
+        hasPassword
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -3840,6 +3566,9 @@
           <xs:element name="firstName" type="FirstName" minOccurs="0"/>
           <xs:element name="lastName" type="LastName" minOccurs="0"/>
           <xs:element name="language" type="Language"/>
+          <xs:element name="accountDisabled" type="xs:boolean"/>
+          <xs:element name="lastAuthenticatedDate" type="xs:dateTime"/>
+          <xs:element name="hasPassword" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -3852,6 +3581,9 @@
         Since old password is not specified here, any password rule related to old password
         does not apply.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements are only used in AS data mode and ignored in XS data mode.
+        accountDisabled
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -3862,6 +3594,7 @@
           <xs:element name="lastName" type="LastName" nillable="true" minOccurs="0"/>
           <xs:element name="password" type="Password" nillable="true" minOccurs="0"/>
           <xs:element name="language" type="Language" minOccurs="0"/>
+          <xs:element name="accountDisabled" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -4104,6 +3837,8 @@
           <xs:element name="searchCriteriaExactDeviceManagementEventType" type="SearchCriteriaExactDeviceManagementEventType" minOccurs="0"/>
           <xs:element name="searchCriteriaDeviceManagementEventAdditionalInfo" type="SearchCriteriaDeviceManagementEventAdditionalInfo" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaDeviceManagementEventLoginId" type="SearchCriteriaDeviceManagementEventLoginId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaDeviceManagementEventRequest" type="SearchCriteriaDeviceManagementEventRequest" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaDeviceManagementEventRequestTrackingId" type="SearchCriteriaDeviceManagementEventRequestTrackingId" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -4116,8 +3851,9 @@
         Contains a table with column headings: "Event Id", "Status", "Action",
         "Level", "Type", "Additional Info", "Is Local", "Completion %",
         "Pushed/ Same Hash/ Not Pushed", "Login Id", "Start Time",
-        "Process Time", "Rx Time", "Total Time", "Request", "Priority".
-        "Event Id" is a unique identifer for the event.
+        "Process Time", "Rx Time", "Total Time", "Request", "Priority",
+        "Tracking Id", "End Time".
+        "Event Id" is a unique identifier for the event.
         "Status" can be: Pending, Queued, In Progress,
         Process On Other Host, Stale, Completed, Canceled.
         "Action" can be: Delete, Download, Rebuild, Reset, Upload.
@@ -4154,6 +3890,9 @@
         hours, minutes, seconds, and milliseconds (hhhh:mm:ss.SSS).
         "Request" is the name of the OCI-P request that triggered the event.
         "Priority" is the priority of the event.
+        "Tracking Id" is the tracking id of the OCI-P request that triggered the event.
+        "End Time" is the difference, measured in milliseconds, between the
+        event's end time and midnight, January 1, 1970 UTC
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -5956,14 +5695,18 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupGetAvailableLeafDeviceListRequest">
+  <xs:complexType name="GroupGetAvailableLeafDeviceListRequest22">
     <xs:annotation>
       <xs:documentation>
         Requests the list of available leaf devices that can be linked to a tree device within a specific group.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The list returned includes devices created at the system, service provider, and group levels.
-        The response is either GroupGetAvailableLeafDeviceListResponse or
+        If the leafDeviceCategory is not set in the request, then linked leaf devices of all categories are requested, otherwise only the linked leaf devices of the specified category are requested.
+        The category values are: "Handset", "Base Station", "All".
+
+        The response is either GroupGetAvailableLeafDeviceListResponse22 or
         ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -5972,21 +5715,23 @@
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="leafDeviceCategory" type="LeafDeviceCategory" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupGetAvailableLeafDeviceListResponse">
+  <xs:complexType name="GroupGetAvailableLeafDeviceListResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupGetAvailableLeafDeviceListRequest.
+        Response to GroupGetAvailableLeafDeviceListRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="supportLinks" type="SupportLinks22V2" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6231,15 +5976,14 @@
       <xs:documentation>
         Response to the GroupGetRequest22V5.
         The response contains the group's profile information.
-        The following element is only used in Amplify data mode and not returned
-        in AS and XS data mode:
+        The following elements are not returned in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
         provisioningSliceId,
         subscriberPartition,
         preferredDataCenter.
 
-        The following elements are only used in Amplify and XS data mode and not
+        The following elements are only used in XS data mode and not
         returned in AS data mode:
         preferredDataCenter.
 
@@ -6401,21 +6145,17 @@
       <xs:documentation>
         Modify the profile for a group.
         The response is either a SuccessResponse or an ErrorResponse.
-        The following elements are only used in Amplify data mode and ignored
-        in AS and XS data mode:
+        The following elements are ignored in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
         provisioningSliceId,
         subscriberPartition.
-        When the callProcessingSliceId or provisioningSliceId is set to nillable,
-        it will be assigned to the default Slice.
-        Only Provisioning admin and above can change the callProcessingSliceId, provisioningSliceId, and subscriberPartition.
 
-        The following elements are only used in Amplify and XS data mode and ignored in AS data mode:
+        The following elements are only used in XS data mode and ignored in AS data mode:
         preferredDataCenter.
         Only Provisioning admin and above can change the preferredDataCenter.
 
-        The following elements are only used in XS data mode and ignored in Amplify and AS data mode:
+        The following elements are only used in XS data mode and ignored in AS data mode:
         defaultUserCallingLineIdPhoneNumber.
 
         The following elements are only used in AS data mode and ignored in the XS data mode:
@@ -6777,12 +6517,12 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupPasswordRulesGetRequest22">
+  <xs:complexType name="GroupPasswordRulesGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Requests the group's password rules setting that is applicable to
         users within the group.
-        The response is either GroupPasswordRulesGetResponse22 or ErrorResponse.
+        The response is either GroupPasswordRulesGetResponseRI or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6795,11 +6535,16 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupPasswordRulesGetResponse22">
+  <xs:complexType name="GroupPasswordRulesGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupPasswordRulesGetRequest22.
+        Response to GroupPasswordRulesGetRequestRI.
         Contains the password rules applicable to users within the group.
+
+        The following element is only used in AS data mode:
+        forcePasswordChangeAfterReset, value “false” is returned in XS data mode
+        reenableLogin
+        lockOutInMinutes
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6825,6 +6570,9 @@
           <xs:element name="disallowPreviousPasswords" type="xs:boolean"/>
           <xs:element name="numberOfPreviousPasswords" type="PasswordHistoryCount"/>
           <xs:element name="forcePasswordChangeAfterReset" type="xs:boolean"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean"/>
+          <xs:element name="reenableLogin" type="xs:boolean"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6838,6 +6586,8 @@
 
         The following elements are only used in AS data mode and ignored in XS data mode:
         forcePasswordChangeAfterReset
+        reenableLogin
+        lockOutInMinutes
 
         The response is either SuccessResponse or ErrorResponse.
       </xs:documentation>
@@ -6866,6 +6616,9 @@
           <xs:element name="disallowPreviousPasswords" type="xs:boolean" minOccurs="0"/>
           <xs:element name="numberOfPreviousPasswords" type="PasswordHistoryCount" minOccurs="0"/>
           <xs:element name="forcePasswordChangeAfterReset" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="reenableLogin" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6897,7 +6650,7 @@
 
         ErrorResponse is returned if searchCriteriaExactUserGroup or searchCriteriaExactUserDepartment have multiple entries and searchCriteriaModeOr is not included.
 
-        The following elements are only used in AS data mode and ignored in Amplify and XS data mode:
+        The following elements are only used in AS data mode and ignored in XS data mode:
         "sortByImpId"
         "searchCriteriaImpId"
 
@@ -6987,6 +6740,9 @@
       <xs:documentation>
           Response to GroupPolicyGetRequest22.
           Contains the policy settings for the group.
+
+          The following elements are only used in AS data mode:
+            userAutoAttendantNameDialingAccess, value None is returned in XS data mode
         </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -7015,7 +6771,7 @@
           Request to modify the policies for a Group.
           The response is either a SuccessResponse or an ErrorResponse.
 
-        The following elements are only used in AS data mode:
+        The following elements are only used in AS data mode and ignored in XS data mode:
           userAutoAttendantNameDialingAccess
         </xs:documentation>
     </xs:annotation>
@@ -7041,11 +6797,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupPortalPasscodeRulesGetRequest19">
+  <xs:complexType name="GroupPortalPasscodeRulesGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Requests the group's passcode rules setting.
-        The response is either GroupPortalPasscodeRulesGetResponse or ErrorResponse.
+        The response is either GroupPortalPasscodeRulesGetResponseRI or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -7058,10 +6814,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupPortalPasscodeRulesGetResponse19">
+  <xs:complexType name="GroupPortalPasscodeRulesGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to GroupPortalPasscodeRulesGetRequest19.
+        Response to GroupPortalPasscodeRulesGetRequestRI.
         Contains the group's passcode rules setting.
 
         The following elements are only used in AS data mode:
@@ -7071,6 +6827,8 @@
           numberOfAscendingDigits
           numberOfDescendingDigits
           numberOfPreviousPasscodes
+          reenableLogin
+          lockOutInMinutes
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -7096,6 +6854,8 @@
           <xs:element name="passcodeExpiresDays" type="PasscodeExpiresDays" minOccurs="0"/>
           <xs:element name="sendLoginDisabledNotifyEmail" type="xs:boolean"/>
           <xs:element name="loginDisabledNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
+          <xs:element name="reenableLogin" type="xs:boolean"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -7114,6 +6874,8 @@
           numberOfAscendingDigits
           numberOfDescendingDigits
           numberOfPreviousPasscodes
+          reenableLogin
+          lockOutInMinutes
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -7141,6 +6903,8 @@
           <xs:element name="passcodeExpiresDays" type="PasscodeExpiresDays" minOccurs="0"/>
           <xs:element name="sendLoginDisabledNotifyEmail" type="xs:boolean" minOccurs="0"/>
           <xs:element name="loginDisabledNotifyEmailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
+          <xs:element name="reenableLogin" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -8285,11 +8049,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupStirShakenGetRequest">
+  <xs:complexType name="GroupStirShakenGetRequest23V2">
     <xs:annotation>
       <xs:documentation>
         Get Group Stir Shaken service settings.
-        The response is either GroupStirShakenGetResponse or ErrorResponse.
+        The response is either GroupStirShakenGetResponse23V2 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -8302,10 +8066,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupStirShakenGetResponse">
+  <xs:complexType name="GroupStirShakenGetResponse23V2">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupStirShakenGetRequest.
+        Response to the GroupStirShakenGetRequest23V2.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -8328,6 +8092,12 @@
           <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean"/>
+          <xs:element name="preferIngressTagging" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -8361,6 +8131,12 @@
           <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean" minOccurs="0"/>
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean" minOccurs="0"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel" minOccurs="0"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="preferIngressTagging" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -8400,11 +8176,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupThirdPartyEmergencyCallingGetRequest">
+  <xs:complexType name="GroupThirdPartyEmergencyCallingGetRequest22">
     <xs:annotation>
       <xs:documentation>
         Get the third-party emergency call service settings for the Group.
-        The response is either a GroupThirdPartyEmergencyCallingGetResponse or an ErrorResponse.
+        The response is either a GroupThirdPartyEmergencyCallingGetResponse22 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -8417,10 +8193,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupThirdPartyEmergencyCallingGetResponse">
+  <xs:complexType name="GroupThirdPartyEmergencyCallingGetResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupThirdPartyEmergencyCallingGetRequest.
+        Response to the GroupThirdPartyEmergencyCallingGetRequest22.
         The response contains the third-party emergency call service settings for the Group.
       </xs:documentation>
     </xs:annotation>
@@ -8429,6 +8205,8 @@
         <xs:sequence>
           <xs:element name="enableDeviceManagement" type="xs:boolean"/>
           <xs:element name="enableRouting" type="xs:boolean"/>
+          <xs:element name="customerId" type="CustomerId" minOccurs="0"/>
+          <xs:element name="secretKey" type="ThirdPartyEmergencyCallingSecretKey" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -8448,6 +8226,8 @@
           <xs:element name="groupId" type="GroupId"/>
           <xs:element name="enableDeviceManagement" type="xs:boolean" minOccurs="0"/>
           <xs:element name="enableRouting" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="customerId" type="CustomerId" nillable="true" minOccurs="0"/>
+          <xs:element name="secretKey" type="ThirdPartyEmergencyCallingSecretKey" nillable="true" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -8495,11 +8275,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupStirShakenGetRequest">
+  <xs:complexType name="GroupTrunkGroupStirShakenGetRequest23V2">
     <xs:annotation>
       <xs:documentation>
         Get Group Trunk Group Stir Shaken service settings.
-        The response is either GroupTrunkGroupStirShakenGetResponse or ErrorResponse.
+        The response is either GroupTrunkGroupStirShakenGetResponse23V2 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -8511,10 +8291,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="GroupTrunkGroupStirShakenGetResponse">
+  <xs:complexType name="GroupTrunkGroupStirShakenGetResponse23V2">
     <xs:annotation>
       <xs:documentation>
-        Response to the GroupTrunkGroupStirShakenGetRequest.
+        Response to the GroupTrunkGroupStirShakenGetRequest23V2.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -8532,6 +8312,9 @@
           <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -8559,6 +8342,9 @@
           <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean" minOccurs="0"/>
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean" minOccurs="0"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel" minOccurs="0"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

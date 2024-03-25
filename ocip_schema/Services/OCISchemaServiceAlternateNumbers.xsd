@@ -77,6 +77,8 @@
         The following element in AlternateNumberEntry21 datatype is only used in AS mode:
           description
 
+        In XS data mode, the request will fail if one of the alternate entry's phone number element represents a currently configured BroadWorks Anywhere location for the user.
+
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>

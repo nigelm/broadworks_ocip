@@ -142,7 +142,7 @@
       <xs:documentation>
         Response to the GroupMusicOnHoldGetInstanceRequest23V2.
         The following elements are only used in AS data mode:
-      	- useDynamicMOHDuringCallHold, value “false” is returned in XS data mode.
+      	- useDynamicMOHDuringCallHold, value "false" is returned in XS data mode.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

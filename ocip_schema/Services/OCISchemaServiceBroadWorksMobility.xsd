@@ -786,7 +786,7 @@
     <xs:annotation>
       <xs:documentation>
         Response to the SystemBroadWorksMobilityGeographicalPoolGetListRequest.
-        Contains a table with column headings: “Pool”, "Country Code", "Is Default", “Description”.
+        Contains a table with column headings: "Pool", "Country Code", "Is Default", "Description".
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

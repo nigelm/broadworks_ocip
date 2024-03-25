@@ -41,12 +41,12 @@
     ServiceProviderAccessDeviceGetAvailableCustomTagListRequest
     ServiceProviderAccessDeviceGetEnhancedConfigurationTypeListRequest
     ServiceProviderAccessDeviceGetEnhancedConfigurationTypeRequest
-    ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest
+    ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest22
     ServiceProviderAccessDeviceGetLinkedTreeDeviceRequest
     ServiceProviderAccessDeviceGetListRequest
     ServiceProviderAccessDeviceGetNativeTagsWithLogicListRequest
     ServiceProviderAccessDeviceGetPagedSortedListRequest
-    ServiceProviderAccessDeviceGetRequest24
+    ServiceProviderAccessDeviceGetRequest24V3
     ServiceProviderAccessDeviceGetUserListRequest21sp1
     ServiceProviderAccessDeviceLinkDeviceListRequest
     ServiceProviderAccessDeviceModifyRequest22
@@ -64,10 +64,11 @@
     ServiceProviderAdminGetListRequest14
     ServiceProviderAdminGetPagedSortedListRequest
     ServiceProviderAdminGetPolicyRequest20
-    ServiceProviderAdminGetRequest22
-    ServiceProviderAdministratorPasswordRulesGetRequest
+    ServiceProviderAdminGetRequest22V3
+    ServiceProviderAdministratorPasswordRulesGetRequestRI
     ServiceProviderAdminModifyPolicyRequest14
     ServiceProviderAdminModifyRequest
+    ServiceProviderAlternateUserIdGetListRequest
     ServiceProviderAnswerConfirmationGetRequest16
     ServiceProviderAnswerConfirmationModifyRequest16
     ServiceProviderApplicationServerSetGetRequest
@@ -109,7 +110,7 @@
     ServiceProviderDeviceManagementEventGetListRequest22
     ServiceProviderDeviceManagementGetAccessDeviceCountForDeviceTypeServiceProviderRequest
     ServiceProviderDeviceManagementInProgressAndPendingEventCancelRequest
-    ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequest
+    ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequestRI
     ServiceProviderDeviceProfileAuthenticationPasswordRulesModifyRequest
     ServiceProviderDeviceTypeCustomTagAddRequest
     ServiceProviderDeviceTypeCustomTagDeleteListRequest
@@ -155,7 +156,7 @@
     ServiceProviderFileRepositoryDeviceUserDeleteRequest
     ServiceProviderFileRepositoryDeviceUserGetListRequest
     ServiceProviderFileRepositoryDeviceUserModifyRequest
-    ServiceProviderGetAvailableLeafDeviceListRequest
+    ServiceProviderGetAvailableLeafDeviceListRequest22
     ServiceProviderGetAvailableTreeDeviceListRequest
     ServiceProviderGetDefaultRequest
     ServiceProviderGetListRequest
@@ -186,9 +187,9 @@
     ServiceProviderOfficeZoneGetAssignedGroupListRequest
     ServiceProviderOfficeZoneGetAssignedListRequest
     ServiceProviderOfficeZoneUnassignListRequest
-    ServiceProviderPasswordRulesGetRequest22
+    ServiceProviderPasswordRulesGetRequestRI
     ServiceProviderPasswordRulesModifyRequest14sp3
-    ServiceProviderPortalPasscodeRulesGetRequest22
+    ServiceProviderPortalPasscodeRulesGetRequestRI
     ServiceProviderPortalPasscodeRulesModifyRequest
     ServiceProviderRoutePointExternalSystemAssignListRequest
     ServiceProviderRoutePointExternalSystemGetAssignedGroupListRequest
@@ -235,12 +236,12 @@
     ServiceProviderSessionAdmissionControlModifyRequest
     ServiceProviderSessionAdmissionControlWhiteListGetRequest
     ServiceProviderSessionAdmissionControlWhiteListModifyRequest
-    ServiceProviderSIPAuthenticationPasswordRulesGetRequest
+    ServiceProviderSIPAuthenticationPasswordRulesGetRequestRI
     ServiceProviderSIPAuthenticationPasswordRulesModifyRequest
-    ServiceProviderStirShakenGetRequest
+    ServiceProviderStirShakenGetRequest23V2
     ServiceProviderStirShakenModifyRequest
     ServiceProviderTemplateOnlyDeviceFileGetListRequest
-    ServiceProviderThirdPartyEmergencyCallingGetRequest
+    ServiceProviderThirdPartyEmergencyCallingGetRequest22
     ServiceProviderThirdPartyEmergencyCallingModifyRequest
     ServiceProviderVisualDeviceManagementGetDeviceInfoRequest
     ServiceProviderXsiPolicyProfileAssignListRequest
@@ -255,6 +256,11 @@
       <xs:documentation>
         Request to add a service provider access device.
         The response is either SuccessResponse or ErrorResponse.
+
+        The following elements are only used in AS data mode and ignored in XS data mode:
+          serviceProviderExternalId
+          deviceExternalId
+          deviceIPEI
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -283,6 +289,7 @@
           <xs:element name="transportProtocol" type="ExtendedTransportProtocol" minOccurs="0"/>
           <xs:element name="useCustomUserNamePassword" type="xs:boolean" minOccurs="0"/>
           <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0"/>
+          <xs:element name="deviceIPEI" type="AccessDeviceIPEI" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -721,17 +728,20 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest">
+  <xs:complexType name="ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest22">
     <xs:annotation>
       <xs:documentation>
         Requests the list of linked leaf devices for the service provider level tree device passed in the request.
         A tree device is a device associated with a device type that has the option
         supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The list includes devices created at the system, service provider, and group levels.
+        If the leafDeviceCategory is not set in the request, then linked leaf devices of all categories are requested, otherwise only the linked leaf devices of the specified category are requested.
+        The category values are: "Handset", "Base Station", "All".
 
-        The response is either ServiceProviderAccessDeviceGetLinkedLeafDeviceListResponse or
+        The response is either ServiceProviderAccessDeviceGetLinkedLeafDeviceListResponse22 or
         ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -740,15 +750,16 @@
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="deviceName" type="AccessDeviceName"/>
+          <xs:element name="leafDeviceCategory" type="LeafDeviceCategory" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAccessDeviceGetLinkedLeafDeviceListResponse">
+  <xs:complexType name="ServiceProviderAccessDeviceGetLinkedLeafDeviceListResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest.
+        Response to ServiceProviderAccessDeviceGetLinkedLeafDeviceListRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -756,6 +767,7 @@
         <xs:sequence>
           <xs:element name="treeDeviceLinkId" type="xs:string"/>
           <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="supportLinks" type="SupportLinks22V2" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -768,7 +780,8 @@
         A tree device is a device associated with a device type that has the option
         supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
 
         The response is either ServiceProviderAccessDeviceGetLinkedTreeDeviceResponse or
         ErrorResponse.
@@ -943,7 +956,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAccessDeviceGetRequest24">
+  <xs:complexType name="ServiceProviderAccessDeviceGetRequest24V3">
     <xs:annotation>
       <xs:documentation>
         Requests the configuration of a specified service provider access device.
@@ -951,7 +964,7 @@
         The following elements are only used in AS data mode and ignored in XS data mode:
           deviceExternalId
 
-        The response is either ServiceProviderAccessDeviceGetResponse24 or ErrorResponse.
+        The response is either ServiceProviderAccessDeviceGetResponse24V3 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -967,10 +980,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAccessDeviceGetResponse24">
+  <xs:complexType name="ServiceProviderAccessDeviceGetResponse24V3">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderAccessDeviceGetRequest24.
+        Response to ServiceProviderAccessDeviceGetRequest24V3.
 
         The following elements are only used in AS data mode:
            useHotline
@@ -978,6 +991,11 @@
            serviceProviderId
            deviceName
            deviceExternalId
+           deviceCode
+           deviceIPEI
+           deviceIndex
+           useDeviceCode
+           authBearerSubject
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1003,6 +1021,11 @@
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="deviceName" type="AccessDeviceName"/>
           <xs:element name="deviceExternalId" type="ExternalId" minOccurs="0"/>
+          <xs:element name="deviceCode" type="AccessDeviceCode" minOccurs="0"/>
+          <xs:element name="deviceIPEI" type="AccessDeviceIPEI" minOccurs="0"/>
+          <xs:element name="deviceIndex" type="xs:int" minOccurs="0"/>
+          <xs:element name="useDeviceCode" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="authBearerSubject" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1073,7 +1096,8 @@
         A tree device is a device associated with a device type that has the option
         supportLinks set to "Support Links from Devices". Many leaf devices can be linked to it.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -1096,6 +1120,9 @@
 
         The following elements are only used in AS data mode and ignored in XS data mode:
          deviceExternalId
+          deviceIPEI
+          useDeviceCode
+          deviceCode
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1120,6 +1147,9 @@
           <xs:element name="transportProtocol" type="ExtendedTransportProtocol" minOccurs="0"/>
           <xs:element name="useCustomUserNamePassword" type="xs:boolean" minOccurs="0"/>
           <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0" nillable="true"/>
+          <xs:element name="deviceIPEI" type="AccessDeviceIPEI" nillable="true" minOccurs="0"/>
+          <xs:element name="useDeviceCode" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="deviceCode" type="AccessDeviceCode" nillable="true" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1220,7 +1250,8 @@
       <xs:documentation>
         Request to unlink one or more leaf access devices from a tree device.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The response is either a SuccessResponse or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -1498,11 +1529,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAdminGetRequest22">
+  <xs:complexType name="ServiceProviderAdminGetRequest22V3">
     <xs:annotation>
       <xs:documentation>
         Get a service provider administrators profile.
-        The response is either a ServiceProviderAdminGetResponse22 or an ErrorResponse.
+        The response is either a ServiceProviderAdminGetResponse22V3 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1514,11 +1545,16 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAdminGetResponse22">
+  <xs:complexType name="ServiceProviderAdminGetResponse22V3">
     <xs:annotation>
       <xs:documentation>
-        Response to the ServiceProviderAdminGetRequest22.
+        Response to the ServiceProviderAdminGetRequest22V3.
         The response contains the service provider administrators profile information.
+
+        The following elements are only used in AS data mode and ignored in XS data mode.
+        accountDisabled
+        lastAuthenticatedDate
+        hasPassword
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1531,16 +1567,19 @@
           <xs:element name="administratorType" type="ServiceProviderAdminType"/>
           <xs:element name="locale" type="OCILocale22"/>
           <xs:element name="encoding" type="Encoding"/>
+          <xs:element name="accountDisabled" type="xs:boolean"/>
+          <xs:element name="lastAuthenticatedDate" type="xs:dateTime"/>
+          <xs:element name="hasPassword" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAdministratorPasswordRulesGetRequest">
+  <xs:complexType name="ServiceProviderAdministratorPasswordRulesGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Requests the effective password rules setting for a service provider administrator
-        The response is either ServiceProviderAdministratorPasswordRulesGetResponse or
+        The response is either ServiceProviderAdministratorPasswordRulesGetResponseRI or
         ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -1553,10 +1592,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderAdministratorPasswordRulesGetResponse">
+  <xs:complexType name="ServiceProviderAdministratorPasswordRulesGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderAdministratorPasswordRulesGetRequest.
+        Response to ServiceProviderAdministratorPasswordRulesGetRequestRI.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1586,6 +1625,9 @@
               <xs:element name="loginDisabledNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
               <xs:element name="disallowPreviousPasswords" type="xs:boolean"/>
               <xs:element name="numberOfPreviousPasswords" type="PasswordHistoryCount"/>
+              <xs:element name="usePasswordValidationService" type="xs:boolean"/>
+              <xs:element name="reenableLogin" type="xs:boolean"/>
+              <xs:element name="lockOutInMinutes" type="LockOutInMinutes"/>
             </xs:sequence>
           </xs:choice>
         </xs:sequence>
@@ -1638,6 +1680,9 @@
         Since old password is not specified here, any password rule related to old password
         does not apply.
         The response is either a SuccessResponse or an ErrorResponse.
+
+        The following elements are only used in AS data mode and ignored in XS data mode.
+        accountDisabled
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -1648,6 +1693,45 @@
           <xs:element name="lastName" type="LastName" nillable="true" minOccurs="0"/>
           <xs:element name="password" type="Password" nillable="true" minOccurs="0"/>
           <xs:element name="language" type="Language" minOccurs="0"/>
+          <xs:element name="accountDisabled" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderAlternateUserIdGetListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to get the list of alternate user ids in the service provider/enterprise.
+        The response is either ServiceProviderAlternateUserIdGetListResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="responseSizeLimit" type="ResponseSizeLimit" minOccurs="0"/>
+          <xs:element name="searchCriteriaAlternateUserId" type="SearchCriteriaAlternateUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaUserId" type="SearchCriteriaUserId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaGroupId" type="SearchCriteriaGroupId" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceProviderAlternateUserIdGetListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to ServiceProviderAlternateUserIdGetListRequest.
+        The "User Type" column contains the corresponding enumerated UserType value.
+        Contains a table of alternate user ids, the column headings are:
+          "User Id", "Alternate User Id", "Group Id" and "User Type".
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="alternateUserIdTable" type="core:OCITable"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1879,8 +1963,6 @@
            useServiceProviderDCLIDSetting
            enableDialableCallerID
            allowConfigurableCLIDForRedirectingIdentity
-           enterpriseCallsCLIDPolicy
-           groupCallsCLIDPolicy
         The following elements are only used in AS data mode and ignored in XS data mode:
            enablePhoneListLookup
            useMaxConcurrentTerminatingAlertingRequests
@@ -2608,30 +2690,18 @@
         The response is either a SuccessResponse or an ErrorResponse.
         The following elements are only used in AS data mode and ignored in XS data mode:
           serviceProviderExtenalId
+          provisioningSliceId
 
-        The following elements are only used in Amplify data mode and ignored in AS and XS data mode:
+        The following elements are ignored in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
-        provisioningSliceId,
         subscriberPartition.
-        When the callProcessingSliceId or provisioningSliceId is not specified in the AmplifyDataMode,
-        the default slice Id is assigned to the service provider.
-        Only Provisioning admin and above can change the callProcessingSliceId,  provisioningSliceId, andsubscriberPartition.
 
-        The following elements are only used in Amplify and XS data mode and ignored in AS data mode:
-        preferredDataCenter.
-        Only Provisioning admin and above can change the preferredDataCenter.
+        Only Provisioning admin and above can change the preferredDataCenter and provisioningSliceId.
 
         The following data elements are only used in AS data mode:
           resellerId
           resellerName
-
-	    The following behavior is only applicable in CloudPBX:
-	      - when new resellerId, that does not exist in the system, is specified, the new
-	        Reseller is created the given resellerId and resellerName (if provided) and enterprise/Service Provider
-	        is moved to the newly created Reseller.
-
-	    resellerName element is ignored if the reseller the service provider is being moved to 	already exists.
 
         The following elements are optional for the service provider. If the elements are included,
         they will be either added, authorized, or modified on the service provider. Should any of the
@@ -2898,6 +2968,8 @@
           <xs:element name="searchCriteriaExactDeviceManagementEventType" type="SearchCriteriaExactDeviceManagementEventType" minOccurs="0"/>
           <xs:element name="searchCriteriaDeviceManagementEventAdditionalInfo" type="SearchCriteriaDeviceManagementEventAdditionalInfo" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="searchCriteriaDeviceManagementEventLoginId" type="SearchCriteriaDeviceManagementEventLoginId" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaDeviceManagementEventRequest" type="SearchCriteriaDeviceManagementEventRequest" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="searchCriteriaDeviceManagementEventRequestTrackingId" type="SearchCriteriaDeviceManagementEventRequestTrackingId" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -2910,8 +2982,9 @@
         Contains a table with column headings: "Event Id", "Status", "Action",
         "Level", "Type", "Additional Info", "Is Local", "Completion %",
         "Pushed/ Same Hash/ Not Pushed", "Login Id", "Start Time",
-        "Process Time", "Rx Time", "Total Time", "Request", "Priority".
-        "Event Id" is a unique identifer for the event.
+        "Process Time", "Rx Time", "Total Time", "Request", "Priority",
+        "Tracking Id", "End Time".
+        "Event Id" is a unique identifier for the event.
         "Status" can be: Pending, Queued, In Progress,
         Process On Other Host, Stale, Completed, Canceled.
         "Action" can be: Delete, Download, Rebuild, Reset, Upload.
@@ -2948,6 +3021,9 @@
         hours, minutes, seconds, and milliseconds (hhhh:mm:ss.SSS).
         "Request" is the name of the OCI-P request that triggered the event.
         "Priority" is the priority of the event.
+        "Tracking Id" is the tracking id of the OCI-P request that triggered the event.
+        "End Time" is the difference, measured in milliseconds, between the
+        event's end time and midnight, January 1, 1970 UTC
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -3015,11 +3091,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequest">
+  <xs:complexType name="ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Request to get the service provider level device profile authentication password rule settings.
-        The response is either a ServiceProviderDeviceProfileAuthenticationPasswordRulesGetResponse or an ErrorResponse.
+        The response is either a ServiceProviderDeviceProfileAuthenticationPasswordRulesGetResponseRI or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -3031,10 +3107,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderDeviceProfileAuthenticationPasswordRulesGetResponse">
+  <xs:complexType name="ServiceProviderDeviceProfileAuthenticationPasswordRulesGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequest.
+        Response to ServiceProviderDeviceProfileAuthenticationPasswordRulesGetRequestRI.
         Contains the device profile authentication password rules for the service provider.
       </xs:documentation>
     </xs:annotation>
@@ -3061,6 +3137,7 @@
           <xs:element name="deviceProfileWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
           <xs:element name="deviceProfileLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
           <xs:element name="deviceProfilePermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -3097,6 +3174,7 @@
           <xs:element name="deviceProfileWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType" minOccurs="0"/>
           <xs:element name="deviceProfileLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes" minOccurs="0"/>
           <xs:element name="deviceProfilePermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold" minOccurs="0"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -4343,14 +4421,17 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderGetAvailableLeafDeviceListRequest">
+  <xs:complexType name="ServiceProviderGetAvailableLeafDeviceListRequest22">
     <xs:annotation>
       <xs:documentation>
         Requests the list of available leaf devices that can be linked to a tree device within a specific service provider.
         A leaf device is a device associated with a device type that has the option
-        supportLinks set to "Support Link to Device". It can be linked to only one tree device.
+        supportLinks set to "Support Link to Device" or "Support Link to Device and User".  It can
+        be linked to only one tree device.
         The list returned includes devices created at the system, service provider, and group levels.
-        The response is either ServiceProviderGetAvailableLeafDeviceListResponse or
+        If the leafDeviceCategory is not set in the request, then linked leaf devices of all categories are requested, otherwise only the linked leaf devices of the specified category are requested.
+        The category values are: "Handset", "Base Station", "All".
+        The response is either ServiceProviderGetAvailableLeafDeviceListResponse22 or
         ErrorResponse.
       </xs:documentation>
     </xs:annotation>
@@ -4358,21 +4439,23 @@
       <xs:extension base="core:OCIRequest">
         <xs:sequence>
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="leafDeviceCategory" type="LeafDeviceCategory" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderGetAvailableLeafDeviceListResponse">
+  <xs:complexType name="ServiceProviderGetAvailableLeafDeviceListResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderGetAvailableLeafDeviceListRequest.
+        Response to ServiceProviderGetAvailableLeafDeviceListRequest22.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="core:OCIDataResponse">
         <xs:sequence>
           <xs:element name="leafDeviceKey" type="AccessDeviceKey" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="supportLinks" type="SupportLinks22V2" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -4432,9 +4515,6 @@
       <xs:documentation>
         Response to the ServiceProviderGetDefaultRequest. All values are default values for
         a service provider or enterprise's profile.
-
-        The following elements are only used in AS and XS data mode and not returned in Amplify data mode.
-          defaultDomain
 
       </xs:documentation>
     </xs:annotation>
@@ -4572,22 +4652,16 @@
       <xs:documentation>
         Response to the ServiceProviderGetRequest22V4.
         The response contains the service provider or enterprise's profile information.
-        The following elements are only used in Amplify data mode and not returned
-        in AS and XS data mode:
+        The following elements are not returned in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
-        provisioningSliceId,
-        subscriberPartition,
-        preferredDataCenter.
-
-        The following elements are only used in Amplify and XS data mode and not
-        returned in AS data mode:
-        preferredDataCenter.
+        subscriberPartition.
 
         The following data elements are only used in AS data mode and not returned
         in XS data mode:
         resellerId,
-        serviceProviderExternalId.
+        serviceProviderExternalId,
+        provisioningSliceId.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -4863,36 +4937,23 @@
       <xs:documentation>
         Modify the profile for a service provider or enterprise.
         The response is either a SuccessResponse or an ErrorResponse.
-        The following elements are only used in Amplify data mode and ignored
-        in AS and XS data mode:
+        The following elements are ignored in AS and XS data mode:
         servicePolicy,
         callProcessingSliceId,
-        provisioningSliceId,
         subscriberPartition.
-        When the callProcessingSliceId or provisioningSliceId is set to nillable,
-        it will be assigned to the default Slice.
-        Only Provisioning admin and above can change the callProcessingSliceId,
-        provisioningSliceId, and subscriberPartition.
+
 
         The following element is only used in AS data mode and ignored
-        in Amplify and XS data mode:
+        in XS data mode:
         resellerId
         resellerName
+        provisioningSliceId
 
-        resellerId and resellerName can only be configured by a Reseller or higher level administrator.
+        The following element is only used by Reseller Administrator or Above:
+        resellerId
+	    resellerName
 
-	    The following behavior is only applicable in CloudPBX:
-	      - when existing resellerId is specified, enterprise/Service Provider shall be moved to
-	        requesting reseller.
-	      - when new resellerId, that does not exist in the system, is specified, the new
-	        Reseller is created the given resellerId and resellerName (if provided) and 	enterprise/Service Provider is moved to the newly created Reseller.
-
-	    resellerName element is ignored if the reseller the service provider is being moved to 	already exists.
-
-
-        The following elements are only used in Amplify and XS data mode and ignored in AS data mode:
-        preferredDataCenter.
-        Only Provisioning admin and above can change the preferredDataCenter.
+        Only Provisioning admin and above can change the preferredDataCenter and provisioningSliceId.
 
         The following elements are only used in AS data mode and ignored in XS data mode:
    		 defaultExtensionLength
@@ -5284,12 +5345,12 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderPasswordRulesGetRequest22">
+  <xs:complexType name="ServiceProviderPasswordRulesGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Requests the service provider's password rules setting applicable to
         Administrators (Group and Department) and Users.
-        The response is either ServiceProviderPasswordRulesGetResponse22 or ErrorResponse.
+        The response is either ServiceProviderPasswordRulesGetResponseRI or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -5301,12 +5362,17 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderPasswordRulesGetResponse22">
+  <xs:complexType name="ServiceProviderPasswordRulesGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderPasswordRulesGetRequest22.
+        Response to ServiceProviderPasswordRulesGetRequestRI.
         Contains the group, department administrator and/or user password
         rules setting.
+
+        The following element is only used in AS data mode:
+        forcePasswordChangeAfterReset, value "false" is returned in XS data mode
+        reenableLogin
+        lockOutInMinutes
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -5334,6 +5400,9 @@
           <xs:element name="disallowPreviousPasswords" type="xs:boolean"/>
           <xs:element name="numberOfPreviousPasswords" type="PasswordHistoryCount"/>
           <xs:element name="forcePasswordChangeAfterReset" type="xs:boolean"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean"/>
+          <xs:element name="reenableLogin" type="xs:boolean"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -5347,6 +5416,8 @@
 
         The following elements are only used in AS data mode and ignored in XS data mode:
         forcePasswordChangeAfterReset
+        reenableLogin
+        lockOutInMinutes
 
         The response is either SuccessResponse or ErrorResponse.
       </xs:documentation>
@@ -5376,16 +5447,19 @@
           <xs:element name="disallowPreviousPasswords" type="xs:boolean" minOccurs="0"/>
           <xs:element name="numberOfPreviousPasswords" type="PasswordHistoryCount" minOccurs="0"/>
           <xs:element name="forcePasswordChangeAfterReset" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="reenableLogin" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderPortalPasscodeRulesGetRequest22">
+  <xs:complexType name="ServiceProviderPortalPasscodeRulesGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Requests the service provider's passcode rules setting.
-        The response is either ServiceProviderPortalPasscodeRulesGetResponse22 or ErrorResponse.
+        The response is either ServiceProviderPortalPasscodeRulesGetResponseRI or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -5397,10 +5471,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderPortalPasscodeRulesGetResponse22">
+  <xs:complexType name="ServiceProviderPortalPasscodeRulesGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderPortalPasscodeRulesGetRequest22.
+        Response to ServiceProviderPortalPasscodeRulesGetRequestRI.
         Contains the service provider's passcode rules setting.
 
         The following elements are only used in AS data mode:
@@ -5412,6 +5486,8 @@
           numberOfPreviousPasscodes
           enableDefaultPasscode
           defaultPasscode
+          reenableLogin
+          lockOutInMinutes
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -5438,6 +5514,8 @@
           <xs:element name="loginDisabledNotifyEmailAddress" type="EmailAddress" minOccurs="0"/>
           <xs:element name="enableDefaultPasscode" type="xs:boolean"/>
           <xs:element name="defaultPasscode" type="Passcode" minOccurs="0"/>
+          <xs:element name="reenableLogin" type="xs:boolean"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -5456,6 +5534,8 @@
           numberOfAscendingDigits
           numberOfDescendingDigits
           numberOfPreviousPasscodes
+          reenableLogin
+          lockOutInMinutes
 
           The following elements are only used in AS data mode and ignored in XS data mode:
           enableDefaultPasscode
@@ -5487,6 +5567,8 @@
           <xs:element name="loginDisabledNotifyEmailAddress" type="EmailAddress" nillable="true" minOccurs="0"/>
           <xs:element name="enableDefaultPasscode" type="xs:boolean" minOccurs="0"/>
           <xs:element name="defaultPasscode" type="Passcode" nillable="true" minOccurs="0"/>
+          <xs:element name="reenableLogin" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="lockOutInMinutes" type="LockOutInMinutes" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6750,11 +6832,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderSIPAuthenticationPasswordRulesGetRequest">
+  <xs:complexType name="ServiceProviderSIPAuthenticationPasswordRulesGetRequestRI">
     <xs:annotation>
       <xs:documentation>
         Request to get the service provider level SIP authentication password rule settings.
-        The response is either a ServiceProviderSIPAuthenticationPasswordRulesGetResponse or an ErrorResponse.
+        The response is either a ServiceProviderSIPAuthenticationPasswordRulesGetResponseRI or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6766,10 +6848,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderSIPAuthenticationPasswordRulesGetResponse">
+  <xs:complexType name="ServiceProviderSIPAuthenticationPasswordRulesGetResponseRI">
     <xs:annotation>
       <xs:documentation>
-        Response to ServiceProviderSIPAuthenticationPasswordRulesGetRequest.
+        Response to ServiceProviderSIPAuthenticationPasswordRulesGetRequestRI.
         Contains the SIP authentication password rules for the service provider.
       </xs:documentation>
     </xs:annotation>
@@ -6801,6 +6883,7 @@
           <xs:element name="trunkGroupWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType"/>
           <xs:element name="trunkGroupLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes"/>
           <xs:element name="trunkGroupPermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6842,16 +6925,17 @@
           <xs:element name="trunkGroupWaitAlgorithm" type="AuthenticationLockoutWaitAlgorithmType" minOccurs="0"/>
           <xs:element name="trunkGroupLockoutFixedMinutes" type="AuthenticationLockoutFixedWaitTimeMinutes" minOccurs="0"/>
           <xs:element name="trunkGroupPermanentLockoutThreshold" type="AuthenticationPermanentLockoutThreshold" minOccurs="0"/>
+          <xs:element name="usePasswordValidationService" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderStirShakenGetRequest">
+  <xs:complexType name="ServiceProviderStirShakenGetRequest23V2">
     <xs:annotation>
       <xs:documentation>
         Get service provider Stir Shaken service settings.
-        The response is either ServiceProviderStirShakenGetResponse or ErrorResponse.
+        The response is either ServiceProviderStirShakenGetResponse23V2 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6863,10 +6947,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderStirShakenGetResponse">
+  <xs:complexType name="ServiceProviderStirShakenGetResponse23V2">
     <xs:annotation>
       <xs:documentation>
-        Response to the ServiceProviderStirShakenGetRequest.
+        Response to the ServiceProviderStirShakenGetRequest23V2.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6889,6 +6973,12 @@
           <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean"/>
+          <xs:element name="preferIngressTagging" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6921,6 +7011,12 @@
           <xs:element name="enableSigningForUnscreenedTrunkGroupOriginations" type="xs:boolean" minOccurs="0"/>
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean" minOccurs="0"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel" minOccurs="0"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="preferIngressTagging" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -6959,11 +7055,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderThirdPartyEmergencyCallingGetRequest">
+  <xs:complexType name="ServiceProviderThirdPartyEmergencyCallingGetRequest22">
     <xs:annotation>
       <xs:documentation>
         Get the third-party emergency call service settings for the service provider.
-        The response is either a ServiceProviderThirdPartyEmergencyCallingGetResponse or an ErrorResponse.
+        The response is either a ServiceProviderThirdPartyEmergencyCallingGetResponse22 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -6975,10 +7071,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ServiceProviderThirdPartyEmergencyCallingGetResponse">
+  <xs:complexType name="ServiceProviderThirdPartyEmergencyCallingGetResponse22">
     <xs:annotation>
       <xs:documentation>
-        Response to the ServiceProviderThirdPartyEmergencyCallingGetRequest.
+        Response to the ServiceProviderThirdPartyEmergencyCallingGetRequest22.
         The response contains the third-party emergency call service settings for the service provider.
       </xs:documentation>
     </xs:annotation>
@@ -6988,6 +7084,7 @@
           <xs:element name="allowActivation" type="xs:boolean"/>
           <xs:element name="customerId" type="CustomerId" minOccurs="0"/>
           <xs:element name="hasGroupEnabled" type="xs:boolean"/>
+          <xs:element name="secretKey" type="ThirdPartyEmergencyCallingSecretKey" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -7006,6 +7103,7 @@
           <xs:element name="serviceProviderId" type="ServiceProviderId"/>
           <xs:element name="allowActivation" type="xs:boolean" minOccurs="0"/>
           <xs:element name="customerId" type="CustomerId" nillable="true" minOccurs="0"/>
+          <xs:element name="secretKey" type="ThirdPartyEmergencyCallingSecretKey" nillable="true" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

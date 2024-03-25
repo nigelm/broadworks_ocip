@@ -33,7 +33,7 @@
     ResellerAdminAlternateIdModifyRequest
     ResellerAdminDeleteRequest
     ResellerAdminGetListRequest
-    ResellerAdminGetRequest22
+    ResellerAdminGetRequest22V2
     ResellerAdminModifyRequest
     ResellerCallAdmissionControlPoliciesGetRequest
     ResellerCallAdmissionControlPoliciesModifyRequest
@@ -56,7 +56,7 @@
     ResellerNetworkClassOfServiceUnassignListRequest
     ResellerServiceAuthorizationGetRequest
     ResellerServiceAuthorizationModifyRequest
-    ResellerStirShakenGetRequest
+    ResellerStirShakenGetRequest23V2
     ResellerStirShakenModifyRequest
     ResellerXsiPolicyProfileAssignListRequest
     ResellerXsiPolicyProfileGetAssignedListRequest
@@ -242,11 +242,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ResellerAdminGetRequest22">
+  <xs:complexType name="ResellerAdminGetRequest22V2">
     <xs:annotation>
       <xs:documentation>
         Get a reseller administrators profile.
-        The response is either a ResellerAdminGetResponse22 or an ErrorResponse.
+        The response is either a ResellerAdminGetResponse22V2 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -258,10 +258,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ResellerAdminGetResponse22">
+  <xs:complexType name="ResellerAdminGetResponse22V2">
     <xs:annotation>
       <xs:documentation>
-        Response to the ResellerAdminGetRequest22.
+        Response to the ResellerAdminGetRequest22V2.
         The response contains the reseller administrators profile information.
       </xs:documentation>
     </xs:annotation>
@@ -272,6 +272,8 @@
           <xs:element name="firstName" type="FirstName" minOccurs="0"/>
           <xs:element name="lastName" type="LastName" minOccurs="0"/>
           <xs:element name="language" type="Language"/>
+          <xs:element name="accountDisabled" type="xs:boolean"/>
+          <xs:element name="lastAuthenticatedDate" type="xs:dateTime"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -293,6 +295,7 @@
           <xs:element name="lastName" type="LastName" nillable="true" minOccurs="0"/>
           <xs:element name="password" type="Password" nillable="true" minOccurs="0"/>
           <xs:element name="language" type="Language" minOccurs="0"/>
+          <xs:element name="accountDisabled" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -852,11 +855,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ResellerStirShakenGetRequest">
+  <xs:complexType name="ResellerStirShakenGetRequest23V2">
     <xs:annotation>
       <xs:documentation>
         Get Reseller Stir Shaken service settings.
-        The response is either ResellerStirShakenGetResponse or ErrorResponse.
+        The response is either ResellerStirShakenGetResponse23V2 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -868,10 +871,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="ResellerStirShakenGetResponse">
+  <xs:complexType name="ResellerStirShakenGetResponse23V2">
     <xs:annotation>
       <xs:documentation>
-        Response to the ResellerStirShakenGetRequest.
+        Response to the ResellerStirShakenGetRequest23V2.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -897,6 +900,12 @@
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel"/>
           <xs:element name="verifyGETSCalls" type="xs:boolean"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean"/>
+          <xs:element name="preferIngressTagging" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -932,6 +941,12 @@
           <xs:element name="enableTaggingForUnscreenedTrunkGroupOriginations" type="xs:boolean" minOccurs="0"/>
           <xs:element name="unscreenedTrunkGroupOriginationAttestationLevel" type="StirShakenUnscreenedTrunkGroupOriginationAttestationLevel" minOccurs="0"/>
           <xs:element name="verifyGETSCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="includeTaggedHeadersToAccessSide" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="proxyIdentityHeaderToAccessSide" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="checkDirectoryNumbersForAttestation" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="matchUnassignedNumbersOnly" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enableTaggingForRedirectedCalls" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="preferIngressTagging" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
