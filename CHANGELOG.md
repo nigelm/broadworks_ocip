@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!--next-version-placeholder-->
 
+## v2.2.0 (2024-04-01)
+### Feature
+* Note that this is now based on the R25 schema ([`6cb821b`](https://github.com/nigelm/broadworks_ocip/commit/6cb821b04974cbbb25f3700912b09baf2410e85a))
+
+### Fix
+* Quiet linter warnings ([`6c3f5ce`](https://github.com/nigelm/broadworks_ocip/commit/6c3f5ce2b1dba7852594682ceb966b2d79d8e69b))
+* Ensure SearchCriteria are not seen as Requests ([`6a9c35e`](https://github.com/nigelm/broadworks_ocip/commit/6a9c35e590600f5fce73f19faa4f3bc53fa2f331))
+
+### Documentation
+* Update README for recent changes ([`7cb3354`](https://github.com/nigelm/broadworks_ocip/commit/7cb335431a625bf5b15c464b1d66253dc9127411))
+* Mention the Null object - its important ([`2f1e047`](https://github.com/nigelm/broadworks_ocip/commit/2f1e0478c159eadff9d201477e722b5f1dd01017))
+
 ## v2.1.2 (2023-03-20)
 
 

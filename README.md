@@ -20,7 +20,7 @@
 
 ## Current Version
 
-Version: `2.1.2`
+Version: `2.2.0`
 
 This is based on Broadworks schema R25 - the available methods will have changed based on that.
 
