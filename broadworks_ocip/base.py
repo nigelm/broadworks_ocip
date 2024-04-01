@@ -237,7 +237,7 @@ class OCIType:
             pass
         elif sub_element.is_table:
             # any table should be a list of namedtuple elements
-            if type(value) is list and len(value) > 0:
+            if isinstance(value, list) and len(value) > 0:
                 elem = etree.SubElement(
                     element,
                     sub_element.xmlname,
