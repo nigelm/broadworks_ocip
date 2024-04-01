@@ -16,7 +16,7 @@
 -   python objects to match all Broadworks schema objects
 -   API framework to talk to a Broadworks server
 -   additional magic to handle authentication and sessions
--   Based on Broadworks schema R24
+-   Based on Broadworks schema R25
 
 ## Current Version
 
@@ -75,5 +75,8 @@ Development on the python version was done by
 Karol Skibiński has been using the package, and has a talent for both finding
 bugs within it and providing a good bug report that allows a test case and fix
 to be made. The package has been immensely improved by this work.
+
+R25 schema update along with some other changes was contributed by
+[@ewurch (Eduardo Würch)](https://github.com/ewurch).
 
 ---

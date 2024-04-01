@@ -4,6 +4,9 @@ schema.pkl
 test_data/
 .DS_Store
 
+# Ignore pycharm residue
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
