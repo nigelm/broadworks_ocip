@@ -36,19 +36,19 @@ repos:
     # Ruff is an extremely fast Python linter and formatter, written in Rust. It is intended to replace Flake8, isort,
     # pydocstyle, yesqa, eradicate, pyupgrade, autoflake, and black.
     - repo: https://github.com/charliermarsh/ruff-pre-commit
-      rev: v0.3.3
+      rev: v0.3.4
       hooks:
           - id: ruff
             args: [--fix]
           - id: ruff-format
 
     - repo: https://github.com/pre-commit/pre-commit
-      rev: v3.6.2
+      rev: v3.7.0
       hooks:
           - id: validate_manifest
 
     - repo: https://github.com/asottile/pyupgrade
-      rev: v3.15.1
+      rev: v3.15.2
       hooks:
           - id: pyupgrade
             args: [--py36-plus]

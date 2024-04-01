@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # This code is based on https://medium.com/@hmajid2301/pytest-with-background-thread-fixtures-f0dc34ee3c46
 """Tests for `broadworks_ocip` package."""
+
 import threading
 
 import pytest  # noqa: F401
