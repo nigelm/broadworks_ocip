@@ -320,7 +320,7 @@
     <xs:annotation>
       <xs:documentation>
         Response to the UserSecurityClassificationGetRequest22.
-        The following elements are only used in Amplify data mode and not returned in AS and XS data mode:
+        The following elements are not returned in AS and XS data mode:
           customizedSecurityClassification
       </xs:documentation>
     </xs:annotation>

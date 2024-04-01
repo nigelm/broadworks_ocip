@@ -21,8 +21,10 @@
   <xs:include schemaLocation="OCISchemaServiceProvider.xsd"/>
   <xs:include schemaLocation="OCISchemaSystem.xsd"/>
   <xs:include schemaLocation="OCISchemaUser.xsd"/>
+  <xs:include schemaLocation="XSOCI.xsd"/>
   <xs:include schemaLocation="OCISchemaASDeprecatedSpecialExceptions.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaService3G4GContinuity.xsd"/>
+  <xs:include schemaLocation="Services/OCISchemaService5G.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAccountAuthorizationCodes.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAdviceOfCharge.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceAlternateNumbers.xsd"/>
@@ -75,7 +77,6 @@
   <xs:include schemaLocation="Services/OCISchemaServiceDirectoryNumberHunting.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceDirectRoute.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceDoNotDisturb.xsd"/>
-  <xs:include schemaLocation="Services/OCISchemaServiceDualModeVCC.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceEmergencyZones.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceEnhancedCallLogs.xsd"/>
   <xs:include schemaLocation="Services/OCISchemaServiceExecutive.xsd"/>
@@ -147,7 +148,6 @@
   <xs:include schemaLocation="Services/OCISchemaServiceCustomerOriginatedTrace.xsd"/>
   <xs:include schemaLocation="OCISchemaDeprecated.xsd"/>
   <xs:include schemaLocation="OCISchemaDeprecatedAS.xsd"/>
-  <xs:include schemaLocation="OCISchemaDeprecated24AS.xsd"/>
 
   <!-- *********************************************************************** -->
   <!-- N A M I N G   C O N V E N T I O N S                                     -->

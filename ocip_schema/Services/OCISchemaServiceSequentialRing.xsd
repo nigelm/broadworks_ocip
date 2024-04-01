@@ -25,15 +25,15 @@
   section of the schema.
 
   Requests in this schema file:
-    UserSequentialRingAddCriteriaRequest16
+    UserSequentialRingAddCriteriaRequest23
     UserSequentialRingDeleteCriteriaRequest
-    UserSequentialRingGetCriteriaRequest16
+    UserSequentialRingGetCriteriaRequest23
     UserSequentialRingGetRequest14sp4
-    UserSequentialRingModifyCriteriaRequest
+    UserSequentialRingModifyCriteriaRequest23
     UserSequentialRingModifyRequest
 -->
 
-  <xs:complexType name="UserSequentialRingAddCriteriaRequest16">
+  <xs:complexType name="UserSequentialRingAddCriteriaRequest23">
     <xs:annotation>
       <xs:documentation>
         Add a criteria to the user's sequential ring service.
@@ -48,7 +48,7 @@
           <xs:element name="timeSchedule" type="TimeSchedule" minOccurs="0"/>
           <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0"/>
           <xs:element name="blacklisted" type="xs:boolean"/>
-          <xs:element name="fromDnCriteria" type="CriteriaFromDn"/>
+          <xs:element name="fromDnCriteria23" type="CriteriaFromDn23"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -71,11 +71,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserSequentialRingGetCriteriaRequest16">
+  <xs:complexType name="UserSequentialRingGetCriteriaRequest23">
     <xs:annotation>
       <xs:documentation>
         Get a criteria for the user's sequential ring service.
-        The response is either a UserSequentialRingGetCriteriaResponse16 or an ErrorResponse.
+        The response is either a UserSequentialRingGetCriteriaResponse23 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -88,10 +88,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserSequentialRingGetCriteriaResponse16">
+  <xs:complexType name="UserSequentialRingGetCriteriaResponse23">
     <xs:annotation>
       <xs:documentation>
-        Response to the UserSequentialRingGetCriteriaRequest16.
+        Response to the UserSequentialRingGetCriteriaRequest23.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -100,7 +100,7 @@
           <xs:element name="timeSchedule" type="TimeSchedule" minOccurs="0"/>
           <xs:element name="holidaySchedule" type="HolidaySchedule" minOccurs="0"/>
           <xs:element name="blacklisted" type="xs:boolean"/>
-          <xs:element name="fromDnCriteria" type="CriteriaFromDn"/>
+          <xs:element name="fromDnCriteria23" type="CriteriaFromDn23"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -147,7 +147,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="UserSequentialRingModifyCriteriaRequest">
+  <xs:complexType name="UserSequentialRingModifyCriteriaRequest23">
     <xs:annotation>
       <xs:documentation>
         Modify a criteria for the user's sequential ring service.
@@ -161,7 +161,7 @@
           <xs:element name="criteriaName" type="CriteriaName"/>
           <xs:element name="newCriteriaName" type="CriteriaName" minOccurs="0"/>
           <xs:element name="timeSchedule" type="TimeSchedule" nillable="true" minOccurs="0"/>
-          <xs:element name="fromDnCriteria" type="CriteriaFromDnModify" minOccurs="0"/>
+          <xs:element name="fromDnCriteria23" type="CriteriaFromDnModify23" minOccurs="0"/>
           <xs:element name="holidaySchedule" type="HolidaySchedule" nillable="true" minOccurs="0"/>
           <xs:element name="blacklisted" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>

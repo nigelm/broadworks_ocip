@@ -70,7 +70,7 @@ $ git checkout -b name-of-your-bugfix-or-feature
 
 Now you can make your changes locally.
 
-5. If you use updated schemas, or modify `process_schema.py` you must regenerate
+5. If you update schemas or modify `process_schema.py`, you must regenerate
    the generated python code:
 
 ```bash

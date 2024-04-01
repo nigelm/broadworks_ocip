@@ -27,15 +27,18 @@
   section of the schema.
 
   Requests in this schema file:
-    SystemLocationBasedCallingRestrictionsGetRequest17sp3
+    SystemLocationBasedCallingRestrictionsGetRequest24
     SystemLocationBasedCallingRestrictionsModifyRequest
+    SystemMccMncHomeNetworkAddRequest
+    SystemMccMncHomeNetworkDeleteRequest
+    SystemMccMncHomeNetworkGetListRequest
 -->
 
-  <xs:complexType name="SystemLocationBasedCallingRestrictionsGetRequest17sp3">
+  <xs:complexType name="SystemLocationBasedCallingRestrictionsGetRequest24">
     <xs:annotation>
       <xs:documentation>
         Gets system level the Location Based Calling Restrictions attributes.
-        The response is either a SystemLocationBasedCallingRestrictionsGetResponse17sp3 or an ErrorResponse.
+        The response is either a SystemLocationBasedCallingRestrictionsGetResponse24 or an ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -45,10 +48,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemLocationBasedCallingRestrictionsGetResponse17sp3">
+  <xs:complexType name="SystemLocationBasedCallingRestrictionsGetResponse24">
     <xs:annotation>
       <xs:documentation>
-        Response to SystemLocationBasedCallingRestrictionsGetRequest17sp3.
+        Response to SystemLocationBasedCallingRestrictionsGetRequest24.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -58,6 +61,9 @@
           <xs:element name="enforceMscValidation" type="xs:boolean"/>
           <xs:element name="enableOfficeZoneAnnouncement" type="xs:boolean"/>
           <xs:element name="enhanceOfficeZone" type="xs:boolean"/>
+          <xs:element name="enableMccMncBasedLocation" type="xs:boolean"/>
+          <xs:element name="mccMncRoamingNetworkTranslationIndex" type="MccMncRoamingNetworkTranslationIndex" minOccurs="0"/>
+          <xs:element name="defaultMccMncBasedLocation" type="DefaultMccMncBasedLocation"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -77,6 +83,69 @@
           <xs:element name="enforceMscValidation" type="xs:boolean" minOccurs="0"/>
           <xs:element name="enableOfficeZoneAnnouncement" type="xs:boolean" minOccurs="0"/>
           <xs:element name="enhanceOfficeZone" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="enableMccMncBasedLocation" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="mccMncRoamingNetworkTranslationIndex" type="MccMncRoamingNetworkTranslationIndex" nillable="true" minOccurs="0"/>
+          <xs:element name="defaultMccMncBasedLocation" type="DefaultMccMncBasedLocation" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemMccMncHomeNetworkAddRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Adds a Mcc/Mnc home network.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="homeNetworkMccMnc" type="HomeNetworkMccMnc"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemMccMncHomeNetworkDeleteRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Deletes a Mcc/Mnc home network.
+        The response is either a SuccessResponse or an ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="homeNetworkMccMnc" type="HomeNetworkMccMnc"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemMccMncHomeNetworkGetListRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Get a list of Mcc/Mnc home networks at the system level.
+        The response is either SystemMccMncHomeNetworkGetListResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SystemMccMncHomeNetworkGetListResponse">
+    <xs:annotation>
+      <xs:documentation>
+        Response to SystemMccMncHomeNetworkGetListRequest.
+        The table column is: "Home Networks".
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIDataResponse">
+        <xs:sequence>
+          <xs:element name="homeNetworksTable" type="core:OCITable"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -89,6 +158,42 @@
   The Location Based Calling Restrictions specific non-primitive attributes are listed here in alphabetical order.
   -->
 
+
+  <xs:simpleType name="DefaultMccMncBasedLocation">
+    <xs:annotation>
+      <xs:documentation>
+        The default classification for calls under the Mcc/Mnc based location system for originating SIP INVITEs without PANI headers.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Local"/>
+      <xs:enumeration value="Roaming"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="HomeNetworkMccMnc">
+    <xs:annotation>
+      <xs:documentation>
+        A Mcc/Mnc tuple representing the home network.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="5"/>
+      <xs:maxLength value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MccMncRoamingNetworkTranslationIndex">
+    <xs:annotation>
+      <xs:documentation>
+        The value used in the X-BroadWorks-Roaming-XLA header of a SIP INVITE to the Network Server when a call is deemed roaming by MCC/MNC rules.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="128"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <xs:simpleType name="PhysicalLocationIndicator">
     <xs:annotation>

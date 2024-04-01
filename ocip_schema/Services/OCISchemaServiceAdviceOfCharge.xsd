@@ -33,7 +33,7 @@
     SystemAdviceOfChargeCostInformationSourceDeleteRequest
     SystemAdviceOfChargeCostInformationSourceGetListRequest
     SystemAdviceOfChargeCostInformationSourceModifyRequest
-    SystemAdviceOfChargeGetRequest19sp1
+    SystemAdviceOfChargeGetRequest25
     SystemAdviceOfChargeModifyRequest19sp1
     UserAdviceOfChargeGetRequest
     UserAdviceOfChargeModifyRequest
@@ -222,11 +222,11 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemAdviceOfChargeGetRequest19sp1">
+  <xs:complexType name="SystemAdviceOfChargeGetRequest25">
     <xs:annotation>
       <xs:documentation>
         Request to get the list of Advice of Charge system parameters.
-        The response is either SystemAdviceOfChargeGetResponse19sp1 or ErrorResponse.
+        The response is either SystemAdviceOfChargeGetResponse25 or ErrorResponse.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -236,10 +236,10 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="SystemAdviceOfChargeGetResponse19sp1">
+  <xs:complexType name="SystemAdviceOfChargeGetResponse25">
     <xs:annotation>
       <xs:documentation>
-        Response to SystemAdviceOfChargeGetRequest.
+        Response to SystemAdviceOfChargeGetRequest25.
         Contains a list of system Advice of Charge parameters.
       </xs:documentation>
     </xs:annotation>
@@ -250,6 +250,7 @@
           <xs:element name="incomingAocHandling" type="AdviceOfChargeIncomingAocHandling"/>
           <xs:element name="useOCSEnquiry" type="xs:boolean"/>
           <xs:element name="OCSEnquiryType" type="AdviceOfChargeOCSEnquiryType"/>
+          <xs:element name="proxyAoCBody" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -269,6 +270,7 @@
           <xs:element name="incomingAocHandling" type="AdviceOfChargeIncomingAocHandling" minOccurs="0"/>
           <xs:element name="useOCSEnquiry" type="xs:boolean" minOccurs="0"/>
           <xs:element name="OCSEnquiryType" type="AdviceOfChargeOCSEnquiryType" minOccurs="0"/>
+          <xs:element name="proxyAoCBody" type="xs:boolean" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

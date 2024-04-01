@@ -56,10 +56,10 @@
         The following elements are only used in AS data mode:
          forceUseOfTCP
          enableRedundancy, value "false" is returned in XS data mode
-         redundancyTaskDelayMilliseconds, value "10000" is returned in Amplify and XS data mode
-         redundancyTaskIntervalMilliseconds, value of "1000" is returned in Amplify and XS data mode
-         maxNumberOfSubscriptionsPerRedundancyTaskInterval, value of "50" is returned in Amplify and XS data mode
-         ignoreUnansweredTerminatingCalls, value “false” is returned in XS data mode
+         redundancyTaskDelayMilliseconds, value "10000" is returned in XS data mode
+         redundancyTaskIntervalMilliseconds, value of "1000" is returned in XS data mode
+         maxNumberOfSubscriptionsPerRedundancyTaskInterval, value of "50" is returned in XS data mode
+         ignoreUnansweredTerminatingCalls, value "false" is returned in XS data mode
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -87,7 +87,7 @@
         The following elements are only used in AS data mode:
          forceUseOfTCP
 
-        The following elements are only used in AS data mode and ignored in Amplify and XS data mode:
+        The following elements are only used in AS data mode and ignored in XS data mode:
          enableRedundancy
          redundancyTaskDelayMilliseconds
          redundancyTaskIntervalMilliseconds
@@ -143,7 +143,11 @@
         Response to the BusyLampFieldGetAvailableUserListRequest.
         Returns a table with column headings:
           "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
-          "Phone Number", "Extension", "Department", "Email Address", "IMP Id".
+          "Phone Number", "Extension", "Department", "Email Address", "IMP Id",
+          "User External Id", and "User Place Type".
+        The following columns are supported in AS data mode only:
+          "User External Id", "User Place Type"
+        The possible values for "User Place Type" are: User, Place.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -177,7 +181,9 @@
         Response to UserBusyLampFieldGetRequest16sp2.
         The table has column headings:
           "User Id", "Last Name", "First Name", "Hiragana Last Name", "Hiragana First Name",
-          "Phone Number", "Extension", "Department", "Email Address", "IMP Id".
+          "Phone Number", "Extension", "Department", "Email Address", "IMP Id",
+          "User External Id", and "User Place Type".
+        The possible values for "User Place Type" are: User, Place.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>

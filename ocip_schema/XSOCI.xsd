@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************************************ -->
+<!-- Copyright © 2018 BroadSoft Inc. All rights reserved.-->
+<!-- ************************************************************************************ -->
+<!-- O C I   X M L   S C H E M A     P A R T                                              -->
+<!--                                                                                      -->
+<!-- This file defines the XML Schema for the BroadSoft Application Server                -->
+<!-- Open Client Interface (OCI).                                                         -->
+<!-- ************************************************************************************ -->
+<xs:schema xmlns:core="C" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+
+  <xs:import namespace="C" schemaLocation="OCISchemaBASE.xsd"/>
+
+  <xs:include schemaLocation="OCISchemaDataTypes.xsd"/>
+  <xs:include schemaLocation="OCISchemaSearchCriteria.xsd"/>
+
+  <!-- ************************************************************************************ -->
+  <!--   R E Q U E S T S   A N D   R E S P O N S E S                                        -->
+  <!-- ************************************************************************************ -->
+  <!--
+  Requests and responses are listed here in alphabetical order.
+  The non-primitive attributes inside the commands are defined in another
+  section of the schema.
+
+  Requests in this schema file:
+    GroupAutoAttendantModifyInstanceExecutionServerRequest
+    GroupVoiceMessagingGroupModifyVoicePortalBrandingExecutionServerRequest
+    UserExecutiveModifyFilteringExecutionServerRequest
+    UserMeetMeConferencingModifyConferenceGreetingExecutionServerRequest
+    UserVoiceMessagingUserModifyGreetingExecutionServerRequest
+    UserVoiceMessagingUserModifyVoicePortalExecutionServerRequest
+-->
+
+  <xs:complexType name="GroupAutoAttendantModifyInstanceExecutionServerRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to modify an Auto Attendant instance.
+        Only Group and Enterprise level schedules are accepted.
+        The response is either SuccessResponse or ErrorResponse.
+        Engineering Note: This command can only be executed from the Execution Server
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceUserId" type="UserId"/>
+          <xs:element name="businessHoursMenu" type="AutoAttendantModifyMenuExecutionServer" minOccurs="0"/>
+          <xs:element name="afterHoursMenu" type="AutoAttendantModifyMenuExecutionServer" minOccurs="0"/>
+          <xs:element name="holidayMenu" type="AutoAttendantModifyMenuExecutionServer" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="GroupVoiceMessagingGroupModifyVoicePortalBrandingExecutionServerRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Modify the group's voice portal branding settings.
+        The response is either a SuccessResponse or an ErrorResponse.
+        Engineering Note: This command can only be executed from the Execution Server
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="serviceProviderId" type="ServiceProviderId"/>
+          <xs:element name="groupId" type="GroupId"/>
+          <xs:element name="voicePortalGreetingSelection" type="VoiceMessagingBrandingSelection" minOccurs="0"/>
+          <xs:element name="voicePortalGreetingFile" type="LabeledFileNameResource" minOccurs="0"/>
+          <xs:element name="voiceMessagingGreetingSelection" type="VoiceMessagingBrandingSelection" minOccurs="0"/>
+          <xs:element name="voiceMessagingGreetingFile" type="LabeledFileNameResource" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserExecutiveModifyFilteringExecutionServerRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Modify the filtering setting for an executive user.
+        Both executive and the executive assistant can run this command.
+        requestingUserId is either executive or executive assistant.
+        The response is either SuccessResponse or ErrorResponse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="requestingUserId" type="UserId" minOccurs="0"/>
+          <xs:element name="enableFiltering" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserMeetMeConferencingModifyConferenceGreetingExecutionServerRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Modify an existing custom greeting audio file.
+        The response is either SuccessResponse or ErrorResponse.
+        Engineering Note: This command can only be executed from the Execution Server
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="conferenceKey" type="MeetMeConferencingConferenceKey"/>
+          <xs:element name="playEntranceGreeting" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="entranceGreetingFile" type="LabeledFileNameResource" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserVoiceMessagingUserModifyGreetingExecutionServerRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Modify the user's voice messaging greeting.
+        The response is either a SuccessResponse or an ErrorResponse.
+        Engineering Note: This command can only be executed from the Execution Server
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="busyAnnouncementSelection" type="AnnouncementSelection" minOccurs="0"/>
+          <xs:element name="busyPersonalAudioFile" type="LabeledFileNameResource" minOccurs="0"/>
+          <xs:element name="busyPersonalVideoFile" type="LabeledFileNameResource" minOccurs="0"/>
+          <xs:element name="noAnswerAnnouncementSelection" type="VoiceMessagingNoAnswerGreetingSelection" minOccurs="0"/>
+          <xs:element name="noAnswerPersonalAudioFile" type="LabeledFileNameResource" minOccurs="0"/>
+          <xs:element name="noAnswerPersonalVideoFile" type="LabeledFileNameResource" minOccurs="0"/>
+          <xs:element name="noAnswerNumberOfRings" type="VoiceMessagingNumberOfRings" minOccurs="0"/>
+          <xs:element name="extendedAwayEnabled" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="extendedAwayDisableMessageDeposit" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="extendedAwayAudioFile" type="LabeledFileNameResource" minOccurs="0"/>
+          <xs:element name="extendedAwayVideoFile" type="LabeledFileNameResource" minOccurs="0"/>
+          <xs:element name="disableMessageDeposit" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="disableMessageDepositAction" type="VoiceMessagingDisableMessageDepositSelection" minOccurs="0"/>
+          <xs:element name="greetingOnlyForwardDestination" type="OutgoingDNorSIPURI" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserVoiceMessagingUserModifyVoicePortalExecutionServerRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Modify the user's voice messaging voice portal settings.
+        The response is either a SuccessResponse or an ErrorResponse.
+        Engineering Note: This command can only be executed from the Execution
+        Server
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="core:OCIRequest">
+        <xs:sequence>
+          <xs:element name="userId" type="UserId"/>
+          <xs:element name="usePersonalizedName" type="xs:boolean" minOccurs="0"/>
+          <xs:element name="personalizedNameAudioFile" type="LabeledFileNameResource" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- ******************************************************************** -->
+  <!-- M E S S A G E   P A R A M E T E R S                                  -->
+  <!-- ******************************************************************** -->
+  <!--
+  The  specific non-primitive attributes are listed here in alphabetical order.
+  -->
+
+
+  <xs:complexType name="AutoAttendantModifyMenuExecutionServer">
+    <xs:annotation>
+      <xs:documentation>
+        The configuration of an auto attendant menu greeting prompt.
+        Engineering Note: This command can only be executed from the Execution Server
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="announcementSelection" type="AnnouncementSelection" minOccurs="0"/>
+      <xs:element name="audioFile" type="LabeledFileNameResource" minOccurs="0"/>
+      <xs:element name="videoFile" type="LabeledFileNameResource" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

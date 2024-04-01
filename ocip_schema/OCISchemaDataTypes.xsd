@@ -909,6 +909,27 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="BCCTMaxConnections">
+    <xs:annotation>
+      <xs:documentation>
+        Maximum number of BCCT Server Connections.
+        Can either be unlimited or a bounded int quantity.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="unlimited" type="xs:boolean" fixed="true"/>
+      <xs:element name="quantity">
+        <xs:simpleType>
+          <xs:annotation/>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+
   <xs:complexType name="BroadWorksMobilityAlertingMobileNumberReplacementList">
     <xs:annotation>
       <xs:documentation>
@@ -1067,6 +1088,18 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="CallingNameRetrievalWhiteListReplacementList">
+    <xs:annotation>
+      <xs:documentation>
+        A list of DNs to add to the CNAM call filtering DN white list.
+        By convention, an element of this type may be set nil to clear the list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="number" type="DN" minOccurs="1" maxOccurs="12"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="CallLogsEntry">
     <xs:annotation>
       <xs:documentation>
@@ -1079,6 +1112,22 @@
       <xs:element name="phoneNumber" type="OutgoingDNorSIPURI"/>
       <xs:element name="name" type="CallLogsEntryName"/>
       <xs:element name="time" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CallLogsEntry22">
+    <xs:annotation>
+      <xs:documentation>
+        Call Log entry describing a placed, received, or missed call.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="countryCode" type="CountryCode" minOccurs="0"/>
+      <xs:element name="callLogId" type="CallLogId"/>
+      <xs:element name="phoneNumber" type="OutgoingDNorSIPURI"/>
+      <xs:element name="name" type="CallLogsEntryName"/>
+      <xs:element name="time" type="xs:dateTime"/>
+      <xs:element name="callFilteringDisposition" type="BasicCallLogCallFilteringDisposition" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -1854,6 +1903,38 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="CPEDeviceModifyOptions22V2">
+    <xs:annotation>
+      <xs:documentation>
+        CPE device's options when used with a modify request.
+        The following options are not changeable:
+          configType
+          systemFileName
+          deviceFileFormat
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="enableMonitoring" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="deviceManagementDeviceTypeOptions" type="DeviceManagementDeviceTypeModifyOptions22V2" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CPEDeviceModifyOptions22V3">
+    <xs:annotation>
+      <xs:documentation>
+        CPE device's options when used with a modify request.
+        The following options are not changeable:
+          configType
+          systemFileName
+          deviceFileFormat
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="enableMonitoring" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="deviceManagementDeviceTypeOptions" type="DeviceManagementDeviceTypeModifyOptions22V3" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="CPEDeviceOptions22V2">
     <xs:annotation>
       <xs:documentation>
@@ -1926,6 +2007,54 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="CPEDeviceOptions22V5">
+    <xs:annotation>
+      <xs:documentation>
+        CPE device's options.
+
+    The field configType is optional to allow the use of field enableMonitoring for all device types being managed or not
+    ie. device configuration option equals to DeviceManagement, or Legacy, or Not Supported).
+
+    If the device configuration option is set to "Not Supported", the value of configType is forced set to "None" regardless
+    of its current value.
+
+    It is not allowed to add a device type with device configuration option set to Device Management or Legacy when the configType
+    is not set.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="enableMonitoring" type="xs:boolean"/>
+      <xs:element name="configType" type="AccessDeviceEnhancedConfigurationType14" minOccurs="0"/>
+      <xs:element name="systemFileName" type="CPESystemFileName" minOccurs="0"/>
+      <xs:element name="deviceFileFormat" type="CPEDeviceFileFormat" minOccurs="0"/>
+      <xs:element name="deviceManagementDeviceTypeOptions" type="DeviceManagementDeviceTypeOptions22V5" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CPEDeviceOptions22V6">
+    <xs:annotation>
+      <xs:documentation>
+        CPE device's options.
+
+    The field configType is optional to allow the use of field enableMonitoring for all device types being managed or not
+    ie. device configuration option equals to DeviceManagement, or Legacy, or Not Supported).
+
+    If the device configuration option is set to "Not Supported", the value of configType is forced set to "None" regardless
+    of its current value.
+
+    It is not allowed to add a device type with device configuration option set to Device Management or Legacy when the configType
+    is not set.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="enableMonitoring" type="xs:boolean"/>
+      <xs:element name="configType" type="AccessDeviceEnhancedConfigurationType14" minOccurs="0"/>
+      <xs:element name="systemFileName" type="CPESystemFileName" minOccurs="0"/>
+      <xs:element name="deviceFileFormat" type="CPEDeviceFileFormat" minOccurs="0"/>
+      <xs:element name="deviceManagementDeviceTypeOptions" type="DeviceManagementDeviceTypeOptions22V6" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="CPEDeviceOptionsRead22V2">
     <xs:annotation>
       <xs:documentation>
@@ -1971,6 +2100,36 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="CPEDeviceOptionsRead22V5">
+    <xs:annotation>
+      <xs:documentation>
+        CPE device's options.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="enableMonitoring" type="xs:boolean"/>
+      <xs:element name="configType" type="AccessDeviceEnhancedConfigurationType14" minOccurs="0"/>
+      <xs:element name="systemFileName" type="CPESystemFileName" minOccurs="0"/>
+      <xs:element name="deviceFileFormat" type="CPEDeviceFileFormat" minOccurs="0"/>
+      <xs:element name="deviceManagementDeviceTypeOptions" type="DeviceManagementDeviceTypeOptionsRead22V5" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CPEDeviceOptionsRead22V6">
+    <xs:annotation>
+      <xs:documentation>
+        CPE device's options.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="enableMonitoring" type="xs:boolean"/>
+      <xs:element name="configType" type="AccessDeviceEnhancedConfigurationType14" minOccurs="0"/>
+      <xs:element name="systemFileName" type="CPESystemFileName" minOccurs="0"/>
+      <xs:element name="deviceFileFormat" type="CPEDeviceFileFormat" minOccurs="0"/>
+      <xs:element name="deviceManagementDeviceTypeOptions" type="DeviceManagementDeviceTypeOptionsRead22V6" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="CriteriaActivation">
     <xs:annotation>
       <xs:documentation>
@@ -1997,6 +2156,22 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="CriteriaFromDn23">
+    <xs:annotation>
+      <xs:documentation>
+        The from dn criteria added with the option for selecting internal and external callers, used within an add/get request.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fromDnCriteriaSelection" type="CriteriaDnSelection"/>
+      <xs:element name="includeAnonymousCallers" type="xs:boolean"/>
+      <xs:element name="includeUnavailableCallers" type="xs:boolean"/>
+      <xs:element name="includeInternalCallers" type="xs:boolean"/>
+      <xs:element name="includeExternalCallers" type="xs:boolean"/>
+      <xs:element name="phoneNumber" type="DN" minOccurs="0" maxOccurs="12"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="CriteriaFromDnModify">
     <xs:annotation>
       <xs:documentation>
@@ -2007,6 +2182,22 @@
       <xs:element name="fromDnCriteriaSelection" type="CriteriaDnSelection" minOccurs="0"/>
       <xs:element name="includeAnonymousCallers" type="xs:boolean" minOccurs="0"/>
       <xs:element name="includeUnavailableCallers" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="phoneNumberList" type="CriteriaReplacementDNList" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CriteriaFromDnModify23">
+    <xs:annotation>
+      <xs:documentation>
+        The from dn criteria added with the option for selecting internal and external callers, used within a modify request.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fromDnCriteriaSelection" type="CriteriaDnSelection" minOccurs="0"/>
+      <xs:element name="includeAnonymousCallers" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="includeUnavailableCallers" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="includeInternalCallers" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="includeExternalCallers" type="xs:boolean" minOccurs="0"/>
       <xs:element name="phoneNumberList" type="CriteriaReplacementDNList" nillable="true" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -2082,6 +2273,88 @@
       <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0" nillable="true"/>
       <xs:element name="enableDeviceActivation" type="xs:boolean" minOccurs="0"/>
       <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0" nillable="true"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeviceManagementDeviceTypeModifyOptions22V2">
+    <xs:annotation>
+      <xs:documentation>
+        Device Management System device type options during a modify request.
+
+        The following data elements are only used in AS data mode and ignored in XS data mode:
+          enableDeviceActivation
+          deviceModel
+          autoLinkingDeviceType
+          autoCreateDevicesLevel
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="deviceAccessProtocol" type="DeviceAccessProtocol22" minOccurs="0"/>
+      <xs:element name="tagMode" type="DeviceManagementTagMode" minOccurs="0"/>
+      <xs:element name="tagSet" type="DeviceManagementTagSet" minOccurs="0" nillable="true"/>
+      <xs:element name="allowDeviceProfileCustomTagSet" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="allowGroupCustomTagSet" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="allowSpCustomTagSet" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="sendEmailUponResetFailure" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="deviceAccessNetAddress" type="NetAddress" minOccurs="0" nillable="true"/>
+      <xs:element name="deviceAccessPort" type="Port" minOccurs="0" nillable="true"/>
+      <xs:element name="deviceAccessContext" type="DeviceAccessContext" minOccurs="0" nillable="true"/>
+      <xs:element name="defaultDeviceLanguage" type="DeviceLanguage" minOccurs="0" nillable="true"/>
+      <xs:element name="defaultDeviceEncoding" type="Encoding" minOccurs="0" nillable="true"/>
+      <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0" nillable="true"/>
+      <xs:element name="useHttpDigestAuthentication" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macBasedFileAuthentication" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macInNonRequestURI" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macInCert" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0" nillable="true"/>
+      <xs:element name="enableDeviceActivation" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0" nillable="true"/>
+      <xs:element name="autoLinkingDeviceType" type="AccessDeviceType" minOccurs="0" nillable="true"/>
+      <xs:element name="autoCreateDevicesLevel" type="AutoCreateDevicesLevel" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeviceManagementDeviceTypeModifyOptions22V3">
+    <xs:annotation>
+      <xs:documentation>
+        Device Management System device type options during a modify request.
+
+        The following data elements are only used in AS data mode and ignored in XS data mode:
+          enableDeviceActivation
+          deviceModel
+          autoLinkingDeviceType
+          autoCreateDevicesLevel
+          isActivationCodeThroughMessagingServer
+          bearerFileAuthentication
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="deviceAccessProtocol" type="DeviceAccessProtocol22" minOccurs="0"/>
+      <xs:element name="tagMode" type="DeviceManagementTagMode" minOccurs="0"/>
+      <xs:element name="tagSet" type="DeviceManagementTagSet" minOccurs="0" nillable="true"/>
+      <xs:element name="allowDeviceProfileCustomTagSet" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="allowGroupCustomTagSet" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="allowSpCustomTagSet" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="sendEmailUponResetFailure" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="deviceAccessNetAddress" type="NetAddress" minOccurs="0" nillable="true"/>
+      <xs:element name="deviceAccessPort" type="Port" minOccurs="0" nillable="true"/>
+      <xs:element name="deviceAccessContext" type="DeviceAccessContext" minOccurs="0" nillable="true"/>
+      <xs:element name="defaultDeviceLanguage" type="DeviceLanguage" minOccurs="0" nillable="true"/>
+      <xs:element name="defaultDeviceEncoding" type="Encoding" minOccurs="0" nillable="true"/>
+      <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0" nillable="true"/>
+      <xs:element name="useHttpDigestAuthentication" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macBasedFileAuthentication" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macInNonRequestURI" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macInCert" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0" nillable="true"/>
+      <xs:element name="enableDeviceActivation" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0" nillable="true"/>
+      <xs:element name="autoLinkingDeviceType" type="AccessDeviceType" minOccurs="0" nillable="true"/>
+      <xs:element name="autoCreateDevicesLevel" type="AutoCreateDevicesLevel" minOccurs="0"/>
+      <xs:element name="isActivationCodeThroughMessagingServer" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="bearerFileAuthentication" type="xs:boolean" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -2222,6 +2495,117 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="DeviceManagementDeviceTypeOptions22V5">
+    <xs:annotation>
+      <xs:documentation>
+        Device Management System device type options.
+
+        Note: For the elements listed below, when device configuration is set to deviceManagement, those elements apply to the creation of the Polycom Phone Services directory file only.
+              For all other files, they are not used. Those elements are instead configured on a per-file basis at the Device Type File level.
+              When device configuration is set to legacy, those elements apply to all configuration files.
+
+              useHttpDigestAuthentication
+              macBasedFileAuthentication
+              userNamePasswordFileAuthentication
+              macInNonRequestURI
+              macInCert
+              macFormatInNonRequestURI
+
+        The following data elements are only used in AS data mode and ignored in XS data mode:
+              enableDeviceActivation
+              deviceModel
+              supportLinks
+              autoLinkingDeviceType
+              autoCreateDevicesLevel
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="deviceAccessProtocol" type="DeviceAccessProtocol22"/>
+      <xs:element name="tagMode" type="DeviceManagementTagMode"/>
+      <xs:element name="tagSet" type="DeviceManagementTagSet" minOccurs="0"/>
+      <xs:element name="allowDeviceProfileCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowGroupCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowSpCustomTagSet" type="xs:boolean"/>
+      <xs:element name="sendEmailUponResetFailure" type="xs:boolean"/>
+      <xs:element name="deviceAccessNetAddress" type="NetAddress" minOccurs="0"/>
+      <xs:element name="deviceAccessPort" type="Port" minOccurs="0"/>
+      <xs:element name="deviceAccessContext" type="DeviceAccessContext" minOccurs="0"/>
+      <xs:element name="deviceAccessURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="defaultDeviceLanguage" type="DeviceLanguage" minOccurs="0"/>
+      <xs:element name="defaultDeviceEncoding" type="Encoding" minOccurs="0"/>
+      <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0"/>
+      <xs:element name="useHttpDigestAuthentication" type="xs:boolean"/>
+      <xs:element name="macBasedFileAuthentication" type="xs:boolean"/>
+      <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean"/>
+      <xs:element name="macInNonRequestURI" type="xs:boolean"/>
+      <xs:element name="macInCert" type="xs:boolean"/>
+      <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="enableDeviceActivation" type="xs:boolean"/>
+      <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0"/>
+      <xs:element name="supportLinks" type="SupportLinks22V2"/>
+      <xs:element name="autoLinkingDeviceType" type="AccessDeviceType" minOccurs="0"/>
+      <xs:element name="autoCreateDevicesLevel" type="AutoCreateDevicesLevel" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeviceManagementDeviceTypeOptions22V6">
+    <xs:annotation>
+      <xs:documentation>
+        Device Management System device type options.
+
+        Note: For the elements listed below, when device configuration is set to deviceManagement, those elements apply to the creation of the Polycom Phone Services directory file only.
+              For all other files, they are not used. Those elements are instead configured on a per-file basis at the Device Type File level.
+              When device configuration is set to legacy, those elements apply to all configuration files except bearerFileAuthentication which is not supported.
+
+              useHttpDigestAuthentication
+              macBasedFileAuthentication
+              userNamePasswordFileAuthentication
+              macInNonRequestURI
+              macInCert
+              macFormatInNonRequestURI
+              bearerFileAuthentication
+
+        The following data elements are only used in AS data mode and ignored in XS data mode:
+              enableDeviceActivation
+              deviceModel
+              supportLinks
+              autoLinkingDeviceType
+              autoCreateDevicesLevel
+              isActivationCodeThroughMessagingServer
+              bearerFileAuthentication
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="deviceAccessProtocol" type="DeviceAccessProtocol22"/>
+      <xs:element name="tagMode" type="DeviceManagementTagMode"/>
+      <xs:element name="tagSet" type="DeviceManagementTagSet" minOccurs="0"/>
+      <xs:element name="allowDeviceProfileCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowGroupCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowSpCustomTagSet" type="xs:boolean"/>
+      <xs:element name="sendEmailUponResetFailure" type="xs:boolean"/>
+      <xs:element name="deviceAccessNetAddress" type="NetAddress" minOccurs="0"/>
+      <xs:element name="deviceAccessPort" type="Port" minOccurs="0"/>
+      <xs:element name="deviceAccessContext" type="DeviceAccessContext" minOccurs="0"/>
+      <xs:element name="deviceAccessURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="defaultDeviceLanguage" type="DeviceLanguage" minOccurs="0"/>
+      <xs:element name="defaultDeviceEncoding" type="Encoding" minOccurs="0"/>
+      <xs:element name="accessDeviceCredentials" type="DeviceManagementUserNamePassword16" minOccurs="0"/>
+      <xs:element name="useHttpDigestAuthentication" type="xs:boolean"/>
+      <xs:element name="macBasedFileAuthentication" type="xs:boolean"/>
+      <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean"/>
+      <xs:element name="macInNonRequestURI" type="xs:boolean"/>
+      <xs:element name="macInCert" type="xs:boolean"/>
+      <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="enableDeviceActivation" type="xs:boolean"/>
+      <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0"/>
+      <xs:element name="supportLinks" type="SupportLinks22V2"/>
+      <xs:element name="autoLinkingDeviceType" type="AccessDeviceType" minOccurs="0"/>
+      <xs:element name="autoCreateDevicesLevel" type="AutoCreateDevicesLevel" minOccurs="0"/>
+      <xs:element name="isActivationCodeThroughMessagingServer" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="bearerFileAuthentication" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="DeviceManagementDeviceTypeOptionsRead22V2">
     <xs:annotation>
       <xs:documentation>
@@ -2275,12 +2659,13 @@
               useHttpDigestAuthentication
               macBasedFileAuthentication
               userNamePasswordFileAuthentication
+              bearerFileAuthentication
               macInNonRequestURI
               macInCert
               macFormatInNonRequestURI
 
         The following data elements are only used in AS data mode:
-              enableDeviceActivation, value false is returned
+              enableDeviceActivation, value ‘false’ is returned
 
         The following elements are only used in AS data mode and not returned in XS data mode
               deviceModel
@@ -2360,6 +2745,120 @@
       <xs:element name="enableDeviceActivation" type="xs:boolean"/>
       <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0"/>
       <xs:element name="supportLinks" type="SupportLinks"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeviceManagementDeviceTypeOptionsRead22V5">
+    <xs:annotation>
+      <xs:documentation>
+        Device Management System device type options.
+
+        Note: For the elements listed below, when device configuration is set to deviceManagement, those elements apply to the creation of the Polycom Phone Services directory file only.
+              For all other files, they are not used. Those elements are instead configured on a per-file basis at the Device Type File level.
+              When device configuration is set to legacy, those elements apply to all configuration files.
+
+              useHttpDigestAuthentication
+              macBasedFileAuthentication
+              userNamePasswordFileAuthentication
+              macInNonRequestURI
+              macInCert
+              macFormatInNonRequestURI
+
+        The following data elements are only used in AS data mode:
+              enableDeviceActivation, value "false" is returned
+              supportLinks, value "Not Supported" is returned
+
+        The following elements are only used in AS data mode and not returned in XS data mode
+              deviceModel
+              autoLinkingDeviceType
+              autoCreateDevicesLevel
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="deviceAccessProtocol" type="DeviceAccessProtocol22"/>
+      <xs:element name="tagMode" type="DeviceManagementTagMode"/>
+      <xs:element name="tagSet" type="DeviceManagementTagSet" minOccurs="0"/>
+      <xs:element name="allowDeviceProfileCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowGroupCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowSpCustomTagSet" type="xs:boolean"/>
+      <xs:element name="sendEmailUponResetFailure" type="xs:boolean"/>
+      <xs:element name="deviceAccessNetAddress" type="NetAddress" minOccurs="0"/>
+      <xs:element name="deviceAccessPort" type="Port" minOccurs="0"/>
+      <xs:element name="deviceAccessContext" type="DeviceAccessContext" minOccurs="0"/>
+      <xs:element name="deviceAccessURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="defaultDeviceLanguage" type="DeviceLanguage" minOccurs="0"/>
+      <xs:element name="defaultDeviceEncoding" type="Encoding" minOccurs="0"/>
+      <xs:element name="accessDeviceCredentials" type="UserId" minOccurs="0"/>
+      <xs:element name="useHttpDigestAuthentication" type="xs:boolean"/>
+      <xs:element name="macBasedFileAuthentication" type="xs:boolean"/>
+      <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean"/>
+      <xs:element name="macInNonRequestURI" type="xs:boolean"/>
+      <xs:element name="macInCert" type="xs:boolean"/>
+      <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="enableDeviceActivation" type="xs:boolean"/>
+      <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0"/>
+      <xs:element name="supportLinks" type="SupportLinks22V2"/>
+      <xs:element name="autoLinkingDeviceType" type="AccessDeviceType" minOccurs="0"/>
+      <xs:element name="autoCreateDevicesLevel" type="AutoCreateDevicesLevel" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeviceManagementDeviceTypeOptionsRead22V6">
+    <xs:annotation>
+      <xs:documentation>
+        Device Management System device type options.
+
+        Note: For the elements listed below, when device configuration is set to deviceManagement, those elements apply to the creation of the Polycom Phone Services directory file only.
+              For all other files, they are not used. Those elements are instead configured on a per-file basis at the Device Type File level.
+              When device configuration is set to legacy, those elements apply to all configuration files except bearerFileAuthentication which is not supported.
+
+              useHttpDigestAuthentication
+              macBasedFileAuthentication
+              userNamePasswordFileAuthentication
+              macInNonRequestURI
+              macInCert
+              macFormatInNonRequestURI
+
+        The following data elements are only used in AS data mode:
+              enableDeviceActivation, value ‘false’ is returned
+              supportLinks, value ‘Not Supported’ is returned
+
+        The following elements are only used in AS data mode and not returned in XS data mode
+              deviceModel
+              autoLinkingDeviceType
+              autoCreateDevicesLevel
+              isActivationCodeThroughMessagingServer
+              bearerFileAuthentication
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="deviceAccessProtocol" type="DeviceAccessProtocol22"/>
+      <xs:element name="tagMode" type="DeviceManagementTagMode"/>
+      <xs:element name="tagSet" type="DeviceManagementTagSet" minOccurs="0"/>
+      <xs:element name="allowDeviceProfileCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowGroupCustomTagSet" type="xs:boolean"/>
+      <xs:element name="allowSpCustomTagSet" type="xs:boolean"/>
+      <xs:element name="sendEmailUponResetFailure" type="xs:boolean"/>
+      <xs:element name="deviceAccessNetAddress" type="NetAddress" minOccurs="0"/>
+      <xs:element name="deviceAccessPort" type="Port" minOccurs="0"/>
+      <xs:element name="deviceAccessContext" type="DeviceAccessContext" minOccurs="0"/>
+      <xs:element name="deviceAccessURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="defaultDeviceLanguage" type="DeviceLanguage" minOccurs="0"/>
+      <xs:element name="defaultDeviceEncoding" type="Encoding" minOccurs="0"/>
+      <xs:element name="accessDeviceCredentials" type="UserId" minOccurs="0"/>
+      <xs:element name="useHttpDigestAuthentication" type="xs:boolean"/>
+      <xs:element name="macBasedFileAuthentication" type="xs:boolean"/>
+      <xs:element name="userNamePasswordFileAuthentication" type="xs:boolean"/>
+      <xs:element name="macInNonRequestURI" type="xs:boolean"/>
+      <xs:element name="macInCert" type="xs:boolean"/>
+      <xs:element name="macFormatInNonRequestURI" type="DeviceManagementAccessURI" minOccurs="0"/>
+      <xs:element name="enableDeviceActivation" type="xs:boolean"/>
+      <xs:element name="deviceModel" type="AccessDeviceModel" minOccurs="0"/>
+      <xs:element name="supportLinks" type="SupportLinks22V2"/>
+      <xs:element name="autoLinkingDeviceType" type="AccessDeviceType" minOccurs="0"/>
+      <xs:element name="autoCreateDevicesLevel" type="AutoCreateDevicesLevel" minOccurs="0"/>
+      <xs:element name="isActivationCodeThroughMessagingServer" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="bearerFileAuthentication" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -2490,6 +2989,21 @@
       <xs:element name="messageCode" type="xs:int" minOccurs="0"/>
       <xs:element name="summary" type="xs:string" minOccurs="0"/>
       <xs:element name="summaryEnglish" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EmailAddressList">
+    <xs:annotation>
+      <xs:documentation>
+         A list of 50 email addresses is configured in the "Forward it to these e-mail addresses" section
+         on the Voice Management configuration page
+
+        Change History:
+        R25.0 - Added
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="emailAddress" type="EmailAddress" minOccurs="1" maxOccurs="50"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -3449,6 +3963,43 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="MWIDeliveryToMobileEndpointTemplateActivation">
+    <xs:annotation>
+      <xs:documentation>
+        MWI Delivery To Mobile Endpoint enabled status indicator
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="language" type="Language"/>
+      <xs:element name="type" type="MWIDeliveryToMobileEndpointTemplateType"/>
+      <xs:element name="isEnabled" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MWIDeliveryToMobileEndpointTemplateBody">
+    <xs:annotation>
+      <xs:documentation>
+         MWI Delivery To Mobile Endpoint template body.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="line" type="MWIDeliveryToMobileEndpointTemplateLine" maxOccurs="6"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MWIDeliveryToMobileEndpointTemplateLine">
+    <xs:annotation>
+      <xs:documentation>
+         MWI Delivery To Mobile Endpoint template section associated with a specific tag.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="prefix" type="MWIDeliveryToMobileEndpointTemplatePhrase" minOccurs="0"/>
+      <xs:element name="tag" type="MWIDeliveryToMobileEndpointTemplateTag" minOccurs="0"/>
+      <xs:element name="postfix" type="MWIDeliveryToMobileEndpointTemplatePhrase" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="NameDialingName">
     <xs:annotation>
       <xs:documentation>
@@ -3529,10 +4080,11 @@
     </xs:choice>
   </xs:complexType>
 
-  <xs:complexType name="PushNotificationEventData">
+  <xs:complexType name="PushNotificationEventData23">
     <xs:annotation>
       <xs:documentation>
         The common push notification event elements.
+        The mobileNumber element is only returned for MOBILE_CALL_INFO events.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -3540,13 +4092,16 @@
       <xs:element name="silent" type="xs:boolean"/>
       <xs:element name="mutableContent" type="xs:boolean"/>
       <xs:element name="pushNotificationEventParameters" type="PushNotificationEventParameters" minOccurs="0"/>
+      <xs:element name="mobileNumber" type="DN" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="PushNotificationRegistrationData">
+  <xs:complexType name="PushNotificationRegistrationData23">
     <xs:annotation>
-      <xs:documentation>?
-        The common push notification registration elements.
+      <xs:documentation>
+        The common push notification registration elements which supports encryption, if required.
+        Elements encryptionKeyIdentifier, encryptionAlgorithm and channel are provided only when registration supports encryption.
+        Their absence indicates that encryption is not supported.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -3557,20 +4112,23 @@
       <xs:element name="deviceVersion" type="PushNotificationDeviceVersion"/>
       <xs:element name="timestamp" type="xs:dateTime"/>
       <xs:element name="pushNotificationClientVersion" type="PushNotificationClientVersion"/>
-      <xs:element name="pushNotificationTokenData" type="PushNotificationTokenData" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="pushNotificationTokenData" type="PushNotificationTokenData23" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="encryptionKeyIdentifier" type="PushNotificationEncryptionKeyIdentifier" minOccurs="0"/>
+      <xs:element name="encryptionAlgorithm" type="PushNotificationEncryptionAlgorithm" minOccurs="0"/>
+      <xs:element name="channel" type="PushNotificationChannel" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="PushNotificationTokenData">
+  <xs:complexType name="PushNotificationTokenData23">
     <xs:annotation>
-      <xs:documentation>?
+      <xs:documentation>
         The common push notification token elements.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="pushNotificationToken" type="PushNotificationToken"/>
       <xs:element name="pushNotificationType" type="PushNotificationType"/>
-      <xs:element name="pushNotificationEventData" type="PushNotificationEventData" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="pushNotificationEventData" type="PushNotificationEventData23" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -4114,18 +4672,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="SecurityClassificationCustomizationActivation">
-    <xs:annotation>
-      <xs:documentation>
-        The security classification customization activation.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="name" type="SecurityClassificationName"/>
-      <xs:element name="isCustomized" type="xs:boolean"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="SelectiveCallRejectionCriteriaCallType">
     <xs:annotation>
       <xs:documentation>
@@ -4409,18 +4955,6 @@
         <xs:element name="authorizedQuantity" type="UnboundedPositiveInt"/>
         <xs:element name="unauthorized" type="xs:boolean" fixed="true"/>
       </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="ServicePolicyAttributeEntry">
-    <xs:annotation>
-      <xs:documentation>
-        The service policy attributes name and value pair.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="name" type="ServicePolicyAttributeName"/>
-      <xs:element name="value" type="ServicePolicyAttributeValue" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -4781,7 +5315,7 @@
       <xs:documentation>
         Information related to a tree device.
         A tree device is a device associated with a device type that has the option
-        supportLinks set to "Support Links from Devices".  Many leaf devices can link to it.
+        supportLinks set to "Support Links from Devices"..  Many leaf devices can link to it.
         When a tree device is created, it is assigned a system-wide unique linkId.
       </xs:documentation>
     </xs:annotation>
@@ -5280,6 +5814,9 @@
       <xs:documentation>
         Verification Translation and Routing origination
         value.
+
+         The following element is only used in AS mode:
+          userId
       </xs:documentation>
     </xs:annotation>
     <xs:choice>
@@ -5296,6 +5833,15 @@
         Verification Translation and Routing parameters
         for creating a Verify Translation and Routing request from
         parameters.
+
+        The following data elements are only used in AS data mode and ignored in XS data mode:
+          contact
+          diversion
+
+        The following data elements are only used in XS data mode and ignored in AS data mode:
+          imsCallType
+          sipInstance
+          viaAddress
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -5303,6 +5849,9 @@
       <xs:element name="destination" type="VerifyTranslationAndRoutingDestination"/>
       <xs:element name="contact" minOccurs="0" type="URL"/>
       <xs:element name="diversion" minOccurs="0" type="URL"/>
+      <xs:element name="imsCallType" minOccurs="0" type="IMSCallType"/>
+      <xs:element name="sipInstance" minOccurs="0" type="SipInstanceId"/>
+      <xs:element name="viaAddress" minOccurs="0" type="NetAddress"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -5398,6 +5947,18 @@
     <xs:restriction base="xs:token">
       <xs:minLength value="1"/>
       <xs:maxLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AccessDeviceCode">
+    <xs:annotation>
+      <xs:documentation>
+        A four-digit code. Valid values are 0-9.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:length value="4"/>
+      <xs:pattern value="[0-9][0-9][0-9][0-9]"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -5501,6 +6062,18 @@
       <xs:enumeration value="2 File Configuration"/>
       <xs:enumeration value="3 File Configuration"/>
       <xs:enumeration value="SNAP"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AccessDeviceIPEI">
+    <xs:annotation>
+      <xs:documentation>
+        Access device IPEI.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -5661,6 +6234,18 @@
     <xs:restriction base="xs:token">
       <xs:minLength value="1"/>
       <xs:maxLength value="40"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AccountInactivityTimeoutDays">
+    <xs:annotation>
+      <xs:documentation>
+        The account inactivity time-out in days.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="30"/>
+      <xs:maxInclusive value="365"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -6049,6 +6634,19 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="AuthorizationLevelToProvisionAlternateUserID">
+    <xs:annotation>
+      <xs:documentation>
+        Authorization levels to provision alternate user id
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Group"/>
+      <xs:enumeration value="Service Provider"/>
+      <xs:enumeration value="System"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="AutoAttendantDialingScope">
     <xs:annotation>
       <xs:documentation>
@@ -6159,6 +6757,19 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="AutoCreateDevicesLevel">
+    <xs:annotation>
+      <xs:documentation>
+        Identifies at which level in the system the identity/device profiles are created.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Auto Creation Not Used"/>
+      <xs:enumeration value="Service Provider"/>
+      <xs:enumeration value="Group"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="AutomaticCallbackReleaseCause">
     <xs:annotation>
       <xs:documentation>
@@ -6190,6 +6801,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="BasicCallLogCallFilteringDisposition">
+    <xs:annotation>
+      <xs:documentation>
+        Basic Call Log Call Filtering Disposition
+       </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="0"/>
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="BasicCallType">
     <xs:annotation>
       <xs:documentation>
@@ -6203,6 +6826,18 @@
       <xs:enumeration value="Network URL"/>
       <xs:enumeration value="Repair"/>
       <xs:enumeration value="Emergency"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BearerSubject">
+    <xs:annotation>
+      <xs:documentation>
+        The machine UUID used to identify a device.  It is extracted from the
+        bearer token received in devices requests.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="NonEmptyToken">
+      <xs:maxLength value="36"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -6228,145 +6863,6 @@
     <xs:restriction base="xs:token">
       <xs:enumeration value="Service Provider"/>
       <xs:enumeration value="Group"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerCertificateFile">
-    <xs:annotation>
-      <xs:documentation> Certificate file. </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:base64Binary">
-      <xs:minLength value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerDeactivationReason">
-    <xs:annotation>
-      <xs:documentation>Deactivation reason.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="100"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerDomainName">
-    <xs:annotation>
-      <xs:documentation>Domain name.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="100"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerHomeZoneCellId">
-    <xs:annotation>
-      <xs:documentation>
-        Cell ID.
-        A single asterisk or digit range from 0 to 65535.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="5"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerHomeZoneLocationAreaCode">
-    <xs:annotation>
-      <xs:documentation>
-        Location area code.
-        A single asterisk or digit range from 0 to 65535.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="5"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerHomeZoneMobileCountryCode">
-    <xs:annotation>
-      <xs:documentation>
-        Country dialing code.
-        A single asterisk or digit range from 000 to 999.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="3"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerHomeZoneNetworkCountryCode">
-    <xs:annotation>
-      <xs:documentation>
-        Network Country Code
-        A single asterisk or digit range from 00 to 999.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="3"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerInformationFile">
-    <xs:annotation>
-      <xs:documentation>
-        Information file.
-    </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:base64Binary">
-      <xs:minLength value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerMaxTxPerSecond">
-    <xs:annotation>
-      <xs:documentation>
-        Maximum number of simultaneous SS7 transactions allowed
-        per second before throttling occurs.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="1"/>
-      <xs:maxInclusive value="1000"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerName">
-    <xs:annotation>
-      <xs:documentation>BroadWorks Mobile Manager name.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="45"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerPassword">
-    <xs:annotation>
-      <xs:documentation>
-        BroadWorks Mobile Manger API password
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="128"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="BroadWorksMobileManagerUserName">
-    <xs:annotation>
-      <xs:documentation>
-        BroadWorks Mobile Manger API user name
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="32"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -6566,11 +7062,11 @@
         This parameter controls whether to enable the Call Center Event
         Recording service, the Enhanced Call Center Reporting service, or
         both services.
-        “Call Center Event Recording” indicates the Call Center Event
+        "Call Center Event Recording" indicates the Call Center Event
         Recording service is enabled, and the ECCR service is disabled.
-        “Legacy ECCR” indicates the Call Center Event Recording service
+        "Legacy ECCR" indicates the Call Center Event Recording service
         is disabled, and the ECCR service is enabled.
-        “Both” indicates both the Call Center Event Recording service and
+        "Both" indicates both the Call Center Event Recording service and
         the ECCR service are enabled.
       </xs:documentation>
     </xs:annotation>
@@ -6916,6 +7412,34 @@
     <xs:restriction base="xs:int">
       <xs:minInclusive value="1"/>
       <xs:maxInclusive value="3600"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CallerIdDisposition">
+    <xs:annotation>
+      <xs:documentation>
+        Caller Id Disposition value.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Valid"/>
+      <xs:enumeration value="Invalid"/>
+      <xs:enumeration value="Unverified"/>
+      <xs:enumeration value="None"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CallerIdDispositionVerstat">
+    <xs:annotation>
+      <xs:documentation>
+        Caller Id Disposition verstat value.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="TN-Validation-Passed"/>
+      <xs:enumeration value="TN-Validation-Failed"/>
+      <xs:enumeration value="No-TN-Validation"/>
+      <xs:enumeration value="No-Verstat"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -7522,6 +8046,20 @@
       <xs:enumeration value="1.0"/>
       <xs:enumeration value="2.0"/>
       <xs:enumeration value="3.0"/>
+      <xs:enumeration value="4.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CallRecordingRecordCallRepeatWarningToneTimerSeconds">
+    <xs:annotation>
+      <xs:documentation>
+        The value in seconds specifying how often the end user
+        receives the warning tone that call is being recorded.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="10"/>
+      <xs:maxInclusive value="1800"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -8565,14 +9103,16 @@
         The status of a Device Management File Authentication.
         The possible values are:
           "Challenge" : authentication is required.
-          "Need Digest Authntication" : client needs to use digest authentication.
-          "Need User Password Authntication" : client needs to use user/pass authentication.
+          "Need Digest Authentication" : client needs to use digest authentication.
+          "Need User Password Authentication" : client needs to use user/pass authentication.
+          "Need Bearer Authentication" : client needs to use bearer authentication.
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="Challenge"/>
       <xs:enumeration value="Need Digest Authentication"/>
       <xs:enumeration value="Need User Password Authentication"/>
+      <xs:enumeration value="Need Bearer Authentication"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -9037,18 +9577,6 @@
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:length value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="DualModeVCCSubscriberPassword">
-    <xs:annotation>
-      <xs:documentation>
-        Dual Mode VCC subscriber password
-      </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="20"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -9591,6 +10119,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="FakeHoldSDPTemplate">
+    <xs:annotation>
+      <xs:documentation>
+        Fake Hold SDP Template.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="2048"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="FeatureAccessCode">
     <xs:annotation>
       <xs:documentation>Feature Access Code</xs:documentation>
@@ -9648,6 +10188,17 @@
     <xs:restriction base="xs:token">
       <xs:minLength value="1"/>
       <xs:maxLength value="40"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FileRepositoryToken">
+    <xs:annotation>
+      <xs:documentation>
+        Bearer Token.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -10270,6 +10821,7 @@
       <xs:enumeration value="Emergency Zones"/>
       <xs:enumeration value="Enhanced Outgoing Calling Plan"/>
       <xs:enumeration value="Find-me/Follow-me"/>
+      <xs:enumeration value="Group Call Queue"/>
       <xs:enumeration value="Group Paging"/>
       <xs:enumeration value="Hunt Group"/>
       <xs:enumeration value="Incoming Calling Plan"/>
@@ -10611,6 +11163,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="IMSCallType">
+    <xs:annotation>
+      <xs:documentation>
+        The IMS direction for VTR.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Originating"/>
+      <xs:enumeration value="Terminating"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="IMSUserState">
     <xs:annotation>
       <xs:documentation>
@@ -10735,6 +11299,19 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="LeafDeviceCategory">
+    <xs:annotation>
+      <xs:documentation>
+        Define the leaf device category values.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Handset"/>
+      <xs:enumeration value="Base Station"/>
+      <xs:enumeration value="All"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="LicenseName">
     <xs:annotation>
       <xs:documentation>
@@ -10831,6 +11408,18 @@
     <xs:restriction base="xs:int">
       <xs:minInclusive value="0"/>
       <xs:maxInclusive value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LockOutInMinutes">
+    <xs:annotation>
+      <xs:documentation>
+        Temporary user lockout time in minutes.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="10080"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -11082,6 +11671,36 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="MemberType">
+    <xs:annotation>
+      <xs:documentation>
+        Types of owners/members in BroadWorks.
+        MemberType contains the same list as UserType with "Normal" being split into "Place" and "User".
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Place"/>
+      <xs:enumeration value="User"/>
+      <xs:enumeration value="Auto Attendant"/>
+      <xs:enumeration value="BroadWorks Anywhere"/>
+      <xs:enumeration value="Call Center"/>
+      <xs:enumeration value="Collaborate Bridge"/>
+      <xs:enumeration value="Contact Center Adapter"/>
+      <xs:enumeration value="Contact Center Linked"/>
+      <xs:enumeration value="Find-me/Follow-me"/>
+      <xs:enumeration value="Flexible Seating Host"/>
+      <xs:enumeration value="Group Paging"/>
+      <xs:enumeration value="Hunt Group"/>
+      <xs:enumeration value="Instant Group Call"/>
+      <xs:enumeration value="Meet-Me Conferencing"/>
+      <xs:enumeration value="Music On Hold"/>
+      <xs:enumeration value="Route Point"/>
+      <xs:enumeration value="Voicemail Group"/>
+      <xs:enumeration value="Voice Messaging"/>
+      <xs:enumeration value="VoiceXML"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="MinNoAnswerNumberOfRings">
     <xs:annotation>
       <xs:documentation>
@@ -11201,6 +11820,60 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="MWIDeliveryToMobileEndpointGroupSettingLevel">
+    <xs:annotation>
+      <xs:documentation>
+        MWI Delivery To Mobile Endpoint setting for the group level.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Service Provider"/>
+      <xs:enumeration value="Group"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MWIDeliveryToMobileEndpointTemplatePhrase">
+    <xs:annotation>
+      <xs:documentation>
+         MWI Delivery To Mobile Endpoint template message body portion.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:whiteSpace value="preserve"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="128"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MWIDeliveryToMobileEndpointTemplateTag">
+    <xs:annotation>
+      <xs:documentation>
+          MWI Delivery To Mobile Endpoint template tag.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Voice Mail Number"/>
+      <xs:enumeration value="New Messages Count"/>
+      <xs:enumeration value="Total Messages Count"/>
+      <xs:enumeration value="Caller Name"/>
+      <xs:enumeration value="Caller Number"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MWIDeliveryToMobileEndpointTemplateType">
+    <xs:annotation>
+      <xs:documentation>
+         MWI Delivery To Mobile Endpoint template types.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Default"/>
+      <xs:enumeration value="Single New No Previous Message"/>
+      <xs:enumeration value="Single New With Previous Message"/>
+      <xs:enumeration value="Multiple New Messages"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="NameDialingFirstName">
     <xs:annotation>
       <xs:documentation>
@@ -11245,6 +11918,30 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="NetworkAdminCacheRefreshInterval">
+    <xs:annotation>
+      <xs:documentation>
+        Network Administrator cache refresh interval in minutes.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="1440"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NetworkAdminId">
+    <xs:annotation>
+      <xs:documentation>
+        Network Admin ID.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="161"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="NetworkClassOfServiceDescription">
     <xs:annotation>
       <xs:documentation>
@@ -11262,16 +11959,6 @@
       <xs:documentation>
         Network Class of Service name.
       </xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="40"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="NetworkDeviceTypeName">
-    <xs:annotation>
-      <xs:documentation>The network device type name.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:minLength value="1"/>
@@ -11933,6 +12620,36 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="PersonalAssistantAlertMeFirstNumberOfRings">
+    <xs:annotation>
+      <xs:documentation>
+        Maximum number of rings before invoking the Personal Assistant.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="0"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="9"/>
+      <xs:enumeration value="10"/>
+      <xs:enumeration value="11"/>
+      <xs:enumeration value="12"/>
+      <xs:enumeration value="13"/>
+      <xs:enumeration value="14"/>
+      <xs:enumeration value="15"/>
+      <xs:enumeration value="16"/>
+      <xs:enumeration value="17"/>
+      <xs:enumeration value="18"/>
+      <xs:enumeration value="19"/>
+      <xs:enumeration value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="PersonalAssistantExclusionNumberDescription">
     <xs:annotation>
       <xs:documentation>
@@ -11959,6 +12676,17 @@
       <xs:enumeration value="Training"/>
       <xs:enumeration value="Unavailable"/>
       <xs:enumeration value="Vacation"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PersonId">
+    <xs:annotation>
+      <xs:documentation>
+        An external person ID.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="NonEmptyToken">
+      <xs:maxLength value="82"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -12175,6 +12903,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="PushNotificationChannel">
+    <xs:annotation>
+      <xs:documentation>
+        The channel for registrations supporting encryption.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="PushNotificationClientVersion">
     <xs:annotation>
       <xs:documentation>
@@ -12204,6 +12944,30 @@
     <xs:restriction base="xs:token">
       <xs:minLength value="1"/>
       <xs:maxLength value="2048"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PushNotificationEncryptionAlgorithm">
+    <xs:annotation>
+      <xs:documentation>
+        The encryption algorithm for encrypted push notifications.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PushNotificationEncryptionKeyIdentifier">
+    <xs:annotation>
+      <xs:documentation>
+        The encryption key identifier for encrypted push notifications.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="128"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -12282,6 +13046,67 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="1"/>
       <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RecordingOption20">
+    <xs:annotation>
+      <xs:documentation>
+        Recording Service Configuration option.  The Always with Pause/Resume,
+        On Demand, and On Demand with User Initiated Start option are not
+        applicable for Service Users.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Always"/>
+      <xs:enumeration value="Never"/>
+      <xs:enumeration value="On Demand"/>
+      <xs:enumeration value="Always with Pause/Resume"/>
+      <xs:enumeration value="On Demand with User Initiated Start"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RecordingOption22">
+    <xs:annotation>
+      <xs:documentation>
+        Recording Service Configuration option.  The Always with Pause/Resume,
+        On Demand, On Demand with User Initiated Start, Always Start On Demand Keep
+        and On Demand Keep Always Start options are not applicable for Service Users.
+
+        The following elements are only used in AS data mode and are ignored in XS data mode:
+          Always
+          On Demand
+          Always with Pause/Resume
+          On Demand with User Initiated Start
+
+        The following elements are only used in XS data mode and are ignored in AS data mode:
+          Always Start Always Keep
+          Always Start On Demand Keep
+          On Demand Start Always Keep
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Always"/>
+      <xs:enumeration value="Never"/>
+      <xs:enumeration value="On Demand"/>
+      <xs:enumeration value="Always with Pause/Resume"/>
+      <xs:enumeration value="On Demand with User Initiated Start"/>
+      <xs:enumeration value="Always Start Always Keep"/>
+      <xs:enumeration value="Always Start On Demand Keep"/>
+      <xs:enumeration value="On Demand Start Always Keep"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RecordingPauseResumeNotificationType">
+    <xs:annotation>
+      <xs:documentation>
+        Recording Service Play Resume Notification Type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Beep"/>
+      <xs:enumeration value="Play Announcement"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -12889,26 +13714,6 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="ServicePolicyAttributeName">
-    <xs:annotation>
-      <xs:documentation>The service policy attribute name.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="80"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="ServicePolicyAttributeValue">
-    <xs:annotation>
-      <xs:documentation>The system service policy attribute value.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="xs:token">
-      <xs:minLength value="1"/>
-      <xs:maxLength value="2048"/>
-    </xs:restriction>
-  </xs:simpleType>
-
   <xs:simpleType name="ServicePolicyName">
     <xs:annotation>
       <xs:documentation>The service policy name.</xs:documentation>
@@ -13509,6 +14314,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="SipInstanceId">
+    <xs:annotation>
+      <xs:documentation>
+        A SIP Instance Id.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="161"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="SIPMultipleDialogBehavior">
     <xs:annotation>
       <xs:documentation>
@@ -13876,6 +14693,34 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="SubscriberType">
+    <xs:annotation>
+      <xs:documentation>
+        Types of subscribers in BroadWorks.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="User"/>
+      <xs:enumeration value="Group"/>
+      <xs:enumeration value="Enterprise"/>
+      <xs:enumeration value="Service Provider"/>
+      <xs:enumeration value="Auto Attendant"/>
+      <xs:enumeration value="BroadWorks Anywhere"/>
+      <xs:enumeration value="Call Center"/>
+      <xs:enumeration value="Collaborate Bridge"/>
+      <xs:enumeration value="Find-me/Follow-me"/>
+      <xs:enumeration value="Flexible Seating Host"/>
+      <xs:enumeration value="Group Paging"/>
+      <xs:enumeration value="Hunt Group"/>
+      <xs:enumeration value="Instant Group Call"/>
+      <xs:enumeration value="Meet-Me Conferencing"/>
+      <xs:enumeration value="Music On Hold"/>
+      <xs:enumeration value="Route Point"/>
+      <xs:enumeration value="Voice Messaging"/>
+      <xs:enumeration value="VoiceXML"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="SupportLinks">
     <xs:annotation>
       <xs:documentation>
@@ -13886,6 +14731,20 @@
       <xs:enumeration value="Not Supported"/>
       <xs:enumeration value="Support Links from Devices"/>
       <xs:enumeration value="Support Link to Device"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SupportLinks22V2">
+    <xs:annotation>
+      <xs:documentation>
+        Define the support links values.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Not Supported"/>
+      <xs:enumeration value="Support Links from Devices"/>
+      <xs:enumeration value="Support Link to Device"/>
+      <xs:enumeration value="Support Link to Device and User"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -13953,6 +14812,53 @@
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="System, Provisioning Administrator"/>
+      <xs:enumeration value="System, Provisioning, Service Provider Administrator"/>
+      <xs:enumeration value="Administrator and User"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SystemPasswordRulesApplyTo24">
+    <xs:annotation>
+      <xs:documentation>
+        User types for which the System Password Rules apply.
+        The rules could apply to the
+          (1) System, Provisioning Administrator. All other administrators and users use external authentication
+          (2) System, Provisioning Administrator. All other administrators and users use their organization's password rules
+          (3) System, Provisioning, Service Provider Administrator
+          (4) Administrator (System, Provisioning, Service Provider, Group and Department) and Users.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="System, Provisioning Administrator. All other administrators and users use external authentication"/>
+      <xs:enumeration value="System, Provisioning Administrator. All other administrators and users use their organization's password rules"/>
+      <xs:enumeration value="System, Provisioning, Service Provider Administrator"/>
+      <xs:enumeration value="Administrator and User"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SystemPasswordRulesApplyToRI">
+    <xs:annotation>
+      <xs:documentation>
+        User types for which the System Password Rules apply.
+        The rules could apply to the
+          (1) System, Provisioning Administrator
+          (2) System, Provisioning Administrator. All other administrators and users use external authentication
+          (3) System, Provisioning Administrator. All other administrators and users use their organization's password rules
+          (4) System, Provisioning, Service Provider Administrator
+          (5) Administrator (System, Provisioning, Service Provider, Group and Department) and Users.
+
+        The following value can only be returned in XS data mode :
+        System, Provisioning Administrator
+
+        The following values can only be returned in AS data mode :
+        System, Provisioning Administrator. All other administrators and users use external authentication
+        System, Provisioning Administrator. All other administrators and users use their organization's password rules
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="System, Provisioning Administrator"/>
+      <xs:enumeration value="System, Provisioning Administrator. All other administrators and users use external authentication"/>
+      <xs:enumeration value="System, Provisioning Administrator. All other administrators and users use their organization's password rules"/>
       <xs:enumeration value="System, Provisioning, Service Provider Administrator"/>
       <xs:enumeration value="Administrator and User"/>
     </xs:restriction>
@@ -14032,6 +14938,18 @@
     <xs:restriction base="xs:token">
       <xs:enumeration value="Not Started"/>
       <xs:enumeration value="Processing"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ThirdPartyEmergencyCallingSecretKey">
+    <xs:annotation>
+      <xs:documentation>
+        Secret key for the third party emergency call service.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="16"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -14408,6 +15326,7 @@
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="3G/4G Continuity"/>
+      <xs:enumeration value="5G"/>
       <xs:enumeration value="Advice Of Charge"/>
       <xs:enumeration value="Alternate Numbers"/>
       <xs:enumeration value="Anonymous Call Rejection"/>
@@ -14818,6 +15737,18 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="VoiceMessagingMessageProcessing">
+    <xs:annotation>
+      <xs:documentation>
+        Choices to handle a voice message.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Unified Voice and Email Messaging"/>
+      <xs:enumeration value="Deliver To Email Address Only"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="VoiceMessagingMessageWaitingIndicatorDelayInSeconds">
     <xs:annotation>
       <xs:documentation>
@@ -14872,6 +15803,20 @@
       <xs:enumeration value="18"/>
       <xs:enumeration value="19"/>
       <xs:enumeration value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="VoiceMessagingRecordingAudioFileFormat">
+    <xs:annotation>
+      <xs:documentation>
+        The media type of a voice message.
+        WAV - A WAV file
+        MP3 - an MP3 file
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="WAV"/>
+      <xs:enumeration value="MP3"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -14939,6 +15884,18 @@
     <xs:annotation>
       <xs:documentation>
         The web display key used for localization.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="40"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="WebexMeetingsCallTypeName">
+    <xs:annotation>
+      <xs:documentation>
+        The name of the Webex Meetings call type entry.
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
