@@ -22,6 +22,8 @@
 
 Version: `2.1.2`
 
+This is based on Broadworks schema R25 - the available methods will have changed based on that.
+
 ---
 
 ## Installation
