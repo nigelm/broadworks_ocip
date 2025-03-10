@@ -11,6 +11,13 @@
 
 ---
 
+> [!NOTE]  
+> I no longer have time or access to Broadworks to be able to maintain this package.
+> If you would like to take it on let me know.
+> For now I am archiving the respository to make it clear that this now unmaintained.
+
+---
+
 ## Features
 
 -   python objects to match all Broadworks schema objects
